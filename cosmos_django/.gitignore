@@ -4,6 +4,9 @@
 # Mac OS
 .DS_Store
 
+# Local settings for prod environment
+cosmos_django/local_settings.py
+
 # Virtual environment
 venv/
 
