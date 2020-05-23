@@ -6,7 +6,7 @@ node {
             checkout scm
 
         stage 'Test'
-            sh 'source cosmos_django/test.sh'
+            sh '. cosmos_django/test.sh'
 
         stage 'Deploy'
             sh 'chmod +x ./deploy_to_prod.sh'
