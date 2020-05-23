@@ -3,7 +3,7 @@
 node {
     try {
         stage 'Checkout'
-            sh 'git clone https://kalolad1:Baps12345!@github.com/username/repository.git'
+            sh 'git clone https://kalolad1:Baps12345!@github.com/kalolad1/cosmos.git'
 
         stage 'Test'
             sh 'virtualenv venv -p python3.6'
