@@ -6,7 +6,7 @@ node {
             checkout scm
 
         stage 'Test'
-            cd 'cosmos/cosmos_django'
+            sh 'cd cosmos/cosmos_django'
             sh 'virtualenv venv -p python3.6'
             sh '. venv/bin/activate'
             sh 'venv/bin/pip install -r requirements.txt'
