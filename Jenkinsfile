@@ -9,7 +9,10 @@ node {
             sh 'virtualenv venv -p python3.6'
             sh '. venv/bin/activate'
             sh 'venv/bin/pip install -r cosmos_django/requirements.txt'
+            sh 'ls -la'
             sh 'venv/bin/python3.6 cosmos_django/manage.py test -p *_test.py'
+            sh 'cd cosmos_django'
+            sh 'ls -la'
 
         stage 'Deploy'
             sh 'chmod +x ./deploy_to_prod.sh'
