@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sh 'chmod +x .cosmos_django/deploy_to_prod.sh'
+                sh 'chmod +x .cosmos_django/jenkins_scripts/checkout.sh'
             }
         }
         stage('Test') {
