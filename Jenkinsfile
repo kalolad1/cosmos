@@ -4,9 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
-                sh 'pwd'
-                dir('cosmos'){
+                dir('cosmos/cosmos/cosmos_django'){
                     sh 'pwd'
                 }
             }
