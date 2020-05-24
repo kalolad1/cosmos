@@ -1,20 +1,26 @@
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
 
 
 class AccountManager(BaseUserManager):
+    """Manager for the Account class."""
 
-    def create_user(self, email, password=None):
+    def create_user(self, email, password):
+        """Create a user."""
         if not email:
             raise ValueError('User must provide an email.')
 
-        normalized_email = self.normalize_email(email=email)
-        user = self.model(email=normalized_email)
-        user.set_password(raw_password=password)
+        if not password:
+            raise ValueError('User must provide a password.')
+
+        normalized_email = self.normalize_email(email)
+        user = self.model(normalized_email)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_superuser(self, email, password):
+        """Create a superuser. Superusers can log into the admin platform."""
         superuser = self.create_user(email=email, password=password)
         superuser.is_staff = True
         superuser.is_admin = True
@@ -24,6 +30,7 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
+    """The Base User account."""
     email = models.EmailField(max_length=60, unique=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)

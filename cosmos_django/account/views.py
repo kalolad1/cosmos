@@ -1,32 +1,31 @@
 from django.contrib import auth
 from django.shortcuts import render, redirect
 
-from .models import Account
+from . import models
 
 
 def signin(request):
+    """Sign in a user."""
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
         user = auth.authenticate(email=email, password=password)
 
         if user is not None:
-            # User was able to be logged in successful.
+            # User credentials were found.
             auth.login(request, user)
             return redirect('clinical/home')
         else:
-            # Either the username or password was incorrect. Sends them back to
-            # the login page.
+            # Either the username or password was incorrect.
             return render(
                 request,
                 'account/signin.html',
                 {'error': 'Username or password is incorrect.'})
-
     return render(request, 'account/signin.html')
 
 
 def signup(request):
-    # User submits sign up credentials.
+    """User submits sign up credentials."""
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -34,15 +33,15 @@ def signup(request):
 
         if password == password_check:
             try:
-                Account.objects.get(email=email)
+                models.Account.objects.get(email=email)
                 return render(
                     request,
                     'account/signup.html',
                     {'error': 'Username already exists!'})
-            except Account.DoesNotExist:
+            except models.Account.DoesNotExist:
                 # No existing user exists, create user successfully and bring
                 # them to the home page.
-                user = Account.objects.create_user(
+                user = models.Account.objects.create_user(
                     email=email, password=password)
                 auth.login(request, user)
                 return redirect('clinical/home')
@@ -52,11 +51,10 @@ def signup(request):
                 request,
                 'account/signup.html',
                 {'error': 'Passwords do not match!'})
-
-    # Displays sign up page.
     return render(request, 'account/signup.html')
 
 
 def logout(request):
+    """Logs the user out and sends them back to the landing page."""
     auth.logout(request)
     return redirect('cosmos_django/landing_page')
