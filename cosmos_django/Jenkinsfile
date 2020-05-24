@@ -10,7 +10,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Tesdtfing..'
+                sh 'chmod +x ./cosmos_django/jenkins_scripts/checkout.sh'
+                sh './cosmos_django/jenkins_scripts/checkout.sh'
             }
         }
         stage('Deploy') {

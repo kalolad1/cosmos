@@ -9,7 +9,5 @@ ssh jenkins@161.35.102.77 <<EOF
   python manage.py makemigrations
   python manage.py migrate
   python manage.py collectstatic --noinput
-
-  python manage.py test -p *_test.py
   exit
 EOF
