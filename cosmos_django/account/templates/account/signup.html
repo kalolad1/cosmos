@@ -1,0 +1,21 @@
+<h1>Sign up</h1>
+
+{{ error }}
+
+<form method="POST" action="{% url 'account/signup' %}">
+    {% csrf_token %}
+    <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="" name="email">
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="" name="password">
+    </div>
+    <div>
+        <label for="password-check">Confirm Password</label>
+        <input type="password" id="password-check" placeholder="" name="password-check">
+    </div>
+
+    <input type="submit" value="Sign in">
+</form>
