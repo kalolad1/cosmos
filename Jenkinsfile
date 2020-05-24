@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'ls -la'
                 dir('cosmos_django') {
-                    sh 'ls -la'
+                    sh 'ls'
                 }
             }
         }
