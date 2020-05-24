@@ -6,11 +6,12 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'chmod +x ./cosmos_django/jenkins_scripts/checkout.sh'
+                sh './cosmos_django/jenkins_scripts/checkout.sh'
             }
         }
         stage('Test') {
             steps {
-                echo 'Tesdtfing..'
+                echo 'Testing..'
             }
         }
         stage('Deploy') {
