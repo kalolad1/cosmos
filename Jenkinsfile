@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir('cosmos/cosmos/cosmos_django'){
+                sh 'ls -la'
+                dir('cosmos_django') {
                     sh 'ls -la'
                 }
             }
