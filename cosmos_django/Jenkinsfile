@@ -2,12 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'ls'
-                dir('cosmos_django') {
-                    sh 'ls'
-                }
+                sh 'chmod +x .cosmos_django/deploy_to_prod.sh'
             }
         }
         stage('Test') {
