@@ -1,7 +1,6 @@
 from django.contrib import auth
+from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
-
-from . import models
 
 
 def signin(request):
@@ -33,15 +32,15 @@ def signup(request):
 
         if password == password_check:
             try:
-                models.Account.objects.get(email=email)
+                get_user_model().objects.get(email=email)
                 return render(
                     request,
                     'account/signup.html',
                     {'error': 'Username already exists!'})
-            except models.Account.DoesNotExist:
+            except get_user_model().DoesNotExist:
                 # No existing user exists, create user successfully and bring
                 # them to the home page.
-                user = models.Account.objects.create_user(
+                user = get_user_model().objects.create_user(
                     email=email, password=password)
                 auth.login(request, user)
                 return redirect('clinical/home')
