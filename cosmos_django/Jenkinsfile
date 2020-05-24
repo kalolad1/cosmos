@@ -10,11 +10,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'chmod +x ./cosmos_django/jenkins_scripts/stage.sh'
-                sh './cosmos_django/jenkins_scripts/stage.sh'
+                sh 'chmod +x ./cosmos_django/jenkins_scripts/deploy.sh'
+                sh './cosmos_django/jenkins_scripts/deploy.sh'
             }
         }
     }
 }
-
-// ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDtnIoxh/V3/4KDKXCJ56tNEgPgwUVt6xGM5GqjaP3Qiqtnl/MLv1ZedLu/nXG+Yh7KJdafh5f7WSe9oxxSWN5oHWOJ+7bh6hKuZs+HeaQK79UAJ3FMOCHBWx4VC6wa+ZlmIXHA2m9+sbR4IpuQJVRRL7/+FR3rErkGzIZdOagfgBdO8kFXvsUQFk3eBlZPoPBO8OHoAyNIJ5vxX+O3iHscwxRiMsX9fkDNv+uEzI0OqRLkXURlLnO6U81L+duR54VFAvD/eKBMy/sHgLVOK+iDfxlrF5rNRAeanR1l+W7sb8v7ZlND0BPoQyNEmFs+u62eWklSLXfrrNV22JMm/A1D jenkins@cosmos-build-server
