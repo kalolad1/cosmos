@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir('cosmos/cosmos/cosmos_django'){
-                    sh 'pwd'
+                    sh 'ls -la'
                 }
             }
         }
