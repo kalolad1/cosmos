@@ -6,6 +6,9 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'pwd'
+                dir('cosmos'){
+                    sh 'pwd'
+                }
             }
         }
         stage('Test') {
