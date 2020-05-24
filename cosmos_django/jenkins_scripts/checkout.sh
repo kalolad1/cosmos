@@ -6,8 +6,8 @@ ssh jenkins@161.35.102.77 <<EOF
   source venv/bin/activate
   git pull
   pip install -r requirements.txt
-  python manage.py makemigrations
-  python manage.py migrate
-  python manage.py collectstatic --noinput
+  venv/bin/python3.6 manage.py makemigrations
+  venv/bin/python3.6 manage.py migrate
+  venv/bin/python3.6 manage.py collectstatic --noinput
   exit
 EOF
