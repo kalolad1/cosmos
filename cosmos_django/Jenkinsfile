@@ -14,9 +14,10 @@ pipeline {
                 sh './cosmos_django/jenkins_scripts/test.sh'
             }
         }
-        stage('Deploy') {
+        stage('Stage') {
             steps {
-                echo 'Deplofying....'
+                sh 'chmod +x ./cosmos_django/jenkins_scripts/stage.sh'
+                sh './cosmos_django/jenkins_scripts/stage.sh'
             }
         }
     }
