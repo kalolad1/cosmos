@@ -5,4 +5,4 @@ from django.shortcuts import render
 @login_required
 def home(request):
     """Loads the user's home page."""
-    return render(request, 'clinical/home.html', {'user': request.user})
+    return render(request, 'frontend/index.html')
