@@ -42,8 +42,9 @@ def signup(request):
             except models.Account.DoesNotExist:
                 # No existing user exists, create user successfully and bring
                 # them to the home page.
+                a: int = 10
                 user = models.Account.objects.create_user(
-                    email=email, password=password)
+                    email=a, password=password)
                 auth.login(request, user)
                 return redirect('clinical/home')
         else:

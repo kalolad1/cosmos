@@ -4,7 +4,7 @@
 1. Use typing for all python.
 2. When calling home-made functions, pass parameters using name=param, unless function 
 takes in only one param.
-3. 100% code coverage.
+3. High code coverage.
 4. Run pylint before comitting.
 
 ## All other rules
