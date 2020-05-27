@@ -14,7 +14,7 @@ class AccountManager(BaseUserManager):
             raise ValueError('User must provide a password.')
 
         normalized_email = self.normalize_email(email)
-        user = self.model(normalized_email)
+        user = self.model(email=normalized_email)
         user.set_password(password)
         user.save(using=self._db)
         return user
