@@ -57,9 +57,7 @@ def signup(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
     return render(request=request, template_name='account/signup.html')
 
 
-def logout(
-    request: HttpRequest
-) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect]:
+def logout(request: HttpRequest) -> Union[HttpResponseRedirect]:
     """Logs the user out and sends them back to the landing page."""
     auth.logout(request=request)
     return redirect(to='cosmos_django/landing_page')
