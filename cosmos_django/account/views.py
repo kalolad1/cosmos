@@ -1,62 +1,65 @@
-from django.conf import settings
+from typing import Union, Optional
+
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib import auth
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render, redirect
 
 from . import models
 
 
-def signin(request: HttpRequest):
+def signin(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
     """Sign in a user."""
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = auth.authenticate(email=email, password=password)
+        email: str = request.POST['email']
+        password: str = request.POST['password']
+        user: Optional[AbstractBaseUser] = auth.authenticate(email=email,
+                                                             password=password)
 
         if user is not None:
             # User credentials were found.
-            auth.login(request, user)
-            return redirect('clinical/home')
+            auth.login(request=request, user=user)
+            return redirect(to='clinical/home')
         else:
             # Either the username or password was incorrect.
             return render(
-                request,
-                'account/signin.html',
-                {'error': 'Username or password is incorrect.'})
-    return render(request, 'account/signin.html')
+                request=request,
+                template_name='account/signin.html',
+                context={'error': 'Username or password is incorrect.'})
+    return render(request=request, template_name='account/signin.html')
 
 
-def signup(request):
+def signup(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
     """User submits sign up credentials."""
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        password_check = request.POST['password-check']
+        email: str = request.POST['email']
+        password: str = request.POST['password']
+        password_check: str = request.POST['password-check']
 
         if password == password_check:
             try:
-                settings.AUTH_USER_MODEL.objects.get(email=email)
-                return render(
-                    request,
-                    'account/signup.html',
-                    {'error': 'Username already exists!'})
+                models.Account.objects.get(email=email)
+                return render(request=request,
+                              template_name='account/signup.html',
+                              context={'error': 'Username already exists!'})
             except models.Account.DoesNotExist:
                 # No existing user exists, create user successfully and bring
                 # them to the home page.
-                user = settings.AUTH_USER_MODEL.objects.create_user(
-                    email=email, password=password)
-                auth.login(request, user)
-                return redirect('clinical/home')
+                user: models.Account = (models.Account.objects.create_user(
+                    email=email, password=password))
+                auth.login(request=request, user=user)
+                return redirect(to='clinical/home')
         else:
             # User failed to enter two passwords that matched.
-            return render(
-                request,
-                'account/signup.html',
-                {'error': 'Passwords do not match!'})
-    return render(request, 'account/signup.html')
+            return render(request=request,
+                          template_name='account/signup.html',
+                          context={'error': 'Passwords do not match!'})
+    return render(request=request, template_name='account/signup.html')
 
 
-def logout(request):
+def logout(
+    request: HttpRequest
+) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect]:
     """Logs the user out and sends them back to the landing page."""
-    auth.logout(request)
-    return redirect('cosmos_django/landing_page')
+    auth.logout(request=request)
+    return redirect(to='cosmos_django/landing_page')

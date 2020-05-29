@@ -4,7 +4,6 @@ from django.db import models
 
 class AccountManager(BaseUserManager):
     """Manager for the Account class."""
-
     def create_user(self, email: str, password: str) -> 'Account':
         """Create a user."""
         if not email:
@@ -42,8 +41,8 @@ class Account(AbstractBaseUser):
     USERNAME_FIELD: str = 'email'
     EMAIL_FIELD: str = 'email'
 
-    def __str__(self) -> models.CharField:
-        return self.email
+    def __str__(self) -> str:
+        return self.email.__str__()
 
     def is_staff(self) -> models.BooleanField:
         return self.is_admin

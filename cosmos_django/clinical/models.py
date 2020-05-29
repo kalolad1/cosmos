@@ -3,8 +3,8 @@ from django.db import models
 
 
 class PatientProfile(models.Model):
-    account = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    account = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                   on_delete=models.CASCADE)
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
 
@@ -16,8 +16,9 @@ class PatientProfile(models.Model):
 
 
 class Encounter(models.Model):
-    patient_profile = models.ForeignKey(
-        PatientProfile, on_delete=models.CASCADE, null=True)
+    patient_profile = models.ForeignKey(PatientProfile,
+                                        on_delete=models.CASCADE,
+                                        null=True)
 
     PHYSICAL = 'physical'
     VACCINATION = 'vaccination'
@@ -28,8 +29,8 @@ class Encounter(models.Model):
         (VACCINATION, 'Vaccination'),
         (ILLNESS, 'Illness'),
     ]
-    encounter_type = models.CharField(
-        max_length=60, choices=ENCOUNTER_TYPE_CHOICES)
+    encounter_type = models.CharField(max_length=60,
+                                      choices=ENCOUNTER_TYPE_CHOICES)
     note = models.CharField(max_length=1000)
 
     def __str__(self):
