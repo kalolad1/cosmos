@@ -4,7 +4,9 @@
 1. Use typing for all python.
 2. When calling home-made functions, pass parameters using name=param, unless function 
 takes in only one param.
-3. High code coverage.
+3. Aim to test every code path. We will not specify a code coverage threshold 
+such as 85%. Instead we will emphasize that tests help us maintain developer 
+velocity and product excellence.
 4. Run pylint before comitting.
 
 ## All other rules
