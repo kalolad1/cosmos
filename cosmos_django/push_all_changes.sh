@@ -12,7 +12,7 @@ mypy .
 python manage.py test -p *_test.py
 git add -A
 git commit -m "$1"
-# git push
+git push
 
 
 
