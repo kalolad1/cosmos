@@ -12,7 +12,10 @@ venv/
 
 # Python
 *.pyc
-__pycache__
+__pycache__/
 
 # Node
-node_modules
+node_modules/
+
+# Mypy
+.mypy_cache/
