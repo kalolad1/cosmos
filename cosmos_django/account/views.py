@@ -1,11 +1,12 @@
+from django.conf import settings
 from django.contrib import auth
-from django.contrib.auth import get_user_model
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 
 from . import models
 
 
-def signin(request):
+def signin(request: HttpRequest):
     """Sign in a user."""
     if request.method == 'POST':
         email = request.POST['email']
@@ -34,7 +35,7 @@ def signup(request):
 
         if password == password_check:
             try:
-                models.Account.objects.get(email=email)
+                settings.AUTH_USER_MODEL.objects.get(email=email)
                 return render(
                     request,
                     'account/signup.html',
@@ -42,9 +43,8 @@ def signup(request):
             except models.Account.DoesNotExist:
                 # No existing user exists, create user successfully and bring
                 # them to the home page.
-                a: int = 10
-                user = models.Account.objects.create_user(
-                    email=a, password=password)
+                user = settings.AUTH_USER_MODEL.objects.create_user(
+                    email=email, password=password)
                 auth.login(request, user)
                 return redirect('clinical/home')
         else:
