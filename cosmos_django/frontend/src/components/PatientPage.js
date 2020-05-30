@@ -15,7 +15,6 @@ class PatientPage extends React.Component {
                 <PatientTabContent />
                 <br />
                 <br />
-                <br />
                 <div>
                     <a href="http://localhost:8000/account/logout">Logout</a>
                 </div>
