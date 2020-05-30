@@ -1,15 +1,16 @@
 #!/bin/bash
 
 # Script to push all changes to Github.
-set -e
-python manage.py collectstatic --noinput
 python manage.py makemigrations
 python manage.py migrate
 npm run dev
+python manage.py collectstatic --noinput
 pip freeze > requirements.txt
 yapf . --recursive -i
-mypy .
-python manage.py test -p *_test.py
-git add -A
-#git commit -m "$1"
-#git push
+
+if python manage.py test -p *_test.py;
+then
+  git add -A
+  git commit -m "$1"
+  git push
+fi
