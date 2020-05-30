@@ -7,10 +7,32 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <PatientPage />
+                <h1>Cosmos</h1>
+                <PatientPage patientProfile={this.props.patientProfile} />
             </div>
         )
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const PATIENT_PROFILE = {
+    "patientProfileId": 1,
+    "profileImageUrl": "https://i.ibb.co/phmFcD5/Sudeep-Profile-Pic.jpg",
+    "firstName": "Sudeep",
+    "lastName": "Peddireddy",
+    "encounters": [
+        {
+            "encounterId": 1,
+            "encounterType": "physical",
+            "note": "Sudeep had a normal physical."
+        },
+        {
+            "encounterId": 2,
+            "encounterType": "vaccination",
+            "note": "Sudeep got the COVID-19 vaccine."
+        }
+    ]
+};
+
+ReactDOM.render(
+    <App patientProfile={PATIENT_PROFILE}/>,
+    document.getElementById('app'));
