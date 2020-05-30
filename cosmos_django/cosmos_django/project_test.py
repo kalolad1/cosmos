@@ -10,7 +10,7 @@ class TestProject(TestCase):
                               stderr=subprocess.PIPE)
 
         out, _ = pr.communicate()
-        print('\n\n{}\n\n'.format(out.decode("utf-8")))
 
         if pr.returncode != 0:
+            print('\n\n{}\n\n'.format(out.decode("utf-8")))
             self.fail('Type checking errors.')

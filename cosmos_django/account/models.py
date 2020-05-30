@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 
@@ -29,7 +30,8 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     """The Base User account."""
-    email: models.EmailField = models.EmailField(max_length=60, unique=True)
+    email: models.EmailField = models.EmailField(
+        max_length=60, unique=True, validators=[MinLengthValidator(1)])
     date_joined: models.DateTimeField = models.DateTimeField(auto_now_add=True)
     is_active: models.BooleanField = models.BooleanField(default=True)
     is_admin: models.BooleanField = models.BooleanField(default=False)
