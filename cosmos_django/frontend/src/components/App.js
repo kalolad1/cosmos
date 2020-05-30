@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import PatientPage from './PatientPage'
 
 class App extends React.Component {
     render() {
         return (
             <div>
-                <h1>React App</h1>
-                <a href={'http://localhost:8000/account/logout'}>Logout</a>
+                <PatientPage />
             </div>
         )
     }
