@@ -11,7 +11,7 @@ class TestClinicalModels(TestCase):
         account: Account = Account.objects.create_user(email='test@gmail.com',
                                                        password='1234')
 
-        patient_profile = models.PatientProfile.objects.create(
+        patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
             account=account, first_name='John', last_name='Doe')
 
         self.assertEqual(patient_profile.account, account)
@@ -22,7 +22,7 @@ class TestClinicalModels(TestCase):
         account: Account = Account.objects.create_user(email='test@gmail.com',
                                                        password='1234')
 
-        patient_profile = models.PatientProfile.objects.create(
+        patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
             account=account, first_name='John', last_name='Doe')
 
         self.assertEqual(patient_profile.get_full_name(), 'John Doe')
@@ -31,7 +31,7 @@ class TestClinicalModels(TestCase):
         account: Account = Account.objects.create_user(email='test@gmail.com',
                                                        password='1234')
 
-        patient_profile = models.PatientProfile.objects.create(
+        patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
             account=account, first_name='John', last_name='Doe')
 
         self.assertEqual(patient_profile.__str__(), 'John Doe')
@@ -40,9 +40,9 @@ class TestClinicalModels(TestCase):
         account: Account = Account.objects.create_user(email='test@gmail.com',
                                                        password='1234')
 
-        patient_profile = models.PatientProfile.objects.create(
+        patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
             account=account, first_name='John', last_name='Doe')
-        encounter = models.Encounter.objects.create(
+        encounter: models.Encounter = models.Encounter.objects.create(
             patient_profile=patient_profile,
             encounter_type=models.Encounter.PHYSICAL,
             note='This is my note.')
@@ -55,9 +55,9 @@ class TestClinicalModels(TestCase):
         account: Account = Account.objects.create_user(email='test@gmail.com',
                                                        password='1234')
 
-        patient_profile = models.PatientProfile.objects.create(
+        patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
             account=account, first_name='John', last_name='Doe')
-        encounter = models.Encounter.objects.create(
+        encounter: models.Encounter = models.Encounter.objects.create(
             patient_profile=patient_profile,
             encounter_type=models.Encounter.PHYSICAL,
             note='This is my note.')
