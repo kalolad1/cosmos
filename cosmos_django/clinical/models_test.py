@@ -36,20 +36,20 @@ class TestClinicalModels(TestCase):
 
         self.assertEqual(patient_profile.__str__(), 'John Doe')
 
-    def test_create_encounter(self):
+    def test_create_visit(self):
         account: Account = Account.objects.create_user(email='test@gmail.com',
                                                        password='1234')
 
         patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
             account=account, first_name='John', last_name='Doe')
-        encounter: models.Encounter = models.Encounter.objects.create(
+        visit: models.Visit = models.Visit.objects.create(
             patient_profile=patient_profile,
-            encounter_type=models.Encounter.PHYSICAL,
+            visit_type=models.Visit.PHYSICAL,
             note='This is my note.')
 
-        self.assertEqual(encounter.patient_profile, patient_profile)
-        self.assertEqual(encounter.encounter_type, 'physical')
-        self.assertEqual(encounter.note, 'This is my note.')
+        self.assertEqual(visit.patient_profile, patient_profile)
+        self.assertEqual(visit.visit_type, 'physical')
+        self.assertEqual(visit.note, 'This is my note.')
 
     def test_encounter__str__(self):
         account: Account = Account.objects.create_user(email='test@gmail.com',
@@ -57,8 +57,8 @@ class TestClinicalModels(TestCase):
 
         patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
             account=account, first_name='John', last_name='Doe')
-        encounter: models.Encounter = models.Encounter.objects.create(
+        visit: models.Visit = models.Visit.objects.create(
             patient_profile=patient_profile,
-            encounter_type=models.Encounter.PHYSICAL,
+            visit_type=models.Visit.PHYSICAL,
             note='This is my note.')
-        self.assertEqual(encounter.__str__(), 'This is my note.')
+        self.assertEqual(visit.__str__(), 'This is my note.')
