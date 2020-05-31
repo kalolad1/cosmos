@@ -19,15 +19,15 @@ const PATIENT_PROFILE = {
     "profileImageUrl": "https://i.ibb.co/phmFcD5/Sudeep-Profile-Pic.jpg",
     "firstName": "Sudeep",
     "lastName": "Peddireddy",
-    "encounters": [
+    "visits": [
         {
-            "encounterId": 1,
-            "encounterType": "physical",
+            "visitId": 1,
+            "visitType": "physical",
             "note": "Sudeep had a normal physical."
         },
         {
-            "encounterId": 2,
-            "encounterType": "vaccination",
+            "visitId": 2,
+            "visitType": "vaccination",
             "note": "Sudeep got the COVID-19 vaccine."
         }
     ]

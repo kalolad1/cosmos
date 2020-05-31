@@ -9,7 +9,7 @@ class PatientTabContent extends React.Component {
     render() {
         return (
             <div className="tab-content">
-                <TimelineTab />
+                <TimelineTab patientProfile={this.props.patientProfile}/>
                 <MedicationsTab />
                 <DemographicsTab />
             </div>

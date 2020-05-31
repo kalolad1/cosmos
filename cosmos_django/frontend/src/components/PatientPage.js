@@ -12,7 +12,7 @@ class PatientPage extends React.Component {
                 <br />
                 <br />
                 <PatientNavbar/>
-                <PatientTabContent />
+                <PatientTabContent patientProfile={this.props.patientProfile} />
                 <br />
                 <br />
                 <div>
