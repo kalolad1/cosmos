@@ -2,6 +2,8 @@ asgiref==3.2.7
 astroid==2.4.1
 Django==3.0.6
 django-stubs==1.5.0
+djangorestframework==3.11.0
+djangorestframework-stubs==1.2.0
 isort==4.3.21
 lazy-object-proxy==1.4.3
 mccabe==0.6.1
