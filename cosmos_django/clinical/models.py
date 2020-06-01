@@ -7,7 +7,10 @@ from django.db import models
 
 class PatientProfile(models.Model):
     account: models.OneToOneField = models.OneToOneField(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=False,
+        related_name='patient_profile')
     first_name: models.CharField = models.CharField(
         max_length=60,
         blank=False,

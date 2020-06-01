@@ -44,7 +44,7 @@ class Account(AbstractBaseUser):
     EMAIL_FIELD: str = 'email'
 
     def __str__(self) -> str:
-        return self.email.__str__()
+        return str(self.email.__str__())
 
     def is_staff(self) -> models.BooleanField:
         return self.is_admin

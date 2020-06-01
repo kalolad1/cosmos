@@ -2,10 +2,15 @@ from typing import Union, Optional
 
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib import auth
+from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render, redirect
 
 from . import models
+from clinical import models as clinical_models
+
+CHECKED_BOX = 'on'
+USER_OR_PASS_IS_INCORRECT_ERROR = 'Username or password is incorrect.'
 
 
 def signin(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
@@ -22,10 +27,9 @@ def signin(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
             return redirect(to='clinical/home')
         else:
             # Either the username or password was incorrect.
-            return render(
-                request=request,
-                template_name='account/signin.html',
-                context={'error': 'Username or password is incorrect.'})
+            return render(request=request,
+                          template_name='account/signin.html',
+                          context={'error': USER_OR_PASS_IS_INCORRECT_ERROR})
     return render(request=request, template_name='account/signin.html')
 
 
@@ -35,6 +39,14 @@ def signup(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
         email: str = request.POST['email']
         password: str = request.POST['password']
         password_check: str = request.POST['password-check']
+        first_name: str = request.POST['first-name']
+        last_name: str = request.POST['last-name']
+        is_provider: bool = False
+        try:
+            if request.POST['is-provider'] == CHECKED_BOX:
+                is_provider = True
+        except (MultiValueDictKeyError, KeyError):
+            is_provider = False
 
         if password == password_check:
             try:
@@ -47,6 +59,11 @@ def signup(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
                 # them to the home page.
                 user: models.Account = (models.Account.objects.create_user(
                     email=email, password=password))
+                if not is_provider:
+                    clinical_models.PatientProfile.objects.create(
+                        account=user,
+                        first_name=first_name,
+                        last_name=last_name)
                 auth.login(request=request, user=user)
                 return redirect(to='clinical/home')
         else:
