@@ -31,7 +31,10 @@ class PatientProfile(models.Model):
 
 class Visit(models.Model):
     patient_profile: models.ForeignKey = models.ForeignKey(
-        PatientProfile, on_delete=models.CASCADE, null=True)
+        PatientProfile,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='visits')
 
     PHYSICAL: str = 'physical'
     VACCINATION: str = 'vaccination'
