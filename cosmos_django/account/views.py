@@ -11,6 +11,8 @@ from clinical import models as clinical_models
 
 CHECKED_BOX = 'on'
 USER_OR_PASS_IS_INCORRECT_ERROR = 'Username or password is incorrect.'
+PASSWORDS_DO_NOT_MATCH_ERROR = 'Passwords do not match!'
+USER_ALREADY_EXISTS_ERROR = 'User already exists!'
 
 
 def signin(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
@@ -53,7 +55,7 @@ def signup(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
                 models.Account.objects.get(email=email)
                 return render(request=request,
                               template_name='account/signup.html',
-                              context={'error': 'Username already exists!'})
+                              context={'error': USER_ALREADY_EXISTS_ERROR})
             except models.Account.DoesNotExist:
                 # No existing user exists, create user successfully and bring
                 # them to the home page.
@@ -70,7 +72,7 @@ def signup(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
             # User failed to enter two passwords that matched.
             return render(request=request,
                           template_name='account/signup.html',
-                          context={'error': 'Passwords do not match!'})
+                          context={'error': PASSWORDS_DO_NOT_MATCH_ERROR})
     return render(request=request, template_name='account/signup.html')
 
 
