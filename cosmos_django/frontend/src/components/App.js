@@ -4,13 +4,49 @@ import ReactDOM from 'react-dom';
 import PatientPage from './PatientPage'
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoaded: false,
+            patientProfile: {},
+            error: null
+        }
+    }
+
+
     render() {
-        return (
-            <div>
-                <h1>Cosmos</h1>
-                <PatientPage patientProfile={this.props.patientProfile} />
-            </div>
-        )
+        console.log(this.state.patientProfile)
+        if (!this.state.isLoaded) {
+            return <div>Is Loading...</div>
+        } else {
+            return (
+                <div>
+                    <h1>Cosmos</h1>
+                    <PatientPage patientProfile={this.state.patientProfile} />
+                </div>
+            )
+        }
+    }
+
+    componentDidMount() {
+        let patientProfileAPI = BASE_URL + 'clinical/api/patient_profiles/' + window.user_id
+
+        fetch(patientProfileAPI)
+            .then(result => result.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        patientProfile: result
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error: error
+                    });
+                }
+            )
     }
 }
 
@@ -32,6 +68,9 @@ const PATIENT_PROFILE = {
         }
     ]
 };
+
+const BASE_URL = 'http://localhost:8000/';
+
 
 ReactDOM.render(
     <App patientProfile={PATIENT_PROFILE}/>,
