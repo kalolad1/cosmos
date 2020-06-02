@@ -22,6 +22,9 @@ class PatientProfile(models.Model):
         default=None,
         validators=[MinLengthValidator(1)])
 
+    profile_picture: models.ImageField = models.ImageField(
+        upload_to='profile_pictures/', blank=True, null=True)
+
     def get_full_name(self) -> str:
         return '{} {}'.format(self.first_name, self.last_name)
 

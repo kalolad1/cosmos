@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from rest_framework import viewsets, permissions
 
 from . import models
@@ -5,7 +6,7 @@ from . import serializers
 
 
 class PatientProfileViewSet(viewsets.ModelViewSet):
-    queryset = models.PatientProfile.objects.all()
+    queryset: QuerySet = models.PatientProfile.objects.all()
     permission_classes = [
         permissions.AllowAny,
     ]
