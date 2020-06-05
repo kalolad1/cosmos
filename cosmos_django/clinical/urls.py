@@ -7,6 +7,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register('api/patient_profiles', api.PatientProfileViewSet,
                 'patient_profiles')
+router.register('api/visits', api.VisitViewSet, 'visits')
 
 urlpatterns = [
     path('home/', views.home, name='clinical/home'),

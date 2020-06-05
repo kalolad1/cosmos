@@ -11,3 +11,11 @@ class PatientProfileViewSet(viewsets.ModelViewSet):
         permissions.AllowAny,
     ]
     serializer_class = serializers.PatientProfileSerializer
+
+
+class VisitViewSet(viewsets.ModelViewSet):
+    queryset: QuerySet = models.Visit.objects.all()
+    permission_classes = [
+        permissions.AllowAny,
+    ]
+    serializer_class = serializers.VisitSerializer

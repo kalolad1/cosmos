@@ -15,7 +15,6 @@ class App extends React.Component {
 
 
     render() {
-        console.log(this.state.patientProfile)
         if (!this.state.isLoaded) {
             return <div>Is Loading...</div>
         } else {
@@ -70,6 +69,7 @@ const PATIENT_PROFILE = {
 };
 
 const BASE_URL = 'http://localhost:8000/';
+export default BASE_URL;
 
 
 ReactDOM.render(

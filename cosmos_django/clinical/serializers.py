@@ -9,3 +9,9 @@ class PatientProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PatientProfile
         fields = '__all__'
+
+
+class VisitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Visit
+        fields = '__all__'
