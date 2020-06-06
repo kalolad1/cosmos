@@ -30,9 +30,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'account',
-    'clinical',
     'corsheaders',
     'frontend',
+    'knox',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by custom User model, regardless of `allauth`
-    "django.contrib.auth.backends.ModelBackend", )
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,6 +52,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication', ),
+}
 
 ROOT_URLCONF = 'cosmos_django.urls'
 
