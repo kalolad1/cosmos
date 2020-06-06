@@ -8,6 +8,7 @@ django-rest-knox==4.1.0
 django-stubs==1.5.0
 djangorestframework==3.11.0
 djangorestframework-jwt==1.11.0
+djangorestframework-simplejwt==4.4.0
 djangorestframework-stubs==1.2.0
 isort==4.3.21
 lazy-object-proxy==1.4.3
