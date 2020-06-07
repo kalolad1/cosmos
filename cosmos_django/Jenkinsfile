@@ -16,8 +16,21 @@ pipeline {
         }
     }
     post {
-        always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+        success {
+            emailext (
+                subject: "Cosmos Deployment SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "YEA BUDDY - SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]': Check console output at '${env.BUILD_URL}'",
+                to: 'darshanvkalola@gmail.com',
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+            )
+        }
+        failure {
+            emailext (
+                subject: "Cosmos Deployment FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]': Check console output at '${env.BUILD_URL}'",
+                to: 'darshanvkalola@gmail.com',
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+            )
         }
     }
 }
