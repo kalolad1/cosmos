@@ -19,3 +19,6 @@ node_modules/
 
 # Mypy
 .mypy_cache/
+
+# Axios base URL
+frontend/src/axiosClient.js
