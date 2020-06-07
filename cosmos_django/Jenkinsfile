@@ -32,5 +32,13 @@ pipeline {
                 recipientProviders: [[$class: 'DevelopersRecipientProvider']]
             )
         }
+        always {
+            emailext (
+                subject: "Cosmos Deployment FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]': Check console output at '${env.BUILD_URL}'",
+                to: 'darshanvkalola@gmail.com',
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+            )
+        }
     }
 }
