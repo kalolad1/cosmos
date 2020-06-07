@@ -1,13 +1,15 @@
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import include, path
+from django.shortcuts import redirect
+from django.urls import include, path, re_path
 
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('frontend/', include('frontend.urls'), name='frontend'),
-    path('account/', include('account.urls'), name='account'),
+    path('app/', include('frontend.urls'), name='app'),
+    path('account/api/', include('account.urls'), name='account'),
     path('', views.landing_page, name='cosmos_django/landing_page'),
+    re_path('^', lambda request: redirect('app/home')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
