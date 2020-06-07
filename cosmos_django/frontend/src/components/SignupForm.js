@@ -12,17 +12,21 @@ class SignupForm extends React.Component {
         };
 
         this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     handleRegistrationRequest(event) {
         console.log('Handling registration request.');
         event.preventDefault();
+        let self = this;
 
         axiosClient.post('register/', {
             email: this.state.email,
             password: this.state.password
         })
             .then(function (response) {
+                console.log('User registered successfully.');
+                console.log(response.data);
                 self.props.history.push('/');
             });
     }
