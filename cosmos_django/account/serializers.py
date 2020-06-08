@@ -3,6 +3,18 @@ from rest_framework import serializers
 from . import models
 
 
+class VaccinationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Vaccination
+        fields = '__all__'
+
+
+class MedicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Medication
+        fields = '__all__'
+
+
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Visit
@@ -12,6 +24,8 @@ class VisitSerializer(serializers.ModelSerializer):
 class PatientProfileSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField('get_full_name')
     visits = VisitSerializer(many=True)
+    medications = MedicationSerializer(many=True)
+    vaccinations = VaccinationSerializer(many=True)
 
     class Meta:
         model = models.PatientProfile

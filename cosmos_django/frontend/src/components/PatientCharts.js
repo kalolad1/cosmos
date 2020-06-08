@@ -31,10 +31,10 @@ class PatientCharts extends React.Component {
                             <Timeline account={this.props.account}/>
                         </Route>
                         <Route path={URL_PATHS.MEDICATIONS_CHART}>
-                            <Medications/>
+                            <Medications account={this.props.account}/>
                         </Route>
                         <Route path={URL_PATHS.VACCINATIONS_CHART}>
-                            <Vaccinations/>
+                            <Vaccinations account={this.props.account}/>
                         </Route>
                         <Route path={URL_PATHS.HOME}>
                             <Redirect to={URL_PATHS.TIMELINE_CHART}/>

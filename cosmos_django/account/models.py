@@ -110,3 +110,27 @@ class Visit(models.Model):
 
     def __str__(self) -> str:
         return self.note.__str__()
+
+
+class Medication(models.Model):
+    patient_profile: models.ForeignKey = models.ForeignKey(
+        PatientProfile,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='medications')
+    name: models.CharField = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.name.__str__()
+
+
+class Vaccination(models.Model):
+    patient_profile: models.ForeignKey = models.ForeignKey(
+        PatientProfile,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='vaccinations')
+    name: models.CharField = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.name.__str__()
