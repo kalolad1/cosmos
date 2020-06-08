@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 
 import CONSTANTS from '../constants';
+import URL_PATHS from "../url_paths";
 
 import LoginForm from "./LoginForm";
 import PatientHome from "./PatientHome";
@@ -22,14 +23,14 @@ class App extends React.Component {
         if (localStorage.getItem(CONSTANTS.ACCESS_TOKEN) !== null
             && localStorage.getItem(CONSTANTS.REFRESH_TOKEN) !== null) {
             homePageRoute = (
-                <Route path="/">
-                    <Redirect to="/home"/>
+                <Route path={URL_PATHS.ROOT}>
+                    <Redirect to={URL_PATHS.HOME}/>
                 </Route>
             )
         } else {
             homePageRoute = (
-                <Route path="/">
-                    <Redirect to="/login"/>
+                <Route path={URL_PATHS.ROOT}>
+                    <Redirect to={URL_PATHS.LOGIN}/>
                 </Route>
             )
         }
@@ -37,13 +38,13 @@ class App extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/login">
+                    <Route exact path={URL_PATHS.LOGIN}>
                         <LoginForm/>
                     </Route>
-                    <Route path="/signup">
+                    <Route path={URL_PATHS.SIGNUP}>
                         <SignupForm/>
                     </Route>
-                    <Route path="/home">
+                    <Route path={URL_PATHS.HOME}>
                         <PatientHome/>
                     </Route>
                     {homePageRoute}

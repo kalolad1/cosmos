@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link, withRouter} from "react-router-dom";
+
+import API_ENDPOINTS from "../api_endpoints";
 import axiosClient from "../axiosClient";
+import URL_PATHS from "../url_paths";
 
 
 class SignupForm extends React.Component {
@@ -20,14 +23,14 @@ class SignupForm extends React.Component {
         event.preventDefault();
         let self = this;
 
-        axiosClient.post('register/', {
+        axiosClient.post(API_ENDPOINTS.REGISTER, {
             email: this.state.email,
             password: this.state.password
         })
             .then(function (response) {
                 console.log('User registered successfully.');
                 console.log(response.data);
-                self.props.history.push('/');
+                self.props.history.replace(URL_PATHS.ROOT);
             });
     }
 
@@ -61,7 +64,7 @@ class SignupForm extends React.Component {
                     </div>
                 </form>
 
-                <Link to="/login">
+                <Link to={URL_PATHS.LOGIN}>
                     <p>Already an existing user? Login here.</p>
                 </Link>
             </div>

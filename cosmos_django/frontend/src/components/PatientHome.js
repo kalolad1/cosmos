@@ -1,13 +1,81 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
+import API_ENDPOINTS from "../api_endpoints";
+import axiosClient from "../axiosClient";
 import CONSTANTS from '../constants';
+import URL_PATHS from "../url_paths";
+
+import PatientCharts from "./PatientCharts";
+import PatientHeader from "./PatientHeader";
 
 class PatientHome extends React.Component {
+
     constructor(props) {
         super(props);
+        this.state = {
+            'account': {}
+        };
 
         this.handleLogout = this.handleLogout.bind(this);
+        this.getAccountInformationOrRedirect = this.getAccountInformationOrRedirect.bind(this);
+        this.getAccountInformationWithAccessToken = this.getAccountInformationWithAccessToken.bind(this);
+        this.getRequestHeader = this.getRequestHeader.bind(this);
+        this.removeTokens = this.removeTokens.bind(this);
+    }
+
+    getRequestHeader() {
+        return {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem(CONSTANTS.ACCESS_TOKEN)
+            }
+        }
+    }
+
+    getAccountInformationWithAccessToken() {
+        return axiosClient.get(API_ENDPOINTS.GET_ACCOUNT, this.getRequestHeader())
+    }
+
+    refreshAccessToken() {
+        // Send refresh token for new access token.
+        return axiosClient.post(API_ENDPOINTS.REFRESH_TOKEN, {
+            'refresh': localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
+        })
+            .then(function (response) {
+                return response;
+            });
+    }
+
+    removeTokens() {
+        localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
+        localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
+    }
+
+    async getAccountInformationOrRedirect() {
+        try {
+            return await this.getAccountInformationWithAccessToken();
+        } catch (error) {
+            try {
+                const accessTokenResponse = await this.refreshAccessToken();
+                localStorage.setItem(CONSTANTS.ACCESS_TOKEN,
+                    accessTokenResponse.data.access);
+                return await this.getAccountInformationWithAccessToken();
+            } catch (error) {
+                this.removeTokens();
+                this.props.history.replace(URL_PATHS.ROOT);
+            }
+        }
+    }
+
+    componentDidMount() {
+        let self = this;
+        this.getAccountInformationOrRedirect()
+            .then(function (response) {
+                self.setState({
+                    'account': response.data
+                });
+            });
+
     }
 
     handleLogout() {
@@ -16,13 +84,14 @@ class PatientHome extends React.Component {
         console.log('LOGGING OUT!');
         localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
         localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
-        this.props.history.push('/login');
+        this.props.history.replace(URL_PATHS.LOGIN);
     }
 
     render() {
         return (
-            <div>
-                <h1>Patient home</h1>
+            <div className="patient-home">
+                <PatientHeader account={this.state.account}/>
+                <PatientCharts/>
                 <button onClick={this.handleLogout}>Logout</button>
             </div>
         )

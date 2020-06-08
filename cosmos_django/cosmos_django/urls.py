@@ -11,5 +11,6 @@ urlpatterns = [
     path('app/', include('frontend.urls'), name='app'),
     path('account/api/', include('account.urls'), name='account'),
     path('', views.landing_page, name='cosmos_django/landing_page'),
-    re_path('^', lambda request: redirect('app/home')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
+    re_path('^', lambda request: redirect('app/home'))
+]

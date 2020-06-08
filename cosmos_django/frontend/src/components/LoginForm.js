@@ -1,9 +1,11 @@
 import React from 'react'
-import {
-    Link,
-    withRouter
-} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
+import API_ENDPOINTS from "../api_endpoints";
 import axiosClient from "../axiosClient";
+import CONSTANTS from "../constants";
+import URL_PATHS from "../url_paths";
+
 
 class LoginForm extends React.Component {
 
@@ -21,13 +23,15 @@ class LoginForm extends React.Component {
 
     sendLoginRequest() {
         console.log('Handling login request.');
-        return axiosClient.post('token/', {
+        return axiosClient.post(API_ENDPOINTS.GET_TOKEN, {
             email: this.state.email,
             password: this.state.password
         })
             .then(function (response) {
-                localStorage.setItem('accessToken', response.data.access);
-                localStorage.setItem('refreshToken', response.data.refresh);
+                localStorage.setItem(CONSTANTS.ACCESS_TOKEN,
+                    response.data.access);
+                localStorage.setItem(CONSTANTS.REFRESH_TOKEN,
+                    response.data.refresh);
                 return response;
             })
     }
@@ -37,7 +41,7 @@ class LoginForm extends React.Component {
         let self = this;
         this.sendLoginRequest()
             .then(function (response) {
-                self.props.history.push('/home');
+                self.props.history.replace(URL_PATHS.HOME);
             })
     }
 
@@ -71,7 +75,7 @@ class LoginForm extends React.Component {
                     </div>
                 </form>
 
-                <Link to="/signup">
+                <Link to={URL_PATHS.SIGNUP}>
                     <p>Not an existing user? Register here.</p>
                 </Link>
             </div>
