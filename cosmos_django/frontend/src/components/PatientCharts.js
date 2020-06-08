@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Link} from 'react-router-dom';
+import {Switch, Route, Link, Redirect} from 'react-router-dom';
 
 import URL_PATHS from "../url_paths";
 
@@ -28,7 +28,7 @@ class PatientCharts extends React.Component {
                 <div className="tab-content" id="nav-tabContent">
                     <Switch>
                         <Route path={URL_PATHS.TIMELINE_CHART}>
-                            <Timeline/>
+                            <Timeline account={this.props.account}/>
                         </Route>
                         <Route path={URL_PATHS.MEDICATIONS_CHART}>
                             <Medications/>
@@ -36,8 +36,8 @@ class PatientCharts extends React.Component {
                         <Route path={URL_PATHS.VACCINATIONS_CHART}>
                             <Vaccinations/>
                         </Route>
-                        <Route>
-                            <Timeline/>
+                        <Route path={URL_PATHS.HOME}>
+                            <Redirect to={URL_PATHS.TIMELINE_CHART}/>
                         </Route>
                     </Switch>
                 </div>

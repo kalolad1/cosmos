@@ -18,3 +18,9 @@
 .patient-charts {
     /*margin-top: 100px;*/
 }
+
+/* Visit */
+.visit {
+    border: 1px solid black;
+    margin: 10px;
+}

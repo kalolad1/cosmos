@@ -6,7 +6,6 @@ import {Spinner} from 'react-bootstrap';
 class PatientHeader extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
 
     render() {

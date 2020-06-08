@@ -91,7 +91,7 @@ class PatientHome extends React.Component {
         return (
             <div className="patient-home">
                 <PatientHeader account={this.state.account}/>
-                <PatientCharts/>
+                <PatientCharts account={this.state.account}/>
                 <button onClick={this.handleLogout}>Logout</button>
             </div>
         )
