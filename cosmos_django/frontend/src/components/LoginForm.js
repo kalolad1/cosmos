@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
-import API_ENDPOINTS from "../api_endpoints";
-import axiosClient from "../axiosClient";
-import CONSTANTS from "../constants";
 import URL_PATHS from "../url_paths";
+import { sendLoginRequest } from "../auth_util";
 
 
 class LoginForm extends React.Component {
@@ -16,30 +14,14 @@ class LoginForm extends React.Component {
             'password': ''
         };
 
-        this.sendLoginRequest = this.sendLoginRequest.bind(this);
         this.handleLoginRequest = this.handleLoginRequest.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    sendLoginRequest() {
-        console.log('Handling login request.');
-        return axiosClient.post(API_ENDPOINTS.GET_TOKEN, {
-            email: this.state.email,
-            password: this.state.password
-        })
-            .then(function (response) {
-                localStorage.setItem(CONSTANTS.ACCESS_TOKEN,
-                    response.data.access);
-                localStorage.setItem(CONSTANTS.REFRESH_TOKEN,
-                    response.data.refresh);
-                return response;
-            })
     }
 
     handleLoginRequest(event) {
         event.preventDefault();
         let self = this;
-        this.sendLoginRequest()
+        sendLoginRequest(this.state.email, this.state.password)
             .then(function (response) {
                 self.props.history.replace(URL_PATHS.HOME);
             })

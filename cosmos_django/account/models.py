@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.utils import timezone
 
 
 class AccountManager(BaseUserManager):
@@ -75,6 +76,7 @@ class PatientProfile(models.Model):
         blank=False,
         default=None,
         validators=[MinLengthValidator(1)])
+    date_of_birth: models.DateField = models.DateField(default=timezone.now)
 
     profile_picture: models.ImageField = models.ImageField(
         upload_to='profile_pictures/', blank=True, null=True)

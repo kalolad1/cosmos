@@ -18,21 +18,23 @@ import SignupForm from "./SignupForm";
 
 class App extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.hasTokens = this.hasTokens.bind(this);
+    }
+
+    hasTokens() {
+        return (localStorage.getItem(CONSTANTS.ACCESS_TOKEN) !== null
+                && localStorage.getItem(CONSTANTS.REFRESH_TOKEN) !== null)
+    }
+
     render() {
-        let homePageRoute;
-        if (localStorage.getItem(CONSTANTS.ACCESS_TOKEN) !== null
-            && localStorage.getItem(CONSTANTS.REFRESH_TOKEN) !== null) {
-            homePageRoute = (
-                <Route path={URL_PATHS.ROOT}>
-                    <Redirect to={URL_PATHS.HOME}/>
-                </Route>
-            )
+        let rootUrl;
+        if (this.hasTokens()) {
+            rootUrl = URL_PATHS.HOME;
         } else {
-            homePageRoute = (
-                <Route path={URL_PATHS.ROOT}>
-                    <Redirect to={URL_PATHS.LOGIN}/>
-                </Route>
-            )
+            rootUrl = URL_PATHS.SIGNUP;
         }
 
         return (
@@ -47,7 +49,7 @@ class App extends React.Component {
                     <Route path={URL_PATHS.HOME}>
                         <PatientHome/>
                     </Route>
-                    {homePageRoute}
+                    <Redirect from={URL_PATHS.ROOT} to={rootUrl}/>
                 </Switch>
             </Router>
         )
