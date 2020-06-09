@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Link, Redirect} from 'react-router-dom';
+import {Switch, Route, Link, Redirect, withRouter} from 'react-router-dom';
 
 import URL_PATHS from "../url_paths";
 
@@ -11,21 +11,13 @@ class PatientCharts extends React.Component {
     render() {
         return (
             <div>
-                <nav>
-                    <div className="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                        <Link to={URL_PATHS.TIMELINE_CHART} className="nav-item nav-link active" id="nav-timeline-tab"
-                              data-toggle="tab"
-                              role="tab" aria-controls="nav-timeline" aria-selected="true">Timeline</Link>
-                        <Link to={URL_PATHS.MEDICATIONS_CHART} className="nav-item nav-link" id="nav-medications-tab"
-                              data-toggle="tab"
-                              role="tab" aria-controls="nav-medications" aria-selected="false">Medications</Link>
-                        <Link to={URL_PATHS.VACCINATIONS_CHART} className="nav-item nav-link" id="nav-vaccinations-tab"
-                              data-toggle="tab"
-                              role="tab" aria-controls="nav-vaccinations" aria-selected="false">Vaccinations</Link>
-                    </div>
-                </nav>
+                <ul>
+                    <li><Link to={URL_PATHS.TIMELINE_CHART}>Timeline</Link></li>
+                    <li><Link to={URL_PATHS.MEDICATIONS_CHART}>Medications</Link></li>
+                    <li><Link to={URL_PATHS.VACCINATIONS_CHART}>Vaccinations</Link></li>
+                </ul>
 
-                <div className="tab-content" id="nav-tabContent">
+                <div>
                     <Switch>
                         <Route path={URL_PATHS.TIMELINE_CHART}>
                             <Timeline account={this.props.account}/>
@@ -36,9 +28,7 @@ class PatientCharts extends React.Component {
                         <Route path={URL_PATHS.VACCINATIONS_CHART}>
                             <Vaccinations account={this.props.account}/>
                         </Route>
-                        <Route path={URL_PATHS.HOME}>
-                            <Redirect to={URL_PATHS.TIMELINE_CHART}/>
-                        </Route>
+                        <Redirect from={URL_PATHS.HOME} to={URL_PATHS.TIMELINE_CHART}/>
                     </Switch>
                 </div>
             </div>
@@ -46,4 +36,4 @@ class PatientCharts extends React.Component {
     }
 }
 
-export default PatientCharts;
+export default withRouter(PatientCharts);

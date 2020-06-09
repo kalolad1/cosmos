@@ -14,7 +14,8 @@ class PatientHome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'account': {}
+            'account': {},
+            'isLoading': true
         };
 
         this.handleLogout = this.handleLogout.bind(this);
@@ -72,7 +73,8 @@ class PatientHome extends React.Component {
         this.getAccountInformationOrRedirect()
             .then(function (response) {
                 self.setState({
-                    'account': response.data
+                    'account': response.data,
+                    'isLoading': false
                 });
             });
 
@@ -88,13 +90,19 @@ class PatientHome extends React.Component {
     }
 
     render() {
-        return (
-            <div className="patient-home">
-                <PatientHeader account={this.state.account}/>
-                <PatientCharts account={this.state.account}/>
-                <button onClick={this.handleLogout}>Logout</button>
-            </div>
-        )
+        if (this.state.isLoading) {
+            return <div>Loading...</div>
+        } else {
+            return (
+                <div className="patient-home">
+                    <PatientHeader account={this.state.account}/>
+                    <PatientCharts account={this.state.account}/>
+                    <div>
+                        <button onClick={this.handleLogout}>Logout</button>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 
