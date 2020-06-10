@@ -13,7 +13,7 @@ class PatientHeader extends React.Component {
         if (this.props.profile_picture !== null) {
             profilePictureSource = this.props.profile_picture;
         } else {
-            profilePictureSource = 'https://lh3.googleusercontent.com/proxy/3l1RSQ3IjHIq0RJ4p3T47TFC2VNmZRAAy9yQ3D6p9Uf0hSNtOiXddf8uasZYdDGfmuhqWZGfOI7PVK-ShKb5svGvjxOndKgv9jm2W4g17ZGcw8YYq4FtxufJj_w0fdj5aM3-LcSzezh9DtCnsSE4Ouiz1U2Dwilb0gQ'
+            profilePictureSource = 'https://images.unsplash.com/photo-1542044896530-05d85be9b11a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'
         }
 
         return (

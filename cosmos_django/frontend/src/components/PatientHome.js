@@ -1,10 +1,10 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom';
 
-import API_ENDPOINTS from "../api_endpoints";
+import apiEndpoints from "../apiEndpoints";
 import axiosClient from "../axiosClient";
 import CONSTANTS from '../constants';
-import URL_PATHS from "../url_paths";
+import UrlPaths from "../urlPaths";
 
 import PatientCharts from "./PatientCharts";
 import PatientHeader from "./PatientHeader";
@@ -34,12 +34,12 @@ class PatientHome extends React.Component {
     }
 
     getAccountInformationWithAccessToken() {
-        return axiosClient.get(API_ENDPOINTS.GET_ACCOUNT, this.getRequestHeader())
+        return axiosClient.get(apiEndpoints.GET_ACCOUNT, this.getRequestHeader())
     }
 
     refreshAccessToken() {
         // Send refresh token for new access token.
-        return axiosClient.post(API_ENDPOINTS.REFRESH_TOKEN, {
+        return axiosClient.post(apiEndpoints.REFRESH_TOKEN, {
             'refresh': localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
         })
             .then(function (response) {
@@ -63,7 +63,7 @@ class PatientHome extends React.Component {
                 return await this.getAccountInformationWithAccessToken();
             } catch (error) {
                 this.removeTokens();
-                this.props.history.replace(URL_PATHS.ROOT);
+                this.props.history.replace(UrlPaths.ROOT);
             }
         }
     }
@@ -86,7 +86,7 @@ class PatientHome extends React.Component {
         console.log('LOGGING OUT!');
         localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
         localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
-        this.props.history.replace(URL_PATHS.LOGIN);
+        this.props.history.replace(UrlPaths.LOGIN);
     }
 
     render() {

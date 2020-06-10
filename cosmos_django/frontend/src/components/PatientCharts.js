@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch, Route, Link, Redirect, withRouter} from 'react-router-dom';
 
-import URL_PATHS from "../url_paths";
+import UrlPaths from "../urlPaths";
 
 import Timeline from "./charts/Timeline";
 import Medications from "./charts/Medications";
@@ -12,23 +12,23 @@ class PatientCharts extends React.Component {
         return (
             <div>
                 <ul>
-                    <li><Link to={URL_PATHS.TIMELINE_CHART}>Timeline</Link></li>
-                    <li><Link to={URL_PATHS.MEDICATIONS_CHART}>Medications</Link></li>
-                    <li><Link to={URL_PATHS.VACCINATIONS_CHART}>Vaccinations</Link></li>
+                    <li><Link to={UrlPaths.TIMELINE_CHART}>Timeline</Link></li>
+                    <li><Link to={UrlPaths.MEDICATIONS_CHART}>Medications</Link></li>
+                    <li><Link to={UrlPaths.VACCINATIONS_CHART}>Vaccinations</Link></li>
                 </ul>
 
                 <div>
                     <Switch>
-                        <Route path={URL_PATHS.TIMELINE_CHART}>
+                        <Route path={UrlPaths.TIMELINE_CHART}>
                             <Timeline account={this.props.account}/>
                         </Route>
-                        <Route path={URL_PATHS.MEDICATIONS_CHART}>
+                        <Route path={UrlPaths.MEDICATIONS_CHART}>
                             <Medications account={this.props.account}/>
                         </Route>
-                        <Route path={URL_PATHS.VACCINATIONS_CHART}>
+                        <Route path={UrlPaths.VACCINATIONS_CHART}>
                             <Vaccinations account={this.props.account}/>
                         </Route>
-                        <Redirect from={URL_PATHS.HOME} to={URL_PATHS.TIMELINE_CHART}/>
+                        <Redirect from={UrlPaths.HOME} to={UrlPaths.TIMELINE_CHART}/>
                     </Switch>
                 </div>
             </div>

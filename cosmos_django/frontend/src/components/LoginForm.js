@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link, withRouter} from 'react-router-dom';
 
-import URL_PATHS from "../url_paths";
-import { sendLoginRequest } from "../auth_util";
+import UrlPaths from "../urlPaths";
+import { sendLoginRequest } from "../authUtil";
 
 
 class LoginForm extends React.Component {
@@ -23,7 +23,7 @@ class LoginForm extends React.Component {
         let self = this;
         sendLoginRequest(this.state.email, this.state.password)
             .then(function (response) {
-                self.props.history.replace(URL_PATHS.HOME);
+                self.props.history.replace(UrlPaths.HOME);
             })
     }
 
@@ -57,7 +57,7 @@ class LoginForm extends React.Component {
                     </div>
                 </form>
 
-                <Link to={URL_PATHS.SIGNUP}>
+                <Link to={UrlPaths.SIGNUP}>
                     <p>Not an existing user? Register here.</p>
                 </Link>
             </div>

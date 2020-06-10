@@ -1,17 +1,24 @@
 import React from 'react'
 import {Link, withRouter} from "react-router-dom";
 
-import API_ENDPOINTS from "../api_endpoints";
-import { sendLoginRequest } from "../auth_util";
+import apiEndpoints from "../apiEndpoints";
+import { sendLoginRequest } from "../authUtil";
 import axiosClient from "../axiosClient";
-import URL_PATHS from "../url_paths";
+import UrlPaths from "../urlPaths";
 
 import DatePicker from "react-datepicker";
+import Select from 'react-select';
 
 import "react-datepicker/dist/react-datepicker.css";
 
+const SEX_OPTIONS = [
+    {value: 'male', label: 'Male'},
+    {value: 'female', label: 'Female'}
+];
+
 
 class SignupForm extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -19,12 +26,14 @@ class SignupForm extends React.Component {
             'password': '',
             'firstName': '',
             'lastName': '',
-            'dateOfBirth': new Date()
+            'dateOfBirth': new Date(),
+            'sex': '',
         };
 
         this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleSexSelectChange = this.handleSexSelectChange.bind(this);
     }
 
     handleRegistrationRequest(event) {
@@ -32,7 +41,7 @@ class SignupForm extends React.Component {
         event.preventDefault();
         let self = this;
         console.log(this.state.dateOfBirth);
-        axiosClient.post(API_ENDPOINTS.REGISTER, {
+        axiosClient.post(apiEndpoints.REGISTER, {
             email: this.state.email,
             password: this.state.password,
             firstName: this.state.firstName,
@@ -41,14 +50,15 @@ class SignupForm extends React.Component {
                 'year': this.state.dateOfBirth.getFullYear(),
                 'month': this.state.dateOfBirth.getMonth() + 1,  // Zero index to 1 index
                 'day': this.state.dateOfBirth.getDate()
-            }
+            },
+            sex: this.state.sex.value
         })
             .then(function (response) {
                 console.log('User registered successfully.');
                 console.log(response.data);
                 sendLoginRequest(self.state.email, self.state.password)
                     .then(function (response) {
-                        self.props.history.replace(URL_PATHS.HOME);
+                        self.props.history.replace(UrlPaths.HOME);
                     })
             });
     }
@@ -64,6 +74,12 @@ class SignupForm extends React.Component {
         this.setState({
             'dateOfBirth': date
         });
+    }
+
+    handleSexSelectChange(selectedOption) {
+        this.setState({
+            'sex': selectedOption
+        })
     }
 
     render() {
@@ -94,6 +110,10 @@ class SignupForm extends React.Component {
                         <p>Date of birth</p>
                         <DatePicker selected={this.state.dateOfBirth} onChange={this.handleDateChange}/>
                     </div>
+                    <div>
+                        <p>Sex</p>
+                        <Select options={SEX_OPTIONS} onChange={this.handleSexSelectChange}/>
+                    </div>
 
                     <br/>
                     <div>
@@ -101,7 +121,7 @@ class SignupForm extends React.Component {
                     </div>
                 </form>
 
-                <Link to={URL_PATHS.LOGIN}>
+                <Link to={UrlPaths.LOGIN}>
                     <p>Already an existing user? Login here.</p>
                 </Link>
             </div>

@@ -1,4 +1,4 @@
-const URL_PATHS = {
+const UrlPaths = {
     HOME: '/home',
     LOGIN: '/login',
     SIGNUP: '/signup',
@@ -9,4 +9,4 @@ const URL_PATHS = {
     VACCINATIONS_CHART: '/home/vaccinations'
 };
 
-export default URL_PATHS;
+export default UrlPaths;

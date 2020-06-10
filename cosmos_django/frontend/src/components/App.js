@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 
 import CONSTANTS from '../constants';
-import URL_PATHS from "../url_paths";
+import UrlPaths from "../urlPaths";
 
 import LoginForm from "./LoginForm";
 import PatientHome from "./PatientHome";
@@ -32,24 +32,24 @@ class App extends React.Component {
     render() {
         let rootUrl;
         if (this.hasTokens()) {
-            rootUrl = URL_PATHS.HOME;
+            rootUrl = UrlPaths.HOME;
         } else {
-            rootUrl = URL_PATHS.SIGNUP;
+            rootUrl = UrlPaths.SIGNUP;
         }
 
         return (
             <Router>
                 <Switch>
-                    <Route exact path={URL_PATHS.LOGIN}>
+                    <Route exact path={UrlPaths.LOGIN}>
                         <LoginForm/>
                     </Route>
-                    <Route path={URL_PATHS.SIGNUP}>
+                    <Route path={UrlPaths.SIGNUP}>
                         <SignupForm/>
                     </Route>
-                    <Route path={URL_PATHS.HOME}>
+                    <Route path={UrlPaths.HOME}>
                         <PatientHome/>
                     </Route>
-                    <Redirect from={URL_PATHS.ROOT} to={rootUrl}/>
+                    <Redirect from={UrlPaths.ROOT} to={rootUrl}/>
                 </Switch>
             </Router>
         )

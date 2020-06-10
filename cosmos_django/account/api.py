@@ -16,7 +16,6 @@ from django.contrib.auth import logout
 def register(request):
     """Registers a new account."""
     print('Registering a new account.')
-    logout(request)
     account: models.Account
     try:
         account: models.Account = models.Account.objects.create_user(
@@ -24,11 +23,13 @@ def register(request):
         date_of_birth = datetime.date(request.data['dateOfBirth']['year'],
                                       request.data['dateOfBirth']['month'],
                                       request.data['dateOfBirth']['day'])
+        print(request.data['sex'])
         models.PatientProfile.objects.create(
             account=account,
             first_name=request.data['firstName'],
             last_name=request.data['lastName'],
-            date_of_birth=date_of_birth)
+            date_of_birth=date_of_birth,
+            sex=request.data['sex'])
     except IntegrityError:
         return Response('An account already exists with that email!',
                         status=status.HTTP_400_BAD_REQUEST)

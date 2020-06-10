@@ -77,6 +77,14 @@ class PatientProfile(models.Model):
         default=None,
         validators=[MinLengthValidator(1)])
     date_of_birth: models.DateField = models.DateField(default=timezone.now)
+    MALE: str = 'male'
+    FEMALE: str = 'female'
+    SEX_CHOICES: List[Tuple[str, str]] = [
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    ]
+    sex: models.CharField = models.CharField(max_length=60,
+                                             choices=SEX_CHOICES)
 
     profile_picture: models.ImageField = models.ImageField(
         upload_to='profile_pictures/', blank=True, null=True)
