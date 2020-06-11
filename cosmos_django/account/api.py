@@ -9,7 +9,6 @@ from rest_framework import status
 
 from . import serializers
 from . import models
-from django.contrib.auth import logout
 
 
 @api_view(['POST'])
@@ -23,7 +22,6 @@ def register(request):
         date_of_birth = datetime.date(request.data['dateOfBirth']['year'],
                                       request.data['dateOfBirth']['month'],
                                       request.data['dateOfBirth']['day'])
-        print(request.data['sex'])
         models.PatientProfile.objects.create(
             account=account,
             first_name=request.data['firstName'],

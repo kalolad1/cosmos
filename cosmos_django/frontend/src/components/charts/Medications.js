@@ -7,7 +7,7 @@ class Medications extends React.Component {
             return <Medication data={medicationData} key={medicationData.id}/>
         });
         return (
-            <div>
+            <div className="patient-chart-content-container">
                 {medications}
             </div>
         );

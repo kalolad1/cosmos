@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Spinner} from 'react-bootstrap';
+import PatientHeaderMetadata from "./PatientHeaderMetadata";
 
 
 class PatientHeader extends React.Component {
@@ -17,10 +18,9 @@ class PatientHeader extends React.Component {
         }
 
         return (
-            <div className="patient-header">
-                <img className="profile-picture"
-                     src={profilePictureSource}/>
-                <h1>{this.props.full_name}</h1>
+            <div className="patient-header rounded-grey-container">
+                <img className="profile-picture" src={profilePictureSource} alt="Patient profile picture."/>
+                <PatientHeaderMetadata fullName={this.props.full_name} sex={this.props.sex} age={this.props.age}/>
             </div>
         )
     }

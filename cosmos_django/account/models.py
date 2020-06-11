@@ -1,3 +1,4 @@
+import datetime
 from typing import List, Tuple
 
 from django.conf import settings
@@ -91,6 +92,16 @@ class PatientProfile(models.Model):
 
     def get_full_name(self) -> str:
         return '{} {}'.format(self.first_name, self.last_name)
+
+    def get_age(self):
+        today = datetime.date.today()
+        year_difference = today.year - self.date_of_birth.year
+        if self.date_of_birth.month > today.month:
+            year_difference -= 1
+        elif self.date_of_birth.month == today.month:
+            if self.date_of_birth.day > today.day:
+                year_difference -= 1
+        return year_difference
 
     def __str__(self) -> str:
         return self.get_full_name()

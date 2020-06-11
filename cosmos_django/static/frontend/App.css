@@ -1,35 +1,58 @@
-/* Patient Home */
+/* App wide */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.patient-home {
+    margin: 20px;
+}
+
 /* Patient Header */
 .patient-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
 .profile-picture {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.patient-header-metadata {
+    margin-left: 20px;
 }
 
 /* Patient charts */
 .patient-charts {
-    /*margin-top: 100px;*/
+    margin-top: 10px;
+}
+
+.patient-chart-content-container {
+    margin-top: 10px;
 }
 
 /* Visit */
 .visit {
-    border: 1px solid black;
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
 /* Medication */
 .medication {
-    border: 1px solid black;
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
 /* Vaccination */
 .vaccination {
-    border: 1px solid black;
-    margin: 10px;
+    margin-bottom: 10px;
 }
+
+/* Utilities */
+.rounded-grey-container {
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    padding: 10px;
+}
+

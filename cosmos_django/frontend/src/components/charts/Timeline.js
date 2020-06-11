@@ -9,7 +9,7 @@ class Timeline extends React.Component {
             return <Visit data={visitData} key={visitData.id}/>
         });
         return (
-            <div>
+            <div className="timeline patient-chart-content-container">
                 {visits}
             </div>
         );

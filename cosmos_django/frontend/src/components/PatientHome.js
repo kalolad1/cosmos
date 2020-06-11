@@ -97,11 +97,13 @@ class PatientHome extends React.Component {
             if (this.state.account.patient_profile.hasOwnProperty('profile_picture')) {
                 profile_picture = this.state.account.patient_profile.profile_picture;
             }
-
+            console.log(this.state.account);
             return (
                 <div className="patient-home">
                     <PatientHeader profile_picture={profile_picture}
-                                   full_name={this.state.account.patient_profile.full_name}/>
+                                   full_name={this.state.account.patient_profile.full_name}
+                                    sex={this.state.account.patient_profile.sex}
+                                    age={this.state.account.patient_profile.age}/>
                     <PatientCharts account={this.state.account}/>
                     <div>
                         <button onClick={this.handleLogout}>Logout</button>

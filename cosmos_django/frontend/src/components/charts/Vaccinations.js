@@ -7,8 +7,7 @@ class Vaccinations extends React.Component {
             return <Vaccination data={vaccinationData} key={vaccinationData.id}/>
         });
         return (
-            <div className="tab-pane fade show active" id="nav-vaccinations" role="tabpanel"
-                 aria-labelledby="nav-vaccinations-tab">
+            <div className="patient-chart-content-container">
                 {vaccinations}
             </div>
         );
