@@ -9,6 +9,7 @@ import UrlPaths from "../urlPaths";
 import PatientCharts from "./PatientCharts";
 import PatientHeader from "./PatientHeader";
 
+
 class PatientHome extends React.Component {
 
     constructor(props) {
@@ -100,13 +101,18 @@ class PatientHome extends React.Component {
             console.log(this.state.account);
             return (
                 <div className="patient-home">
-                    <PatientHeader profile_picture={profile_picture}
-                                   full_name={this.state.account.patient_profile.full_name}
-                                    sex={this.state.account.patient_profile.sex}
-                                    age={this.state.account.patient_profile.age}/>
-                    <PatientCharts account={this.state.account}/>
-                    <div>
-                        <button onClick={this.handleLogout}>Logout</button>
+                    <div className="main-vertical-navbar">
+                        <button className="vertical-navbar-element" onClick={this.handleLogout}>Logout</button>
+                        <button className="vertical-navbar-element">Icon #2</button>
+                        <button className="vertical-navbar-element">Icon #3</button>
+                        <button className="vertical-navbar-element">Icon #4</button>
+                    </div>
+                    <div className="patient-home-content">
+                        <PatientHeader profile_picture={profile_picture}
+                                       full_name={this.state.account.patient_profile.full_name}
+                                       sex={this.state.account.patient_profile.sex}
+                                       age={this.state.account.patient_profile.age}/>
+                        <PatientCharts account={this.state.account}/>
                     </div>
                 </div>
             )

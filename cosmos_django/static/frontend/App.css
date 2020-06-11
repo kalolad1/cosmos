@@ -6,7 +6,31 @@
 }
 
 .patient-home {
-    margin: 20px;
+    margin: 0 20px 20px 0;
+    display: flex;
+    flex-direction: row;
+    /*width: 100%;*/
+    height: 100vh;
+}
+
+.main-vertical-navbar {
+    border-right: 1px solid lightgrey;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.vertical-navbar-element {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.vertical-navbar-element:first-of-type {
+    margin-bottom: 100px;
+}
+
+.patient-home-content {
+    margin: 5px;
+    width: 100%;
 }
 
 /* Patient Header */
