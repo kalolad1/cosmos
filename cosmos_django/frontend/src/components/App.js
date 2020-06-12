@@ -2,7 +2,7 @@ import "@babel/polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route,
     Redirect,
@@ -14,6 +14,7 @@ import UrlPaths from "../urlPaths";
 import LoginForm from "./LoginForm";
 import PatientHome from "./PatientHome";
 import SignupForm from "./SignupForm";
+import VisitCreator from "./VisitCreator";
 
 
 class App extends React.Component {
@@ -48,6 +49,9 @@ class App extends React.Component {
                     </Route>
                     <Route path={UrlPaths.HOME}>
                         <PatientHome/>
+                    </Route>
+                    <Route path={UrlPaths.CREATE_VISIT}>
+                        <VisitCreator/>
                     </Route>
                     <Redirect from={UrlPaths.ROOT} to={rootUrl}/>
                 </Switch>

@@ -2,7 +2,7 @@ import React from 'react'
 import {Link, withRouter} from "react-router-dom";
 
 import apiEndpoints from "../apiEndpoints";
-import { sendLoginRequest } from "../authUtil";
+import {sendLoginRequest} from "../authUtil";
 import axiosClient from "../axiosClient";
 import UrlPaths from "../urlPaths";
 
@@ -10,10 +10,13 @@ import DatePicker from "react-datepicker";
 import Select from 'react-select';
 
 import "react-datepicker/dist/react-datepicker.css";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 
 const SEX_OPTIONS = [
-    {value: 'male', label: 'Male'},
-    {value: 'female', label: 'Female'}
+    {id: 1, name: 'male'},
+    {id: 2, name: 'female'}
 ];
 
 
@@ -31,9 +34,27 @@ class SignupForm extends React.Component {
         };
 
         this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSexSelectChange = this.handleSexSelectChange.bind(this);
+        this.createSexOptions = this.createSexOptions.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(event) {
+        const name = event.target.name;
+        this.setState({
+            [name]: event.target.value
+        });
+    }
+
+    createSexOptions() {
+        return SEX_OPTIONS.map(function (option) {
+            return (
+                <option key={option.id} value={option.name}>
+                    {option.name}
+                </option>
+            );
+        });
     }
 
     handleRegistrationRequest(event) {
@@ -63,13 +84,6 @@ class SignupForm extends React.Component {
             });
     }
 
-    handleInputChange(event) {
-        const name = event.target.name;
-        this.setState({
-            [name]: event.target.value
-        });
-    }
-
     handleDateChange(date) {
         this.setState({
             'dateOfBirth': date
@@ -84,48 +98,60 @@ class SignupForm extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>Sign up</h1>
-                <form onSubmit={this.handleRegistrationRequest}>
-                    <div>
-                        <p>Email</p>
-                        <input type="text" name="email" value={this.state.email} onChange={this.handleInputChange}/>
-                    </div>
-                    <div>
-                        <p>Password</p>
-                        <input type="password" name="password" value={this.state.password}
-                               onChange={this.handleInputChange}/>
-                    </div>
-                    <div>
-                        <p>First name</p>
-                        <input type="text" name="firstName" value={this.state.firstName}
-                               onChange={this.handleInputChange}/>
-                    </div>
-                    <div>
-                        <p>Last name</p>
-                        <input type="text" name="lastName" value={this.state.lastName}
-                               onChange={this.handleInputChange}/>
-                    </div>
-                    <div>
-                        <p>Date of birth</p>
-                        <DatePicker selected={this.state.dateOfBirth} onChange={this.handleDateChange}/>
-                    </div>
-                    <div>
-                        <p>Sex</p>
-                        <Select options={SEX_OPTIONS} onChange={this.handleSexSelectChange}/>
-                    </div>
+            <div className="login-signup-form-container">
+                <div className="login-signup-form-content rounded-grey-container">
+                    <h1>Sign up</h1>
+                    <Form className="login-signup-form" onSubmit={this.handleRegistrationRequest}>
+                        <Form.Group>
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control name="email" value={this.state.email} onChange={this.handleInputChange}
+                                          type="email" placeholder="Enter email"/>
+                            <Form.Text className="text-muted">
+                                We'll never share your email with anyone else.
+                            </Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control name="password" value={this.state.password} onChange={this.handleInputChange}
+                                          type="password" placeholder="Password"/>
+                        </Form.Group>
 
-                    <br/>
-                    <div>
-                        <input type="submit" value="Submit"/>
-                    </div>
-                </form>
+                        <Form.Group>
+                            <Form.Label>First name</Form.Label>
+                            <Form.Control name="firstName" value={this.state.firstName}
+                                          onChange={this.handleInputChange} type="text" placeholder="First name"/>
+                        </Form.Group>
 
-                <Link to={UrlPaths.LOGIN}>
-                    <p>Already an existing user? Login here.</p>
-                </Link>
+                        <Form.Group>
+                            <Form.Label>Last name</Form.Label>
+                            <Form.Control name="lastName" value={this.state.lastName} onChange={this.handleInputChange}
+                                          type="text" placeholder="Last name"/>
+                        </Form.Group>
+                        <Form.Group controlId="formDateOfBirth">
+                            <p>Date of birth</p>
+                            <DatePicker selected={this.state.dateOfBirth} onChange={this.handleDateChange}/>
+                        </Form.Group>
+
+
+                        <Form.Group>
+                            <Form.Label>Sex</Form.Label>
+                            <Form.Control name="sex" onChange={this.handleInputChange} as="select">
+                                {this.createSexOptions()}
+                            </Form.Control>
+                        </Form.Group>
+
+                        <div className="login-signup-form-button-container">
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </div>
+                        <Link to={UrlPaths.LOGIN}>
+                            <p>Existing user? Log in here.</p>
+                        </Link>
+                    </Form>
+                </div>
             </div>
-        )
+        );
     }
 }
 

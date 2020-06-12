@@ -44,3 +44,21 @@ def get_account(request):
     """Gets an account. Must have access token in request header."""
     serialized_account = serializers.AccountSerializer(instance=request.user)
     return Response(serialized_account.data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_visit(request):
+    """Create a new visit."""
+    print('Creating a new visit.')
+    visit: models.Visit
+    try:
+        visit: models.Visit = models.Visit.objects.create(
+            patient_profile=request.user.patient_profile,
+            visit_type=request.data['visitType'],
+            note=request.data['note'])
+    except ValueError as ve:
+        return Response({'error': {'message': ve.__str__()}})
+
+    serialized_visit = serializers.VisitSerializer(instance=visit)
+    return Response(serialized_visit.data, status=status.HTTP_200_OK)

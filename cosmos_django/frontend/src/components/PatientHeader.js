@@ -1,12 +1,20 @@
 import React from 'react';
 
-import {Spinner} from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
+
 import PatientHeaderMetadata from "./PatientHeaderMetadata";
+import UrlPaths from "../urlPaths";
 
 
 class PatientHeader extends React.Component {
     constructor(props) {
         super(props);
+        this.handleNewVisitButtonClick = this.handleNewVisitButtonClick.bind(this);
+    }
+
+    handleNewVisitButtonClick(event) {
+        event.preventDefault();
+        this.props.history.push(UrlPaths.CREATE_VISIT);
     }
 
     render() {
@@ -19,11 +27,14 @@ class PatientHeader extends React.Component {
 
         return (
             <div className="patient-header rounded-grey-container">
-                <img className="profile-picture" src={profilePictureSource} alt="Patient profile picture."/>
-                <PatientHeaderMetadata fullName={this.props.full_name} sex={this.props.sex} age={this.props.age}/>
+                <div className="patient-info">
+                    <img className="profile-picture" src={profilePictureSource} alt="Patient profile picture."/>
+                    <PatientHeaderMetadata fullName={this.props.full_name} sex={this.props.sex} age={this.props.age}/>
+                </div>
+                <button onClick={this.handleNewVisitButtonClick} className="new-visit-button">New Visit</button>
             </div>
         )
     }
 }
 
-export default PatientHeader;
+export default withRouter(PatientHeader);

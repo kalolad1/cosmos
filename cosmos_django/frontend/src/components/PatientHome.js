@@ -77,8 +77,8 @@ class PatientHome extends React.Component {
                     'account': response.data,
                     'isLoading': false
                 });
+                console.log(response);
             });
-
     }
 
     handleLogout() {
@@ -98,7 +98,6 @@ class PatientHome extends React.Component {
             if (this.state.account.patient_profile.hasOwnProperty('profile_picture')) {
                 profile_picture = this.state.account.patient_profile.profile_picture;
             }
-            console.log(this.state.account);
             return (
                 <div className="patient-home">
                     <div className="main-vertical-navbar">

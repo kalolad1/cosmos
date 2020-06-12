@@ -4,7 +4,7 @@ ssh cosmos_deploy_user@167.99.154.182 <<EOF
   cd cosmos/cosmos_django
   source venv/bin/activate
   git pull
-  npm update
+  npm install
   npm run build
   pip3 install -r requirements.txt
   venv/bin/python3.6 manage.py makemigrations
