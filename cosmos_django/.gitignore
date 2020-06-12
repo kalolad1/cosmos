@@ -22,3 +22,7 @@ node_modules/
 
 # Axios base URL
 frontend/src/axiosClient.js
+
+# Media and static
+media/
+static/
