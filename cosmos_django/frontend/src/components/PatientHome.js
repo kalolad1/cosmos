@@ -35,7 +35,7 @@ class PatientHome extends React.Component {
     }
 
     getAccountInformationWithAccessToken() {
-        return axiosClient.get(apiEndpoints.GET_ACCOUNT, this.getRequestHeader())
+        return axiosClient.get(apiEndpoints.ACCOUNTS, this.getRequestHeader())
     }
 
     refreshAccessToken() {

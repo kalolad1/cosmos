@@ -1,5 +1,6 @@
 """API endpoints for the React frontend to consume."""
 import datetime
+import enum
 import logging
 
 from django.db.utils import IntegrityError
@@ -13,8 +14,26 @@ from . import models
 from . import serializers
 
 
-@decorators.api_view(http_method_names=('POST', ))
-def register(request: Request) -> response.Response:
+class HTTPMethod:
+    GET = 'GET'
+    POST = 'POST'
+
+
+@decorators.api_view(http_method_names=(HTTPMethod.GET, HTTPMethod.POST))
+def accounts(request: Request) -> response.Response:
+    """Dispatcher for accounts endpoint."""
+    logging.info(msg='Request made to accounts endpoint with data: {}.'.format(
+        request.data.__str__()))
+    if request.method == HTTPMethod.GET:
+        return get_accounts(request=request)
+    elif request.method == HTTPMethod.POST:
+        return post_accounts(request=request)
+    return response.Response(data='Cannot support HTTP method.',
+                             status=status.HTTP_400_BAD_REQUEST)
+
+
+@decorators.api_view(http_method_names=(HTTPMethod.POST, ))
+def post_accounts(request: Request) -> response.Response:
     """Registers a new account."""
     logging.info(msg='Registering new account with request data {}.'.format(
         request.data.__str__()))
@@ -46,10 +65,10 @@ def register(request: Request) -> response.Response:
                              status=status.HTTP_201_CREATED)
 
 
-@decorators.api_view(http_method_names=('GET', ))
+@decorators.api_view(http_method_names=(HTTPMethod.GET, ))
 @decorators.permission_classes(
     permission_classes=(permissions.IsAuthenticated, ))
-def get_account(request: Request) -> response.Response:
+def get_accounts(request: Request) -> response.Response:
     """Returns the users account if they are authenticated."""
     logging.info(msg='Request for account data with data: {}.'.format(
         request.data.__str__()))
@@ -59,10 +78,23 @@ def get_account(request: Request) -> response.Response:
                              status=status.HTTP_200_OK)
 
 
-@decorators.api_view(http_method_names=('POST', ))
+@decorators.api_view(http_method_names=(HTTPMethod.POST, ))
 @decorators.permission_classes(
     permission_classes=(permissions.IsAuthenticated, ))
-def create_visit(request: Request) -> response.Response:
+def visits(request: Request) -> response.Response:
+    """Dispatcher for the visits endpoint."""
+    logging.info(msg='Request made to visits endpoint with data: {}.'.format(
+        request.data.__str__()))
+    if request.method == HTTPMethod.POST:
+        return post_visits(request=request)
+    return response.Response(data='Cannot support HTTP method.',
+                             status=status.HTTP_400_BAD_REQUEST)
+
+
+@decorators.api_view(http_method_names=(HTTPMethod.POST, ))
+@decorators.permission_classes(
+    permission_classes=(permissions.IsAuthenticated, ))
+def post_visits(request: Request) -> response.Response:
     """Adds a new visit for the user."""
     logging.info(msg='Creating a new visit with data: {}.'.format(
         request.data.__str__()))

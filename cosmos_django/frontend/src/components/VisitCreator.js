@@ -3,7 +3,6 @@ import Form from "react-bootstrap/Form";
 
 import {withRouter} from 'react-router-dom';
 import Button from "react-bootstrap/Button";
-import * as formUtil from "../formUtil";
 import axiosClient from "../axiosClient";
 import apiEndpoints from "../apiEndpoints";
 import {sendLoginRequest} from "../authUtil";
@@ -68,7 +67,7 @@ class VisitCreator extends React.Component {
             visitType: this.state.visitType,
             note: this.state.note,
         };
-        axiosClient.post(apiEndpoints.CREATE_VISIT, requestData, this.getRequestHeader())
+        axiosClient.post(apiEndpoints.VISITS, requestData, this.getRequestHeader())
             .then(function (response) {
                 console.log('Visit created successfully.');
                 self.props.history.goBack();

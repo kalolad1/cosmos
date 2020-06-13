@@ -62,7 +62,7 @@ class SignupForm extends React.Component {
         event.preventDefault();
         let self = this;
         console.log(this.state.dateOfBirth);
-        axiosClient.post(apiEndpoints.REGISTER, {
+        axiosClient.post(apiEndpoints.ACCOUNTS, {
             email: this.state.email,
             password: this.state.password,
             firstName: this.state.firstName,
