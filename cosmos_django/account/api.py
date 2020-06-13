@@ -1,31 +1,31 @@
 """API endpoints for the React frontend to consume."""
 import datetime
+import logging
 
 from django.db.utils import IntegrityError
-import rest_framework
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import decorators
+from rest_framework import permissions
 from rest_framework.request import Request
-from rest_framework.response import Response
+from rest_framework import response
 from rest_framework import status
 
 from . import models
 from . import serializers
 
 
-@api_view(['POST'])
-def register(
-    request: rest_framework.request.Request
-) -> rest_framework.response.Response:
+@decorators.api_view(http_method_names=('POST', ))
+def register(request: Request) -> response.Response:
     """Registers a new account."""
-    print('Registering a new account.')
+    logging.info(msg='Registering new account with request data {}.'.format(
+        request.data.__str__()))
     account: models.Account
     try:
         account = models.Account.objects.create_user(
             email=request.data['email'], password=request.data['password'])
-        date_of_birth = datetime.date(request.data['dateOfBirth']['year'],
-                                      request.data['dateOfBirth']['month'],
-                                      request.data['dateOfBirth']['day'])
+        date_of_birth: datetime.date = datetime.date(
+            request.data['dateOfBirth']['year'],
+            request.data['dateOfBirth']['month'],
+            request.data['dateOfBirth']['day'])
         models.PatientProfile.objects.create(
             account=account,
             first_name=request.data['firstName'],
@@ -33,36 +33,50 @@ def register(
             date_of_birth=date_of_birth,
             sex=request.data['sex'])
     except IntegrityError:
-        return Response('An account already exists with that email!',
-                        status=status.HTTP_400_BAD_REQUEST)
-    except ValueError as ve:
-        return Response({'error': {'message': ve.__str__()}})
+        return response.Response(
+            data='An account already exists with that email.',
+            status=status.HTTP_400_BAD_REQUEST)
+    except ValueError as value_error:
+        return response.Response(data=value_error.__str__(),
+                                 status=status.HTTP_400_BAD_REQUEST)
 
-    serialized_account = serializers.AccountSerializer(instance=account)
-    return Response(serialized_account.data, status=status.HTTP_201_CREATED)
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_account(request):
-    """Gets an account. Must have access token in request header."""
-    serialized_account = serializers.AccountSerializer(instance=request.user)
-    return Response(serialized_account.data, status=status.HTTP_200_OK)
+    serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
+        instance=account)
+    return response.Response(data=serialized_account.data,
+                             status=status.HTTP_201_CREATED)
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_visit(request):
-    """Create a new visit."""
-    print('Creating a new visit.')
+@decorators.api_view(http_method_names=('GET', ))
+@decorators.permission_classes(
+    permission_classes=(permissions.IsAuthenticated, ))
+def get_account(request: Request) -> response.Response:
+    """Returns the users account if they are authenticated."""
+    logging.info(msg='Request for account data with data: {}.'.format(
+        request.data.__str__()))
+    serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
+        instance=request.user)
+    return response.Response(data=serialized_account.data,
+                             status=status.HTTP_200_OK)
+
+
+@decorators.api_view(http_method_names=('POST', ))
+@decorators.permission_classes(
+    permission_classes=(permissions.IsAuthenticated, ))
+def create_visit(request: Request) -> response.Response:
+    """Adds a new visit for the user."""
+    logging.info(msg='Creating a new visit with data: {}.'.format(
+        request.data.__str__()))
     visit: models.Visit
     try:
-        visit: models.Visit = models.Visit.objects.create(
+        visit = models.Visit.objects.create(
             patient_profile=request.user.patient_profile,
             visit_type=request.data['visitType'],
             note=request.data['note'])
-    except ValueError as ve:
-        return Response({'error': {'message': ve.__str__()}})
+    except ValueError as value_error:
+        return response.Response(data=value_error.__str__(),
+                                 status=status.HTTP_400_BAD_REQUEST)
 
-    serialized_visit = serializers.VisitSerializer(instance=visit)
-    return Response(serialized_visit.data, status=status.HTTP_200_OK)
+    serialized_visit: serializers.VisitSerializer = serializers.VisitSerializer(
+        instance=visit)
+    return response.Response(data=serialized_visit.data,
+                             status=status.HTTP_201_CREATED)
