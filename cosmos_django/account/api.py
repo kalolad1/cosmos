@@ -1,6 +1,5 @@
 """API endpoints for the React frontend to consume."""
 import datetime
-import enum
 import logging
 
 from django.db.utils import IntegrityError
@@ -64,7 +63,7 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_200_OK)
 
 
-class VisitEndpoint(views.APIView):
+class VisitsEndpoint(views.APIView):
     @decorators.permission_classes(
         permission_classes=(permissions.IsAuthenticated, ))
     def post(self, request: Request) -> response.Response:

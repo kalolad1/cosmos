@@ -11,5 +11,5 @@ urlpatterns = [
          jwt_views.TokenRefreshView.as_view(),
          name='token_refresh'),
     path('accounts/', api.AccountsEndpoint.as_view(), name='account/accounts'),
-    path('visits/', api.VisitEndpoint.as_view(), name='account/visits'),
+    path('visits/', api.VisitsEndpoint.as_view(), name='account/visits'),
 ]
