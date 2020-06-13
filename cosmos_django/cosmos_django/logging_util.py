@@ -25,7 +25,7 @@ def get_log_filename(current_time: datetime.datetime) -> str:
 
 
 def initialize_logging() -> None:
-    """Initializes logging for the Django project.
+    """Initializes logging for the project.
 
     Writes log file with name according to the time of project start.
     """
