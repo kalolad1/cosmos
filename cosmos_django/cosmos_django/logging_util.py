@@ -34,7 +34,7 @@ def initialize_logging() -> None:
         log_path = os.path.join(LOG_DIRECTORY, log_filename)
 
         if not os.path.exists(path=LOG_DIRECTORY):
-            os.makedirs(name=LOG_DIRECTORY)
+            os.makedirs(LOG_DIRECTORY)
         logging.basicConfig(filename=log_path,
                             filemode='w',
                             level=logging.INFO)
