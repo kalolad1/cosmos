@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ssh cosmos_deploy_user@167.99.154.182 <<EOF
-  set -e
   cd cosmos/cosmos_django
   source venv/bin/activate
   git pull
