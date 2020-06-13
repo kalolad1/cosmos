@@ -26,3 +26,6 @@ frontend/src/axiosClient.js
 # Media and static
 /media/
 /static/
+
+# Logging
+/logs/

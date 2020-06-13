@@ -1,3 +1,4 @@
+"""Registers models to the admin console."""
 from django.contrib import admin
 
 from . import models

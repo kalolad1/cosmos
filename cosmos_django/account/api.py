@@ -1,23 +1,27 @@
-"""API endpoints for the React frontend."""
+"""API endpoints for the React frontend to consume."""
 import datetime
 
 from django.db.utils import IntegrityError
+import rest_framework
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 
-from . import serializers
 from . import models
+from . import serializers
 
 
 @api_view(['POST'])
-def register(request):
+def register(
+    request: rest_framework.request.Request
+) -> rest_framework.response.Response:
     """Registers a new account."""
     print('Registering a new account.')
     account: models.Account
     try:
-        account: models.Account = models.Account.objects.create_user(
+        account = models.Account.objects.create_user(
             email=request.data['email'], password=request.data['password'])
         date_of_birth = datetime.date(request.data['dateOfBirth']['year'],
                                       request.data['dateOfBirth']['month'],
