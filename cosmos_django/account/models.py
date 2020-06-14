@@ -7,16 +7,24 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
 
+from . import custom_exceptions
+
 
 class AccountManager(BaseUserManager):
     """Manager for the Account class."""
     def create_user(self, email: str, password: str) -> 'Account':
         """Create a user."""
         if not email:
-            raise ValueError('User must provide an email.')
+            raise custom_exceptions.DataForNewAccountNotProvided()
 
         if not password:
-            raise ValueError('User must provide a password.')
+            raise custom_exceptions.DataForNewAccountNotProvided()
+
+        if Account.objects.filter(email=email).exists():
+            raise custom_exceptions.AccountAlreadyExistsException(
+                message=
+                'An account with email: {} already exists in the database'.
+                format(email))
 
         normalized_email: str = self.normalize_email(email=email)
         user: Account = self.model(email=normalized_email)

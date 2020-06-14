@@ -1,17 +1,18 @@
 from django.test import TestCase
 
+from . import custom_exceptions
 from . import models
 
 
 class TestModels(TestCase):
     def test_create_user_no_email_raises_value_error(self):
-        self.assertRaises(ValueError,
+        self.assertRaises(custom_exceptions.DataForNewAccountNotProvided,
                           models.Account.objects.create_user,
                           email='',
                           password='1234')
 
     def test_create_user_no_password_raises_value_error(self):
-        self.assertRaises(ValueError,
+        self.assertRaises(custom_exceptions.DataForNewAccountNotProvided,
                           models.Account.objects.create_user,
                           email='test@gmail.com',
                           password='')

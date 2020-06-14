@@ -1,8 +1,8 @@
 """API endpoints for the React frontend to consume."""
 import datetime
 import logging
+import json
 
-from django.db.utils import IntegrityError
 from rest_framework import decorators
 from rest_framework import permissions
 from rest_framework.request import Request
@@ -10,6 +10,7 @@ from rest_framework import response
 from rest_framework import status
 from rest_framework import views
 
+from . import custom_exceptions
 from . import models
 from . import serializers
 
@@ -22,29 +23,39 @@ class HTTPMethod:
 class AccountsEndpoint(views.APIView):
     def post(self, request: Request) -> response.Response:
         """Registers a new account."""
-        logging.info(msg='Registering new account with request data {}.'.
-                     format(request.data.__str__()))
+        logging.info('Registering new account with request data {}.'.format(
+            json.dumps(request.data)))
+        try:
+            email = request.data['email']
+            password = request.data['password']
+            first_name = request.data['firstName']
+            last_name = request.data['lastName']
+            year = request.data['dateOfBirth']['year']
+            month = request.data['dateOfBirth']['month']
+            day = request.data['dateOfBirth']['day']
+            sex = request.data['sex']
+        except KeyError:
+            custom_exception = custom_exceptions.DataForNewAccountNotProvided()
+            return response.Response(
+                data=custom_exception.get_response_format(),
+                status=status.HTTP_400_BAD_REQUEST)
+
         account: models.Account
         try:
-            account = models.Account.objects.create_user(
-                email=request.data['email'], password=request.data['password'])
-            date_of_birth: datetime.date = datetime.date(
-                request.data['dateOfBirth']['year'],
-                request.data['dateOfBirth']['month'],
-                request.data['dateOfBirth']['day'])
-            models.PatientProfile.objects.create(
-                account=account,
-                first_name=request.data['firstName'],
-                last_name=request.data['lastName'],
-                date_of_birth=date_of_birth,
-                sex=request.data['sex'])
-        except IntegrityError:
-            return response.Response(
-                data='An account already exists with that email.',
-                status=status.HTTP_400_BAD_REQUEST)
-        except ValueError as value_error:
-            return response.Response(data=value_error.__str__(),
+            account = models.Account.objects.create_user(email=email,
+                                                         password=password)
+        except custom_exceptions.AccountAlreadyExistsException as e:
+            return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
+
+        date_of_birth: datetime.date = datetime.date(year=year,
+                                                     month=month,
+                                                     day=day)
+        models.PatientProfile.objects.create(account=account,
+                                             first_name=first_name,
+                                             last_name=last_name,
+                                             date_of_birth=date_of_birth,
+                                             sex=sex)
 
         serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
             instance=account)
