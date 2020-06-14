@@ -43,3 +43,13 @@ class DataForNewAccountNotProvided(CustomException):
 
     def get_user_facing_message(self):
         return self.USER_FACING_MESSAGE
+
+
+class DataForNewVisitNotProvided(CustomException):
+    USER_FACING_MESSAGE = 'Some information to create visit was not provided!'
+
+    def __init__(self, message=None):
+        super().__init__(message)
+
+    def get_user_facing_message(self):
+        return self.USER_FACING_MESSAGE
