@@ -6,7 +6,7 @@ from . import api
 
 
 class AccountsPermissions(permissions.BasePermission):
-    def has_permission(self, request: Request, view) -> bool:
+    def has_permission(self, request: Request, view=None) -> bool:
         # If creating new account, allow permission without authentication.
         if request.method == api.HTTPMethod.POST:
             return True
@@ -18,7 +18,7 @@ class AccountsPermissions(permissions.BasePermission):
 
 
 class VisitsPermissions(permissions.BasePermission):
-    def has_permission(self, request: Request, view) -> bool:
+    def has_permission(self, request: Request, view=None) -> bool:
         # Require authentication to create a visit.
         if request.method == api.HTTPMethod.POST:
             if request.user and request.user.is_authenticated:

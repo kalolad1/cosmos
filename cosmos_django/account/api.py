@@ -17,6 +17,7 @@ from . import serializers
 class HTTPMethod:
     GET = 'GET'
     POST = 'POST'
+    PUT = 'PUT'
 
 
 class AccountsEndpoint(views.APIView):
