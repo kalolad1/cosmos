@@ -15,18 +15,20 @@ from . import serializers
 
 
 class HTTPMethod:
+    """Defines HTTP method constants."""
     GET = 'GET'
     POST = 'POST'
     PUT = 'PUT'
 
 
 class AccountsEndpoint(views.APIView):
+    """Endpoints for Account objects."""
     permission_classes = (custom_permissions.AccountsPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Registers a new account."""
-        logging.info('Registering new account with request data {}.'.format(
-            json.dumps(request.data)))
+        logging.info('Registering new account with request data %s.',
+                     json.dumps(request.data))
         try:
             email = request.data['email']
             password = request.data['password']
@@ -75,6 +77,7 @@ class AccountsEndpoint(views.APIView):
 
 
 class VisitsEndpoint(views.APIView):
+    """Endpoints for Visit objects."""
     permission_classes = (custom_permissions.VisitsPermissions, )
 
     def post(self, request: Request) -> response.Response:
