@@ -4,7 +4,7 @@ from rest_framework import request
 from rest_framework import test
 
 from . import api
-from . import api_permissions
+from . import custom_permissions
 from . import models
 
 TEST_ACCOUNT_REQUEST_DATA = {
@@ -23,7 +23,7 @@ TEST_ACCOUNT_REQUEST_DATA = {
 
 class TestAccountsPermissions(test.APITestCase):
     def setUp(self):
-        self.account_permissions = api_permissions.AccountsPermissions()
+        self.account_permissions = custom_permissions.AccountsPermissions()
 
     def _create_test_account(self):
         url = urls.reverse('account/accounts')

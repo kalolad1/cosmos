@@ -8,7 +8,7 @@ from rest_framework import response
 from rest_framework import status
 from rest_framework import views
 
-from . import api_permissions
+from . import custom_permissions
 from . import custom_exceptions
 from . import models
 from . import serializers
@@ -21,7 +21,7 @@ class HTTPMethod:
 
 
 class AccountsEndpoint(views.APIView):
-    permission_classes = (api_permissions.AccountsPermissions, )
+    permission_classes = (custom_permissions.AccountsPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Registers a new account."""
@@ -75,7 +75,7 @@ class AccountsEndpoint(views.APIView):
 
 
 class VisitsEndpoint(views.APIView):
-    permission_classes = (api_permissions.VisitsPermissions, )
+    permission_classes = (custom_permissions.VisitsPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Adds a new visit for the user."""
