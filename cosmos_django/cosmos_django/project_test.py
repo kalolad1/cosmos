@@ -15,7 +15,7 @@ class TestProject(test.TestCase):
 
         if pr.returncode != 0:
             print('\n\n{}\n\n'.format(out.decode("utf-8")))
-            self.fail('Type checking errors were found.')
+            self.fail('Type checking errors found.')
 
 
 class LiveServerTests(test.LiveServerTestCase):
