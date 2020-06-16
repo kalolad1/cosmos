@@ -29,3 +29,7 @@ frontend/src/axiosClient.js
 
 # Logging
 /logs/
+
+# Coverage
+.coverage
+htmlcov/
