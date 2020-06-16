@@ -22,7 +22,10 @@ class LiveServerTests(test.LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super(LiveServerTests, cls).setUpClass()
-        cls.selenium = webdriver.Chrome(ChromeDriverManager().install())
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        cls.selenium = webdriver.Chrome(ChromeDriverManager().install(),
+                                        options=options)
 
     @classmethod
     def tearDownClass(cls):
