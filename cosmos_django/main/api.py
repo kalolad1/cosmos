@@ -67,8 +67,8 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_201_CREATED)
 
     def get(self, request: Request) -> response.Response:
-        """Returns the users account if they are authenticated."""
-        logging.info(msg='Request for account data with data: {}.'.format(
+        """Returns the users main if they are authenticated."""
+        logging.info(msg='Request for main data with data: {}.'.format(
             request.data.__str__()))
         serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
             instance=request.user)

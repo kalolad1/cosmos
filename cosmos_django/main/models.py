@@ -22,9 +22,8 @@ class AccountManager(BaseUserManager):
 
         if Account.objects.filter(email=email).exists():
             raise custom_exceptions.AccountAlreadyExistsException(
-                message=
-                'An account with email: {} already exists in the database'.
-                format(email))
+                message='An main with email: {} already exists in the database'
+                .format(email))
 
         normalized_email: str = self.normalize_email(email=email)
         user: Account = self.model(email=normalized_email)
@@ -42,7 +41,7 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-    """The Base User account."""
+    """The Base User main."""
     email: models.EmailField = models.EmailField(
         max_length=60, unique=True, validators=[MinLengthValidator(1)])
     date_joined: models.DateTimeField = models.DateTimeField(auto_now_add=True)

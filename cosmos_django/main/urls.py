@@ -10,6 +10,6 @@ urlpatterns = [
     path('token/refresh/',
          jwt_views.TokenRefreshView.as_view(),
          name='token_refresh'),
-    path('accounts/', api.AccountsEndpoint.as_view(), name='account/accounts'),
-    path('visits/', api.VisitsEndpoint.as_view(), name='account/visits'),
+    path('accounts/', api.AccountsEndpoint.as_view(), name='main/accounts'),
+    path('visits/', api.VisitsEndpoint.as_view(), name='main/visits'),
 ]

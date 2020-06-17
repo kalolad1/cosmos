@@ -26,7 +26,7 @@ class CustomException(Exception):
 
 
 class AccountAlreadyExistsException(CustomException):
-    USER_FACING_MESSAGE = 'An account already exists with that email.'
+    USER_FACING_MESSAGE = 'An main already exists with that email.'
 
     def __init__(self, message=None):
         super().__init__(message)
@@ -36,7 +36,8 @@ class AccountAlreadyExistsException(CustomException):
 
 
 class DataForNewAccountNotProvided(CustomException):
-    USER_FACING_MESSAGE = 'Email or password was not provided!'
+    USER_FACING_MESSAGE = 'All information need to create a new account was not' \
+                          ' provided!'
 
     def __init__(self, message=None):
         super().__init__(message)

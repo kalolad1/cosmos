@@ -7,10 +7,10 @@ from . import api
 
 class AccountsPermissions(permissions.BasePermission):
     def has_permission(self, request: Request, view=None) -> bool:
-        # If creating new account, allow permission without authentication.
+        # If creating new main, allow permission without authentication.
         if request.method == api.HTTPMethod.POST:
             return True
-        # If accessing account, require authentication.
+        # If accessing main, require authentication.
         elif request.method == api.HTTPMethod.GET:
             if request.user and request.user.is_authenticated:
                 return True

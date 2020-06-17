@@ -26,7 +26,7 @@ class TestAccountsPermissions(test.APITestCase):
         self.account_permissions = custom_permissions.AccountsPermissions()
 
     def _create_test_account(self):
-        url = urls.reverse('account/accounts')
+        url = urls.reverse('main/accounts')
         return self.client.post(url, TEST_ACCOUNT_REQUEST_DATA, format='json')
 
     def test_create_new_account_succeeds(self):

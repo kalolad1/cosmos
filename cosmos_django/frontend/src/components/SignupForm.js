@@ -30,12 +30,11 @@ class SignupForm extends React.Component {
             'firstName': '',
             'lastName': '',
             'dateOfBirth': new Date(),
-            'sex': '',
+            'sex': SEX_OPTIONS[0].name,
         };
 
         this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleSexSelectChange = this.handleSexSelectChange.bind(this);
         this.createSexOptions = this.createSexOptions.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
@@ -61,7 +60,6 @@ class SignupForm extends React.Component {
         console.log('Handling registration request.');
         event.preventDefault();
         let self = this;
-        console.log(this.state.dateOfBirth);
         axiosClient.post(apiEndpoints.ACCOUNTS, {
             email: this.state.email,
             password: this.state.password,
@@ -72,7 +70,7 @@ class SignupForm extends React.Component {
                 'month': this.state.dateOfBirth.getMonth() + 1,  // Zero index to 1 index
                 'day': this.state.dateOfBirth.getDate()
             },
-            sex: this.state.sex.value
+            sex: this.state.sex
         })
             .then(function (response) {
                 console.log('User registered successfully.');
@@ -88,12 +86,6 @@ class SignupForm extends React.Component {
         this.setState({
             'dateOfBirth': date
         });
-    }
-
-    handleSexSelectChange(selectedOption) {
-        this.setState({
-            'sex': selectedOption
-        })
     }
 
     render() {
@@ -131,7 +123,6 @@ class SignupForm extends React.Component {
                             <p>Date of birth</p>
                             <DatePicker selected={this.state.dateOfBirth} onChange={this.handleDateChange}/>
                         </Form.Group>
-
 
                         <Form.Group>
                             <Form.Label>Sex</Form.Label>

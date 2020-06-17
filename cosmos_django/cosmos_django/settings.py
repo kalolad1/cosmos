@@ -19,7 +19,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 INSTALLED_APPS = [
     'rest_framework',
-    'account',
+    'main',
     'frontend',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,7 +58,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'account.Account'
+AUTH_USER_MODEL = 'main.Account'
 
 WSGI_APPLICATION = 'cosmos_django.wsgi.application'
 

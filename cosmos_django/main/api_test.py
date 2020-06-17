@@ -28,7 +28,7 @@ TEST_VISIT_REQUEST_DATA = {
 
 class TestApi(test.APITestCase):
     def _create_test_account(self, request_data=None):
-        url = urls.reverse('account/accounts')
+        url = urls.reverse('main/accounts')
         if request_data:
             return self.client.post(url, request_data, format='json')
         return self.client.post(url, TEST_ACCOUNT_REQUEST_DATA, format='json')
@@ -85,7 +85,7 @@ class TestApi(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_get_account_fails_not_authenticated(self):
-        url = urls.reverse('account/accounts')
+        url = urls.reverse('main/accounts')
         response = self.client.get(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -94,13 +94,13 @@ class TestApi(test.APITestCase):
         self._create_test_account()
         self.client.force_authenticate(user=models.Account.objects.first())
 
-        url = urls.reverse('account/accounts')
+        url = urls.reverse('main/accounts')
         response = self.client.get(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_visit_fails_not_authenticated(self):
-        url = urls.reverse('account/visits')
+        url = urls.reverse('main/visits')
         response = self.client.post(url,
                                     TEST_VISIT_REQUEST_DATA,
                                     format='json')
@@ -110,7 +110,7 @@ class TestApi(test.APITestCase):
     def test_create_visit_fails_data_not_provided(self):
         self._create_test_account()
         self.client.force_authenticate(user=models.Account.objects.first())
-        url = urls.reverse('account/visits')
+        url = urls.reverse('main/visits')
         request_data = copy.deepcopy(TEST_VISIT_REQUEST_DATA)
         request_data.pop('note')
 
@@ -124,7 +124,7 @@ class TestApi(test.APITestCase):
     def test_create_visit_succeeds(self):
         self._create_test_account()
         self.client.force_authenticate(user=models.Account.objects.first())
-        url = urls.reverse('account/visits')
+        url = urls.reverse('main/visits')
 
         response = self.client.post(url,
                                     TEST_VISIT_REQUEST_DATA,
