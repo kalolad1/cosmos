@@ -4,14 +4,14 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'chmod +x ./cosmos_django/jenkins_scripts/test.sh'
-                sh './cosmos_django/jenkins_scripts/test.sh'
+                sh 'chmod +x ./cosmos_django/deploy_scripts/test.sh'
+                sh './cosmos_django/deploy_scripts/test.sh'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'chmod +x ./cosmos_django/jenkins_scripts/deploy.sh'
-                sh './cosmos_django/jenkins_scripts/deploy.sh'
+                sh 'chmod +x ./cosmos_django/deploy_scripts/deploy.sh'
+                sh './cosmos_django/deploy_scripts/deploy.sh'
             }
         }
     }
