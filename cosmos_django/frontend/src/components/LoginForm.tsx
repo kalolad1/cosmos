@@ -1,13 +1,21 @@
-import React from 'react'
-import {Link, withRouter} from 'react-router-dom';
+import * as React from 'react'
+import * as ReactRouterDOM from 'react-router-dom';
 
-import UrlPaths from "../urlPaths";
+import * as urlPaths from "../url_paths";
+
 import {sendLoginRequest} from "../authUtil";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {ChangeEvent, FormEvent} from "react";
+import {url} from "inspector";
 
 
-class LoginForm extends React.Component {
+interface LoginFormState {
+    email: string,
+    password: string
+}
+
+class LoginForm extends React.Component<any, Partial<LoginFormState>> {
 
     constructor(props) {
         super(props);
@@ -19,10 +27,11 @@ class LoginForm extends React.Component {
         this.handleLoginRequest = this.handleLoginRequest.bind(this);
     }
 
-    handleInputChange(event) {
-        const name = event.target.name;
+    handleInputChange(event): void {
+        const element = event.target;
+        const name: string = element.name;
         this.setState({
-            [name]: event.target.value
+            [name]: element.value
         });
     }
 
@@ -32,7 +41,7 @@ class LoginForm extends React.Component {
         let self = this;
         sendLoginRequest(this.state.email, this.state.password)
             .then(function (response) {
-                self.props.history.replace(UrlPaths.HOME);
+                self.props.history.replace(urlPaths.HOME);
             })
     }
 
@@ -60,9 +69,9 @@ class LoginForm extends React.Component {
                                 Submit
                             </Button>
                         </div>
-                        <Link to={UrlPaths.SIGNUP}>
+                        <ReactRouterDOM.Link to={urlPaths.SIGNUP}>
                             <p>Not an existing user? Sign up here.</p>
-                        </Link>
+                        </ReactRouterDOM.Link>
                     </Form>
                 </div>
             </div>
@@ -70,4 +79,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default withRouter(LoginForm);
+export default ReactRouterDOM.withRouter(LoginForm);

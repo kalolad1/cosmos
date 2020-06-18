@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 from django import test
@@ -25,7 +26,8 @@ class LiveServerTests(test.LiveServerTestCase):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         cls.selenium = webdriver.Chrome(ChromeDriverManager().install(),
-                                        options=options)
+                                        options=options,
+                                        service_log_path=os.path.devnull)
 
     @classmethod
     def tearDownClass(cls):

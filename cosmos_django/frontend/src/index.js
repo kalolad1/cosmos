@@ -1,2 +1,2 @@
-import App from './components/App';
+import * as App from './components/App.tsx';
 

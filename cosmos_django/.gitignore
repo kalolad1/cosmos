@@ -33,3 +33,7 @@ frontend/src/axiosClient.js
 # Coverage
 .coverage
 htmlcov/
+
+# Type script
+/build/
+/dist/

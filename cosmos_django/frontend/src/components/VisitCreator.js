@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import axiosClient from "../axiosClient";
 import apiEndpoints from "../apiEndpoints";
 import {sendLoginRequest} from "../authUtil";
-import UrlPaths from "../urlPaths";
+import Url_paths from "../url_paths";
 import CONSTANTS from "../constants";
 
 const VISIT_OPTIONS = [

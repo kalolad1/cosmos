@@ -4,7 +4,7 @@ import {Link, withRouter} from "react-router-dom";
 import apiEndpoints from "../apiEndpoints";
 import {sendLoginRequest} from "../authUtil";
 import axiosClient from "../axiosClient";
-import UrlPaths from "../urlPaths";
+import Url_paths from "../url_paths";
 
 import DatePicker from "react-datepicker";
 import Select from 'react-select';
@@ -77,7 +77,7 @@ class SignupForm extends React.Component {
                 console.log(response.data);
                 sendLoginRequest(self.state.email, self.state.password)
                     .then(function (response) {
-                        self.props.history.replace(UrlPaths.HOME);
+                        self.props.history.replace(Url_paths.HOME);
                     })
             });
     }
@@ -136,7 +136,7 @@ class SignupForm extends React.Component {
                                 Submit
                             </Button>
                         </div>
-                        <Link to={UrlPaths.LOGIN}>
+                        <Link to={Url_paths.LOGIN}>
                             <p>Existing user? Log in here.</p>
                         </Link>
                     </Form>

@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 import apiEndpoints from "../apiEndpoints";
 import axiosClient from "../axiosClient";
 import CONSTANTS from '../constants';
-import UrlPaths from "../urlPaths";
+import Url_paths from "../url_paths";
 
 import PatientCharts from "./PatientCharts";
 import PatientHeader from "./PatientHeader";
@@ -64,7 +64,7 @@ class PatientHome extends React.Component {
                 return await this.getAccountInformationWithAccessToken();
             } catch (error) {
                 this.removeTokens();
-                this.props.history.replace(UrlPaths.ROOT);
+                this.props.history.replace(Url_paths.ROOT);
             }
         }
     }
@@ -87,7 +87,7 @@ class PatientHome extends React.Component {
         console.log('LOGGING OUT!');
         localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
         localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
-        this.props.history.replace(UrlPaths.LOGIN);
+        this.props.history.replace(Url_paths.LOGIN);
     }
 
     render() {

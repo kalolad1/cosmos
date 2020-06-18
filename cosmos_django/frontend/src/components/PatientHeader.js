@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import PatientHeaderMetadata from "./PatientHeaderMetadata";
-import UrlPaths from "../urlPaths";
+import Url_paths from "../url_paths";
 
 
 class PatientHeader extends React.Component {
@@ -14,7 +14,7 @@ class PatientHeader extends React.Component {
 
     handleNewVisitButtonClick(event) {
         event.preventDefault();
-        this.props.history.push(UrlPaths.CREATE_VISIT);
+        this.props.history.push(Url_paths.CREATE_VISIT);
     }
 
     render() {
