@@ -30,8 +30,7 @@
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "gts": "^2.0.2",
-    "@types/node": "^13.11.1"
+    "gts": "^2.0.2"
   },
   "dependencies": {
     "@types/jest": "^26.0.0",
