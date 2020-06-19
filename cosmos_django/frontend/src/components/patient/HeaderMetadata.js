@@ -1,6 +1,6 @@
 import React from 'react';
 
-class PatientHeaderMetadata extends React.Component {
+class HeaderMetadata extends React.Component {
     render() {
         return (
             <div className="patient-header-metadata">
@@ -11,4 +11,4 @@ class PatientHeaderMetadata extends React.Component {
     }
 }
 
-export default PatientHeaderMetadata;
+export default HeaderMetadata;

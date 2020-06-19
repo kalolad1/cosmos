@@ -3,7 +3,7 @@ import Vaccination from "./Vaccination";
 
 class Vaccinations extends React.Component {
     render() {
-        const vaccinations = this.props.account.patient_profile.vaccinations.map(function (vaccinationData) {
+        const vaccinations = this.props.vaccinations.map(function (vaccinationData) {
             return <Vaccination data={vaccinationData} key={vaccinationData.id}/>
         });
         return (

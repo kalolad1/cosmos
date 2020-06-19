@@ -1,11 +1,12 @@
-import React from "react";
+/* Contains the timeline for patient visits. */
+import * as React from "react";
 
 import Visit from './Visit'
 
 class Timeline extends React.Component {
 
     render() {
-        const visits = this.props.account.patient_profile.visits.map(function (visitData) {
+        const visits = this.props.visits.map(function (visitData) {
             return <Visit data={visitData} key={visitData.id}/>
         });
         return (

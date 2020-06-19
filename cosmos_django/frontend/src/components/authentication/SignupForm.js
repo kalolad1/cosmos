@@ -1,17 +1,15 @@
-import React from 'react'
-import {Link, withRouter} from "react-router-dom";
+import * as React from 'react'
+import 'react-datepicker/dist/react-datepicker.css';
+import * as ReactRouterDOM from 'react-router-dom';
 
-import apiEndpoints from "../apiEndpoints";
-import {sendLoginRequest} from "../authUtil";
-import axiosClient from "../axiosClient";
-import Url_paths from "../url_paths";
+import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
+import * as urlPathConstants from '../../constants/url_path_constants';
+import * as axiosConfig from '../../configs/axios_config';
+import * as authUtil from '../../util/auth_util';
 
-import DatePicker from "react-datepicker";
-import Select from 'react-select';
-
-import "react-datepicker/dist/react-datepicker.css";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import DatePicker from 'react-datepicker';
 
 
 const SEX_OPTIONS = [
@@ -57,10 +55,9 @@ class SignupForm extends React.Component {
     }
 
     handleRegistrationRequest(event) {
-        console.log('Handling registration request.');
         event.preventDefault();
         let self = this;
-        axiosClient.post(apiEndpoints.ACCOUNTS, {
+        axiosConfig.axiosClient.post(apiEndpointConstants.ACCOUNTS, {
             email: this.state.email,
             password: this.state.password,
             firstName: this.state.firstName,
@@ -73,11 +70,9 @@ class SignupForm extends React.Component {
             sex: this.state.sex
         })
             .then(function (response) {
-                console.log('User registered successfully.');
-                console.log(response.data);
-                sendLoginRequest(self.state.email, self.state.password)
-                    .then(function (response) {
-                        self.props.history.replace(Url_paths.HOME);
+                authUtil.sendLoginRequest(self.state.email, self.state.password)
+                    .then(function () {
+                        self.props.history.replace(urlPathConstants.HOME);
                     })
             });
     }
@@ -136,9 +131,9 @@ class SignupForm extends React.Component {
                                 Submit
                             </Button>
                         </div>
-                        <Link to={Url_paths.LOGIN}>
+                        <ReactRouterDOM.Link to={urlPathConstants.LOGIN}>
                             <p>Existing user? Log in here.</p>
-                        </Link>
+                        </ReactRouterDOM.Link>
                     </Form>
                 </div>
             </div>
@@ -146,4 +141,4 @@ class SignupForm extends React.Component {
     }
 }
 
-export default withRouter(SignupForm);
+export default ReactRouterDOM.withRouter(SignupForm);

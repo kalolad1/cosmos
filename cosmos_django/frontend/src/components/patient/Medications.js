@@ -3,7 +3,7 @@ import Medication from "./Medication";
 
 class Medications extends React.Component {
     render() {
-        const medications = this.props.account.patient_profile.medications.map(function (medicationData) {
+        const medications = this.props.medications.map(function (medicationData) {
             return <Medication data={medicationData} key={medicationData.id}/>
         });
         return (

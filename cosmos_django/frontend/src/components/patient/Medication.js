@@ -1,4 +1,5 @@
-import React from 'react';
+/* A component that represents a single medication. */
+import * as React from 'react';
 
 class Medication extends React.Component {
     render() {
