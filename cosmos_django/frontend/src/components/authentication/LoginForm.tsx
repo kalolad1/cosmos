@@ -34,7 +34,7 @@ class LoginForm extends React.Component<any, Partial<LoginFormState>> {
     }
 
 
-    handleLoginRequest(event) {
+    handleLoginRequest(event: React.SyntheticEvent): void {
         event.preventDefault();
         let self = this;
         authUtil.sendLoginRequest(this.state.email, this.state.password)
