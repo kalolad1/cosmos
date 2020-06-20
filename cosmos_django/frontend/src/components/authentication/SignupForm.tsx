@@ -147,7 +147,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                             <FormControl variant="outlined" className="login-signup-input-field">
                                 <InputLabel id="sex-label">Sex</InputLabel>
                                 <Select
-                                    labelId="age-label"
+                                    labelId="sex-label"
                                     id="sex"
                                     name="sex"
                                     value={this.state.sex}
