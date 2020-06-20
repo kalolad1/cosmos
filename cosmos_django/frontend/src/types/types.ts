@@ -3,7 +3,7 @@ export interface Account {
     patient_profile?: PatientProfile,
 }
 
-interface PatientProfile {
+export interface PatientProfile {
     account: number,
     id: number,
     first_name: string,

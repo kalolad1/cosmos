@@ -113,12 +113,13 @@
 }
 
 /* Patient charts */
-.patient-charts {
+.charts {
     margin-top: 10px;
 }
 
-.patient-chart-content-container {
-    margin-top: 10px;
+.chart-content-container {
+    margin-top: 20px;
+    padding: 20px;
 }
 
 /* Visit */

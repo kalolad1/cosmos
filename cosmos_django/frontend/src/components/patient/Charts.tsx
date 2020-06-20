@@ -1,6 +1,9 @@
 /* Contains all the charts of the patient, organized in tabs. */
 import * as React from 'react';
 
+import * as types from '../../types/types';
+
+import {Divider} from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
@@ -9,7 +12,16 @@ import Timeline from "./Timeline";
 import Vaccinations from "./Vaccinations";
 
 
-class Charts extends React.Component {
+interface ChartsProps {
+    patientProfile?: types.PatientProfile,
+}
+
+interface ChartsState {
+    selectedTab: number,
+}
+
+
+class Charts extends React.Component<ChartsProps, ChartsState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +32,7 @@ class Charts extends React.Component {
         this.getOpenChartComponent = this.getOpenChartComponent.bind(this);
     }
 
-    handleTabChange(event, newValue) {
+    handleTabChange(event: React.SyntheticEvent, newValue: number): void {
         this.setState({
             ...this.state,
             selectedTab: newValue,
@@ -32,40 +44,39 @@ class Charts extends React.Component {
         switch(this.state.selectedTab) {
             case 0:
                 openChart = <Timeline
-                    visits={this.props.patient_profile.visits}/>;
+                    visits={this.props.patientProfile?.visits}/>;
                 break;
             case 1:
                 openChart = <Medications
-                    medications={this.props.patient_profile.medications}/>;
+                    medications={this.props.patientProfile?.medications}/>;
                 break;
             case 2:
                 openChart = <Vaccinations
-                    vaccinations={this.props.patient_profile.vaccinations}/>;
+                    vaccinations={this.props.patientProfile?.vaccinations}/>;
                 break;
             default:
                 openChart = <Timeline
-                    visits={this.props.patient_profile.visits}/>;
+                    visits={this.props.patientProfile?.visits}/>;
         }
         return openChart;
     }
 
     render() {
         return (
-            <div className="patient-charts">
-                <div className="rounded-grey-container">
+            <div className="charts">
+                <div>
                     <Tabs
                         value={this.state.selectedTab}
                         onChange={this.handleTabChange}
                         indicatorColor="primary"
                         textColor="primary"
-                        centered
-                    >
+                        centered>
                         <Tab label="Timeline"/>
                         <Tab label="Medications"/>
                         <Tab label="Vaccinations"/>
                     </Tabs>
                 </div>
-                <div>
+                <div className="chart-content-container rounded-grey-container">
                     {this.getOpenChartComponent()}
                 </div>
             </div>

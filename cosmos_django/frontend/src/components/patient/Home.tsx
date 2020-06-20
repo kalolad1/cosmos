@@ -166,7 +166,7 @@ class Home extends React.Component<any, HomeState> {
                                 sex={this.state.account?.patient_profile?.sex}
                                 age={this.state.account?.patient_profile?.age}
                             />
-                            <Charts patient_profile={this.state.account.patient_profile}/>
+                            <Charts patientProfile={this.state.account.patient_profile}/>
                         </div>
                     </main>
                 </div>
