@@ -115,9 +115,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                     <form
                         className="login-signup-form"
                         onSubmit={this.handleRegistrationRequest}>
-                        <div className="login-signup-input-container">
+                        <div className="form-input-container">
                             <TextField
-                                className="login-signup-input-field"
+                                className="form-input-field"
                                 name="email"
                                 onChange={this.handleInputChange}
                                 value={this.state.email}
@@ -125,9 +125,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 type="email"
                                 variant="outlined"/>
                         </div>
-                        <div className="login-signup-input-container">
+                        <div className="form-input-container">
                             <TextField
-                                className="login-signup-input-field"
+                                className="form-input-field"
                                 name="password"
                                 onChange={this.handleInputChange}
                                 value={this.state.password}
@@ -135,9 +135,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 type="password"
                                 variant="outlined"/>
                         </div>
-                        <div className="login-signup-input-container">
+                        <div className="form-input-container">
                             <TextField
-                                className="login-signup-input-field"
+                                className="form-input-field"
                                 name="firstName"
                                 onChange={this.handleInputChange}
                                 value={this.state.firstName}
@@ -145,9 +145,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 type="text"
                                 variant="outlined"/>
                         </div>
-                        <div className="login-signup-input-container">
+                        <div className="form-input-container">
                             <TextField
-                                className="login-signup-input-field"
+                                className="form-input-field"
                                 name="lastName"
                                 onChange={this.handleInputChange}
                                 value={this.state.lastName}
@@ -155,12 +155,13 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 type="text"
                                 variant="outlined"/>
                         </div>
-                        <div className="login-signup-input-container">
+                        <div className="form-input-container">
                             <FormControl
                                 variant="outlined"
-                                className="login-signup-input-field">
+                                className="form-input-field">
                                 <InputLabel id="sex-label">Sex</InputLabel>
                                 <Select
+                                    displayEmpty
                                     labelId="sex-label"
                                     id="sex"
                                     name="sex"
@@ -170,7 +171,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 </Select>
                             </FormControl>
                         </div>
-                        <div className="login-signup-form-button-container">
+                        <div className="form-button-container">
                             <Button
                                 variant="contained"
                                 color="secondary"

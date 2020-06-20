@@ -56,9 +56,9 @@ class LoginForm extends React.Component<any, LoginFormState> {
                     <form
                         className="login-signup-form"
                         onSubmit={this.handleLoginRequest}>
-                        <div className="login-signup-input-container">
+                        <div className="form-input-container">
                             <TextField
-                                className="login-signup-input-field"
+                                className="form-input-field"
                                 name="email"
                                 onChange={this.handleInputChange}
                                 value={this.state.email}
@@ -66,9 +66,9 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 type="email"
                                 variant="outlined"/>
                         </div>
-                        <div className="login-signup-input-container">
+                        <div className="form-input-container">
                             <TextField
-                                className="login-signup-input-field"
+                                className="form-input-field"
                                 name="password"
                                 onChange={this.handleInputChange}
                                 value={this.state.password}
@@ -76,7 +76,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 type="password"
                                 variant="outlined"/>
                         </div>
-                        <div className="login-signup-form-button-container">
+                        <div className="form-button-container">
                             <Button
                                 type="submit"
                                 variant="contained"

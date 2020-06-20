@@ -53,20 +53,6 @@
     margin-bottom: 20px;
 }
 
-.login-signup-form-button-container {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-}
-
-.login-signup-input-container {
-    margin-top: 20px;
-}
-
-.login-signup-input-field {
-    width: 100%;
-}
-
 .login-signup-redirect-link-container {
     display: flex;
     justify-content: center;
@@ -187,6 +173,7 @@
 }
 
 /* Utilities */
+/* Containers */
 .rounded-grey-container {
     border: 1px solid lightgrey;
     border-radius: 10px;
@@ -195,4 +182,19 @@
 
 .box-shadow-container {
     box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+}
+
+/* Forms */
+.form-input-container {
+    margin-top: 20px;
+}
+
+.form-input-field {
+    width: 100%;
+}
+
+.form-button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }

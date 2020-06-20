@@ -10,7 +10,7 @@ import * as authUtil from '../util/auth_util';
 import LoginForm from '../components/authentication/LoginForm';
 import SignupForm from './authentication/SignupForm';
 import PatientHome from './patient/Home';
-import VisitCreator from '../components/patient/VisitCreator';
+import VisitCreator from './patient/VisitCreator';
 
 
 class App extends React.Component {
