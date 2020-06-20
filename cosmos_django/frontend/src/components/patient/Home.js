@@ -1,5 +1,4 @@
 /* The patient home page. */
-
 import * as React from 'react'
 import * as ReactRouterDOM from 'react-router-dom';
 
@@ -8,7 +7,7 @@ import * as urlPathConstants from '../../constants/url_path_constants';
 import * as authUtil from '../../util/auth_util';
 
 import Charts from "./Charts";
-import PatientHeader from "./Header";
+import Header from "./Header";
 
 
 class Home extends React.Component {
@@ -71,7 +70,7 @@ class Home extends React.Component {
                         <button className="vertical-navbar-element">Icon #4</button>
                     </div>
                     <div className="patient-home-content">
-                        <PatientHeader
+                        <Header
                             profilePicture={this.state.account.patient_profile.profile_picture}
                             fullName={this.state.account.patient_profile.full_name}
                             sex={this.state.account.patient_profile.sex}

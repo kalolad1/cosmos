@@ -14,7 +14,6 @@ import VisitCreator from '../components/patient/VisitCreator';
 
 
 class App extends React.Component {
-
     render() {
         let rootUrl: string;
         if (authUtil.hasTokens()) {
@@ -38,7 +37,9 @@ class App extends React.Component {
                     <ReactRouterDOM.Route path={urlPathConstants.CREATE_VISIT}>
                         <VisitCreator/>
                     </ReactRouterDOM.Route>
-                    <ReactRouterDOM.Redirect from={urlPathConstants.ROOT} to={rootUrl}/>
+                    <ReactRouterDOM.Redirect
+                        from={urlPathConstants.ROOT}
+                        to={rootUrl}/>
                 </ReactRouterDOM.Switch>
             </ReactRouterDOM.HashRouter>
         );

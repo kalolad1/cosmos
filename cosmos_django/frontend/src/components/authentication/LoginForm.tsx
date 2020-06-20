@@ -5,7 +5,7 @@ import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as authUtil from '../../util/auth_util';
 
-import {Button, TextField} from "@material-ui/core";
+import {Button, TextField} from '@material-ui/core';
 
 
 interface LoginFormState {
@@ -18,7 +18,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
         super(props);
         this.state = {
             'email': '',
-            'password': ''
+            'password': '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLoginRequest = this.handleLoginRequest.bind(this);
@@ -29,17 +29,17 @@ class LoginForm extends React.Component<any, LoginFormState> {
         const name: string = element.name;
         this.setState({
             ...this.state,
-            [name]: element.value
+            [name]: element.value,
         });
     }
 
     handleLoginRequest(event: React.SyntheticEvent): void {
         event.preventDefault();
-        let self = this;
+        const self = this;
         authUtil.sendLoginRequest(this.state.email, this.state.password)
-            .then(function () {
+            .then(function() {
                 self.props.history.replace(urlPathConstants.HOME);
-            })
+            });
     }
 
     render() {
@@ -47,10 +47,14 @@ class LoginForm extends React.Component<any, LoginFormState> {
             <div className="login-signup-form-container">
                 <div className="login-signup-form-content rounded-grey-container box-shadow-container">
                     <div className="login-signup-form-content-logo-container">
-                        <img src={apiEndpointConstants.TEXT} alt="Cosmos logo with text."/>
+                        <img
+                            src={apiEndpointConstants.TEXT}
+                            alt="Cosmos logo with text."/>
                     </div>
                     <h1>Sign in</h1>
-                    <form className="login-signup-form" onSubmit={this.handleLoginRequest}>
+                    <form
+                        className="login-signup-form"
+                        onSubmit={this.handleLoginRequest}>
                         <div className="login-signup-input-container">
                             <TextField
                                 className="login-signup-input-field"
@@ -72,7 +76,10 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 variant="outlined"/>
                         </div>
                         <div className="login-signup-form-button-container">
-                            <Button variant="contained" color="secondary" size="large">
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                size="large">
                                 Next
                             </Button>
                         </div>
@@ -84,7 +91,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
                     </form>
                 </div>
             </div>
-        )
+        );
     }
 }
 
