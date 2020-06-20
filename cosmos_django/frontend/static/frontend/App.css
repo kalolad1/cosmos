@@ -92,6 +92,7 @@
 
 .patient-info {
     display: flex;
+    align-items: center;
 }
 
 .profile-picture {

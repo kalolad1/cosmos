@@ -5,41 +5,52 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
 
 import HeaderMetadata from "./HeaderMetadata";
+import {Avatar} from "@material-ui/core";
 
+interface HeaderProps {
+    profilePicture: string,
+    fullName: string,
+    firstName: string,
+    lastName: string,
+    sex: string,
+    age: number,
+    history: any,
+}
 
-class Header extends React.Component {
+class Header extends React.Component<HeaderProps, any> {
     constructor(props) {
         super(props);
         this.handleNewVisitButtonClick = this.handleNewVisitButtonClick.bind(this);
-        this.getProfilePictureSource = this.getProfilePictureSource.bind(this);
+        this.getPatientInitials = this.getPatientInitials.bind(this);
     }
 
-    handleNewVisitButtonClick(event) {
+    handleNewVisitButtonClick(event: React.SyntheticEvent): void {
         event.preventDefault();
         this.props.history.push(urlPathConstants.CREATE_VISIT);
     }
 
-    getProfilePictureSource() {
-        let profilePictureSource;
-        if (this.props.profilePicture !== null) {
-            profilePictureSource = this.props.profilePicture;
-        } else {
-            profilePictureSource = 'https://images.unsplash.com/photo-1542044896530-05d85be9b11a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'
-        }
-        return profilePictureSource;
+    getPatientInitials(): string {
+        return this.props.firstName[0] + this.props.lastName[0];
     }
 
     render() {
         return (
             <div className="patient-header rounded-grey-container">
                 <div className="patient-info">
-                    <img className="profile-picture" src={this.getProfilePictureSource()} alt="Patient profile picture."/>
+                    <Avatar
+                        alt={this.props.fullName}
+                        src={this.props.profilePicture}
+                        className="profile-picture">
+                        {this.getPatientInitials()}
+                    </Avatar>
                     <HeaderMetadata
                         fullName={this.props.fullName}
                         sex={this.props.sex}
                         age={this.props.age}/>
                 </div>
-                <button onClick={this.handleNewVisitButtonClick} className="new-visit-button">New Visit</button>
+                <button
+                    onClick={this.handleNewVisitButtonClick}
+                    className="new-visit-button">New Visit</button>
             </div>
         )
     }
