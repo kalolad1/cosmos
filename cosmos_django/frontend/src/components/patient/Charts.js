@@ -45,6 +45,7 @@ class Charts extends React.Component {
                 openChart = <Timeline
                     visits={this.props.patient_profile.visits}/>;
         }
+        return openChart;
     }
 
     render() {
