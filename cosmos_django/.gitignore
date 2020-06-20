@@ -26,6 +26,7 @@ frontend/src/constants/base_url_constant.tsx
 # Media and static
 /media/
 /static/
+frontend/static/frontend/main.js
 
 # Logging
 /logs/
