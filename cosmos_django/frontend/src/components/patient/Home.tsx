@@ -11,7 +11,6 @@ import Charts from './Charts';
 import Header from './Header';
 
 
-
 interface HomeState {
     account: types.Account,
     isLoading: boolean,
@@ -28,7 +27,6 @@ class Home extends React.Component<any, HomeState> {
         this.handleLogout = this.handleLogout.bind(this);
         this.getAccountInformationOrRedirectToLogin = this.getAccountInformationOrRedirectToLogin.bind(this);
     }
-
 
     async getAccountInformationOrRedirectToLogin() {
         try {
@@ -60,7 +58,6 @@ class Home extends React.Component<any, HomeState> {
     }
 
     handleLogout() {
-        // TODO: Setup a blacklist on server side.
         authUtil.clearTokens();
         this.props.history.replace(urlPathConstants.LOGIN);
     }
