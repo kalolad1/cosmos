@@ -21,7 +21,7 @@ node_modules/
 .mypy_cache/
 
 # Axios base URL
-frontend/src/configs/axios_config.js
+frontend/src/constants/base_url_constant.tsx
 
 # Media and static
 /media/

@@ -4,6 +4,8 @@
 
 import axios from 'axios';
 
+import * as apiEndpointConstants from '../constants/api_endpoint_constants'
+
 export const axiosClient = axios.create({
-    baseURL: 'http://localhost:8000/main/api/',
+    baseURL: apiEndpointConstants.API_URL,
 });
