@@ -1,6 +1,4 @@
-/* Configures the axios client. The app server will have a local version of
-* this file.
-*/
+/* Configures the axios client. */
 
 import axios from 'axios';
 
