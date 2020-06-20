@@ -5,7 +5,7 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
 
 import HeaderMetadata from "./HeaderMetadata";
-import {Avatar} from "@material-ui/core";
+import {Avatar, Button} from "@material-ui/core";
 
 interface HeaderProps {
     profilePicture: string,
@@ -48,9 +48,13 @@ class Header extends React.Component<HeaderProps, any> {
                         sex={this.props.sex}
                         age={this.props.age}/>
                 </div>
-                <button
-                    onClick={this.handleNewVisitButtonClick}
-                    className="new-visit-button">New Visit</button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    onClick={this.handleNewVisitButtonClick}>
+                    New Visit
+                </Button>
             </div>
         )
     }
