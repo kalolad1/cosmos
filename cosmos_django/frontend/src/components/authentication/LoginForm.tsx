@@ -1,17 +1,18 @@
 import * as React from 'react'
 import * as ReactRouterDOM from 'react-router-dom';
 
+import * as authApi from '../../api/auth_api';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as authUtil from '../../util/auth_util';
 
 import {Button, TextField} from '@material-ui/core';
 
 
 interface LoginFormState {
     email: string,
-    password: string
+    password: string,
 }
+
 
 class LoginForm extends React.Component<any, LoginFormState> {
     constructor(props) {
@@ -37,7 +38,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
         event.preventDefault();
         console.log('Received request to log in.');
         const self = this;
-        authUtil.sendLoginRequest(this.state.email, this.state.password)
+        authApi.loginRequest(this.state.email, this.state.password)
             .then(function() {
                 self.props.history.replace(urlPathConstants.HOME);
             });

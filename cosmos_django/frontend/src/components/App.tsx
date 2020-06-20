@@ -7,8 +7,8 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as urlPathConstants from '../constants/url_path_constants';
 import * as authUtil from '../util/auth_util';
 
-import LoginForm from '../components/authentication/LoginForm';
 import SignupForm from './authentication/SignupForm';
+import LoginForm from '../components/authentication/LoginForm';
 import PatientHome from './patient/Home';
 import VisitCreator from './patient/VisitCreator';
 

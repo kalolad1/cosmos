@@ -2,10 +2,9 @@ import * as React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as ReactRouterDOM from 'react-router-dom';
 
+import * as authApi from '../../api/auth_api';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as axiosConfig from '../../configs/axios_config';
-import * as authUtil from '../../util/auth_util';
 
 import {
     Button,
@@ -68,7 +67,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
     }
 
     createSexMenuItems() {
-        return SEX_OPTIONS.map(function(option) {
+        return SEX_OPTIONS.map(function (option) {
             return (
                 <MenuItem
                     key={option.id}
@@ -81,22 +80,21 @@ class SignupForm extends React.Component<any, SignupFormState> {
         event.preventDefault();
         const self = this;
 
-        axiosConfig.axiosClient.post(apiEndpointConstants.ACCOUNTS, {
-            email: this.state.email,
-            password: this.state.password,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            dateOfBirth: {
-                'year': this.state.dateOfBirth!.getFullYear(),
-                // Zero index to 1 index
-                'month': this.state.dateOfBirth!.getMonth() + 1,
-                'day': this.state.dateOfBirth!.getDate()
+        authApi.signupRequest(
+            this.state.email,
+            this.state.password,
+            this.state.firstName,
+            this.state.lastName,
+            {
+                year: this.state.dateOfBirth!.getFullYear(),
+                // Add 1 to month to change from 0 to 1 indexing.
+                month: this.state.dateOfBirth!.getMonth() + 1,
+                day: this.state.dateOfBirth!.getDate(),
             },
-            sex: this.state.sex
-        })
-            .then(function() {
-                authUtil.sendLoginRequest(self.state.email, self.state.password)
-                    .then(function() {
+            this.state.sex)
+            .then(function () {
+                authApi.loginRequest(self.state.email, self.state.password)
+                    .then(function () {
                         self.props.history.replace(urlPathConstants.HOME);
                     });
             });

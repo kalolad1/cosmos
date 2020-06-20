@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as tokenConstants from '../../constants/token_constants';
+import * as patientApi from '../../api/patient_api';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as types from '../../types/types';
 import * as authUtil from '../../util/auth_util';
@@ -44,8 +44,6 @@ class Home extends React.Component<any, HomeState> {
         };
 
         this.handleLogout = this.handleLogout.bind(this);
-        this.getAccountInformationOrRedirectToLogin = this.getAccountInformationOrRedirectToLogin.bind(this);
-        this.handleTestDrawer = this.handleTestDrawer.bind(this);
         this.handleVerticalNavbarOpen = this.handleVerticalNavbarOpen.bind(this);
         this.handleVerticalNavbarClose = this.handleVerticalNavbarClose.bind(this);
     }
@@ -64,30 +62,13 @@ class Home extends React.Component<any, HomeState> {
         })
     };
 
-    async getAccountInformationOrRedirectToLogin() {
-        try {
-            return await authUtil.getAccountInformationWithAccessToken();
-        } catch (error) {
-            try {
-                const accessTokenResponse = await authUtil.refreshAccessToken();
-                authUtil.setToken(
-                    tokenConstants.ACCESS_TOKEN,
-                    accessTokenResponse.data.access);
-                return await authUtil.getAccountInformationWithAccessToken();
-            } catch (error) {
-                authUtil.clearTokens();
-                this.props.history.replace(urlPathConstants.ROOT);
-            }
-        }
-    }
-
     componentDidMount() {
         const self = this;
-        this.getAccountInformationOrRedirectToLogin()
+        patientApi.getAccount(this.props.history)
             .then(function (response) {
                 console.log(response);
                 self.setState({
-                    'account': response.data,
+                    'account': response?.data,
                     'isLoading': false,
                 });
             });
@@ -96,12 +77,6 @@ class Home extends React.Component<any, HomeState> {
     handleLogout() {
         authUtil.clearTokens();
         this.props.history.replace(urlPathConstants.LOGIN);
-    }
-
-    handleTestDrawer(event) {
-        event.preventDefault();
-        console.log('Redirecting to test drawer.');
-        this.props.history.replace('/test-drawer');
     }
 
     render() {

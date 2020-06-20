@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as ReactRouterDOM from 'react-router-dom';
 
+import * as patientApi from '../../api/patient_api';
 import * as axiosConfig from '../../configs/axios_config';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as authUtil from '../../util/auth_util';
@@ -76,13 +77,11 @@ class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState>
     handleVisitCreate(event: React.SyntheticEvent): void {
         event.preventDefault();
         let self = this;
-        axiosConfig.axiosClient.post(
-            apiEndpointConstants.VISITS,
-            {
-                visitType: this.state.visitType,
-                note: this.state.note,
-            },
-            authUtil.getRequestHeaderWithAuthorization())
+
+        patientApi.createVisit(
+            this.state.visitType,
+            this.state.note,
+            this.props.history)
             .then(function () {
                 console.log('Visit created successfully.');
                 self.props.history.goBack();
