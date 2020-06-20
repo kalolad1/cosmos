@@ -13,7 +13,7 @@ import Vaccinations from "./Vaccinations";
 
 
 interface ChartsProps {
-    patientProfile?: types.PatientProfile,
+    patientProfile: types.PatientProfile,
 }
 
 interface ChartsState {
@@ -44,19 +44,19 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
         switch(this.state.selectedTab) {
             case 0:
                 openChart = <Timeline
-                    visits={this.props.patientProfile?.visits}/>;
+                    visits={this.props.patientProfile.visits}/>;
                 break;
             case 1:
                 openChart = <Medications
-                    medications={this.props.patientProfile?.medications}/>;
+                    medications={this.props.patientProfile.medications}/>;
                 break;
             case 2:
                 openChart = <Vaccinations
-                    vaccinations={this.props.patientProfile?.vaccinations}/>;
+                    vaccinations={this.props.patientProfile.vaccinations}/>;
                 break;
             default:
                 openChart = <Timeline
-                    visits={this.props.patientProfile?.visits}/>;
+                    visits={this.props.patientProfile.visits}/>;
         }
         return openChart;
     }

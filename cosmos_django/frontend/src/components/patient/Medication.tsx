@@ -1,11 +1,15 @@
 /* A component that represents a single medication. */
 import * as React from 'react';
 
-class Medication extends React.Component {
+interface MedicationProps {
+    name: string,
+}
+
+class Medication extends React.Component<MedicationProps, any> {
     render() {
         return (
             <div className="medication rounded-grey-container">
-                <h1>{this.props.data.name}</h1>
+                <h1>{this.props.name}</h1>
             </div>
         )
     }

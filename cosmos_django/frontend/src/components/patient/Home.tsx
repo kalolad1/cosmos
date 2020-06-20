@@ -159,14 +159,14 @@ class Home extends React.Component<any, HomeState> {
                         <div className={classes.toolbar}/>
                         <div>
                             <Header
-                                profilePicture={this.state.account?.patient_profile?.profile_picture}
-                                fullName={this.state.account?.patient_profile?.full_name}
-                                firstName={this.state.account?.patient_profile?.first_name}
-                                lastName={this.state.account?.patient_profile?.last_name}
-                                sex={this.state.account?.patient_profile?.sex}
-                                age={this.state.account?.patient_profile?.age}
+                                profilePicture={this.state.account!.patient_profile!.profile_picture}
+                                fullName={this.state.account!.patient_profile!.full_name}
+                                firstName={this.state.account!.patient_profile!.first_name}
+                                lastName={this.state.account!.patient_profile!.last_name}
+                                sex={this.state.account!.patient_profile!.sex}
+                                age={this.state.account!.patient_profile!.age}
                             />
-                            <Charts patientProfile={this.state.account.patient_profile}/>
+                            <Charts patientProfile={this.state.account!.patient_profile!}/>
                         </div>
                     </main>
                 </div>

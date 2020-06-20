@@ -13,25 +13,25 @@ export interface PatientProfile {
     sex: string,
     age: number,
     profile_picture?: string,
-    visits?: Array<Visit>,
+    visits: Array<Visit>,
     medications: Array<Medication>
-    vaccinations?: Array<Vaccination>,
+    vaccinations: Array<Vaccination>,
 }
 
-interface Visit {
+export interface Visit {
     id: number,
     patient_profile: number,
     note: string,
     visit_type: string,
 }
 
-interface Medication {
+export interface Medication {
     id: number,
     patient_profile: number,
     name: string,
 }
 
-interface Vaccination {
+export interface Vaccination {
     id: number,
     patient_profile: number,
     name: string,
