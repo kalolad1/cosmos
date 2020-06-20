@@ -9,9 +9,9 @@
 /* Fonts */
 @font-face {
     font-family: "Neue Hans Kendrick";
-    src: url("frontend/static/frontend/fonts/NeueHansKendrick-Regular.eot");
-    src: url("frontend/static/frontend/fonts/NeueHansKendrick-Regular.woff") format("woff"),
-    url("frontend/static/frontend/fonts/NeueHansKendrick-Regular.svg") format("svg");
+    src: url("fonts/NeueHansKendrick-Regular.eot");
+    src: url("fonts/NeueHansKendrick-Regular.woff") format("woff"),
+    url("fonts/NeueHansKendrick-Regular.svg") format("svg");
 }
 
 /* Authentication */
@@ -45,6 +45,8 @@
 
 .login-signup-form {
     margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .login-signup-form button {
@@ -57,11 +59,11 @@
     justify-content: center;
 }
 
-.login-signup-textfield-container {
+.login-signup-input-container {
     margin-top: 20px;
 }
 
-.login-signup-textfield {
+.login-signup-input-field {
     width: 100%;
 }
 

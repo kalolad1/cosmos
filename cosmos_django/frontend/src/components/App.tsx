@@ -8,7 +8,7 @@ import * as urlPathConstants from '../constants/url_path_constants';
 import * as authUtil from '../util/auth_util';
 
 import LoginForm from '../components/authentication/LoginForm';
-import SignupForm from '../components/authentication/SignupForm';
+import SignupForm from './authentication/SignupForm';
 import PatientHome from './patient/Home';
 import VisitCreator from '../components/patient/VisitCreator';
 

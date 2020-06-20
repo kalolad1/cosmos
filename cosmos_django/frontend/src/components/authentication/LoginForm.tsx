@@ -5,7 +5,7 @@ import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as authUtil from '../../util/auth_util';
 
-import {Button, Link, TextField} from "@material-ui/core";
+import {Button, TextField} from "@material-ui/core";
 
 
 interface LoginFormState {
@@ -13,7 +13,7 @@ interface LoginFormState {
     password: string
 }
 
-class LoginForm extends React.Component<any, Partial<LoginFormState>> {
+class LoginForm extends React.Component<any, LoginFormState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,6 +28,7 @@ class LoginForm extends React.Component<any, Partial<LoginFormState>> {
         const element = event.target as HTMLInputElement;
         const name: string = element.name;
         this.setState({
+            ...this.state,
             [name]: element.value
         });
     }
@@ -50,9 +51,9 @@ class LoginForm extends React.Component<any, Partial<LoginFormState>> {
                     </div>
                     <h1>Sign in</h1>
                     <form className="login-signup-form" onSubmit={this.handleLoginRequest}>
-                        <div className="login-signup-textfield-container">
+                        <div className="login-signup-input-container">
                             <TextField
-                                className="login-signup-textfield"
+                                className="login-signup-input-field"
                                 name="email"
                                 onChange={this.handleInputChange}
                                 value={this.state.email}
@@ -60,9 +61,9 @@ class LoginForm extends React.Component<any, Partial<LoginFormState>> {
                                 type="email"
                                 variant="outlined"/>
                         </div>
-                        <div className="login-signup-textfield-container">
+                        <div className="login-signup-input-container">
                             <TextField
-                                className="login-signup-textfield"
+                                className="login-signup-input-field"
                                 name="password"
                                 onChange={this.handleInputChange}
                                 value={this.state.password}
