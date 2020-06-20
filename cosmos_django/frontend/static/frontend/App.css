@@ -171,6 +171,20 @@
     transform: rotate(-45deg);
 }
 
+/* Shared Components */
+.full-page-spinner-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -60px;
+}
+
+.full-page-spinner {
+    min-width: 60px;
+    min-height: 60px;
+}
+
 /* Utilities */
 .rounded-grey-container {
     border: 1px solid lightgrey;
@@ -181,4 +195,3 @@
 .box-shadow-container {
     box-shadow: 0 3px 15px rgba(0,0,0,0.2);
 }
-

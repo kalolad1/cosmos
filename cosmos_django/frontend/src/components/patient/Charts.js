@@ -1,12 +1,13 @@
 /* Contains all the charts of the patient, organized in tabs. */
 import * as React from 'react';
 
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+
 import Medications from "./Medications";
 import Timeline from "./Timeline";
 import Vaccinations from "./Vaccinations";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Paper from "@material-ui/core/Paper";
+
 
 class Charts extends React.Component {
     constructor(props) {
@@ -49,7 +50,6 @@ class Charts extends React.Component {
     }
 
     render() {
-
         return (
             <div className="patient-charts">
                 <div className="rounded-grey-container">
