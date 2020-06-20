@@ -27,8 +27,6 @@ class AccountsEndpoint(views.APIView):
 
     def post(self, request: Request) -> response.Response:
         """Registers a new account."""
-        logging.info('Registering new account with request data %s.',
-                     json.dumps(request.data))
         try:
             email = request.data['email']
             password = request.data['password']
@@ -63,15 +61,17 @@ class AccountsEndpoint(views.APIView):
 
         serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
             instance=account)
+        logging.info('Registering new account with data %s.',
+                     json.dumps(serialized_account.data))
         return response.Response(data=serialized_account.data,
                                  status=status.HTTP_201_CREATED)
 
     def get(self, request: Request) -> response.Response:
         """Returns the users main if they are authenticated."""
-        logging.info(msg='Request for main data with data: {}.'.format(
-            request.data.__str__()))
         serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
             instance=request.user)
+        logging.info('Getting the following account data: %s',
+                     json.dumps(serialized_account.data))
         return response.Response(data=serialized_account.data,
                                  status=status.HTTP_200_OK)
 
@@ -82,8 +82,6 @@ class VisitsEndpoint(views.APIView):
 
     def post(self, request: Request) -> response.Response:
         """Adds a new visit for the user."""
-        logging.info(msg='Creating a new visit with data: {}.'.format(
-            request.data.__str__()))
         try:
             visit_type = request.data['visitType']
             note = request.data['note']
@@ -100,5 +98,7 @@ class VisitsEndpoint(views.APIView):
 
         serialized_visit: serializers.VisitSerializer = serializers.VisitSerializer(
             instance=visit)
+        logging.info('Creating a new visit with data: %s.',
+                     json.dumps(serialized_visit.data))
         return response.Response(data=serialized_visit.data,
                                  status=status.HTTP_201_CREATED)
