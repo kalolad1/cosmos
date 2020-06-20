@@ -79,31 +79,8 @@
 }
 
 /* Patient Home */
-.patient-home {
-    margin: 0 20px 20px 0;
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-}
-
-.main-vertical-navbar {
-    border-right: 1px solid lightgrey;
-    margin-right: 10px;
-    padding: 5px;
-}
-
-.vertical-navbar-element {
-    display: block;
-    margin-bottom: 20px;
-}
-
-.vertical-navbar-element:first-of-type {
-    margin-bottom: 100px;
-}
-
-.patient-home-content {
-    margin: 5px;
-    width: 100%;
+.app-bar-company-name {
+    font-family: "Neue Hans Kendrick", sans-serif;
 }
 
 /* Patient Header */
