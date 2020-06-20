@@ -77,7 +77,7 @@ class LoginForm extends React.Component<any, Partial<LoginFormState>> {
                         </div>
                         <div className="login-signup-redirect-link-container">
                             <ReactRouterDOM.Link to={urlPathConstants.SIGNUP}>
-                                    Not an existing user? Sign up here.
+                                Not an existing user? Sign up here.
                             </ReactRouterDOM.Link>
                         </div>
                     </form>
