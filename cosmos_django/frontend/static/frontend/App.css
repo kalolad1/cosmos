@@ -105,6 +105,14 @@
     margin-left: 20px;
 }
 
+.patient-header-metadata h1 {
+    font-family: "Neue Hans Kendrick", sans-serif;
+}
+
+.patient-header-metadata p {
+    font-size: 14px;
+}
+
 /* Patient charts */
 .patient-charts {
     margin-top: 10px;
