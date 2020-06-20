@@ -35,12 +35,12 @@ class SignupForm extends React.Component<any, SignupFormState> {
     constructor(props) {
         super(props);
         this.state = {
-            'email': '',
-            'password': '',
-            'firstName': '',
-            'lastName': '',
-            'dateOfBirth': new Date(),
-            'sex': '',
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            dateOfBirth: new Date(),
+            sex: '',
         };
 
         this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
@@ -174,7 +174,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                size="large">Next</Button>
+                                size="large"
+                                type="submit">Next
+                            </Button>
                         </div>
                         <div className="login-signup-redirect-link-container">
                             <ReactRouterDOM.Link to={urlPathConstants.LOGIN}>

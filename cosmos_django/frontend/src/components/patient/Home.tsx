@@ -1,21 +1,28 @@
 /* The patient home page. */
-import * as React from 'react'
+import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as tokenConstants from '../../constants/token_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
+import * as types from '../../types/types';
 import * as authUtil from '../../util/auth_util';
 
-import Charts from "./Charts";
-import Header from "./Header";
+import Charts from './Charts';
+import Header from './Header';
 
 
-class Home extends React.Component {
+
+interface HomeState {
+    account: types.Account,
+    isLoading: boolean,
+}
+
+class Home extends React.Component<any, HomeState> {
     constructor(props) {
         super(props);
         this.state = {
-            'account': {},
-            'isLoading': true
+            account: {},
+            isLoading: true,
         };
 
         this.handleLogout = this.handleLogout.bind(this);
@@ -41,14 +48,15 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        let self = this;
+        const self = this;
         this.getAccountInformationOrRedirectToLogin()
-            .then(function (response) {
+            .then(function(response) {
+                console.log(response);
                 self.setState({
                     'account': response.data,
-                    'isLoading': false
+                    'isLoading': false,
                 });
-            })
+            });
     }
 
     handleLogout() {
@@ -64,21 +72,26 @@ class Home extends React.Component {
             return (
                 <div className="patient-home">
                     <div className="main-vertical-navbar">
-                        <button className="vertical-navbar-element" onClick={this.handleLogout}>Logout</button>
-                        <button className="vertical-navbar-element">Icon #2</button>
-                        <button className="vertical-navbar-element">Icon #3</button>
-                        <button className="vertical-navbar-element">Icon #4</button>
+                        <button
+                            className="vertical-navbar-element"
+                            onClick={this.handleLogout}>Logout</button>
+                        <button
+                            className="vertical-navbar-element">Icon #2</button>
+                        <button
+                            className="vertical-navbar-element">Icon #3</button>
+                        <button
+                            className="vertical-navbar-element">Icon #4</button>
                     </div>
                     <div className="patient-home-content">
                         <Header
-                            profilePicture={this.state.account.patient_profile.profile_picture}
-                            fullName={this.state.account.patient_profile.full_name}
-                            sex={this.state.account.patient_profile.sex}
-                            age={this.state.account.patient_profile.age}/>
+                            profilePicture={this.state.account?.patient_profile?.profile_picture}
+                            fullName={this.state.account?.patient_profile?.full_name}
+                            sex={this.state.account?.patient_profile?.sex}
+                            age={this.state.account?.patient_profile?.age}/>
                         <Charts patient_profile={this.state.account.patient_profile}/>
                     </div>
                 </div>
-            )
+            );
         }
     }
 }

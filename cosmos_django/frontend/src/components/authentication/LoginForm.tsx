@@ -17,8 +17,8 @@ class LoginForm extends React.Component<any, LoginFormState> {
     constructor(props) {
         super(props);
         this.state = {
-            'email': '',
-            'password': '',
+            email: '',
+            password: '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLoginRequest = this.handleLoginRequest.bind(this);
@@ -35,6 +35,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
 
     handleLoginRequest(event: React.SyntheticEvent): void {
         event.preventDefault();
+        console.log('Received request to log in.');
         const self = this;
         authUtil.sendLoginRequest(this.state.email, this.state.password)
             .then(function() {
@@ -77,6 +78,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
                         </div>
                         <div className="login-signup-form-button-container">
                             <Button
+                                type="submit"
                                 variant="contained"
                                 color="secondary"
                                 size="large">
