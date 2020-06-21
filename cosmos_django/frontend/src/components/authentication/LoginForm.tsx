@@ -39,7 +39,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
         console.log('Received request to log in.');
         const self = this;
         authApi.loginRequest(this.state.email, this.state.password)
-            .then(function() {
+            .then(function () {
                 self.props.history.replace(urlPathConstants.HOME);
             });
     }
@@ -65,7 +65,10 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 value={this.state.email}
                                 label="Email"
                                 type="email"
-                                variant="outlined"/>
+                                variant="outlined"
+                                inputProps={{
+                                    required: true,
+                                }}/>
                         </div>
                         <div className="form-input-container">
                             <TextField
@@ -75,7 +78,10 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 value={this.state.password}
                                 label="Password"
                                 type="password"
-                                variant="outlined"/>
+                                variant="outlined"
+                                inputProps={{
+                                    required: true,
+                                }}/>
                         </div>
                         <div className="form-button-container">
                             <Button

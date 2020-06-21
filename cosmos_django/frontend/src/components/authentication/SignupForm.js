@@ -113,9 +113,7 @@ var SignupForm = /** @class */ (function (_super) {
                             React.createElement(core_1.Select, { displayEmpty: true, labelId: "sex-label", id: "sex", name: "sex", value: this.state.sex, onChange: this.handleSelectChange, label: "Sex" }, this.createSexMenuItems()))),
                     React.createElement("div", { className: "form-input-container" },
                         React.createElement(pickers_1.MuiPickersUtilsProvider, { utils: date_fns_1.default },
-                            React.createElement(pickers_1.KeyboardDatePicker, { disableToolbar: true, variant: "inline", format: "MM/dd/yyyy", margin: "normal", id: "dateOfBirth", label: "Date of birth", value: this.state.dateOfBirth, onChange: this.handleDateChange, KeyboardButtonProps: {
-                                    'aria-label': 'change date',
-                                } }))),
+                            React.createElement(pickers_1.KeyboardDatePicker, { fullWidth: true, disableToolbar: true, disableFuture: true, variant: "inline", inputVariant: "outlined", format: "MM/dd/yyyy", id: "dateOfBirth", margin: "normal", label: "Date of birth", value: this.state.dateOfBirth, onChange: this.handleDateChange, keyboardIcon: null }))),
                     React.createElement("div", { className: "form-button-container" },
                         React.createElement(core_1.Button, { variant: "contained", color: "secondary", size: "large", type: "submit" }, "Next")),
                     React.createElement("div", { className: "login-signup-redirect-link-container" },

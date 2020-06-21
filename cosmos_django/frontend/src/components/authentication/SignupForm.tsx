@@ -131,7 +131,10 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 value={this.state.email}
                                 label="Email"
                                 type="email"
-                                variant="outlined"/>
+                                variant="outlined"
+                                inputProps={{
+                                    required: true,
+                                }}/>
                         </div>
                         <div className="form-input-container">
                             <TextField
@@ -141,7 +144,10 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 value={this.state.password}
                                 label="Password"
                                 type="password"
-                                variant="outlined"/>
+                                variant="outlined"
+                                inputProps={{
+                                    required: true,
+                                }}/>
                         </div>
                         <div className="form-input-container">
                             <TextField
@@ -151,7 +157,10 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 value={this.state.firstName}
                                 label="First name"
                                 type="text"
-                                variant="outlined"/>
+                                variant="outlined"
+                                inputProps={{
+                                    required: true,
+                                }}/>
                         </div>
                         <div className="form-input-container">
                             <TextField
@@ -161,7 +170,10 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 value={this.state.lastName}
                                 label="Last name"
                                 type="text"
-                                variant="outlined"/>
+                                variant="outlined"
+                                inputProps={{
+                                    required: true,
+                                }}/>
                         </div>
                         <div className="form-input-container">
                             <FormControl
@@ -175,11 +187,14 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                     name="sex"
                                     value={this.state.sex}
                                     onChange={this.handleSelectChange}
-                                    label="Sex">{this.createSexMenuItems()}
+                                    label="Sex"
+                                    inputProps={{
+                                      required: true,
+                                    }}>{this.createSexMenuItems()}
                                 </Select>
                             </FormControl>
                         </div>
-                        <div className="form-input-container">
+                        <div className="form-button-container">
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardDatePicker
                                     fullWidth
@@ -189,11 +204,10 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                     inputVariant="outlined"
                                     format="MM/dd/yyyy"
                                     id="dateOfBirth"
-                                    margin="normal"
                                     label="Date of birth"
                                     value={this.state.dateOfBirth}
                                     onChange={this.handleDateChange}
-                                    keyboardIcon={null}
+                                    openTo="year"
                                 />
                             </MuiPickersUtilsProvider>
                         </div>
@@ -213,8 +227,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                     </form>
                 </div>
             </div>
-        )
-            ;
+        );
     }
 }
 
