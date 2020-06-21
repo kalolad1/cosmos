@@ -135,7 +135,6 @@ class Home extends React.Component<any, HomeState> {
                         <div>
                             <Header
                                 profilePicture={this.state.account!.patient_profile!.profile_picture}
-                                fullName={this.state.account!.patient_profile!.full_name}
                                 firstName={this.state.account!.patient_profile!.first_name}
                                 lastName={this.state.account!.patient_profile!.last_name}
                                 sex={this.state.account!.patient_profile!.sex}

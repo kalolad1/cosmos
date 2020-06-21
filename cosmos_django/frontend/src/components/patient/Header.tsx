@@ -9,7 +9,6 @@ import {Avatar, Button} from "@material-ui/core";
 
 interface HeaderProps {
     profilePicture: string,
-    fullName: string,
     firstName: string,
     lastName: string,
     sex: string,
@@ -38,13 +37,14 @@ class Header extends React.Component<HeaderProps, any> {
             <div className="patient-header rounded-grey-container">
                 <div className="patient-info">
                     <Avatar
-                        alt={this.props.fullName}
+                        alt={this.props.firstName + ' ' + this.props.lastName}
                         src={this.props.profilePicture}
                         className="profile-picture">
                         {this.getPatientInitials()}
                     </Avatar>
                     <HeaderMetadata
-                        fullName={this.props.fullName}
+                        firstName={this.props.firstName}
+                        lastName={this.props.lastName}
                         sex={this.props.sex}
                         age={this.props.age}/>
                 </div>

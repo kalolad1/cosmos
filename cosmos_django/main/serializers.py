@@ -22,7 +22,6 @@ class VisitSerializer(serializers.ModelSerializer):
 
 
 class PatientProfileSerializer(serializers.ModelSerializer):
-    full_name = serializers.SerializerMethodField('get_full_name')
     age = serializers.SerializerMethodField('get_age')
 
     visits = VisitSerializer(many=True)
@@ -32,9 +31,6 @@ class PatientProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PatientProfile
         fields = '__all__'
-
-    def get_full_name(self, patient_profile_instance):
-        return patient_profile_instance.get_full_name()
 
     def get_age(self, patient_profile_instance):
         return patient_profile_instance.get_age()

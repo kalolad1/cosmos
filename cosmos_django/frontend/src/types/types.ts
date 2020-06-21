@@ -8,7 +8,6 @@ export interface PatientProfile {
     id: number,
     first_name: string,
     last_name: string,
-    full_name: string,
     date_of_birth: string,
     sex: string,
     age: number,
