@@ -12,6 +12,7 @@ class TestCustomExceptions(TestCase):
 
         expected_response_format = {
             'message': 'Account already exists message.',
-            'user_facing_message': 'An main already exists with that email.',
+            'user_facing_message':
+            'An account already exists with that email!',
         }
         self.assertDictEqual(response_format, expected_response_format)

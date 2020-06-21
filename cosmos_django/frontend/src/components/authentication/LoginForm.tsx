@@ -5,12 +5,14 @@ import * as authApi from '../../api/auth_api';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
 
-import {Button, TextField} from '@material-ui/core';
+import {Button, Snackbar, TextField} from '@material-ui/core';
+import {Alert} from "@material-ui/lab";
 
 
 interface LoginFormState {
     email: string,
     password: string,
+    isErrorSnackbarOpen: boolean,
 }
 
 
@@ -20,9 +22,11 @@ class LoginForm extends React.Component<any, LoginFormState> {
         this.state = {
             email: '',
             password: '',
+            isErrorSnackbarOpen: false,
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLoginRequest = this.handleLoginRequest.bind(this);
+        this.handleErrorSnackbarClose = this.handleErrorSnackbarClose.bind(this);
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -41,12 +45,37 @@ class LoginForm extends React.Component<any, LoginFormState> {
         authApi.loginRequest(this.state.email, this.state.password)
             .then(function () {
                 self.props.history.replace(urlPathConstants.HOME);
+            })
+            .catch(function (error) {
+                console.log(error);
+                self.setState({
+                    ...self.state,
+                    isErrorSnackbarOpen: true,
+                })
             });
+    }
+
+    handleErrorSnackbarClose() {
+        this.setState({
+            ...this.state,
+            isErrorSnackbarOpen: false,
+        });
     }
 
     render() {
         return (
             <div className="login-signup-form-container">
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                    open={this.state.isErrorSnackbarOpen}
+                    onClose={this.handleErrorSnackbarClose}>
+                    <Alert onClose={this.handleErrorSnackbarClose} severity="error">
+                        Email or password is incorrect!
+                    </Alert>
+                </Snackbar>
                 <div className="login-signup-form-content rounded-grey-container box-shadow-container">
                     <div className="login-signup-form-content-logo-container">
                         <img

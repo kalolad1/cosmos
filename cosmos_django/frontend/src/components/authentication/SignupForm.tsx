@@ -12,10 +12,11 @@ import {
     FormControl,
     InputLabel,
     MenuItem,
-    Select,
+    Select, Snackbar,
     TextField,
 } from '@material-ui/core';
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import {Alert} from "@material-ui/lab";
 
 
 const SEX_OPTIONS = [
@@ -29,7 +30,9 @@ interface SignupFormState {
     firstName: string,
     lastName: string,
     dateOfBirth?: Date,
-    sex: string
+    sex: string,
+    isErrorSnackbarOpen: boolean,
+    snackBarErrorMessage: string,
 }
 
 class SignupForm extends React.Component<any, SignupFormState> {
@@ -42,6 +45,8 @@ class SignupForm extends React.Component<any, SignupFormState> {
             lastName: '',
             dateOfBirth: new Date(),
             sex: '',
+            isErrorSnackbarOpen: false,
+            snackBarErrorMessage: 'An error has occurred!',
         };
 
         this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
@@ -49,6 +54,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleErrorSnackbarClose = this.handleErrorSnackbarClose.bind(this);
     }
 
     handleDateChange(date: Date | null): void {
@@ -107,12 +113,42 @@ class SignupForm extends React.Component<any, SignupFormState> {
                     .then(function () {
                         self.props.history.replace(urlPathConstants.HOME);
                     });
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    self.setState({
+                        ...self.state,
+                        snackBarErrorMessage: error.response.data.user_facing_message,
+                    })
+                }
+                self.setState({
+                    ...self.state,
+                    isErrorSnackbarOpen: true,
+                })
             });
+    }
+
+    handleErrorSnackbarClose() {
+        this.setState({
+            ...this.state,
+            isErrorSnackbarOpen: false,
+        });
     }
 
     render() {
         return (
             <div className="login-signup-form-container">
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                    open={this.state.isErrorSnackbarOpen}
+                    onClose={this.handleErrorSnackbarClose}>
+                    <Alert onClose={this.handleErrorSnackbarClose} severity="error">
+                        {this.state.snackBarErrorMessage}
+                    </Alert>
+                </Snackbar>
                 <div className="login-signup-form-content rounded-grey-container box-shadow-container">
                     <div className="login-signup-form-content-logo-container">
                         <img
@@ -189,7 +225,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                     onChange={this.handleSelectChange}
                                     label="Sex"
                                     inputProps={{
-                                      required: true,
+                                        required: true,
                                     }}>{this.createSexMenuItems()}
                                 </Select>
                             </FormControl>
