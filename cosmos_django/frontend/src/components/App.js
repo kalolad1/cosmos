@@ -20,10 +20,10 @@ var ReactDOM = require("react-dom");
 var ReactRouterDOM = require("react-router-dom");
 var urlPathConstants = require("../constants/url_path_constants");
 var authUtil = require("../util/auth_util");
+var SignupForm_1 = require("./authentication/SignupForm");
 var LoginForm_1 = require("../components/authentication/LoginForm");
-var SignupForm_1 = require("../components/authentication/SignupForm");
 var Home_1 = require("./patient/Home");
-var VisitCreator_1 = require("../components/patient/VisitCreator");
+var VisitCreator_1 = require("./patient/VisitCreator");
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {

@@ -1,3 +1,4 @@
+import DateFnsUtils from '@date-io/date-fns';
 import * as React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as ReactRouterDOM from 'react-router-dom';
@@ -14,6 +15,7 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 
 const SEX_OPTIONS = [
@@ -26,7 +28,7 @@ interface SignupFormState {
     password: string,
     firstName: string,
     lastName: string,
-    dateOfBirth: Date,
+    dateOfBirth?: Date,
     sex: string
 }
 
@@ -46,6 +48,14 @@ class SignupForm extends React.Component<any, SignupFormState> {
         this.createSexMenuItems = this.createSexMenuItems.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+    }
+
+    handleDateChange(date: Date | null): void {
+        this.setState({
+            ...this.state,
+            dateOfBirth: date!,
+        });
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -169,6 +179,24 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 </Select>
                             </FormControl>
                         </div>
+                        <div className="form-input-container">
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    fullWidth
+                                    disableToolbar
+                                    disableFuture
+                                    variant="inline"
+                                    inputVariant="outlined"
+                                    format="MM/dd/yyyy"
+                                    id="dateOfBirth"
+                                    margin="normal"
+                                    label="Date of birth"
+                                    value={this.state.dateOfBirth}
+                                    onChange={this.handleDateChange}
+                                    keyboardIcon={null}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </div>
                         <div className="form-button-container">
                             <Button
                                 variant="contained"
@@ -185,7 +213,8 @@ class SignupForm extends React.Component<any, SignupFormState> {
                     </form>
                 </div>
             </div>
-        );
+        )
+            ;
     }
 }
 
