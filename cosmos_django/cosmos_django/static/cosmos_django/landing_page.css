@@ -1,0 +1,28 @@
+@font-face {
+    font-family: "Neue Hans Kendrick";
+    src: url("static/frontend/fonts/NeueHansKendrick-Regular.eot");
+    src: url("static/frontend/fonts/NeueHansKendrick-Regular.woff") format("woff"),
+    url("static/frontend/fonts/NeueHansKendrick-Regular.svg") format("svg");
+}
+
+.landing-page-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.landing-page-content h1 {
+    margin-bottom: 15%;
+    font-family: "Neue Hans Kendrick", sans-serif;
+}
+
+.text-logo {
+    width: 20%;
+    height: 20%;
+    margin-bottom: 15%;
+    margin-top: 2%;
+}
+
+.start-button {
+    font-family: "Neue Hans Kendrick", sans-serif;
+}
