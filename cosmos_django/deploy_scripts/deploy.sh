@@ -3,7 +3,6 @@
 ssh cosmos_deploy_user@167.99.154.182 <<EOF
   cd cosmos/cosmos_django
   source venv/bin/activate
-  git reset --hard
   git pull
   echo "Qd7#f_eMYL6ZyTU" | sudo -S npm ci
   npm run build

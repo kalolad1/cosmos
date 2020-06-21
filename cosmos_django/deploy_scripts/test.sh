@@ -3,7 +3,6 @@
 ssh jenkins@161.35.102.77 <<EOF
   cd cosmos_cloned/cosmos_django
   source venv/bin/activate
-  git reset --hard
   git pull
   echo "%*rmLDpi9cs&T3e" | sudo -S npm ci
   npm run build
