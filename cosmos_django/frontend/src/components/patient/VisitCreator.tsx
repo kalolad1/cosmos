@@ -105,7 +105,7 @@ class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState>
                         <div className="form-input-container">
                             <FormControl
                                 variant="outlined"
-                                className="form-input-field">
+                                fullWidth>
                                 <InputLabel
                                     id="visitType-label">Type</InputLabel>
                                 <Select
@@ -115,21 +115,27 @@ class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState>
                                     name="visitType"
                                     value={this.state.visitType}
                                     onChange={this.handleSelectChange}
-                                    label="Type">
+                                    label="Type"
+                                    inputProps={{
+                                        required: true,
+                                    }}>
                                     {this.createVisitTypeMenuItems()}
                                 </Select>
                             </FormControl>
                         </div>
                         <div className="form-input-container">
                             <TextField
-                                className="form-input-field"
                                 name="note"
                                 onChange={this.handleInputChange}
                                 value={this.state.note}
                                 label="Note"
                                 multiline
                                 rows={24}
-                                variant="outlined"/>
+                                variant="outlined"
+                                inputProps={{
+                                    required: true,
+                                }}
+                                fullWidth/>
                         </div>
                         <div className="form-button-container">
                             <Button

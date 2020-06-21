@@ -55,7 +55,10 @@ class LoginForm extends React.Component<any, LoginFormState> {
             });
     }
 
-    handleErrorSnackbarClose() {
+    handleErrorSnackbarClose(event?: React.SyntheticEvent, reason?: string) {
+        if (reason === 'clickaway') {
+            return;
+        }
         this.setState({
             ...this.state,
             isErrorSnackbarOpen: false,
@@ -88,7 +91,6 @@ class LoginForm extends React.Component<any, LoginFormState> {
                         onSubmit={this.handleLoginRequest}>
                         <div className="form-input-container">
                             <TextField
-                                className="form-input-field"
                                 name="email"
                                 onChange={this.handleInputChange}
                                 value={this.state.email}
@@ -97,11 +99,11 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 variant="outlined"
                                 inputProps={{
                                     required: true,
-                                }}/>
+                                }}
+                                fullWidth/>
                         </div>
                         <div className="form-input-container">
                             <TextField
-                                className="form-input-field"
                                 name="password"
                                 onChange={this.handleInputChange}
                                 value={this.state.password}
@@ -110,7 +112,8 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 variant="outlined"
                                 inputProps={{
                                     required: true,
-                                }}/>
+                                }}
+                                fullWidth/>
                         </div>
                         <div className="form-button-container">
                             <Button

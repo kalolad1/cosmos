@@ -128,7 +128,10 @@ class SignupForm extends React.Component<any, SignupFormState> {
             });
     }
 
-    handleErrorSnackbarClose() {
+    handleErrorSnackbarClose(event?: React.SyntheticEvent, reason?: string) {
+        if (reason === 'clickaway') {
+            return;
+        }
         this.setState({
             ...this.state,
             isErrorSnackbarOpen: false,
@@ -161,7 +164,6 @@ class SignupForm extends React.Component<any, SignupFormState> {
                         onSubmit={this.handleRegistrationRequest}>
                         <div className="form-input-container">
                             <TextField
-                                className="form-input-field"
                                 name="email"
                                 onChange={this.handleInputChange}
                                 value={this.state.email}
@@ -170,11 +172,11 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 variant="outlined"
                                 inputProps={{
                                     required: true,
-                                }}/>
+                                }}
+                                fullWidth/>
                         </div>
                         <div className="form-input-container">
                             <TextField
-                                className="form-input-field"
                                 name="password"
                                 onChange={this.handleInputChange}
                                 value={this.state.password}
@@ -183,11 +185,12 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 variant="outlined"
                                 inputProps={{
                                     required: true,
-                                }}/>
+                                }}
+                                fullWidth/>
                         </div>
-                        <div className="form-input-container">
+                        <div className="form-input-container form-bi-input-container">
                             <TextField
-                                className="form-input-field"
+                                className="form-bi-input-field"
                                 name="firstName"
                                 onChange={this.handleInputChange}
                                 value={this.state.firstName}
@@ -197,10 +200,8 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 inputProps={{
                                     required: true,
                                 }}/>
-                        </div>
-                        <div className="form-input-container">
                             <TextField
-                                className="form-input-field"
+                                className="form-bi-input-field"
                                 name="lastName"
                                 onChange={this.handleInputChange}
                                 value={this.state.lastName}
@@ -214,7 +215,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                         <div className="form-input-container">
                             <FormControl
                                 variant="outlined"
-                                className="form-input-field">
+                                fullWidth>
                                 <InputLabel id="sex-label">Sex</InputLabel>
                                 <Select
                                     displayEmpty
