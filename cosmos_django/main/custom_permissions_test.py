@@ -7,7 +7,7 @@ from . import api
 from . import custom_permissions
 from . import models
 
-TEST_ACCOUNT_REQUEST_DATA = {
+TEST_USER_REQUEST_DATA = {
     'email': 'test123@gmail.com',
     'password': 'test1234',
     'dateOfBirth': {
@@ -21,20 +21,20 @@ TEST_ACCOUNT_REQUEST_DATA = {
 }
 
 
-class TestAccountsPermissions(test.APITestCase):
+class TestUsersPermissions(test.APITestCase):
     def setUp(self):
-        self.account_permissions = custom_permissions.AccountsPermissions()
+        self.user_permissions = custom_permissions.UsersPermissions()
 
-    def _create_test_account(self):
-        url = urls.reverse('main/accounts')
-        return self.client.post(url, TEST_ACCOUNT_REQUEST_DATA, format='json')
+    def _create_test_user(self):
+        url = urls.reverse('main/users')
+        return self.client.post(url, TEST_USER_REQUEST_DATA, format='json')
 
     def test_create_new_account_succeeds(self):
         http_request = http.HttpRequest()
         http_request.method = api.HTTPMethod.POST
         rest_request = request.Request(http_request)
 
-        expected_permission = self.account_permissions.has_permission(
+        expected_permission = self.user_permissions.has_permission(
             request=rest_request)
 
         self.assertTrue(expected_permission)
@@ -44,7 +44,7 @@ class TestAccountsPermissions(test.APITestCase):
         http_request.method = api.HTTPMethod.GET
         rest_request = request.Request(http_request)
 
-        expected_permission = self.account_permissions.has_permission(
+        expected_permission = self.user_permissions.has_permission(
             request=rest_request)
 
         self.assertFalse(expected_permission)
@@ -53,12 +53,11 @@ class TestAccountsPermissions(test.APITestCase):
         http_request = http.HttpRequest()
         http_request.method = api.HTTPMethod.GET
 
-        self._create_test_account()
-        test.force_authenticate(http_request,
-                                user=models.Account.objects.first())
+        self._create_test_user()
+        test.force_authenticate(http_request, user=models.User.objects.first())
         rest_request = request.Request(http_request)
 
-        expected_permission = self.account_permissions.has_permission(
+        expected_permission = self.user_permissions.has_permission(
             request=rest_request)
 
         self.assertTrue(expected_permission)
@@ -68,7 +67,7 @@ class TestAccountsPermissions(test.APITestCase):
         http_request.method = api.HTTPMethod.PUT
         rest_request = request.Request(http_request)
 
-        expected_permission = self.account_permissions.has_permission(
+        expected_permission = self.user_permissions.has_permission(
             request=rest_request)
 
         self.assertFalse(expected_permission)

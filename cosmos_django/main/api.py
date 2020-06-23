@@ -23,7 +23,7 @@ class HTTPMethod:
 
 class AccountsEndpoint(views.APIView):
     """Endpoints for Account objects."""
-    permission_classes = (custom_permissions.AccountsPermissions, )
+    permission_classes = (custom_permissions.UsersPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Registers a new account."""
@@ -37,42 +37,42 @@ class AccountsEndpoint(views.APIView):
             day = request.data['dateOfBirth']['day']
             sex = request.data['sex']
         except KeyError:
-            custom_exception = custom_exceptions.DataForNewAccountNotProvided()
+            custom_exception = custom_exceptions.DataForNewUserNotProvided()
             return response.Response(
                 data=custom_exception.get_response_format(),
                 status=status.HTTP_400_BAD_REQUEST)
 
-        account: models.Account
+        user: models.User
         try:
-            account = models.Account.objects.create_user(email=email,
-                                                         password=password)
-        except custom_exceptions.AccountAlreadyExistsException as e:
+            user = models.User.objects.create_user(email=email,
+                                                   password=password)
+        except custom_exceptions.UserAlreadyExistsException as e:
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
         date_of_birth: datetime.date = datetime.date(year=year,
                                                      month=month,
                                                      day=day)
-        models.PatientProfile.objects.create(account=account,
+        models.PatientProfile.objects.create(user=user,
                                              first_name=first_name,
                                              last_name=last_name,
                                              date_of_birth=date_of_birth,
                                              sex=sex)
 
-        serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
-            instance=account)
-        logging.info('Registering new account with data %s.',
-                     json.dumps(serialized_account.data))
-        return response.Response(data=serialized_account.data,
+        serialized_user: serializers.UserSerializer = serializers.UserSerializer(
+            instance=user)
+        logging.info('Registering new user with data %s.',
+                     json.dumps(serialized_user.data))
+        return response.Response(data=serialized_user.data,
                                  status=status.HTTP_201_CREATED)
 
     def get(self, request: Request) -> response.Response:
         """Returns the users main if they are authenticated."""
-        serialized_account: serializers.AccountSerializer = serializers.AccountSerializer(
+        serialized_user: serializers.UserSerializer = serializers.UserSerializer(
             instance=request.user)
-        logging.info('Getting the following account data: %s',
-                     json.dumps(serialized_account.data))
-        return response.Response(data=serialized_account.data,
+        logging.info('Getting the following user data: %s',
+                     json.dumps(serialized_user.data))
+        return response.Response(data=serialized_user.data,
                                  status=status.HTTP_200_OK)
 
 

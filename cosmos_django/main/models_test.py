@@ -9,76 +9,76 @@ from . import models
 
 class TestModels(TestCase):
     def setUp(self) -> None:
-        self.account: models.Account = models.Account.objects.create_user(
+        self.user: models.User = models.User.objects.create_user(
             email='test@gmail.com', password='1234')
         self.patient_profile: models.PatientProfile = models.PatientProfile.objects.create(
-            account=self.account,
+            user=self.user,
             first_name='John',
             last_name='Doe',
             date_of_birth=datetime.date(year=2000, month=2, day=10),
             sex='male')
 
     def test_create_user_no_email_raises_value_error(self):
-        self.assertRaises(custom_exceptions.DataForNewAccountNotProvided,
-                          models.Account.objects.create_user,
+        self.assertRaises(custom_exceptions.DataForNewUserNotProvided,
+                          models.User.objects.create_user,
                           email='',
                           password='1234')
 
     def test_create_user_no_password_raises_value_error(self):
-        self.assertRaises(custom_exceptions.DataForNewAccountNotProvided,
-                          models.Account.objects.create_user,
+        self.assertRaises(custom_exceptions.DataForNewUserNotProvided,
+                          models.User.objects.create_user,
                           email='test@gmail.com',
                           password='')
 
     def test_create_user_succeeds(self):
-        self.assertEqual(self.account.email, 'test@gmail.com')
-        self.assertTrue(self.account.check_password(raw_password='1234'))
+        self.assertEqual(self.user.email, 'test@gmail.com')
+        self.assertTrue(self.user.check_password(raw_password='1234'))
         try:
-            models.Account.objects.get(email='test@gmail.com')
-        except models.Account.DoesNotExist:
+            models.User.objects.get(email='test@gmail.com')
+        except models.User.DoesNotExist:
             self.fail("Account not saved to db.")
 
     def test_create_superuser(self):
-        superuser: models.Account = models.Account.objects.create_superuser(
+        superuser: models.User = models.User.objects.create_superuser(
             email='superuser@gmail.com', password='1234')
         self.assertEqual(superuser.email, 'superuser@gmail.com')
         self.assertTrue(superuser.check_password(raw_password='1234'))
         self.assertTrue(superuser.is_admin)
         self.assertTrue(superuser.is_superuser)
         try:
-            models.Account.objects.get(email='superuser@gmail.com')
-        except models.Account.DoesNotExist:
+            models.User.objects.get(email='superuser@gmail.com')
+        except models.User.DoesNotExist:
             self.fail("Account not saved to db.")
 
     def test_is_staff_returns_false(self):
-        self.assertFalse(self.account.is_staff())
+        self.assertFalse(self.user.is_staff())
 
     def test_is_staff_returns_true(self):
-        self.account.is_admin = True
-        self.assertTrue(self.account.is_staff())
+        self.user.is_admin = True
+        self.assertTrue(self.user.is_staff())
 
     def test_has_perm_returns_false(self):
-        self.assertFalse(self.account.has_perm('test'))
+        self.assertFalse(self.user.has_perm('test'))
 
     def test_has_perm_returns_true(self):
-        self.account.is_admin = True
-        self.assertTrue(self.account.has_perm('test'))
+        self.user.is_admin = True
+        self.assertTrue(self.user.has_perm('test'))
 
     def test_has_module_perms_returns_false(self):
-        self.assertFalse(self.account.has_module_perms('app_label'))
+        self.assertFalse(self.user.has_module_perms('app_label'))
 
     def test_has_module_perms_returns_true(self):
-        self.account.is_admin = True
-        self.assertTrue(self.account.has_module_perms('app_label'))
+        self.user.is_admin = True
+        self.assertTrue(self.user.has_module_perms('app_label'))
 
     def test___str__(self):
-        self.assertEqual(self.account.__str__(), 'test@gmail.com')
+        self.assertEqual(self.user.__str__(), 'test@gmail.com')
 
     def test_username_field(self):
-        self.assertEqual(models.Account.USERNAME_FIELD, 'email')
+        self.assertEqual(models.User.USERNAME_FIELD, 'email')
 
     def test_create_patient_profile(self):
-        self.assertEqual(self.patient_profile.account, self.account)
+        self.assertEqual(self.patient_profile.user, self.user)
         self.assertEqual(self.patient_profile.first_name, 'John')
         self.assertEqual(self.patient_profile.last_name, 'Doe')
 

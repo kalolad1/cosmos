@@ -9,5 +9,5 @@ export const LOGO_TEXT = STATIC + 'images/logos/logo_text_800x200.png';
 
 export const GET_TOKEN = 'token/';
 export const REFRESH_TOKEN = 'token/refresh/';
-export const ACCOUNTS = 'accounts/';
+export const USERS = 'users/';
 export const VISITS = 'visits/';

@@ -5,7 +5,7 @@ from rest_framework.request import Request
 from . import api
 
 
-class AccountsPermissions(permissions.BasePermission):
+class UsersPermissions(permissions.BasePermission):
     def has_permission(self, request: Request, view=None) -> bool:
         # If creating new main, allow permission without authentication.
         if request.method == api.HTTPMethod.POST:

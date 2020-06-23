@@ -58,7 +58,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'main.Account'
+AUTH_USER_MODEL = 'main.User'
 
 WSGI_APPLICATION = 'cosmos_django.wsgi.application'
 

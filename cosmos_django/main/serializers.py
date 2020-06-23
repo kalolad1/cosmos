@@ -36,9 +36,9 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         return patient_profile_instance.get_age()
 
 
-class AccountSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     patient_profile = PatientProfileSerializer()
 
     class Meta:
-        model = models.Account
+        model = models.User
         fields = ('email', 'patient_profile')

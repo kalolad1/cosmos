@@ -10,46 +10,45 @@ from django.utils import timezone
 from . import custom_exceptions
 
 
-class AccountManager(BaseUserManager):
+class UserManager(BaseUserManager):
     """Manager for the Account class."""
-    def create_user(self, email: str, password: str) -> 'Account':
+    def create_user(self, email: str, password: str) -> 'User':
         """Create a user."""
         if not email:
-            raise custom_exceptions.DataForNewAccountNotProvided()
+            raise custom_exceptions.DataForNewUserNotProvided()
 
         if not password:
-            raise custom_exceptions.DataForNewAccountNotProvided()
+            raise custom_exceptions.DataForNewUserNotProvided()
 
-        if Account.objects.filter(email=email).exists():
-            raise custom_exceptions.AccountAlreadyExistsException(
-                message='An main with email: {} already exists in the database'
+        if User.objects.filter(email=email).exists():
+            raise custom_exceptions.UserAlreadyExistsException(
+                message='An user with email: {} already exists in the database'
                 .format(email))
 
         normalized_email: str = self.normalize_email(email=email)
-        user: Account = self.model(email=normalized_email)
+        user: User = self.model(email=normalized_email)
         user.set_password(raw_password=password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email: str, password: str) -> 'Account':
+    def create_superuser(self, email: str, password: str) -> 'User':
         """Create a superuser. Superusers can log into the admin platform."""
-        superuser: Account = self.create_user(email=email, password=password)
+        superuser: User = self.create_user(email=email, password=password)
         superuser.is_admin = True
         superuser.is_superuser = True
         superuser.save(using=self._db)
         return superuser
 
 
-class Account(AbstractBaseUser):
+class User(AbstractBaseUser):
     """The Base User main."""
-    email: models.EmailField = models.EmailField(
-        max_length=60, unique=True, validators=[MinLengthValidator(1)])
+    email: models.EmailField = models.EmailField(max_length=60, unique=True)
     date_joined: models.DateTimeField = models.DateTimeField(auto_now_add=True)
     is_active: models.BooleanField = models.BooleanField(default=True)
     is_admin: models.BooleanField = models.BooleanField(default=False)
     is_superuser: models.BooleanField = models.BooleanField(default=False)
 
-    objects: AccountManager = AccountManager()
+    objects: UserManager = UserManager()
 
     # Specify which field the user will log in with.
     USERNAME_FIELD: str = 'email'
@@ -69,7 +68,7 @@ class Account(AbstractBaseUser):
 
 
 class PatientProfile(models.Model):
-    account: models.OneToOneField = models.OneToOneField(
+    user: models.OneToOneField = models.OneToOneField(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         blank=False,
