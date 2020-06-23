@@ -1,5 +1,5 @@
-/* Contains API endpoint constants. */
-import { BASE_URL} from "./base_url_constant";
+/* API endpoint constants. */
+import { BASE_URL } from "./base_url_constant";
 
 export const STATIC = BASE_URL + '/static/frontend/';
 export const API_URL = BASE_URL + '/main/api/';
