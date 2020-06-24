@@ -1,11 +1,11 @@
 /* The patient home page. */
 import clsx from 'clsx';
 import * as React from 'react';
+import * as ReactRedux from 'react-redux'
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as patientApi from '../../api/patient_api';
+import * as actionCreators from '../../actions/action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as types from '../../types/types';
 import * as authUtil from '../../util/auth_util';
 
 import Drawer from '@material-ui/core/Drawer';
@@ -22,24 +22,21 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import {withStyles} from '@material-ui/core/styles';
-import FullPageSpinner from "../shared/FullPageSpinner";
+import FullPageSpinner from '../shared/FullPageSpinner';
 
 import Charts from './Charts';
 import Header from './Header';
 
 
 interface HomeState {
-    user: types.User,
-    isLoading: boolean,
     isVerticalNavbarOpen: boolean,
 }
+
 
 class Home extends React.Component<any, HomeState> {
     constructor(props) {
         super(props);
         this.state = {
-            user: {},
-            isLoading: true,
             isVerticalNavbarOpen: false,
         };
 
@@ -63,15 +60,7 @@ class Home extends React.Component<any, HomeState> {
     };
 
     componentDidMount() {
-        const self = this;
-        patientApi.getUser(this.props.history)
-            .then(function (response) {
-                console.log(response);
-                self.setState({
-                    'user': response?.data,
-                    'isLoading': false,
-                });
-            });
+        this.props.dispatch(actionCreators.fetchUser(this.props.history));
     }
 
     handleLogout() {
@@ -82,7 +71,7 @@ class Home extends React.Component<any, HomeState> {
     render() {
         const {classes} = this.props;
 
-        if (this.state.isLoading) {
+        if (this.props.isFetchingUser) {
             return <FullPageSpinner/>
         } else {
             return (
@@ -134,13 +123,13 @@ class Home extends React.Component<any, HomeState> {
                         <div className={classes.toolbar}/>
                         <div>
                             <Header
-                                profilePicture={this.state.user!.patient_profile!.profile_picture}
-                                firstName={this.state.user!.patient_profile!.first_name}
-                                lastName={this.state.user!.patient_profile!.last_name}
-                                sex={this.state.user!.patient_profile!.sex}
-                                age={this.state.user!.patient_profile!.age}
+                                profilePicture={this.props.user.patient_profile.profile_picture}
+                                firstName={this.props.user.patient_profile.first_name}
+                                lastName={this.props.user.patient_profile.last_name}
+                                sex={this.props.user.patient_profile.sex}
+                                age={this.props.user.patient_profile.age}
                             />
-                            <Charts patientProfile={this.state.user!.patient_profile!}/>
+                            <Charts patientProfile={this.props.user.patient_profile}/>
                         </div>
                     </main>
                 </div>
@@ -213,5 +202,12 @@ const useStyles = function(theme) {
     };
 };
 
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        isFetchingUser: state.isFetchingUser,
+    }
+}
+
 // @ts-ignore
-export default withStyles(useStyles)(ReactRouterDOM.withRouter(Home));
+export default ReactRedux.connect(mapStateToProps)(withStyles(useStyles)(ReactRouterDOM.withRouter(Home)));

@@ -1,8 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
+import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as patientApi from '../../api/patient_api';
-
+import * as actionCreators from '../../actions/action_creators';
 
 import {
     Button,
@@ -12,6 +12,7 @@ import {
     Select,
     TextField
 } from "@material-ui/core";
+import FullPageSpinner from "../shared/FullPageSpinner";
 
 
 const ENCOUNTER_TYPE_OPTIONS = [
@@ -22,6 +23,8 @@ const ENCOUNTER_TYPE_OPTIONS = [
 
 interface EncounterCreatorProps {
     history: any,
+    dispatch: any,
+    isCreatingEncounter: boolean,
 }
 
 interface EncounterCreatorState {
@@ -74,16 +77,10 @@ class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterC
 
     handleEncounterCreate(event: React.SyntheticEvent): void {
         event.preventDefault();
-        let self = this;
-
-        patientApi.createEncounter(
+        this.props.dispatch(actionCreators.addEncounter(
             this.state.encounterType,
             this.state.note,
-            this.props.history)
-            .then(function () {
-                console.log('Encounter created successfully.');
-                self.props.history.goBack();
-            });
+            this.props.history))
     }
 
     handleExitClick(event: React.SyntheticEvent): void {
@@ -92,62 +89,73 @@ class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterC
     }
 
     render() {
-        return (
-            <div className="encounter-creator">
-                <a
-                    href="#"
-                    onClick={this.handleExitClick}
-                    className="encounter-creator-close-button"/>
-                <div>
-                    <form onSubmit={this.handleEncounterCreate}>
-                        <div className="form-input-container">
-                            <FormControl
-                                variant="outlined"
-                                fullWidth>
-                                <InputLabel
-                                    id="encounterType-label">Type</InputLabel>
-                                <Select
-                                    displayEmpty
-                                    labelId="encounterType-label"
-                                    id="encounterType"
-                                    name="encounterType"
-                                    value={this.state.encounterType}
-                                    onChange={this.handleSelectChange}
-                                    label="Type"
+        if (this.props.isCreatingEncounter) {
+            return <FullPageSpinner/>;
+        } else {
+            return (
+                <div className="encounter-creator">
+                    <a
+                        href="#"
+                        onClick={this.handleExitClick}
+                        className="encounter-creator-close-button"/>
+                    <div>
+                        <form onSubmit={this.handleEncounterCreate}>
+                            <div className="form-input-container">
+                                <FormControl
+                                    variant="outlined"
+                                    fullWidth>
+                                    <InputLabel
+                                        id="encounterType-label">Type</InputLabel>
+                                    <Select
+                                        displayEmpty
+                                        labelId="encounterType-label"
+                                        id="encounterType"
+                                        name="encounterType"
+                                        value={this.state.encounterType}
+                                        onChange={this.handleSelectChange}
+                                        label="Type"
+                                        inputProps={{
+                                            required: true,
+                                        }}>
+                                        {this.createEncounterTypeMenuItems()}
+                                    </Select>
+                                </FormControl>
+                            </div>
+                            <div className="form-input-container">
+                                <TextField
+                                    name="note"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.note}
+                                    label="Note"
+                                    multiline
+                                    rows={24}
+                                    variant="outlined"
                                     inputProps={{
                                         required: true,
-                                    }}>
-                                    {this.createEncounterTypeMenuItems()}
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className="form-input-container">
-                            <TextField
-                                name="note"
-                                onChange={this.handleInputChange}
-                                value={this.state.note}
-                                label="Note"
-                                multiline
-                                rows={24}
-                                variant="outlined"
-                                inputProps={{
-                                    required: true,
-                                }}
-                                fullWidth/>
-                        </div>
-                        <div className="form-button-container">
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                type="submit">
-                                Create
-                            </Button>
-                        </div>
-                    </form>
+                                    }}
+                                    fullWidth/>
+                            </div>
+                            <div className="form-button-container">
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    type="submit">
+                                    Create
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 
-export default ReactRouterDOM.withRouter(EncounterCreator);
+
+function mapStateToProps(state) {
+    return {
+        isCreatingEncounter: state.isCreatingEncounter,
+    }
+}
+
+export default ReactRedux.connect(mapStateToProps)(ReactRouterDOM.withRouter(EncounterCreator));
