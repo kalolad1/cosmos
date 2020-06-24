@@ -103,8 +103,8 @@
     padding: 20px;
 }
 
-/* Visit */
-.visit {
+/* Encounter */
+.encounter {
     margin-bottom: 10px;
 }
 
@@ -118,12 +118,12 @@
     margin-bottom: 10px;
 }
 
-/* Visit Creator */
-.visit-creator {
+/* Encounter Creator */
+.encounter-creator {
     margin: 60px 20px 20px 20px;
 }
 
-.visit-creator-close-button {
+.encounter-creator-close-button {
     position: absolute;
     right: 20px;
     top: 15px;
@@ -132,11 +132,11 @@
     opacity: 0.3;
 }
 
-.visit-creator-close-button:hover {
+.encounter-creator-close-button:hover {
     opacity: 1;
 }
 
-.visit-creator-close-button:before, .visit-creator-close-button:after {
+.encounter-creator-close-button:before, .encounter-creator-close-button:after {
     position: absolute;
     left: 15px;
     content: ' ';
@@ -145,11 +145,11 @@
     background-color: #333;
 }
 
-.visit-creator-close-button:before {
+.encounter-creator-close-button:before {
     transform: rotate(45deg);
 }
 
-.visit-creator-close-button:after {
+.encounter-creator-close-button:after {
     transform: rotate(-45deg);
 }
 

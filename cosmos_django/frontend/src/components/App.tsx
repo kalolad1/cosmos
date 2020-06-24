@@ -10,7 +10,7 @@ import * as authUtil from '../util/auth_util';
 import SignupForm from './authentication/SignupForm';
 import LoginForm from '../components/authentication/LoginForm';
 import PatientHome from './patient/Home';
-import VisitCreator from './patient/VisitCreator';
+import VisitCreator from './patient/EncounterCreator';
 
 
 
@@ -50,7 +50,7 @@ class App extends React.Component<any, AppState> {
                     <ReactRouterDOM.Route exact path={urlPathConstants.HOME}>
                         <PatientHome/>
                     </ReactRouterDOM.Route>
-                    <ReactRouterDOM.Route exact path={urlPathConstants.CREATE_VISIT}>
+                    <ReactRouterDOM.Route exact path={urlPathConstants.CREATE_ENCOUNTER}>
                         <VisitCreator/>
                     </ReactRouterDOM.Route>
                     <ReactRouterDOM.Redirect to={this.state.rootUrl}/>

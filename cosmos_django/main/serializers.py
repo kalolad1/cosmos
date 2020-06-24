@@ -15,16 +15,16 @@ class MedicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class VisitSerializer(serializers.ModelSerializer):
+class EncounterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Visit
+        model = models.Encounter
         fields = '__all__'
 
 
 class PatientProfileSerializer(serializers.ModelSerializer):
     age = serializers.SerializerMethodField('get_age')
 
-    visits = VisitSerializer(many=True)
+    encounters = EncounterSerializer(many=True)
     medications = MedicationSerializer(many=True)
     vaccinations = VaccinationSerializer(many=True)
 

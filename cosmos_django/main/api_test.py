@@ -20,8 +20,8 @@ TEST_USER_REQUEST_DATA = {
     'sex': 'male',
 }
 
-TEST_VISIT_REQUEST_DATA = {
-    'visitType': 'physical',
+TEST_ENCOUNTER_REQUEST_DATA = {
+    'encounterType': 'physical',
     'note': 'This is a test physician note.',
 }
 
@@ -98,19 +98,19 @@ class TestApi(test.APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_create_visit_fails_not_authenticated(self):
-        url = urls.reverse('main/visits')
+    def test_create_encounter_fails_not_authenticated(self):
+        url = urls.reverse('main/encounters')
         response = self.client.post(url,
-                                    TEST_VISIT_REQUEST_DATA,
+                                    TEST_ENCOUNTER_REQUEST_DATA,
                                     format='json')
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_create_visit_fails_data_not_provided(self):
+    def test_create_encounter_fails_data_not_provided(self):
         self._create_test_user()
         self.client.force_authenticate(user=models.User.objects.first())
-        url = urls.reverse('main/visits')
-        request_data = copy.deepcopy(TEST_VISIT_REQUEST_DATA)
+        url = urls.reverse('main/encounters')
+        request_data = copy.deepcopy(TEST_ENCOUNTER_REQUEST_DATA)
         request_data.pop('note')
 
         response = self.client.post(url, request_data, format='json')
@@ -118,15 +118,16 @@ class TestApi(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response.data[custom_exceptions.USER_FACING_MESSAGE_KEY],
-            custom_exceptions.DataForNewVisitNotProvided.USER_FACING_MESSAGE)
+            custom_exceptions.DataForNewEncounterNotProvided.
+            USER_FACING_MESSAGE)
 
-    def test_create_visit_succeeds(self):
+    def test_create_encounter_succeeds(self):
         self._create_test_user()
         self.client.force_authenticate(user=models.User.objects.first())
-        url = urls.reverse('main/visits')
+        url = urls.reverse('main/encounters')
 
         response = self.client.post(url,
-                                    TEST_VISIT_REQUEST_DATA,
+                                    TEST_ENCOUNTER_REQUEST_DATA,
                                     format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

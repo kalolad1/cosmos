@@ -100,22 +100,22 @@ class TestModels(TestCase):
     def test_patient_profile__str__(self):
         self.assertEqual(self.patient_profile.__str__(), 'John Doe')
 
-    def test_create_visit(self):
-        visit: models.Visit = models.Visit.objects.create(
+    def test_create_encounter(self):
+        encounter: models.Encounter = models.Encounter.objects.create(
             patient_profile=self.patient_profile,
-            visit_type=models.Visit.PHYSICAL,
+            encounter_type=models.Encounter.PHYSICAL,
             note='This is my note.')
 
-        self.assertEqual(visit.patient_profile, self.patient_profile)
-        self.assertEqual(visit.visit_type, 'physical')
-        self.assertEqual(visit.note, 'This is my note.')
+        self.assertEqual(encounter.patient_profile, self.patient_profile)
+        self.assertEqual(encounter.encounter_type, 'physical')
+        self.assertEqual(encounter.note, 'This is my note.')
 
-    def test_visit__str__(self):
-        visit: models.Visit = models.Visit.objects.create(
+    def test_encounter__str__(self):
+        encounter: models.Encounter = models.Encounter.objects.create(
             patient_profile=self.patient_profile,
-            visit_type=models.Visit.PHYSICAL,
+            encounter_type=models.Encounter.PHYSICAL,
             note='This is my note.')
-        self.assertEqual(visit.__str__(), 'This is my note.')
+        self.assertEqual(encounter.__str__(), 'This is my note.')
 
     def test_medication__str__(self):
         medication: models.Medication = models.Medication.objects.create(

@@ -3,25 +3,25 @@ import * as React from 'react';
 
 import * as types from '../../types/types';
 
-import Visit from './Visit'
+import Encounter from './Encounter'
 
 
 interface TimelineProps {
-    visits: Array<types.Visit>,
+    encounters: Array<types.Encounter>,
 }
 
 
 class Timeline extends React.Component<TimelineProps, any> {
     render() {
-        const visits = this.props.visits.map(function (visit) {
-            return <Visit
-                visitType={visit.visit_type}
-                note={visit.note}
-                key={visit.id}/>
+        const encounters = this.props.encounters.map(function (encounter) {
+            return <Encounter
+                encounterType={encounter.encounter_type}
+                note={encounter.note}
+                key={encounter.id}/>
         });
         return (
             <div>
-                {visits}
+                {encounters}
             </div>
         );
     }

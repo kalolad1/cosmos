@@ -12,16 +12,16 @@ export interface PatientProfile {
     sex: string,
     age: number,
     profile_picture?: string,
-    visits: Array<Visit>,
+    encounters: Array<Encounter>,
     medications: Array<Medication>
     vaccinations: Array<Vaccination>,
 }
 
-export interface Visit {
+export interface Encounter {
     id: number,
     patient_profile: number,
     note: string,
-    visit_type: string,
+    encounter_type: string,
 }
 
 export interface Medication {

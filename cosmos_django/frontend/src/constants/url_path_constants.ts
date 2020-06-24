@@ -9,4 +9,4 @@ export const TIMELINE_CHART = '/home/timeline';
 export const MEDICATIONS_CHART = '/home/medications';
 export const VACCINATIONS_CHART = '/home/vaccinations';
 
-export const CREATE_VISIT = '/create-visit';
+export const CREATE_ENCOUNTER = '/create-encounter';

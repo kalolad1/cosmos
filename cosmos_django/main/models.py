@@ -113,24 +113,24 @@ class PatientProfile(models.Model):
         return self.get_full_name()
 
 
-class Visit(models.Model):
+class Encounter(models.Model):
     patient_profile: models.ForeignKey = models.ForeignKey(
         PatientProfile,
         on_delete=models.CASCADE,
         null=True,
-        related_name='visits')
+        related_name='encounters')
 
     PHYSICAL: str = 'physical'
     VACCINATION: str = 'vaccination'
     ILLNESS: str = 'illness'
     # (database representation, human-readable version)
-    VISIT_TYPE_CHOICES: List[Tuple[str, str]] = [
+    ENCOUNTER_TYPE_CHOICES: List[Tuple[str, str]] = [
         (PHYSICAL, 'Physical'),
         (VACCINATION, 'Vaccination'),
         (ILLNESS, 'Illness'),
     ]
-    visit_type: models.CharField = models.CharField(max_length=60,
-                                                    choices=VISIT_TYPE_CHOICES)
+    encounter_type: models.CharField = models.CharField(
+        max_length=60, choices=ENCOUNTER_TYPE_CHOICES)
     note: models.CharField = models.CharField(max_length=1000,
                                               blank=False,
                                               default=None)

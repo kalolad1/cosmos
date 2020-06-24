@@ -2,9 +2,7 @@ import * as React from 'react'
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as patientApi from '../../api/patient_api';
-import * as axiosConfig from '../../configs/axios_config';
-import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
-import * as authUtil from '../../util/auth_util';
+
 
 import {
     Button,
@@ -16,33 +14,33 @@ import {
 } from "@material-ui/core";
 
 
-const VISIT_OPTIONS = [
+const ENCOUNTER_TYPE_OPTIONS = [
     {id: 1, value: 'physical', humanReadable: 'Physical'},
     {id: 2, value: 'illness', humanReadable: 'Illness'},
     {id: 3, value: 'vaccination', humanReadable: 'Vaccination'},
 ];
 
-interface VisitCreatorProps {
+interface EncounterCreatorProps {
     history: any,
 }
 
-interface VisitCreatorState {
-    visitType: string,
+interface EncounterCreatorState {
+    encounterType: string,
     note: string,
 }
 
 
-class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState> {
+class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterCreatorState> {
     constructor(props) {
         super(props);
         this.state = {
-            'visitType': '',
-            'note': ''
+            encounterType: '',
+            note: ''
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.createVisitTypeMenuItems = this.createVisitTypeMenuItems.bind(this);
+        this.createEncounterTypeMenuItems = this.createEncounterTypeMenuItems.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.handleVisitCreate = this.handleVisitCreate.bind(this);
+        this.handleEncounterCreate = this.handleEncounterCreate.bind(this);
         this.handleExitClick = this.handleExitClick.bind(this);
     }
 
@@ -55,8 +53,8 @@ class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState>
         });
     }
 
-    createVisitTypeMenuItems() {
-        return VISIT_OPTIONS.map(function (option) {
+    createEncounterTypeMenuItems() {
+        return ENCOUNTER_TYPE_OPTIONS.map(function (option) {
             return (
                 <MenuItem
                     key={option.id}
@@ -74,16 +72,16 @@ class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState>
         });
     }
 
-    handleVisitCreate(event: React.SyntheticEvent): void {
+    handleEncounterCreate(event: React.SyntheticEvent): void {
         event.preventDefault();
         let self = this;
 
-        patientApi.createVisit(
-            this.state.visitType,
+        patientApi.createEncounter(
+            this.state.encounterType,
             this.state.note,
             this.props.history)
             .then(function () {
-                console.log('Visit created successfully.');
+                console.log('Encounter created successfully.');
                 self.props.history.goBack();
             });
     }
@@ -95,31 +93,31 @@ class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState>
 
     render() {
         return (
-            <div className="visit-creator">
+            <div className="encounter-creator">
                 <a
                     href="#"
                     onClick={this.handleExitClick}
-                    className="visit-creator-close-button"/>
+                    className="encounter-creator-close-button"/>
                 <div>
-                    <form onSubmit={this.handleVisitCreate}>
+                    <form onSubmit={this.handleEncounterCreate}>
                         <div className="form-input-container">
                             <FormControl
                                 variant="outlined"
                                 fullWidth>
                                 <InputLabel
-                                    id="visitType-label">Type</InputLabel>
+                                    id="encounterType-label">Type</InputLabel>
                                 <Select
                                     displayEmpty
-                                    labelId="visitType-label"
-                                    id="visitType"
-                                    name="visitType"
-                                    value={this.state.visitType}
+                                    labelId="encounterType-label"
+                                    id="encounterType"
+                                    name="encounterType"
+                                    value={this.state.encounterType}
                                     onChange={this.handleSelectChange}
                                     label="Type"
                                     inputProps={{
                                         required: true,
                                     }}>
-                                    {this.createVisitTypeMenuItems()}
+                                    {this.createEncounterTypeMenuItems()}
                                 </Select>
                             </FormControl>
                         </div>
@@ -152,4 +150,4 @@ class VisitCreator extends React.Component<VisitCreatorProps, VisitCreatorState>
     }
 }
 
-export default ReactRouterDOM.withRouter(VisitCreator);
+export default ReactRouterDOM.withRouter(EncounterCreator);

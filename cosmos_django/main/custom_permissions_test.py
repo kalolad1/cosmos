@@ -29,7 +29,7 @@ class TestUsersPermissions(test.APITestCase):
         url = urls.reverse('main/users')
         return self.client.post(url, TEST_USER_REQUEST_DATA, format='json')
 
-    def test_create_new_account_succeeds(self):
+    def test_create_new_user_succeeds(self):
         http_request = http.HttpRequest()
         http_request.method = api.HTTPMethod.POST
         rest_request = request.Request(http_request)
@@ -39,7 +39,7 @@ class TestUsersPermissions(test.APITestCase):
 
         self.assertTrue(expected_permission)
 
-    def test_get_account_fails_no_authentication(self):
+    def test_get_user_fails_no_authentication(self):
         http_request = http.HttpRequest()
         http_request.method = api.HTTPMethod.GET
         rest_request = request.Request(http_request)
@@ -49,7 +49,7 @@ class TestUsersPermissions(test.APITestCase):
 
         self.assertFalse(expected_permission)
 
-    def test_get_account_succeeds(self):
+    def test_get_user_succeeds(self):
         http_request = http.HttpRequest()
         http_request.method = api.HTTPMethod.GET
 

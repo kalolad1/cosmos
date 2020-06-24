@@ -46,8 +46,8 @@ class DataForNewUserNotProvided(CustomException):
         return self.USER_FACING_MESSAGE
 
 
-class DataForNewVisitNotProvided(CustomException):
-    USER_FACING_MESSAGE = 'All information needed to create visit was not provided!'
+class DataForNewEncounterNotProvided(CustomException):
+    USER_FACING_MESSAGE = 'All information needed to create encounter was not provided!'
 
     def __init__(self, message=None):
         super().__init__(message)

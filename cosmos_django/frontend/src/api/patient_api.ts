@@ -34,12 +34,12 @@ export function getUser(history: any) {
     return makeAuthorizedRequestOrRedirectToLogin(request, history)
 }
 
-export function createVisit(visitType: string, note: string, history: any) {
+export function createEncounter(encounterType: string, note: string, history: any) {
     function request() {
         return axiosConfig.axiosClient.post(
-            apiEndpointConstants.VISITS,
+            apiEndpointConstants.ENCOUNTERS,
             {
-                visitType: visitType,
+                encounterType: encounterType,
                 note: note,
             },
             authUtil.getAuthorizationRequestHeader())

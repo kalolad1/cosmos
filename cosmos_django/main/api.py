@@ -76,29 +76,30 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_200_OK)
 
 
-class VisitsEndpoint(views.APIView):
-    """Endpoints for Visit objects."""
-    permission_classes = (custom_permissions.VisitsPermissions, )
+class EncountersEndpoint(views.APIView):
+    """Endpoints for Encounter objects."""
+    permission_classes = (custom_permissions.EncountersPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Adds a new visit for the user."""
         try:
-            visit_type = request.data['visitType']
+            encounter_type = request.data['encounterType']
             note = request.data['note']
         except KeyError:
-            custom_exception = custom_exceptions.DataForNewVisitNotProvided()
+            custom_exception = custom_exceptions.DataForNewEncounterNotProvided(
+            )
             return response.Response(
                 data=custom_exception.get_response_format(),
                 status=status.HTTP_400_BAD_REQUEST)
 
-        visit: models.Visit = models.Visit.objects.create(
+        encounter: models.Encounter = models.Encounter.objects.create(
             patient_profile=request.user.patient_profile,
-            visit_type=visit_type,
+            encounter_type=encounter_type,
             note=note)
 
-        serialized_visit: serializers.VisitSerializer = serializers.VisitSerializer(
-            instance=visit)
-        logging.info('Creating a new visit with data: %s.',
-                     json.dumps(serialized_visit.data))
-        return response.Response(data=serialized_visit.data,
+        serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
+            instance=encounter)
+        logging.info('Creating a new encounter with data: %s.',
+                     json.dumps(serialized_encounter.data))
+        return response.Response(data=serialized_encounter.data,
                                  status=status.HTTP_201_CREATED)

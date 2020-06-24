@@ -33,7 +33,7 @@ var VISIT_OPTIONS = [
     { id: 2, value: 'illness', humanReadable: 'Illness' },
     { id: 3, value: 'vaccination', humanReadable: 'Vaccination' },
 ];
-var VisitCreator = /** @class */ (function (_super) {
+var EncounterCreator = /** @class */ (function (_super) {
     __extends(VisitCreator, _super);
     function VisitCreator(props) {
         var _this = _super.call(this, props) || this;
@@ -94,5 +94,5 @@ var VisitCreator = /** @class */ (function (_super) {
     };
     return VisitCreator;
 }(React.Component));
-exports.default = ReactRouterDOM.withRouter(VisitCreator);
+exports.default = ReactRouterDOM.withRouter(EncounterCreator);
 //# sourceMappingURL=VisitCreator.js.map
