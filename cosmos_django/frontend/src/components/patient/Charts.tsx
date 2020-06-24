@@ -3,13 +3,12 @@ import * as React from 'react';
 
 import * as types from '../../types/types';
 
-import {Divider} from '@material-ui/core';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
-import Medications from './Medications';
-import Timeline from './Timeline';
 import Profile from './Profile';
+import Summary from './Summary';
+import Timeline from './Timeline';
 
 
 interface ChartsProps {
@@ -41,22 +40,22 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
 
     getOpenChartComponent() {
         let openChart;
-        switch(this.state.selectedTab) {
+        switch (this.state.selectedTab) {
             case 0:
-                openChart = <Timeline
-                    visits={this.props.patientProfile.visits}/>;
+                openChart = <Summary
+                    patientProfile={this.props.patientProfile}/>;
                 break;
             case 1:
-                openChart = <Medications
-                    medications={this.props.patientProfile.medications}/>;
+                openChart = <Timeline
+                    visits={this.props.patientProfile.visits}/>;
                 break;
             case 2:
                 openChart = <Profile
                     patientProfile={this.props.patientProfile}/>;
                 break;
             default:
-                openChart = <Timeline
-                    visits={this.props.patientProfile.visits}/>;
+                openChart = <Summary
+                    patientProfile={this.props.patientProfile}/>;
         }
         return openChart;
     }
@@ -71,8 +70,8 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                         indicatorColor="primary"
                         textColor="primary"
                         centered>
+                        <Tab label="Summary"/>
                         <Tab label="Timeline"/>
-                        <Tab label="Medications"/>
                         <Tab label="Profile"/>
                     </Tabs>
                 </div>
