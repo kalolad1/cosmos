@@ -3,13 +3,13 @@ import * as React from 'react';
 
 import * as types from '../../types/types';
 
-import {Divider} from "@material-ui/core";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
+import {Divider} from '@material-ui/core';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 
-import Medications from "./Medications";
-import Timeline from "./Timeline";
-import Vaccinations from "./Vaccinations";
+import Medications from './Medications';
+import Timeline from './Timeline';
+import Profile from './Profile';
 
 
 interface ChartsProps {
@@ -51,8 +51,8 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                     medications={this.props.patientProfile.medications}/>;
                 break;
             case 2:
-                openChart = <Vaccinations
-                    vaccinations={this.props.patientProfile.vaccinations}/>;
+                openChart = <Profile
+                    patientProfile={this.props.patientProfile}/>;
                 break;
             default:
                 openChart = <Timeline
@@ -73,10 +73,10 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                         centered>
                         <Tab label="Timeline"/>
                         <Tab label="Medications"/>
-                        <Tab label="Vaccinations"/>
+                        <Tab label="Profile"/>
                     </Tabs>
                 </div>
-                <div className="chart-content-container rounded-grey-container">
+                <div className="chart-content-container">
                     {this.getOpenChartComponent()}
                 </div>
             </div>

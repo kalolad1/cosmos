@@ -167,6 +167,53 @@
     min-height: 60px;
 }
 
+.panel-grid {
+    display: flex;
+    justify-content: center;
+}
+
+.panel-grid-main-column {
+    margin: 0 10px;
+    width: 60%;
+}
+
+.panel-grid-secondary-column {
+    width: 40%;
+    margin: 0 10px;
+}
+
+.panel {
+    margin: 20px 0;
+    height: 200px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+}
+
+.panel::after {
+    position: absolute;
+    content: '';
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.panel:hover {
+  transform: scale(1.025, 1.025);
+}
+
+.panel:hover::after {
+  opacity: 1;
+}
+
 /* Utilities */
 /* Containers */
 .rounded-grey-container {
@@ -176,7 +223,7 @@
 }
 
 .box-shadow-container {
-    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Forms */

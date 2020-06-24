@@ -53,6 +53,7 @@ class App extends React.Component<any, AppState> {
                     <ReactRouterDOM.Route exact path={urlPathConstants.CREATE_VISIT}>
                         <VisitCreator/>
                     </ReactRouterDOM.Route>
+                    <ReactRouterDOM.Redirect to={this.state.rootUrl}/>
                 </ReactRouterDOM.Switch>
             </ReactRouterDOM.HashRouter>
         );

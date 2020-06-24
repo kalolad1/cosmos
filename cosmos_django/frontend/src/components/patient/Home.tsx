@@ -29,7 +29,7 @@ import Header from './Header';
 
 
 interface HomeState {
-    account: types.Account,
+    user: types.User,
     isLoading: boolean,
     isVerticalNavbarOpen: boolean,
 }
@@ -38,7 +38,7 @@ class Home extends React.Component<any, HomeState> {
     constructor(props) {
         super(props);
         this.state = {
-            account: {},
+            user: {},
             isLoading: true,
             isVerticalNavbarOpen: false,
         };
@@ -64,11 +64,11 @@ class Home extends React.Component<any, HomeState> {
 
     componentDidMount() {
         const self = this;
-        patientApi.getAccount(this.props.history)
+        patientApi.getUser(this.props.history)
             .then(function (response) {
                 console.log(response);
                 self.setState({
-                    'account': response?.data,
+                    'user': response?.data,
                     'isLoading': false,
                 });
             });
@@ -134,13 +134,13 @@ class Home extends React.Component<any, HomeState> {
                         <div className={classes.toolbar}/>
                         <div>
                             <Header
-                                profilePicture={this.state.account!.patient_profile!.profile_picture}
-                                firstName={this.state.account!.patient_profile!.first_name}
-                                lastName={this.state.account!.patient_profile!.last_name}
-                                sex={this.state.account!.patient_profile!.sex}
-                                age={this.state.account!.patient_profile!.age}
+                                profilePicture={this.state.user!.patient_profile!.profile_picture}
+                                firstName={this.state.user!.patient_profile!.first_name}
+                                lastName={this.state.user!.patient_profile!.last_name}
+                                sex={this.state.user!.patient_profile!.sex}
+                                age={this.state.user!.patient_profile!.age}
                             />
-                            <Charts patientProfile={this.state.account!.patient_profile!}/>
+                            <Charts patientProfile={this.state.user!.patient_profile!}/>
                         </div>
                     </main>
                 </div>

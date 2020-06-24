@@ -25,7 +25,7 @@ async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
 }
 
 
-export function getAccount(history: any) {
+export function getUser(history: any) {
     function request() {
         return axiosConfig.axiosClient.get(
             apiEndpointConstants.USERS,

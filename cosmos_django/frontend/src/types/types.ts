@@ -1,4 +1,4 @@
-export interface Account {
+export interface User {
     email?: string,
     patient_profile?: PatientProfile,
 }
