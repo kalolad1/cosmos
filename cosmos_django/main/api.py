@@ -68,8 +68,10 @@ class AccountsEndpoint(views.APIView):
 
     def put(self, request: Request) -> response.Response:
         for attribute, value in request.data.items():
-            if attribute not in ('email', ):
-                setattr(request.user.patient_profile, attribute, value)
+            if attribute == 'patient_profile':
+                for pp_attribute, pp_value in value.items():
+                    setattr(request.user.patient_profile, pp_attribute,
+                            pp_value)
             else:
                 setattr(request.user, attribute, value)
         request.user.save()

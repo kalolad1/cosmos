@@ -22,7 +22,9 @@ TEST_USER_REQUEST_DATA = {
 
 TEST_USER_PUT_REQUEST_DATA = {
     'email': 'another@gmail.com',
-    'first_name': 'Billy',
+    'patient_profile': {
+        'first_name': 'Billy',
+    }
 }
 
 TEST_ENCOUNTER_REQUEST_DATA = {
@@ -108,8 +110,9 @@ class TestApi(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['email'],
                          TEST_USER_PUT_REQUEST_DATA['email'])
-        self.assertEqual(response.data['patient_profile']['first_name'],
-                         TEST_USER_PUT_REQUEST_DATA['first_name'])
+        self.assertEqual(
+            response.data['patient_profile']['first_name'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['first_name'])
 
     def test_get_user_fails_not_authenticated(self):
         url = urls.reverse('main/users')
