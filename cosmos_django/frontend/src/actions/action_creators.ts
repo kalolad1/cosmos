@@ -67,11 +67,11 @@ export function receiveAddEncounter(encounter) {
     }
 }
 
-export function addEncounter(encounterType: string, note: string, history) {
+export function addEncounter(encounter_type: string, note: string, history) {
     return function(dispatch) {
         dispatch(requestAddEncounter());
 
-        return patientApi.addEncounter(encounterType, note, history)
+        return patientApi.addEncounter(encounter_type, note, history)
             .then(function (response) {
                 dispatch(receiveAddEncounter(response.data));
             });

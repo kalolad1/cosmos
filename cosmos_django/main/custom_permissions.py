@@ -14,6 +14,10 @@ class UsersPermissions(permissions.BasePermission):
         elif request.method == api.HTTPMethod.GET:
             if request.user and request.user.is_authenticated:
                 return True
+        # If updating, require authentication.
+        elif request.method == api.HTTPMethod.PUT:
+            if request.user and request.user.is_authenticated:
+                return True
         return False
 
 

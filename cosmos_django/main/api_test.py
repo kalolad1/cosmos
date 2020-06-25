@@ -10,18 +10,23 @@ from . import models
 TEST_USER_REQUEST_DATA = {
     'email': 'test123@gmail.com',
     'password': 'test1234',
-    'dateOfBirth': {
+    'date_of_birth': {
         'year': 2020,
         'month': 2,
         'day': 3
     },
-    'firstName': 'John',
-    'lastName': 'Doe',
+    'first_name': 'John',
+    'last_name': 'Doe',
     'sex': 'male',
 }
 
+TEST_USER_PUT_REQUEST_DATA = {
+    'email': 'another@gmail.com',
+    'first_name': 'Billy',
+}
+
 TEST_ENCOUNTER_REQUEST_DATA = {
-    'encounterType': 'physical',
+    'encounter_type': 'physical',
     'note': 'This is a test physician note.',
 }
 
@@ -68,8 +73,8 @@ class TestApi(test.APITestCase):
 
     def test_create_user_fails_patient_profile_data_not_provided(self):
         request_data = copy.deepcopy(TEST_USER_REQUEST_DATA)
-        request_data.pop('dateOfBirth')
-        request_data.pop('lastName')
+        request_data.pop('date_of_birth')
+        request_data.pop('last_name')
 
         response = self._create_test_user(request_data=request_data)
 
@@ -82,6 +87,29 @@ class TestApi(test.APITestCase):
         response = self._create_test_user()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_put_user_fails_not_authenticated(self):
+        url = urls.reverse('main/users')
+        response = self.client.put(url,
+                                   TEST_USER_PUT_REQUEST_DATA,
+                                   format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_put_user_succeeds(self):
+        self._create_test_user()
+        self.client.force_authenticate(user=models.User.objects.first())
+
+        url = urls.reverse('main/users')
+        response = self.client.put(url,
+                                   TEST_USER_PUT_REQUEST_DATA,
+                                   format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['email'],
+                         TEST_USER_PUT_REQUEST_DATA['email'])
+        self.assertEqual(response.data['patient_profile']['first_name'],
+                         TEST_USER_PUT_REQUEST_DATA['first_name'])
 
     def test_get_user_fails_not_authenticated(self):
         url = urls.reverse('main/users')

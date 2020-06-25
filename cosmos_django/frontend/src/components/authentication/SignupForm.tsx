@@ -27,9 +27,9 @@ const SEX_OPTIONS = [
 interface SignupFormState {
     email: string,
     password: string,
-    firstName: string,
-    lastName: string,
-    dateOfBirth?: Date,
+    first_name: string,
+    last_name: string,
+    date_of_birth?: Date,
     sex: string,
     isErrorSnackbarOpen: boolean,
     snackBarErrorMessage: string,
@@ -41,9 +41,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
         this.state = {
             email: '',
             password: '',
-            firstName: '',
-            lastName: '',
-            dateOfBirth: new Date(),
+            first_name: '',
+            last_name: '',
+            date_of_birth: new Date(),
             sex: '',
             isErrorSnackbarOpen: false,
             snackBarErrorMessage: 'An error has occurred!',
@@ -60,7 +60,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
     handleDateChange(date: Date | null): void {
         this.setState({
             ...this.state,
-            dateOfBirth: date!,
+            date_of_birth: date!,
         });
     }
 
@@ -99,13 +99,13 @@ class SignupForm extends React.Component<any, SignupFormState> {
         authApi.signupRequest(
             this.state.email,
             this.state.password,
-            this.state.firstName,
-            this.state.lastName,
+            this.state.first_name,
+            this.state.last_name,
             {
-                year: this.state.dateOfBirth!.getFullYear(),
+                year: this.state.date_of_birth!.getFullYear(),
                 // Add 1 to month to change from 0 to 1 indexing.
-                month: this.state.dateOfBirth!.getMonth() + 1,
-                day: this.state.dateOfBirth!.getDate(),
+                month: this.state.date_of_birth!.getMonth() + 1,
+                day: this.state.date_of_birth!.getDate(),
             },
             this.state.sex)
             .then(function () {
@@ -191,9 +191,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                         <div className="form-input-container form-bi-input-container">
                             <TextField
                                 className="form-bi-input-field"
-                                name="firstName"
+                                name="first_name"
                                 onChange={this.handleInputChange}
-                                value={this.state.firstName}
+                                value={this.state.first_name}
                                 label="First name"
                                 type="text"
                                 variant="outlined"
@@ -202,9 +202,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 }}/>
                             <TextField
                                 className="form-bi-input-field"
-                                name="lastName"
+                                name="last_name"
                                 onChange={this.handleInputChange}
-                                value={this.state.lastName}
+                                value={this.state.last_name}
                                 label="Last name"
                                 type="text"
                                 variant="outlined"
@@ -240,9 +240,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                     variant="inline"
                                     inputVariant="outlined"
                                     format="MM/dd/yyyy"
-                                    id="dateOfBirth"
+                                    id="date_of_birth"
                                     label="Date of birth"
-                                    value={this.state.dateOfBirth}
+                                    value={this.state.date_of_birth}
                                     onChange={this.handleDateChange}
                                     openTo="year"
                                 />

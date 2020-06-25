@@ -4,8 +4,8 @@ import * as textUtil from '../../util/text_util';
 
 
 interface HeaderMetadataProps {
-    firstName: string,
-    lastName: string,
+    first_name: string,
+    last_name: string,
     sex: string,
     age: number,
 }
@@ -16,8 +16,8 @@ class HeaderMetadata extends React.Component<HeaderMetadataProps, any> {
         return (
             <div className="patient-header-metadata">
                 <h1>{textUtil.createFullName(
-                    this.props.firstName,
-                    this.props.lastName)}</h1>
+                    this.props.first_name,
+                    this.props.last_name)}</h1>
                 <p>{this.props.sex} &middot; {this.props.age} years old</p>
             </div>
         )

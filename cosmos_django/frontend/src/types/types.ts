@@ -1,17 +1,17 @@
 export interface User {
     email?: string,
-    patientProfile?: PatientProfile,
+    patient_profile?: PatientProfile,
 }
 
 export interface PatientProfile {
     account: number,
     id: number,
-    firstName: string,
-    lastName: string,
-    dateOfBirth: string,
+    first_name: string,
+    last_name: string,
+    date_of_birth: string,
     sex: string,
     age: number,
-    profilePicture?: string,
+    profile_picture?: string,
     encounters: Array<Encounter>,
     medications: Array<Medication>
     vaccinations: Array<Vaccination>,
@@ -19,19 +19,19 @@ export interface PatientProfile {
 
 export interface Encounter {
     id: number,
-    patientProfile: number,
+    patient_profile: number,
     note: string,
-    encounterType: string,
+    encounter_type: string,
 }
 
 export interface Medication {
     id: number,
-    patientProfile: number,
+    patient_profile: number,
     name: string,
 }
 
 export interface Vaccination {
     id: number,
-    patientProfile: number,
+    patient_profile: number,
     name: string,
 }

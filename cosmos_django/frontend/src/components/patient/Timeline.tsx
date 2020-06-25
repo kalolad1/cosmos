@@ -15,7 +15,7 @@ class Timeline extends React.Component<TimelineProps, any> {
     render() {
         const encounters = this.props.encounters.map(function (encounter) {
             return <Encounter
-                encounterType={encounter.encounterType}
+                encounter_type={encounter.encounter_type}
                 note={encounter.note}
                 key={encounter.id}/>
         });

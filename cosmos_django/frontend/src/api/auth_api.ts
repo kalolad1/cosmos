@@ -27,19 +27,19 @@ interface DateOfBirth {
 export function signupRequest(
     email: string,
     password: string,
-    firstName: string,
-    lastName: string,
-    dateOfBirth: DateOfBirth,
+    first_name: string,
+    last_name: string,
+    date_of_birth: DateOfBirth,
     sex: string) {
     return axiosConfig.axiosClient.post(apiEndpointConstants.USERS, {
         email: email,
         password: password,
-        firstName: firstName,
-        lastName: lastName,
+        firstName: first_name,
+        lastName: last_name,
         dateOfBirth: {
-            year: dateOfBirth.year,
-            month: dateOfBirth.month,
-            day: dateOfBirth.day,
+            year: date_of_birth.year,
+            month: date_of_birth.month,
+            day: date_of_birth.day,
         },
         sex: sex
     })

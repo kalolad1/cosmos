@@ -30,11 +30,11 @@ class AccountsEndpoint(views.APIView):
         try:
             email = request.data['email']
             password = request.data['password']
-            first_name = request.data['firstName']
-            last_name = request.data['lastName']
-            year = request.data['dateOfBirth']['year']
-            month = request.data['dateOfBirth']['month']
-            day = request.data['dateOfBirth']['day']
+            first_name = request.data['first_name']
+            last_name = request.data['last_name']
+            year = request.data['date_of_birth']['year']
+            month = request.data['date_of_birth']['month']
+            day = request.data['date_of_birth']['day']
             sex = request.data['sex']
         except KeyError:
             custom_exception = custom_exceptions.DataForNewUserNotProvided()
@@ -66,6 +66,21 @@ class AccountsEndpoint(views.APIView):
         return response.Response(data=serialized_user.data,
                                  status=status.HTTP_201_CREATED)
 
+    def put(self, request: Request) -> response.Response:
+        for attribute, value in request.data.items():
+            if attribute not in ('email', ):
+                setattr(request.user.patient_profile, attribute, value)
+            else:
+                setattr(request.user, attribute, value)
+        request.user.save()
+
+        serialized_user: serializers.UserSerializer = serializers.UserSerializer(
+            instance=request.user)
+        logging.info('Updating user: now has data %s.',
+                     json.dumps(serialized_user.data))
+        return response.Response(data=serialized_user.data,
+                                 status=status.HTTP_200_OK)
+
     def get(self, request: Request) -> response.Response:
         """Returns the users main if they are authenticated."""
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
@@ -83,7 +98,7 @@ class EncountersEndpoint(views.APIView):
     def post(self, request: Request) -> response.Response:
         """Adds a new visit for the user."""
         try:
-            encounter_type = request.data['encounterType']
+            encounter_type = request.data['encounter_type']
             note = request.data['note']
         except KeyError:
             custom_exception = custom_exceptions.DataForNewEncounterNotProvided(

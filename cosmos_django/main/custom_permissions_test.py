@@ -10,13 +10,13 @@ from . import models
 TEST_USER_REQUEST_DATA = {
     'email': 'test123@gmail.com',
     'password': 'test1234',
-    'dateOfBirth': {
+    'date_of_birth': {
         'year': 2020,
         'month': 2,
         'day': 3
     },
-    'firstName': 'John',
-    'lastName': 'Doe',
+    'first_name': 'John',
+    'last_name': 'Doe',
     'sex': 'male',
 }
 
@@ -38,6 +38,31 @@ class TestUsersPermissions(test.APITestCase):
             request=rest_request)
 
         self.assertTrue(expected_permission)
+
+    def test_put_new_user_succeeds(self):
+        http_request = http.HttpRequest()
+        http_request.method = api.HTTPMethod.PUT
+
+        self._create_test_user()
+        test.force_authenticate(http_request, user=models.User.objects.first())
+        rest_request = request.Request(http_request)
+
+        expected_permission = self.user_permissions.has_permission(
+            request=rest_request)
+
+        self.assertTrue(expected_permission)
+
+    def test_put_new_user_fails_no_authentication(self):
+        http_request = http.HttpRequest()
+        http_request.method = api.HTTPMethod.PUT
+
+        self._create_test_user()
+        rest_request = request.Request(http_request)
+
+        expected_permission = self.user_permissions.has_permission(
+            request=rest_request)
+
+        self.assertFalse(expected_permission)
 
     def test_get_user_fails_no_authentication(self):
         http_request = http.HttpRequest()
