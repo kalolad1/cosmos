@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import Panel from './Panel';
-import TextFieldPanelFooter from './TextFieldPanelFooter';
 
 
 class TextFieldPanel extends React.Component<any, any> {
@@ -32,16 +31,9 @@ class TextFieldPanel extends React.Component<any, any> {
                 {this.props.textFields}
             </div>
         );
-        const footer = (
-            <TextFieldPanelFooter
-                inEditMode={this.props.inEditMode}
-                isHoveredOver={this.state.isHoveredOver}
-                handleEditIconClick={this.props.handleEditIconClick}/>
-        );
         return <Panel
             title={this.props.title}
             content={content}
-            footer={footer}
             onMouseEnter={this.onMouseEnterHandler}
             onMouseLeave={this.onMouseLeaveHandler}/>
     }
