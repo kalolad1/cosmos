@@ -36,7 +36,7 @@ class UserAlreadyExistsException(CustomException):
 
 
 class DataForNewUserNotProvided(CustomException):
-    USER_FACING_MESSAGE = 'All information need to create a new user was not' \
+    USER_FACING_MESSAGE = 'All information needed to create a new user was not' \
                           ' provided!'
 
     def __init__(self, message=None):

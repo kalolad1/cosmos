@@ -27,6 +27,31 @@ export function fetchUser(history) {
     }
 }
 
+export function requestUpdateUser() {
+    return {
+        type: actionTypes.REQUEST_UPDATE_USER,
+    }
+}
+
+export function receiveUpdateUser(user) {
+    return {
+        type: actionTypes.RECEIVE_UPDATE_USER,
+        user: user,
+    }
+}
+
+export function updateUser(user) {
+    return function(dispatch) {
+        dispatch(requestUpdateUser());
+
+        // TODO complete implementation here.
+        // return patientApi.getUser(history)
+        //     .then(function (response) {
+        //         dispatch(receiveGetUser(response.data));
+        //     });
+    }
+}
+
 
 /* Encounter */
 export function requestAddEncounter() {

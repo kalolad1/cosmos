@@ -12,7 +12,7 @@ import Timeline from './Timeline';
 
 
 interface ChartsProps {
-    patientProfile: types.PatientProfile,
+    user: types.User,
 }
 
 interface ChartsState {
@@ -42,20 +42,17 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
         let openChart;
         switch (this.state.selectedTab) {
             case 0:
-                openChart = <Summary
-                    patientProfile={this.props.patientProfile}/>;
+                openChart = <Summary user={this.props.user}/>;
                 break;
             case 1:
                 openChart = <Timeline
-                    encounters={this.props.patientProfile.encounters}/>;
+                    encounters={this.props.user!.patientProfile!.encounters}/>;
                 break;
             case 2:
-                openChart = <Profile
-                    patientProfile={this.props.patientProfile}/>;
+                openChart = <Profile user={this.props.user}/>;
                 break;
             default:
-                openChart = <Summary
-                    patientProfile={this.props.patientProfile}/>;
+                openChart = <Summary user={this.props.user}/>;
         }
         return openChart;
     }

@@ -70,7 +70,7 @@ class Home extends React.Component<any, HomeState> {
 
     render() {
         const {classes} = this.props;
-
+        console.log(this.props.user);
         if (this.props.isFetchingUser) {
             return <FullPageSpinner/>
         } else {
@@ -123,13 +123,13 @@ class Home extends React.Component<any, HomeState> {
                         <div className={classes.toolbar}/>
                         <div>
                             <Header
-                                profilePicture={this.props.user.patient_profile.profile_picture}
-                                firstName={this.props.user.patient_profile.first_name}
-                                lastName={this.props.user.patient_profile.last_name}
-                                sex={this.props.user.patient_profile.sex}
-                                age={this.props.user.patient_profile.age}
+                                profilePicture={this.props.user.patientProfile.profilePicture}
+                                firstName={this.props.user.patientProfile.firstName}
+                                lastName={this.props.user.patientProfile.lastName}
+                                sex={this.props.user.patientProfile.sex}
+                                age={this.props.user.patientProfile.age}
                             />
-                            <Charts patientProfile={this.props.user.patient_profile}/>
+                            <Charts user={this.props.user}/>
                         </div>
                     </main>
                 </div>

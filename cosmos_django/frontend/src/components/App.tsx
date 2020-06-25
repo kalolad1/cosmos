@@ -61,7 +61,7 @@ class App extends React.Component<any, AppState> {
                         <ReactRouterDOM.Route exact path={urlPathConstants.HOME}>
                             <Home/>
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route exact path={urlPathConstants.CREATE_ENCOUNTER}>
+                        <ReactRouterDOM.Route exact path={urlPathConstants.ADD_ENCOUNTER}>
                             <VisitCreator/>
                         </ReactRouterDOM.Route>
                         <ReactRouterDOM.Redirect to={this.state.rootUrl}/>

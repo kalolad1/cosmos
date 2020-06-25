@@ -1,16 +1,7 @@
 import * as React from 'react';
 
-import Panel from './Panel';
-import GeneralInformationPanel from "../patient/GeneralInformationPanel";
-import {PatientProfile} from '../../types/types';
 
-
-interface PanelGridProps {
-    patientProfile: PatientProfile,
-}
-
-
-class PanelGrid extends React.Component<PanelGridProps, any> {
+class PanelGrid extends React.Component<any, any> {
     constructor(props) {
         super(props);
     }
@@ -19,14 +10,10 @@ class PanelGrid extends React.Component<PanelGridProps, any> {
         return (
             <div className="panel-grid">
                 <div className="panel-grid-main-column">
-                    <GeneralInformationPanel/>
-                    <Panel/>
-                    <Panel/>
+                    {this.props.mainColumnChildrenPanels}
                 </div>
                 <div className="panel-grid-secondary-column">
-                    <Panel/>
-                    <Panel/>
-                    <Panel/>
+                    {this.props.secondaryColumnChildrenPanels}
                 </div>
             </div>
         );

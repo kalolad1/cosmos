@@ -25,7 +25,7 @@ class Header extends React.Component<HeaderProps, any> {
 
     handleNewEncounterButtonClick(event: React.SyntheticEvent): void {
         event.preventDefault();
-        this.props.history.push(urlPathConstants.CREATE_ENCOUNTER);
+        this.props.history.push(urlPathConstants.ADD_ENCOUNTER);
     }
 
     render() {

@@ -2,11 +2,9 @@ import * as React from 'react';
 
 import * as types from '../../types/types';
 
-import PanelGrid from '../shared/PanelGrid';
-
 
 interface SummaryProps {
-    patientProfile: types.PatientProfile,
+    user: types.User,
 }
 
 
@@ -18,7 +16,7 @@ class Summary extends React.Component<SummaryProps, any> {
     render() {
         return (
             <div>
-                <PanelGrid patientProfile={this.props.patientProfile}/>
+                TODO IMPLEMENT
             </div>
         );
     }
