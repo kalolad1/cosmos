@@ -14,6 +14,8 @@ import PanelGrid from '../shared/PanelGrid';
 import GeneralInformationPanel from './GeneralInformationPanel';
 
 
+const PANEL_COUNT = 6;
+
 interface ProfileProps {
     user: types.User,
     dispatch: any,
@@ -24,18 +26,44 @@ interface ProfileState {
     email: string,
     first_name: string,
     last_name: string,
+    editMode: Array<boolean>,
 }
-
 
 class Profile extends React.Component<ProfileProps, ProfileState> {
     constructor(props) {
         super(props);
         this.state = {
-            email: this.props.user.email!,
-            first_name: this.props.user.patient_profile!.first_name,
-            last_name: this.props.user.patient_profile!.last_name,
+            email: this.props.user.email,
+            first_name: this.props.user.patient_profile.first_name,
+            last_name: this.props.user.patient_profile.last_name,
+            editMode: this.initEditModeArray(),
         };
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.initEditModeArray = this.initEditModeArray.bind(this);
+        this.toggleAllEditMode = this.toggleAllEditMode.bind(this);
+        this.toggleAllSave = this.toggleAllSave.bind(this);
+    }
+
+    initEditModeArray(): Array<boolean> {
+        let editMode: Array<boolean> = [];
+        for(let i = 0; i < PANEL_COUNT; i++) {
+            editMode.push(false)
+        }
+        return editMode;
+    }
+
+    toggleAllEditMode() {
+        this.setState(prevState => ({
+           editMode: prevState.editMode.map(element => !element),
+        }),
+            () => console.log(this.state.editMode));
+    }
+
+    toggleAllSave() {
+        this.setState(prevState => ({
+           editMode: prevState.editMode.map(element => !element),
+        }),
+            () => console.log(this.state.editMode));
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -48,7 +76,15 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     }
 
     render() {
+        // Each child panel must be given a unique key. The key identifies which
+        // panel is in edit mode.
         const mainColumnChildrenPanels = [
+            <GeneralInformationPanel
+                key={0}
+                handleInputChange={this.handleInputChange}
+                email={this.state.email}
+                first_name={this.state.first_name}
+                last_name={this.state.last_name}/>,
             <GeneralInformationPanel
                 key={1}
                 handleInputChange={this.handleInputChange}
@@ -57,12 +93,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 last_name={this.state.last_name}/>,
             <GeneralInformationPanel
                 key={2}
-                handleInputChange={this.handleInputChange}
-                email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
-            <GeneralInformationPanel
-                key={3}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
@@ -71,29 +101,35 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
 
         const secondaryColumnChildrenPanels = [
             <GeneralInformationPanel
-                key={1}
-                handleInputChange={this.handleInputChange}
-                email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
-            <GeneralInformationPanel
-                key={2}
-                handleInputChange={this.handleInputChange}
-                email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
-            <GeneralInformationPanel
                 key={3}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
                 last_name={this.state.last_name}/>,
+            <GeneralInformationPanel
+                key={4}
+                handleInputChange={this.handleInputChange}
+                email={this.state.email}
+                first_name={this.state.first_name}
+                last_name={this.state.last_name}/>,
+            <GeneralInformationPanel
+                key={5}
+                handleInputChange={this.handleInputChange}
+                email={this.state.email}
+                first_name={this.state.first_name}
+                last_name={this.state.last_name}/>,
         ];
+
+        const toggleAllIconButton = this.state.editMode.every(Boolean) ?
+            <SaveIcon/> : <EditIcon/>;
         return (
             <div>
                 <div className="profile-button-row">
-                    <IconButton aria-label="edit" size="medium">
-                        <EditIcon/>
+                    <IconButton
+                        aria-label="edit"
+                        size="medium"
+                        onClick={this.toggleAllEditMode}>
+                        {toggleAllIconButton}
                     </IconButton>
                 </div>
                 <PanelGrid
