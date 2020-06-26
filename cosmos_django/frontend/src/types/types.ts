@@ -1,6 +1,6 @@
 export interface User {
-    email?: string,
-    patient_profile?: PatientProfile,
+    email: string,
+    patient_profile: PatientProfile,
 }
 
 export interface PatientProfile {

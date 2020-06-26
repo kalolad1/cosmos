@@ -10,7 +10,6 @@ import Profile from './Profile';
 import Summary from './Summary';
 import Timeline from './Timeline';
 
-
 interface ChartsProps {
     user: types.User,
 }
@@ -46,10 +45,10 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                 break;
             case 1:
                 openChart = <Timeline
-                    encounters={this.props.user!.patient_profile!.encounters}/>;
+                    encounters={this.props.user.patient_profile.encounters}/>;
                 break;
             case 2:
-                openChart = <Profile user={this.props.user!}/>;
+                openChart = <Profile user={this.props.user}/>;
                 break;
             default:
                 openChart = <Summary user={this.props.user}/>;
@@ -60,17 +59,19 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
     render() {
         return (
             <div className="charts">
-                <div>
-                    <Tabs
-                        value={this.state.selectedTab}
-                        onChange={this.handleTabChange}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        centered>
-                        <Tab label="Summary"/>
-                        <Tab label="Timeline"/>
-                        <Tab label="Profile"/>
-                    </Tabs>
+                <div className="charts-tab-row">
+                    <div>
+                        <Tabs
+                            value={this.state.selectedTab}
+                            onChange={this.handleTabChange}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            centered>
+                            <Tab label="Summary"/>
+                            <Tab label="Timeline"/>
+                            <Tab label="Profile"/>
+                        </Tabs>
+                    </div>
                 </div>
                 <div className="chart-content-container">
                     {this.getOpenChartComponent()}

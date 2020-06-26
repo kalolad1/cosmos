@@ -275,6 +275,11 @@
     width: 49%;
 }
 
+.no-outline-form-input-field Input {
+    border: none;
+    color: black;
+}
+
 .form-button-container {
     margin-top: 20px;
     display: flex;

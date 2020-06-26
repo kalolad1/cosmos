@@ -34,9 +34,9 @@ export function signupRequest(
     return axiosConfig.axiosClient.post(apiEndpointConstants.USERS, {
         email: email,
         password: password,
-        firstName: first_name,
-        lastName: last_name,
-        dateOfBirth: {
+        first_name: first_name,
+        last_name: last_name,
+        date_of_birth: {
             year: date_of_birth.year,
             month: date_of_birth.month,
             day: date_of_birth.day,

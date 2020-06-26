@@ -9,6 +9,8 @@ import PanelGrid from '../shared/PanelGrid';
 import GeneralInformationPanel from './GeneralInformationPanel';
 import {Alert} from "@material-ui/lab";
 import {Snackbar} from "@material-ui/core";
+import SaveIcon from '@material-ui/icons/Save';
+import IconButton from '@material-ui/core/IconButton';
 
 
 interface ProfileProps {
@@ -21,8 +23,6 @@ interface ProfileState {
     email: string,
     first_name: string,
     last_name: string,
-    isChanged: boolean,
-    isSavingSnackBarOpen: boolean,
 }
 
 
@@ -33,34 +33,8 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             email: this.props.user.email!,
             first_name: this.props.user.patient_profile!.first_name,
             last_name: this.props.user.patient_profile!.last_name,
-            isChanged: false,
-            isSavingSnackBarOpen: false,
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.setIsChanged = this.setIsChanged.bind(this);
-        this.handleSavingSnackBarClose = this.handleSavingSnackBarClose.bind(this);
-    }
-
-    setIsChanged() {
-        const didInputChanged = (
-            this.props.user.email !== this.state.email ||
-            this.props.user.patient_profile!.first_name !== this.state.first_name ||
-            this.props.user.patient_profile!.last_name !== this.state.last_name
-        );
-        this.setState({
-            isChanged: didInputChanged,
-            isSavingSnackBarOpen: true,
-        }, () => {
-            const newUser = {
-                email: this.state.email,
-                patient_profile: {
-                    first_name: this.state.first_name,
-                    last_name: this.state.last_name,
-                },
-            };
-            this.props.dispatch(
-                actionCreators.updateUser(newUser, this.props.history))
-        });
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -69,18 +43,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         this.setState({
             ...this.state,
             [name]: element.value,
-        }, () => {
-            this.setIsChanged();
-        });
-    }
-
-    handleSavingSnackBarClose(event?: React.SyntheticEvent, reason?: string) {
-        if (reason === 'clickaway') {
-            return;
-        }
-        this.setState({
-            ...this.state,
-            isSavingSnackBarOpen: false,
         });
     }
 
@@ -128,18 +90,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         ];
         return (
             <div>
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.isSavingSnackBarOpen}
-                    onClose={this.handleSavingSnackBarClose}
-                    autoHideDuration={3000}>
-                    <Alert severity="success">
-                        Saving...
-                    </Alert>
-                </Snackbar>
                 <PanelGrid
                     mainColumnChildrenPanels={mainColumnChildrenPanels}
                     secondaryColumnChildrenPanels={secondaryColumnChildrenPanels}/>

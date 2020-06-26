@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-import {TextField} from '@material-ui/core';
-import TextFieldPanel from "../shared/TextFieldPanel";
-
+import TextField from '@material-ui/core/TextField';
+import Panel from '../shared/Panel';
 
 const PANEL_TITLE = 'General Information';
 
@@ -13,22 +12,8 @@ class GeneralInformationPanel extends React.Component<any, any> {
     }
 
     render() {
-        const textFields = (
+        const content = (
             <div>
-                <div className="form-input-container">
-                    <TextField
-                        className="form-input-field"
-                        name="email"
-                        onChange={this.props.handleInputChange}
-                        value={this.props.email}
-                        label="Email"
-                        type="email"
-                        variant="outlined"
-                        inputProps={{
-                            required: true,
-                        }}
-                        fullWidth/>
-                </div>
                 <div className="form-input-container form-bi-input-container">
                     <TextField
                         className="form-bi-input-field"
@@ -53,11 +38,25 @@ class GeneralInformationPanel extends React.Component<any, any> {
                             required: true,
                         }}/>
                 </div>
+                <div className="form-input-container">
+                    <TextField
+                        className="form-input-field no-outline-form-input-field"
+                        name="email"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.email}
+                        label="Email"
+                        type="email"
+                        variant="outlined"
+                        inputProps={{
+                            required: true,
+                        }}
+                        fullWidth/>
+                </div>
             </div>
         );
-        return <TextFieldPanel
+        return <Panel
             title={PANEL_TITLE}
-            textFields={textFields}/>
+            content={content}/>
     }
 }
 
