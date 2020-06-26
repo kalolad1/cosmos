@@ -49,7 +49,7 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                     encounters={this.props.user!.patient_profile!.encounters}/>;
                 break;
             case 2:
-                openChart = <Profile user={this.props.user}/>;
+                openChart = <Profile user={this.props.user!}/>;
                 break;
             default:
                 openChart = <Summary user={this.props.user}/>;

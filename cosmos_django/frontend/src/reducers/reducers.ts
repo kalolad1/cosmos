@@ -4,6 +4,7 @@ import * as actionTypes from '../actions/action_types';
 const initialState = {
     isFetchingUser: true,
     isCreatingEncounter: false,
+    isUpdatingUser: false,
     user: {},
 };
 
@@ -21,6 +22,16 @@ export function rootReducer(state, action) {
             return Object.assign({}, state, {
                 user: action.user,
                 isFetchingUser: false,
+            });
+
+        case actionTypes.REQUEST_UPDATE_USER:
+            return Object.assign({}, state, {
+                isUpdatingUser: true,
+            });
+        case actionTypes.RECEIVE_UPDATE_USER:
+            return Object.assign({}, state, {
+                user: action.user,
+                isUpdatingUser: false,
             });
 
         case actionTypes.REQUEST_ADD_ENCOUNTER:

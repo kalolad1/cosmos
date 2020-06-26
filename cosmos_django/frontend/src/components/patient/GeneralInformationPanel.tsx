@@ -29,6 +29,30 @@ class GeneralInformationPanel extends React.Component<any, any> {
                         }}
                         fullWidth/>
                 </div>
+                <div className="form-input-container form-bi-input-container">
+                    <TextField
+                        className="form-bi-input-field"
+                        name="first_name"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.first_name}
+                        label="First name"
+                        type="text"
+                        variant="outlined"
+                        inputProps={{
+                            required: true,
+                        }}/>
+                    <TextField
+                        className="form-bi-input-field"
+                        name="last_name"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.last_name}
+                        label="Last name"
+                        type="text"
+                        variant="outlined"
+                        inputProps={{
+                            required: true,
+                        }}/>
+                </div>
             </div>
         );
         return <TextFieldPanel

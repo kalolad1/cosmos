@@ -43,8 +43,8 @@ class Header extends React.Component<HeaderProps, any> {
                             this.props.last_name)}
                     </Avatar>
                     <HeaderMetadata
-                        firstName={this.props.first_name}
-                        lastName={this.props.last_name}
+                        first_name={this.props.first_name}
+                        last_name={this.props.last_name}
                         sex={this.props.sex}
                         age={this.props.age}/>
                 </div>

@@ -40,15 +40,14 @@ export function receiveUpdateUser(user) {
     }
 }
 
-export function updateUser(user) {
+export function updateUser(user, history) {
     return function(dispatch) {
         dispatch(requestUpdateUser());
 
-        // TODO complete implementation here.
-        // return patientApi.getUser(history)
-        //     .then(function (response) {
-        //         dispatch(receiveGetUser(response.data));
-        //     });
+        return patientApi.updateUser(user, history)
+            .then(function (response) {
+                dispatch(receiveUpdateUser(response.data));
+            });
     }
 }
 
