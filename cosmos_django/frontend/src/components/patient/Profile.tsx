@@ -5,12 +5,13 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as actionCreators from '../../actions/action_creators';
 import * as types from '../../types/types';
 
-import PanelGrid from '../shared/PanelGrid';
-import GeneralInformationPanel from './GeneralInformationPanel';
 import {Alert} from "@material-ui/lab";
 import {Snackbar} from "@material-ui/core";
 import SaveIcon from '@material-ui/icons/Save';
+import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
+import PanelGrid from '../shared/PanelGrid';
+import GeneralInformationPanel from './GeneralInformationPanel';
 
 
 interface ProfileProps {
@@ -90,6 +91,11 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         ];
         return (
             <div>
+                <div className="profile-button-row">
+                    <IconButton aria-label="edit" size="medium">
+                        <EditIcon/>
+                    </IconButton>
+                </div>
                 <PanelGrid
                     mainColumnChildrenPanels={mainColumnChildrenPanels}
                     secondaryColumnChildrenPanels={secondaryColumnChildrenPanels}/>
