@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PanelGrid from '../shared/PanelGrid';
 import GeneralInformationPanel from './GeneralInformationPanel';
 
-
+// Update panel count according to how many populate the rendered PanelGrid.
 const PANEL_COUNT = 6;
 
 interface ProfileProps {
@@ -27,6 +27,7 @@ interface ProfileState {
     first_name: string,
     last_name: string,
     editMode: Array<boolean>,
+    snackbarOpen: boolean,
 }
 
 class Profile extends React.Component<ProfileProps, ProfileState> {
@@ -37,16 +38,20 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             first_name: this.props.user.patient_profile.first_name,
             last_name: this.props.user.patient_profile.last_name,
             editMode: this.initEditModeArray(),
+            snackbarOpen: false,
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.initEditModeArray = this.initEditModeArray.bind(this);
         this.toggleAllEditMode = this.toggleAllEditMode.bind(this);
         this.toggleAllSave = this.toggleAllSave.bind(this);
+        this.dispatchUpdateUser = this.dispatchUpdateUser.bind(this);
+        this.handleSnackbarOpen = this.handleSnackbarOpen.bind(this);
+        this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
     }
 
     initEditModeArray(): Array<boolean> {
         let editMode: Array<boolean> = [];
-        for(let i = 0; i < PANEL_COUNT; i++) {
+        for (let i = 0; i < PANEL_COUNT; i++) {
             editMode.push(false)
         }
         return editMode;
@@ -54,16 +59,43 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
 
     toggleAllEditMode() {
         this.setState(prevState => ({
-           editMode: prevState.editMode.map(element => !element),
-        }),
+                editMode: prevState.editMode.map(element => !element),
+            }),
             () => console.log(this.state.editMode));
     }
 
     toggleAllSave() {
         this.setState(prevState => ({
-           editMode: prevState.editMode.map(element => !element),
-        }),
-            () => console.log(this.state.editMode));
+            editMode: prevState.editMode.map(element => !element),
+        }), this.dispatchUpdateUser);
+    }
+
+    dispatchUpdateUser() {
+        // TODO make a check for equality to avoid useless put request.
+        const newUser = {
+            email: this.state.email,
+            patient_profile: {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name,
+            },
+        };
+        this.props.dispatch(
+            actionCreators.updateUser(newUser, this.props.history))
+            .then(() => this.handleSnackbarOpen());
+    }
+
+    handleSnackbarOpen() {
+        console.log('Opening snackbar.');
+        this.setState({
+            snackbarOpen: true,
+        });
+    }
+
+    handleSnackbarClose() {
+        console.log('Closing snackbar.');
+        this.setState({
+            snackbarOpen: false,
+        })
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -81,18 +113,21 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         const mainColumnChildrenPanels = [
             <GeneralInformationPanel
                 key={0}
+                editMode={this.state.editMode[0]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
                 last_name={this.state.last_name}/>,
             <GeneralInformationPanel
                 key={1}
+                editMode={this.state.editMode[1]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
                 last_name={this.state.last_name}/>,
             <GeneralInformationPanel
                 key={2}
+                editMode={this.state.editMode[2]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
@@ -102,35 +137,66 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         const secondaryColumnChildrenPanels = [
             <GeneralInformationPanel
                 key={3}
+                editMode={this.state.editMode[3]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
                 last_name={this.state.last_name}/>,
             <GeneralInformationPanel
                 key={4}
+                editMode={this.state.editMode[5]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
                 last_name={this.state.last_name}/>,
             <GeneralInformationPanel
                 key={5}
+                editMode={this.state.editMode[6]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
                 last_name={this.state.last_name}/>,
         ];
 
-        const toggleAllIconButton = this.state.editMode.every(Boolean) ?
-            <SaveIcon/> : <EditIcon/>;
-        return (
-            <div>
-                <div className="profile-button-row">
-                    <IconButton
+        let toggleAllIconButton;
+        if (this.state.editMode.every(Boolean)) {
+            toggleAllIconButton = (
+                <IconButton
+                        aria-label="edit"
+                        size="medium"
+                        onClick={this.toggleAllSave}>
+                       <SaveIcon/>
+                </IconButton>
+            );
+        } else {
+            toggleAllIconButton = (
+                <IconButton
                         aria-label="edit"
                         size="medium"
                         onClick={this.toggleAllEditMode}>
-                        {toggleAllIconButton}
-                    </IconButton>
+                       <EditIcon/>
+                </IconButton>
+            );
+        }
+
+        return (
+            <div>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.snackbarOpen}
+                    onClose={this.handleSnackbarClose}
+                    autoHideDuration={4000}>
+                    <Alert
+                        onClose={this.handleSnackbarClose}
+                        severity="success">
+                        Saved!
+                    </Alert>
+                </Snackbar>
+                <div className="profile-button-row">
+                    {toggleAllIconButton}
                 </div>
                 <PanelGrid
                     mainColumnChildrenPanels={mainColumnChildrenPanels}

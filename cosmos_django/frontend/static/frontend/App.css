@@ -284,8 +284,7 @@
     width: 49%;
 }
 
-.no-outline-form-input-field Input {
-    border: none;
+.read-only-input-field Input {
     color: black;
 }
 

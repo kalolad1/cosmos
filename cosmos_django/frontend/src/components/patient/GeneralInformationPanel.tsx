@@ -16,7 +16,9 @@ class GeneralInformationPanel extends React.Component<any, any> {
             <div>
                 <div className="form-input-container form-bi-input-container">
                     <TextField
-                        className="form-bi-input-field"
+                        disabled={!this.props.editMode}
+                        className={"form-bi-input-field " +
+                        (!this.props.editMode ? "read-only-input-field" : "")}
                         name="first_name"
                         onChange={this.props.handleInputChange}
                         value={this.props.first_name}
@@ -27,7 +29,9 @@ class GeneralInformationPanel extends React.Component<any, any> {
                             required: true,
                         }}/>
                     <TextField
-                        className="form-bi-input-field"
+                        disabled={!this.props.editMode}
+                        className={"form-bi-input-field " +
+                        (!this.props.editMode ? "read-only-input-field" : "")}
                         name="last_name"
                         onChange={this.props.handleInputChange}
                         value={this.props.last_name}
@@ -40,7 +44,9 @@ class GeneralInformationPanel extends React.Component<any, any> {
                 </div>
                 <div className="form-input-container">
                     <TextField
-                        className="form-input-field no-outline-form-input-field"
+                        disabled={!this.props.editMode}
+                        className={"form-bi-input-field " +
+                        (!this.props.editMode ? "read-only-input-field" : "")}
                         name="email"
                         onChange={this.props.handleInputChange}
                         value={this.props.email}
