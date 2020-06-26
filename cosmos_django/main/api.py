@@ -67,17 +67,18 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_201_CREATED)
 
     def put(self, request: Request) -> response.Response:
+        user = models.User.objects.get(id=request.user.id)
         for attribute, value in request.data.items():
             if attribute == 'patient_profile':
                 for pp_attribute, pp_value in value.items():
-                    setattr(request.user.patient_profile, pp_attribute,
-                            pp_value)
+                    setattr(user.patient_profile, pp_attribute, pp_value)
             else:
-                setattr(request.user, attribute, value)
-        request.user.save()
+                setattr(user, attribute, value)
+        user.save()
+        user.patient_profile.save()
 
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
-            instance=request.user)
+            instance=user)
         logging.info('Updating user: now has data %s.',
                      json.dumps(serialized_user.data))
         return response.Response(data=serialized_user.data,
