@@ -1,4 +1,5 @@
 import copy
+from dateutil import parser
 
 from django import urls
 from rest_framework import status
@@ -10,11 +11,7 @@ from . import models
 TEST_USER_REQUEST_DATA = {
     'email': 'test123@gmail.com',
     'password': 'test1234',
-    'date_of_birth': {
-        'year': 2020,
-        'month': 2,
-        'day': 3
-    },
+    'date_of_birth': "2017-06-27T20:48:49.065Z",
     'first_name': 'John',
     'last_name': 'Doe',
     'sex': 'male',
@@ -24,6 +21,7 @@ TEST_USER_PUT_REQUEST_DATA = {
     'email': 'another@gmail.com',
     'patient_profile': {
         'first_name': 'Billy',
+        'date_of_birth': "2000-06-27T20:48:49.065Z",
     }
 }
 
@@ -113,6 +111,10 @@ class TestApi(test.APITestCase):
         self.assertEqual(
             response.data['patient_profile']['first_name'],
             TEST_USER_PUT_REQUEST_DATA['patient_profile']['first_name'])
+        self.assertEqual(
+            response.data['patient_profile']['date_of_birth'],
+            parser.parse(TEST_USER_PUT_REQUEST_DATA['patient_profile']
+                         ['date_of_birth']).date().__str__())
 
     def test_get_user_fails_not_authenticated(self):
         url = urls.reverse('main/users')

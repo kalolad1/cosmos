@@ -1,6 +1,11 @@
 import * as React from 'react';
 
+import DateFnsUtils from '@date-io/date-fns';
 import TextField from '@material-ui/core/TextField';
+import {
+    KeyboardDatePicker,
+    MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 import Panel from '../shared/Panel';
 
 const PANEL_TITLE = 'General Information';
@@ -55,7 +60,7 @@ class GeneralInformationPanel extends React.Component<any, any> {
                     <TextField
                         disabled={!this.props.editMode}
                         className={
-                            'form-bi-input-field ' +
+                            'form-input-field ' +
                             (!this.props.editMode
                                 ? 'read-only-input-field'
                                 : '')
@@ -71,6 +76,31 @@ class GeneralInformationPanel extends React.Component<any, any> {
                         }}
                         fullWidth
                     />
+                </div>
+                <div className="form-input-container">
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                            disabled={!this.props.editMode}
+                            className={
+                                'form-input-field ' +
+                                (!this.props.editMode
+                                    ? 'read-only-input-field'
+                                    : '')
+                            }
+                            fullWidth
+                            disableToolbar
+                            disableFuture
+                            variant="inline"
+                            inputVariant="outlined"
+                            format="MM/dd/yyyy"
+                            id="dateOfBirth"
+                            name="dateOfBirth"
+                            label="Date of birth"
+                            value={this.props.dateOfBirth}
+                            onChange={this.props.handleDateChange}
+                            openTo="year"
+                        />
+                    </MuiPickersUtilsProvider>
                 </div>
             </div>
         );

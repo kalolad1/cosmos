@@ -26,6 +26,7 @@ interface ProfileState {
     email: string;
     firstName: string;
     lastName: string;
+    dateOfBirth: Date;
     editMode: Array<boolean>;
     snackbarOpen: boolean;
 }
@@ -37,10 +38,12 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             email: this.props.user.email,
             firstName: this.props.user.patientProfile.firstName,
             lastName: this.props.user.patientProfile.lastName,
+            dateOfBirth: new Date(this.props.user.patientProfile.dateOfBirth),
             editMode: this.initEditModeArray(),
             snackbarOpen: false,
         };
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
         this.initEditModeArray = this.initEditModeArray.bind(this);
         this.toggleAllEditMode = this.toggleAllEditMode.bind(this);
         this.toggleAllSave = this.toggleAllSave.bind(this);
@@ -82,6 +85,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             patientProfile: {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
+                dateOfBirth: this.state.dateOfBirth,
             },
         };
         this.props
@@ -112,6 +116,13 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         });
     }
 
+    handleDateChange(date: Date | null): void {
+        this.setState({
+            ...this.state,
+            dateOfBirth: date!,
+        });
+    }
+
     render() {
         // Each child panel must be given a unique key. The key identifies which
         // panel is in edit mode.
@@ -120,25 +131,31 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 key={0}
                 editMode={this.state.editMode[0]}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
+                dateOfBirth={this.state.dateOfBirth}
             />,
             <GeneralInformationPanel
                 key={1}
                 editMode={this.state.editMode[1]}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
+                dateOfBirth={this.state.dateOfBirth}
             />,
             <GeneralInformationPanel
                 key={2}
                 editMode={this.state.editMode[2]}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
+                dateOfBirth={this.state.dateOfBirth}
             />,
         ];
 
@@ -147,25 +164,31 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 key={3}
                 editMode={this.state.editMode[3]}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
+                dateOfBirth={this.state.dateOfBirth}
             />,
             <GeneralInformationPanel
                 key={4}
                 editMode={this.state.editMode[5]}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
+                dateOfBirth={this.state.dateOfBirth}
             />,
             <GeneralInformationPanel
                 key={5}
                 editMode={this.state.editMode[6]}
                 handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
                 email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
+                dateOfBirth={this.state.dateOfBirth}
             />,
         ];
 

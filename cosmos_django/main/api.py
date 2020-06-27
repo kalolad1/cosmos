@@ -8,7 +8,7 @@ API endpoints.
 tldr; When on server, expect snake_case everywhere, when on client, expect
 camelCase everywhere.
 """
-import datetime
+from dateutil import parser
 import logging
 import json
 
@@ -41,9 +41,7 @@ class AccountsEndpoint(views.APIView):
             password = request.data['password']
             first_name = request.data['first_name']
             last_name = request.data['last_name']
-            year = request.data['date_of_birth']['year']
-            month = request.data['date_of_birth']['month']
-            day = request.data['date_of_birth']['day']
+            date_of_birth = request.data['date_of_birth']
             sex = request.data['sex']
         except KeyError:
             custom_exception = custom_exceptions.DataForNewUserNotProvided()
@@ -59,14 +57,12 @@ class AccountsEndpoint(views.APIView):
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        date_of_birth: datetime.date = datetime.date(year=year,
-                                                     month=month,
-                                                     day=day)
-        models.PatientProfile.objects.create(user=user,
-                                             first_name=first_name,
-                                             last_name=last_name,
-                                             date_of_birth=date_of_birth,
-                                             sex=sex)
+        models.PatientProfile.objects.create(
+            user=user,
+            first_name=first_name,
+            last_name=last_name,
+            date_of_birth=parser.parse(date_of_birth).date(),
+            sex=sex)
 
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
             instance=user)
@@ -80,7 +76,11 @@ class AccountsEndpoint(views.APIView):
         for attribute, value in request.data.items():
             if attribute == 'patient_profile':
                 for pp_attribute, pp_value in value.items():
-                    setattr(user.patient_profile, pp_attribute, pp_value)
+                    if pp_attribute == 'date_of_birth':
+                        setattr(user.patient_profile, pp_attribute,
+                                parser.parse(pp_value).date())
+                    else:
+                        setattr(user.patient_profile, pp_attribute, pp_value)
             else:
                 setattr(user, attribute, value)
         user.save()

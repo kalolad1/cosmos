@@ -25,18 +25,12 @@ export function loginRequest(email: string, password: string) {
         });
 }
 
-interface DateOfBirth {
-    year: number;
-    month: number;
-    day: number;
-}
-
 export function signupRequest(
     email: string,
     password: string,
     firstName: string,
     lastName: string,
-    dateOfBirth: DateOfBirth,
+    dateOfBirth: Date,
     sex: string
 ) {
     /**
@@ -47,11 +41,7 @@ export function signupRequest(
         password: password,
         firstName: firstName,
         lastName: lastName,
-        dateOfBirth: {
-            year: dateOfBirth.year,
-            month: dateOfBirth.month,
-            day: dateOfBirth.day,
-        },
+        dateOfBirth: dateOfBirth,
         sex: sex,
     });
 }

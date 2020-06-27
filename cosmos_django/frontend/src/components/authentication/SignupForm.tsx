@@ -109,12 +109,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                 this.state.password,
                 this.state.firstName,
                 this.state.lastName,
-                {
-                    year: this.state.dateOfBirth!.getFullYear(),
-                    // Add 1 to month to change from 0 to 1 indexing.
-                    month: this.state.dateOfBirth!.getMonth() + 1,
-                    day: this.state.dateOfBirth!.getDate(),
-                },
+                this.state.dateOfBirth!,
                 this.state.sex
             )
             .then(function () {
@@ -252,7 +247,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 </Select>
                             </FormControl>
                         </div>
-                        <div className="form-button-container">
+                        <div className="form-input-container">
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardDatePicker
                                     fullWidth

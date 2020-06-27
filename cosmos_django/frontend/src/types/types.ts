@@ -17,7 +17,7 @@ export interface PatientProfile {
     id: number;
     firstName: string;
     lastName: string;
-    dateOfBirth: string;
+    dateOfBirth: Date;
     sex: string;
     age: number;
     profilePicture?: string;
