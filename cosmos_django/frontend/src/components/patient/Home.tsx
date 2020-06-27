@@ -43,9 +43,12 @@ class Home extends React.Component<any, HomeState> {
     }
 
     handleVerticalNavbarToggle() {
+        // After setting state, dispatch a resize event to the window so that
+        // the underline of the selected Tab component repositions.
         this.setState(prevState => ({
             isVerticalNavbarOpen: !prevState.isVerticalNavbarOpen,
-        }));
+        }), () => window.dispatchEvent(
+            new CustomEvent('resize')));
     };
 
     componentDidMount() {
