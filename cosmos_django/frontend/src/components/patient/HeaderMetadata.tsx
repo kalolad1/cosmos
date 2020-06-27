@@ -1,3 +1,4 @@
+/* Metadata included in the left portion of the Header. */
 import * as React from 'react';
 
 import * as textUtil from '../../util/text_util';

@@ -12,7 +12,7 @@ LOG_FILE_EXTENSION = 'log'
 def get_log_filename(current_time: datetime.datetime) -> str:
     """Returns the filename to which logs should be written for this run.
 
-    Each log filename will be based on the time of the server run.
+    The filename will be based on the time of the run.
     """
     current_time_as_string: str = current_time.__str__()
     symbols_to_replace: Tuple[str, ...] = ('-', ':', ' ', '.')
@@ -25,10 +25,7 @@ def get_log_filename(current_time: datetime.datetime) -> str:
 
 
 def initialize_logging() -> None:
-    """Initializes logging for the project.
-
-    Writes log file with name according to the time of project start.
-    """
+    """Initializes logging for the project."""
     if 'test' not in sys.argv:
         log_filename = get_log_filename(current_time=datetime.datetime.now())
         log_path = os.path.join(LOG_DIRECTORY, log_filename)

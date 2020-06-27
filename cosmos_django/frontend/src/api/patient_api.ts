@@ -1,11 +1,14 @@
-import * as authUtil from '../util/auth_util';
-import * as tokenConstants from '../constants/token_constants';
-import * as urlPathConstants from '../constants/url_path_constants';
 import * as axiosConfig from '../configs/axios_config';
 import * as apiEndpointConstants from '../constants/api_endpoint_constants';
-import { User } from '../types/types';
+import * as tokenConstants from '../constants/token_constants';
+import * as urlPathConstants from '../constants/url_path_constants';
+import * as types from '../types/types';
+import * as authUtil from '../util/auth_util';
 
 async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
+    /**
+     * Attempts an asynchronous server request and redirects to login if fails.
+     */
     try {
         return await request();
     } catch (error) {
@@ -18,7 +21,6 @@ async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
             return await request();
         } catch (error) {
             authUtil.clearTokens();
-            // TODO: allow users to Login and resume their.
             history.replace(urlPathConstants.ROOT);
         }
     }
@@ -26,6 +28,9 @@ async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
 }
 
 export function getUser(history: any) {
+    /**
+     * Fetches user from the server.
+     */
     function request() {
         return axiosConfig.axiosClient.get(
             apiEndpointConstants.USERS,
@@ -35,7 +40,10 @@ export function getUser(history: any) {
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
 
-export function updateUser(user: User, history: any) {
+export function updateUser(user: types.User, history: any) {
+    /**
+     * Updates the user with the new user object.
+     */
     function request() {
         return axiosConfig.axiosClient.put(
             apiEndpointConstants.USERS,
@@ -51,6 +59,9 @@ export function addEncounter(
     note: string,
     history: any
 ) {
+    /**
+     * Adds an encounter.
+     */
     function request() {
         return axiosConfig.axiosClient.post(
             apiEndpointConstants.ENCOUNTERS,

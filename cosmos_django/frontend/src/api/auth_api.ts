@@ -4,6 +4,9 @@ import * as tokenConstants from '../constants/token_constants';
 import * as authUtil from '../util/auth_util';
 
 export function loginRequest(email: string, password: string) {
+    /**
+     * Sends a login request to the server and sets auth tokens if successful.
+     */
     return axiosConfig.axiosClient
         .post(apiEndpointConstants.GET_TOKEN, {
             email: email,
@@ -36,6 +39,9 @@ export function signupRequest(
     date_of_birth: DateOfBirth,
     sex: string
 ) {
+    /**
+     * Sends a signup request to the server.
+     */
     return axiosConfig.axiosClient.post(apiEndpointConstants.USERS, {
         email: email,
         password: password,
