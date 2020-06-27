@@ -13,10 +13,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -41,22 +39,13 @@ class Home extends React.Component<any, HomeState> {
         };
 
         this.handleLogout = this.handleLogout.bind(this);
-        this.handleVerticalNavbarOpen = this.handleVerticalNavbarOpen.bind(this);
-        this.handleVerticalNavbarClose = this.handleVerticalNavbarClose.bind(this);
+        this.handleVerticalNavbarToggle = this.handleVerticalNavbarToggle.bind(this);
     }
 
-    handleVerticalNavbarOpen() {
-        this.setState({
-            ...this.state,
-            isVerticalNavbarOpen: true,
-        })
-    };
-
-    handleVerticalNavbarClose() {
-        this.setState({
-            ...this.state,
-            isVerticalNavbarOpen: false,
-        })
+    handleVerticalNavbarToggle() {
+        this.setState(prevState => ({
+            isVerticalNavbarOpen: !prevState.isVerticalNavbarOpen,
+        }));
     };
 
     componentDidMount() {
@@ -84,9 +73,9 @@ class Home extends React.Component<any, HomeState> {
                             <IconButton
                                 color="inherit"
                                 aria-label="open drawer"
-                                onClick={this.handleVerticalNavbarOpen}
+                                onClick={this.handleVerticalNavbarToggle}
                                 edge="start"
-                                className={clsx(classes.menuButton, {[classes.hide]: this.state.isVerticalNavbarOpen,})}>
+                                className={classes.menuButton}>
                                 <MenuIcon/>
                             </IconButton>
                             <h1 className="app-bar-company-name">
@@ -106,12 +95,7 @@ class Home extends React.Component<any, HomeState> {
                                 [classes.drawerClose]: !this.state.isVerticalNavbarOpen,
                             }),
                         }}>
-                        <div className={classes.toolbar}>
-                            <IconButton onClick={this.handleVerticalNavbarClose}>
-                                <ChevronLeftIcon/>
-                            </IconButton>
-                        </div>
-                        <Divider/>
+                        <div className={classes.toolbar}/>
                         <List>
                             <ListItem button key="Logout" onClick={this.handleLogout}>
                                 <ListItemIcon><ExitToAppRoundedIcon/></ListItemIcon>
@@ -138,7 +122,7 @@ class Home extends React.Component<any, HomeState> {
     }
 }
 
-const useStyles = function(theme) {
+const useStyles = function (theme) {
     const DRAWER_WIDTH = 200;
     return {
         root: {
@@ -146,18 +130,6 @@ const useStyles = function(theme) {
         },
         appBar: {
             zIndex: theme.zIndex.drawer + 1,
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
-            }),
-        },
-        appBarShift: {
-            marginLeft: DRAWER_WIDTH,
-            width: `calc(100% - ${DRAWER_WIDTH}px)`,
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
         },
         menuButton: {
             marginRight: 36,
