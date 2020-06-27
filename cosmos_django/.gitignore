@@ -38,3 +38,6 @@ htmlcov/
 # Type script
 /build/
 /dist/
+frontend/src/**/*.js
+frontend/src/**/*.js.map
+!frontend/src/index.js
