@@ -1,3 +1,6 @@
+/* General note: all fields that come from server should follow the snake case
+ * naming convention, NOT the camel case naming convention.
+ * */
 export interface User {
     email: string;
     patient_profile: PatientProfile;

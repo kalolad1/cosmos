@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Script to get push ready by migrating, formatting, outputting static files,
-# and running tests. Run without argument to simply build and test.
-# Run with "<commit message>" to push to github.
+# and running tests.
 python manage.py makemigrations
 python manage.py migrate
 npm run build
@@ -14,10 +13,3 @@ prettier --write frontend/src/*
 python manage.py test -p *_test.py
 echo "All presubmit checks passed!"
 cat .bird_asci_art.txt ; echo
-
-if [ $# -gt 0 ]
-  then
-    git add -A
-    git commit -m "$1"
-    git push
-fi
