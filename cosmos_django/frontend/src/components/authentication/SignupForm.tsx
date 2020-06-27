@@ -30,9 +30,9 @@ const SEX_OPTIONS = [
 interface SignupFormState {
     email: string;
     password: string;
-    first_name: string;
-    last_name: string;
-    date_of_birth?: Date;
+    firstName: string;
+    lastName: string;
+    dateOfBirth?: Date;
     sex: string;
     isErrorSnackbarOpen: boolean;
     snackBarErrorMessage: string;
@@ -44,9 +44,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
         this.state = {
             email: '',
             password: '',
-            first_name: '',
-            last_name: '',
-            date_of_birth: new Date(),
+            firstName: '',
+            lastName: '',
+            dateOfBirth: new Date(),
             sex: '',
             isErrorSnackbarOpen: false,
             snackBarErrorMessage: 'An error has occurred!',
@@ -67,7 +67,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
     handleDateChange(date: Date | null): void {
         this.setState({
             ...this.state,
-            date_of_birth: date!,
+            dateOfBirth: date!,
         });
     }
 
@@ -107,13 +107,13 @@ class SignupForm extends React.Component<any, SignupFormState> {
             .signupRequest(
                 this.state.email,
                 this.state.password,
-                this.state.first_name,
-                this.state.last_name,
+                this.state.firstName,
+                this.state.lastName,
                 {
-                    year: this.state.date_of_birth!.getFullYear(),
+                    year: this.state.dateOfBirth!.getFullYear(),
                     // Add 1 to month to change from 0 to 1 indexing.
-                    month: this.state.date_of_birth!.getMonth() + 1,
-                    day: this.state.date_of_birth!.getDate(),
+                    month: this.state.dateOfBirth!.getMonth() + 1,
+                    day: this.state.dateOfBirth!.getDate(),
                 },
                 this.state.sex
             )
@@ -129,7 +129,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
                     self.setState({
                         ...self.state,
                         snackBarErrorMessage:
-                            error.response.data.user_facing_message,
+                            error.response.data.userFacingMessage,
                     });
                 }
                 self.setState({
@@ -210,9 +210,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                         <div className="form-input-container form-bi-input-container">
                             <TextField
                                 className="form-bi-input-field"
-                                name="first_name"
+                                name="firstName"
                                 onChange={this.handleInputChange}
-                                value={this.state.first_name}
+                                value={this.state.firstName}
                                 label="First name"
                                 type="text"
                                 variant="outlined"
@@ -222,9 +222,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                             />
                             <TextField
                                 className="form-bi-input-field"
-                                name="last_name"
+                                name="lastName"
                                 onChange={this.handleInputChange}
-                                value={this.state.last_name}
+                                value={this.state.lastName}
                                 label="Last name"
                                 type="text"
                                 variant="outlined"
@@ -261,9 +261,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                     variant="inline"
                                     inputVariant="outlined"
                                     format="MM/dd/yyyy"
-                                    id="date_of_birth"
+                                    id="dateOfBirth"
                                     label="Date of birth"
-                                    value={this.state.date_of_birth}
+                                    value={this.state.dateOfBirth}
                                     onChange={this.handleDateChange}
                                     openTo="year"
                                 />

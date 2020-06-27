@@ -55,7 +55,7 @@ export function updateUser(user: types.User, history: any) {
 }
 
 export function addEncounter(
-    encounter_type: string,
+    encounterType: string,
     note: string,
     history: any
 ) {
@@ -66,7 +66,7 @@ export function addEncounter(
         return axiosConfig.axiosClient.post(
             apiEndpointConstants.ENCOUNTERS,
             {
-                encounterType: encounter_type,
+                encounterType: encounterType,
                 note: note,
             },
             authUtil.getAuthorizationRequestHeader()

@@ -24,8 +24,8 @@ interface ProfileProps {
 
 interface ProfileState {
     email: string;
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     editMode: Array<boolean>;
     snackbarOpen: boolean;
 }
@@ -35,8 +35,8 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         super(props);
         this.state = {
             email: this.props.user.email,
-            first_name: this.props.user.patient_profile.first_name,
-            last_name: this.props.user.patient_profile.last_name,
+            firstName: this.props.user.patientProfile.firstName,
+            lastName: this.props.user.patientProfile.lastName,
             editMode: this.initEditModeArray(),
             snackbarOpen: false,
         };
@@ -79,9 +79,9 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         // TODO make a check for equality to avoid useless put request.
         const newUser = {
             email: this.state.email,
-            patient_profile: {
-                first_name: this.state.first_name,
-                last_name: this.state.last_name,
+            patientProfile: {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
             },
         };
         this.props
@@ -121,24 +121,24 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 editMode={this.state.editMode[0]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
             />,
             <GeneralInformationPanel
                 key={1}
                 editMode={this.state.editMode[1]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
             />,
             <GeneralInformationPanel
                 key={2}
                 editMode={this.state.editMode[2]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
             />,
         ];
 
@@ -148,24 +148,24 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 editMode={this.state.editMode[3]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
             />,
             <GeneralInformationPanel
                 key={4}
                 editMode={this.state.editMode[5]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
             />,
             <GeneralInformationPanel
                 key={5}
                 editMode={this.state.editMode[6]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
-                first_name={this.state.first_name}
-                last_name={this.state.last_name}
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
             />,
         ];
 

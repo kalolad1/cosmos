@@ -1,4 +1,13 @@
-"""API endpoints for the React frontend to consume."""
+"""API endpoints for the React frontend to consume.
+
+Payloads send by server will be in snake_case and converted to camelCase by
+middleware before reaching the client. The client will send payloads in
+camelCase, which will be converted to snake_case by middleware before they reach
+API endpoints.
+
+tldr; When on server, expect snake_case everywhere, when on client, expect
+camelCase everywhere.
+"""
 import datetime
 import logging
 import json

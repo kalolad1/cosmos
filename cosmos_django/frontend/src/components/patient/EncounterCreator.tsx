@@ -28,7 +28,7 @@ interface EncounterCreatorProps {
 }
 
 interface EncounterCreatorState {
-    encounter_type: string;
+    encounterType: string;
     note: string;
 }
 
@@ -39,7 +39,7 @@ class EncounterCreator extends React.Component<
     constructor(props) {
         super(props);
         this.state = {
-            encounter_type: '',
+            encounterType: '',
             note: '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -85,7 +85,7 @@ class EncounterCreator extends React.Component<
         this.props
             .dispatch(
                 actionCreators.addEncounter(
-                    this.state.encounter_type,
+                    this.state.encounterType,
                     this.state.note,
                     this.props.history
                 )
@@ -118,9 +118,9 @@ class EncounterCreator extends React.Component<
                                 <Select
                                     displayEmpty
                                     labelId="encounterType-label"
-                                    id="encounter_type"
-                                    name="encounter_type"
-                                    value={this.state.encounter_type}
+                                    id="encounterType"
+                                    name="encounterType"
+                                    value={this.state.encounterType}
                                     onChange={this.handleSelectChange}
                                     label="Type"
                                     inputProps={{

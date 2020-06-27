@@ -22,9 +22,9 @@ class GeneralInformationPanel extends React.Component<any, any> {
                                 ? 'read-only-input-field'
                                 : '')
                         }
-                        name="first_name"
+                        name="firstName"
                         onChange={this.props.handleInputChange}
-                        value={this.props.first_name}
+                        value={this.props.firstName}
                         label="First name"
                         type="text"
                         variant="outlined"
@@ -40,9 +40,9 @@ class GeneralInformationPanel extends React.Component<any, any> {
                                 ? 'read-only-input-field'
                                 : '')
                         }
-                        name="last_name"
+                        name="lastName"
                         onChange={this.props.handleInputChange}
-                        value={this.props.last_name}
+                        value={this.props.lastName}
                         label="Last name"
                         type="text"
                         variant="outlined"

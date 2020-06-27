@@ -34,9 +34,9 @@ interface DateOfBirth {
 export function signupRequest(
     email: string,
     password: string,
-    first_name: string,
-    last_name: string,
-    date_of_birth: DateOfBirth,
+    firstName: string,
+    lastName: string,
+    dateOfBirth: DateOfBirth,
     sex: string
 ) {
     /**
@@ -45,12 +45,12 @@ export function signupRequest(
     return axiosConfig.axiosClient.post(apiEndpointConstants.USERS, {
         email: email,
         password: password,
-        first_name: first_name,
-        last_name: last_name,
-        date_of_birth: {
-            year: date_of_birth.year,
-            month: date_of_birth.month,
-            day: date_of_birth.day,
+        firstName: firstName,
+        lastName: lastName,
+        dateOfBirth: {
+            year: dateOfBirth.year,
+            month: dateOfBirth.month,
+            day: dateOfBirth.day,
         },
         sex: sex,
     });
