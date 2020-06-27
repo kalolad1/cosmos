@@ -1,7 +1,7 @@
 /* The patient home page. */
 import clsx from 'clsx';
 import * as React from 'react';
-import * as ReactRedux from 'react-redux'
+import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as actionCreators from '../../actions/action_creators';
@@ -19,17 +19,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import FullPageSpinner from '../shared/FullPageSpinner';
 
 import Charts from './Charts';
 import Header from './Header';
 
-
 interface HomeState {
-    isVerticalNavbarOpen: boolean,
+    isVerticalNavbarOpen: boolean;
 }
-
 
 class Home extends React.Component<any, HomeState> {
     constructor(props) {
@@ -39,17 +37,21 @@ class Home extends React.Component<any, HomeState> {
         };
 
         this.handleLogout = this.handleLogout.bind(this);
-        this.handleVerticalNavbarToggle = this.handleVerticalNavbarToggle.bind(this);
+        this.handleVerticalNavbarToggle = this.handleVerticalNavbarToggle.bind(
+            this
+        );
     }
 
     handleVerticalNavbarToggle() {
         // After setting state, dispatch a resize event to the window so that
         // the underline of the selected Tab component repositions.
-        this.setState(prevState => ({
-            isVerticalNavbarOpen: !prevState.isVerticalNavbarOpen,
-        }), () => window.dispatchEvent(
-            new CustomEvent('resize')));
-    };
+        this.setState(
+            (prevState) => ({
+                isVerticalNavbarOpen: !prevState.isVerticalNavbarOpen,
+            }),
+            () => window.dispatchEvent(new CustomEvent('resize'))
+        );
+    }
 
     componentDidMount() {
         this.props.dispatch(actionCreators.fetchUser(this.props.history));
@@ -61,62 +63,83 @@ class Home extends React.Component<any, HomeState> {
     }
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
         console.log(this.props.user);
         if (this.props.isFetchingUser) {
-            return <FullPageSpinner/>
+            return <FullPageSpinner />;
         } else {
             return (
                 <div className={classes.root}>
-                    <CssBaseline/>
+                    <CssBaseline />
                     <AppBar
                         position="fixed"
-                        className={clsx(classes.appBar, {[classes.appBarShift]: this.state.isVerticalNavbarOpen,})}>
+                        className={clsx(classes.appBar, {
+                            [classes.appBarShift]: this.state
+                                .isVerticalNavbarOpen,
+                        })}
+                    >
                         <Toolbar>
                             <IconButton
                                 color="inherit"
                                 aria-label="open drawer"
                                 onClick={this.handleVerticalNavbarToggle}
                                 edge="start"
-                                className={classes.menuButton}>
-                                <MenuIcon/>
+                                className={classes.menuButton}
+                            >
+                                <MenuIcon />
                             </IconButton>
-                            <h1 className="app-bar-company-name">
-                                Cosmos
-                            </h1>
+                            <h1 className="app-bar-company-name">Cosmos</h1>
                         </Toolbar>
                     </AppBar>
                     <Drawer
                         variant="permanent"
                         className={clsx(classes.drawer, {
-                            [classes.drawerOpen]: this.state.isVerticalNavbarOpen,
-                            [classes.drawerClose]: !this.state.isVerticalNavbarOpen,
+                            [classes.drawerOpen]: this.state
+                                .isVerticalNavbarOpen,
+                            [classes.drawerClose]: !this.state
+                                .isVerticalNavbarOpen,
                         })}
                         classes={{
                             paper: clsx({
-                                [classes.drawerOpen]: this.state.isVerticalNavbarOpen,
-                                [classes.drawerClose]: !this.state.isVerticalNavbarOpen,
+                                [classes.drawerOpen]: this.state
+                                    .isVerticalNavbarOpen,
+                                [classes.drawerClose]: !this.state
+                                    .isVerticalNavbarOpen,
                             }),
-                        }}>
-                        <div className={classes.toolbar}/>
+                        }}
+                    >
+                        <div className={classes.toolbar} />
                         <List>
-                            <ListItem button key="Logout" onClick={this.handleLogout}>
-                                <ListItemIcon><ExitToAppRoundedIcon/></ListItemIcon>
-                                <ListItemText primary="Logout"/>
+                            <ListItem
+                                button
+                                key="Logout"
+                                onClick={this.handleLogout}
+                            >
+                                <ListItemIcon>
+                                    <ExitToAppRoundedIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Logout" />
                             </ListItem>
                         </List>
                     </Drawer>
                     <main className={classes.content}>
-                        <div className={classes.toolbar}/>
+                        <div className={classes.toolbar} />
                         <div>
                             <Header
-                                profile_picture={this.props.user.patient_profile.profile_picture}
-                                first_name={this.props.user.patient_profile.first_name}
-                                last_name={this.props.user.patient_profile.last_name}
+                                profile_picture={
+                                    this.props.user.patient_profile
+                                        .profile_picture
+                                }
+                                first_name={
+                                    this.props.user.patient_profile.first_name
+                                }
+                                last_name={
+                                    this.props.user.patient_profile.last_name
+                                }
                                 sex={this.props.user.patient_profile.sex}
                                 age={this.props.user.patient_profile.age}
                             />
-                            <Charts user={this.props.user}/>
+                            <Charts user={this.props.user} />
                         </div>
                     </main>
                 </div>
@@ -181,8 +204,10 @@ function mapStateToProps(state) {
     return {
         user: state.user,
         isFetchingUser: state.isFetchingUser,
-    }
+    };
 }
 
-// @ts-ignore
-export default ReactRedux.connect(mapStateToProps)(withStyles(useStyles)(ReactRouterDOM.withRouter(Home)));
+export default ReactRedux.connect(mapStateToProps)(
+    // @ts-ignore
+    withStyles(useStyles)(ReactRouterDOM.withRouter(Home))
+);

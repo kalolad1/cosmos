@@ -16,15 +16,13 @@ import LoginForm from '../components/authentication/LoginForm';
 import VisitCreator from './patient/EncounterCreator';
 import Home from './patient/Home';
 
-
 export const store = Redux.createStore(
     reducers.rootReducer,
-    Redux.applyMiddleware(thunkMiddleware));
-
-
+    Redux.applyMiddleware(thunkMiddleware)
+);
 
 interface AppState {
-    rootUrl: string,
+    rootUrl: string;
 }
 
 class App extends React.Component<any, AppState> {
@@ -32,7 +30,7 @@ class App extends React.Component<any, AppState> {
         super(props);
         this.state = {
             rootUrl: urlPathConstants.SIGNUP,
-        }
+        };
     }
 
     componentDidMount(): void {
@@ -52,19 +50,31 @@ class App extends React.Component<any, AppState> {
             <ReactRedux.Provider store={store}>
                 <ReactRouterDOM.HashRouter>
                     <ReactRouterDOM.Switch>
-                        <ReactRouterDOM.Route exact path={urlPathConstants.SIGNUP}>
-                            <SignupForm/>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.SIGNUP}
+                        >
+                            <SignupForm />
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route exact path={urlPathConstants.LOGIN}>
-                            <LoginForm/>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.LOGIN}
+                        >
+                            <LoginForm />
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route exact path={urlPathConstants.HOME}>
-                            <Home/>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.HOME}
+                        >
+                            <Home />
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route exact path={urlPathConstants.ADD_ENCOUNTER}>
-                            <VisitCreator/>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.ADD_ENCOUNTER}
+                        >
+                            <VisitCreator />
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Redirect to={this.state.rootUrl}/>
+                        <ReactRouterDOM.Redirect to={this.state.rootUrl} />
                     </ReactRouterDOM.Switch>
                 </ReactRouterDOM.HashRouter>
             </ReactRedux.Provider>
@@ -72,4 +82,4 @@ class App extends React.Component<any, AppState> {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

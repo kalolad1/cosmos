@@ -1,6 +1,5 @@
 import * as actionTypes from '../actions/action_types';
 
-
 const initialState = {
     isFetchingUser: true,
     isCreatingEncounter: false,

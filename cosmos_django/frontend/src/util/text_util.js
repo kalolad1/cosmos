@@ -1,5 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.capitalizeFirstLetter = void 0;
 function capitalizeFirstLetter(str) {
     if (str === null) {

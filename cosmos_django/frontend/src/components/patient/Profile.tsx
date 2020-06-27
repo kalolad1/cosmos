@@ -5,8 +5,8 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as actionCreators from '../../actions/action_creators';
 import * as types from '../../types/types';
 
-import {Alert} from "@material-ui/lab";
-import {Snackbar} from "@material-ui/core";
+import { Alert } from '@material-ui/lab';
+import { Snackbar } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,17 +17,17 @@ import GeneralInformationPanel from './GeneralInformationPanel';
 const PANEL_COUNT = 6;
 
 interface ProfileProps {
-    user: types.User,
-    dispatch: any,
-    history: any,
+    user: types.User;
+    dispatch: any;
+    history: any;
 }
 
 interface ProfileState {
-    email: string,
-    first_name: string,
-    last_name: string,
-    editMode: Array<boolean>,
-    snackbarOpen: boolean,
+    email: string;
+    first_name: string;
+    last_name: string;
+    editMode: Array<boolean>;
+    snackbarOpen: boolean;
 }
 
 class Profile extends React.Component<ProfileProps, ProfileState> {
@@ -52,22 +52,27 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     initEditModeArray(): Array<boolean> {
         let editMode: Array<boolean> = [];
         for (let i = 0; i < PANEL_COUNT; i++) {
-            editMode.push(false)
+            editMode.push(false);
         }
         return editMode;
     }
 
     toggleAllEditMode() {
-        this.setState(prevState => ({
-                editMode: prevState.editMode.map(element => !element),
+        this.setState(
+            (prevState) => ({
+                editMode: prevState.editMode.map((element) => !element),
             }),
-            () => console.log(this.state.editMode));
+            () => console.log(this.state.editMode)
+        );
     }
 
     toggleAllSave() {
-        this.setState(prevState => ({
-            editMode: prevState.editMode.map(element => !element),
-        }), this.dispatchUpdateUser);
+        this.setState(
+            (prevState) => ({
+                editMode: prevState.editMode.map((element) => !element),
+            }),
+            this.dispatchUpdateUser
+        );
     }
 
     dispatchUpdateUser() {
@@ -79,8 +84,8 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 last_name: this.state.last_name,
             },
         };
-        this.props.dispatch(
-            actionCreators.updateUser(newUser, this.props.history))
+        this.props
+            .dispatch(actionCreators.updateUser(newUser, this.props.history))
             .then(() => this.handleSnackbarOpen());
     }
 
@@ -95,7 +100,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         console.log('Closing snackbar.');
         this.setState({
             snackbarOpen: false,
-        })
+        });
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -117,21 +122,24 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
+                last_name={this.state.last_name}
+            />,
             <GeneralInformationPanel
                 key={1}
                 editMode={this.state.editMode[1]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
+                last_name={this.state.last_name}
+            />,
             <GeneralInformationPanel
                 key={2}
                 editMode={this.state.editMode[2]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
+                last_name={this.state.last_name}
+            />,
         ];
 
         const secondaryColumnChildrenPanels = [
@@ -141,40 +149,45 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
+                last_name={this.state.last_name}
+            />,
             <GeneralInformationPanel
                 key={4}
                 editMode={this.state.editMode[5]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
+                last_name={this.state.last_name}
+            />,
             <GeneralInformationPanel
                 key={5}
                 editMode={this.state.editMode[6]}
                 handleInputChange={this.handleInputChange}
                 email={this.state.email}
                 first_name={this.state.first_name}
-                last_name={this.state.last_name}/>,
+                last_name={this.state.last_name}
+            />,
         ];
 
         let toggleAllIconButton;
         if (this.state.editMode.every(Boolean)) {
             toggleAllIconButton = (
                 <IconButton
-                        aria-label="edit"
-                        size="medium"
-                        onClick={this.toggleAllSave}>
-                       <SaveIcon/>
+                    aria-label="edit"
+                    size="medium"
+                    onClick={this.toggleAllSave}
+                >
+                    <SaveIcon />
                 </IconButton>
             );
         } else {
             toggleAllIconButton = (
                 <IconButton
-                        aria-label="edit"
-                        size="medium"
-                        onClick={this.toggleAllEditMode}>
-                       <EditIcon/>
+                    aria-label="edit"
+                    size="medium"
+                    onClick={this.toggleAllEditMode}
+                >
+                    <EditIcon />
                 </IconButton>
             );
         }
@@ -188,19 +201,22 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                     }}
                     open={this.state.snackbarOpen}
                     onClose={this.handleSnackbarClose}
-                    autoHideDuration={4000}>
+                    autoHideDuration={4000}
+                >
                     <Alert
                         onClose={this.handleSnackbarClose}
-                        severity="success">
+                        severity="success"
+                    >
                         Saved!
                     </Alert>
                 </Snackbar>
-                <div className="profile-button-row">
-                    {toggleAllIconButton}
-                </div>
+                <div className="profile-button-row">{toggleAllIconButton}</div>
                 <PanelGrid
                     mainColumnChildrenPanels={mainColumnChildrenPanels}
-                    secondaryColumnChildrenPanels={secondaryColumnChildrenPanels}/>
+                    secondaryColumnChildrenPanels={
+                        secondaryColumnChildrenPanels
+                    }
+                />
             </div>
         );
     }

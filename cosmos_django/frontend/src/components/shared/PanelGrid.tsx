@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-
 class PanelGrid extends React.Component<any, any> {
     constructor(props) {
         super(props);

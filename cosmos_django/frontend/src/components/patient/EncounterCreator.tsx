@@ -11,38 +11,41 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField
-} from "@material-ui/core";
-import FullPageSpinner from "../shared/FullPageSpinner";
-
+    TextField,
+} from '@material-ui/core';
+import FullPageSpinner from '../shared/FullPageSpinner';
 
 const ENCOUNTER_TYPE_OPTIONS = [
-    {id: 1, value: 'physical', humanReadable: 'Physical'},
-    {id: 2, value: 'illness', humanReadable: 'Illness'},
-    {id: 3, value: 'vaccination', humanReadable: 'Vaccination'},
+    { id: 1, value: 'physical', humanReadable: 'Physical' },
+    { id: 2, value: 'illness', humanReadable: 'Illness' },
+    { id: 3, value: 'vaccination', humanReadable: 'Vaccination' },
 ];
 
 interface EncounterCreatorProps {
-    history: any,
-    dispatch: any,
-    isCreatingEncounter: boolean,
+    history: any;
+    dispatch: any;
+    isCreatingEncounter: boolean;
 }
 
 interface EncounterCreatorState {
-    encounter_type: string,
-    note: string,
+    encounter_type: string;
+    note: string;
 }
 
-
-class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterCreatorState> {
+class EncounterCreator extends React.Component<
+    EncounterCreatorProps,
+    EncounterCreatorState
+> {
     constructor(props) {
         super(props);
         this.state = {
             encounter_type: '',
-            note: ''
+            note: '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.createEncounterTypeMenuItems = this.createEncounterTypeMenuItems.bind(this);
+        this.createEncounterTypeMenuItems = this.createEncounterTypeMenuItems.bind(
+            this
+        );
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleEncounterAdd = this.handleEncounterAdd.bind(this);
         this.handleExitClick = this.handleExitClick.bind(this);
@@ -60,9 +63,9 @@ class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterC
     createEncounterTypeMenuItems() {
         return ENCOUNTER_TYPE_OPTIONS.map(function (option) {
             return (
-                <MenuItem
-                    key={option.id}
-                    value={option.value}>{option.humanReadable}</MenuItem>
+                <MenuItem key={option.id} value={option.value}>
+                    {option.humanReadable}
+                </MenuItem>
             );
         });
     }
@@ -79,13 +82,17 @@ class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterC
     handleEncounterAdd(event: React.SyntheticEvent): void {
         event.preventDefault();
         const self = this;
-        this.props.dispatch(actionCreators.addEncounter(
-            this.state.encounter_type,
-            this.state.note,
-            this.props.history))
+        this.props
+            .dispatch(
+                actionCreators.addEncounter(
+                    this.state.encounter_type,
+                    this.state.note,
+                    this.props.history
+                )
+            )
             .then(function () {
                 self.props.history.replace(urlPathConstants.HOME);
-            })
+            });
     }
 
     handleExitClick(event: React.SyntheticEvent): void {
@@ -99,15 +106,15 @@ class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterC
                 <a
                     href="#"
                     onClick={this.handleExitClick}
-                    className="encounter-creator-close-button"/>
+                    className="encounter-creator-close-button"
+                />
                 <div>
                     <form onSubmit={this.handleEncounterAdd}>
                         <div className="form-input-container">
-                            <FormControl
-                                variant="outlined"
-                                fullWidth>
-                                <InputLabel
-                                    id="encounterType-label">Type</InputLabel>
+                            <FormControl variant="outlined" fullWidth>
+                                <InputLabel id="encounterType-label">
+                                    Type
+                                </InputLabel>
                                 <Select
                                     displayEmpty
                                     labelId="encounterType-label"
@@ -118,7 +125,8 @@ class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterC
                                     label="Type"
                                     inputProps={{
                                         required: true,
-                                    }}>
+                                    }}
+                                >
                                     {this.createEncounterTypeMenuItems()}
                                 </Select>
                             </FormControl>
@@ -135,28 +143,31 @@ class EncounterCreator extends React.Component<EncounterCreatorProps, EncounterC
                                 inputProps={{
                                     required: true,
                                 }}
-                                fullWidth/>
+                                fullWidth
+                            />
                         </div>
                         <div className="form-button-container">
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                type="submit">
+                                type="submit"
+                            >
                                 Add
                             </Button>
                         </div>
                     </form>
                 </div>
             </div>
-        )
+        );
     }
 }
-
 
 function mapStateToProps(state) {
     return {
         isCreatingEncounter: state.isCreatingEncounter,
-    }
+    };
 }
 
-export default ReactRedux.connect(mapStateToProps)(ReactRouterDOM.withRouter(EncounterCreator));
+export default ReactRedux.connect(mapStateToProps)(
+    ReactRouterDOM.withRouter(EncounterCreator)
+);

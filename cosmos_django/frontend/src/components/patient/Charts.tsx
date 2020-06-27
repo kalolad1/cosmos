@@ -11,13 +11,12 @@ import Summary from './Summary';
 import Timeline from './Timeline';
 
 interface ChartsProps {
-    user: types.User,
+    user: types.User;
 }
 
 interface ChartsState {
-    selectedTab: number,
+    selectedTab: number;
 }
-
 
 class Charts extends React.Component<ChartsProps, ChartsState> {
     constructor(props) {
@@ -41,17 +40,20 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
         let openChart;
         switch (this.state.selectedTab) {
             case 0:
-                openChart = <Summary user={this.props.user}/>;
+                openChart = <Summary user={this.props.user} />;
                 break;
             case 1:
-                openChart = <Timeline
-                    encounters={this.props.user.patient_profile.encounters}/>;
+                openChart = (
+                    <Timeline
+                        encounters={this.props.user.patient_profile.encounters}
+                    />
+                );
                 break;
             case 2:
-                openChart = <Profile user={this.props.user}/>;
+                openChart = <Profile user={this.props.user} />;
                 break;
             default:
-                openChart = <Summary user={this.props.user}/>;
+                openChart = <Summary user={this.props.user} />;
         }
         return openChart;
     }
@@ -66,10 +68,11 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                             onChange={this.handleTabChange}
                             indicatorColor="primary"
                             textColor="primary"
-                            centered>
-                            <Tab label="Summary"/>
-                            <Tab label="Timeline"/>
-                            <Tab label="Profile"/>
+                            centered
+                        >
+                            <Tab label="Summary" />
+                            <Tab label="Timeline" />
+                            <Tab label="Profile" />
                         </Tabs>
                     </div>
                 </div>
@@ -77,7 +80,7 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                     {this.getOpenChartComponent()}
                 </div>
             </div>
-        )
+        );
     }
 }
 

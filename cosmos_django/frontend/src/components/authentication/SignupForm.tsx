@@ -12,27 +12,30 @@ import {
     FormControl,
     InputLabel,
     MenuItem,
-    Select, Snackbar,
+    Select,
+    Snackbar,
     TextField,
 } from '@material-ui/core';
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
-import {Alert} from "@material-ui/lab";
-
+import {
+    KeyboardDatePicker,
+    MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import { Alert } from '@material-ui/lab';
 
 const SEX_OPTIONS = [
-    {id: 1, value: 'male', humanReadable: 'Male'},
-    {id: 2, value: 'female', humanReadable: 'Female'},
+    { id: 1, value: 'male', humanReadable: 'Male' },
+    { id: 2, value: 'female', humanReadable: 'Female' },
 ];
 
 interface SignupFormState {
-    email: string,
-    password: string,
-    first_name: string,
-    last_name: string,
-    date_of_birth?: Date,
-    sex: string,
-    isErrorSnackbarOpen: boolean,
-    snackBarErrorMessage: string,
+    email: string;
+    password: string;
+    first_name: string;
+    last_name: string;
+    date_of_birth?: Date;
+    sex: string;
+    isErrorSnackbarOpen: boolean;
+    snackBarErrorMessage: string;
 }
 
 class SignupForm extends React.Component<any, SignupFormState> {
@@ -49,12 +52,16 @@ class SignupForm extends React.Component<any, SignupFormState> {
             snackBarErrorMessage: 'An error has occurred!',
         };
 
-        this.handleRegistrationRequest = this.handleRegistrationRequest.bind(this);
+        this.handleRegistrationRequest = this.handleRegistrationRequest.bind(
+            this
+        );
         this.createSexMenuItems = this.createSexMenuItems.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleErrorSnackbarClose = this.handleErrorSnackbarClose.bind(this);
+        this.handleErrorSnackbarClose = this.handleErrorSnackbarClose.bind(
+            this
+        );
     }
 
     handleDateChange(date: Date | null): void {
@@ -85,9 +92,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
     createSexMenuItems() {
         return SEX_OPTIONS.map(function (option) {
             return (
-                <MenuItem
-                    key={option.id}
-                    value={option.value}>{option.humanReadable}</MenuItem>
+                <MenuItem key={option.id} value={option.value}>
+                    {option.humanReadable}
+                </MenuItem>
             );
         });
     }
@@ -96,20 +103,23 @@ class SignupForm extends React.Component<any, SignupFormState> {
         event.preventDefault();
         const self = this;
 
-        authApi.signupRequest(
-            this.state.email,
-            this.state.password,
-            this.state.first_name,
-            this.state.last_name,
-            {
-                year: this.state.date_of_birth!.getFullYear(),
-                // Add 1 to month to change from 0 to 1 indexing.
-                month: this.state.date_of_birth!.getMonth() + 1,
-                day: this.state.date_of_birth!.getDate(),
-            },
-            this.state.sex)
+        authApi
+            .signupRequest(
+                this.state.email,
+                this.state.password,
+                this.state.first_name,
+                this.state.last_name,
+                {
+                    year: this.state.date_of_birth!.getFullYear(),
+                    // Add 1 to month to change from 0 to 1 indexing.
+                    month: this.state.date_of_birth!.getMonth() + 1,
+                    day: this.state.date_of_birth!.getDate(),
+                },
+                this.state.sex
+            )
             .then(function () {
-                authApi.loginRequest(self.state.email, self.state.password)
+                authApi
+                    .loginRequest(self.state.email, self.state.password)
                     .then(function () {
                         self.props.history.replace(urlPathConstants.HOME);
                     });
@@ -118,13 +128,14 @@ class SignupForm extends React.Component<any, SignupFormState> {
                 if (error.response) {
                     self.setState({
                         ...self.state,
-                        snackBarErrorMessage: error.response.data.user_facing_message,
-                    })
+                        snackBarErrorMessage:
+                            error.response.data.user_facing_message,
+                    });
                 }
                 self.setState({
                     ...self.state,
                     isErrorSnackbarOpen: true,
-                })
+                });
             });
     }
 
@@ -147,8 +158,12 @@ class SignupForm extends React.Component<any, SignupFormState> {
                         horizontal: 'center',
                     }}
                     open={this.state.isErrorSnackbarOpen}
-                    onClose={this.handleErrorSnackbarClose}>
-                    <Alert onClose={this.handleErrorSnackbarClose} severity="error">
+                    onClose={this.handleErrorSnackbarClose}
+                >
+                    <Alert
+                        onClose={this.handleErrorSnackbarClose}
+                        severity="error"
+                    >
                         {this.state.snackBarErrorMessage}
                     </Alert>
                 </Snackbar>
@@ -156,12 +171,14 @@ class SignupForm extends React.Component<any, SignupFormState> {
                     <div className="login-signup-form-content-logo-container">
                         <img
                             src={apiEndpointConstants.TEXT}
-                            alt="Cosmos text logo."/>
+                            alt="Cosmos text logo."
+                        />
                     </div>
                     <h1>Sign up</h1>
                     <form
                         className="login-signup-form"
-                        onSubmit={this.handleRegistrationRequest}>
+                        onSubmit={this.handleRegistrationRequest}
+                    >
                         <div className="form-input-container">
                             <TextField
                                 name="email"
@@ -173,7 +190,8 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 inputProps={{
                                     required: true,
                                 }}
-                                fullWidth/>
+                                fullWidth
+                            />
                         </div>
                         <div className="form-input-container">
                             <TextField
@@ -186,7 +204,8 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 inputProps={{
                                     required: true,
                                 }}
-                                fullWidth/>
+                                fullWidth
+                            />
                         </div>
                         <div className="form-input-container form-bi-input-container">
                             <TextField
@@ -199,7 +218,8 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 variant="outlined"
                                 inputProps={{
                                     required: true,
-                                }}/>
+                                }}
+                            />
                             <TextField
                                 className="form-bi-input-field"
                                 name="last_name"
@@ -210,12 +230,11 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 variant="outlined"
                                 inputProps={{
                                     required: true,
-                                }}/>
+                                }}
+                            />
                         </div>
                         <div className="form-input-container">
-                            <FormControl
-                                variant="outlined"
-                                fullWidth>
+                            <FormControl variant="outlined" fullWidth>
                                 <InputLabel id="sex-label">Sex</InputLabel>
                                 <Select
                                     displayEmpty
@@ -227,7 +246,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                     label="Sex"
                                     inputProps={{
                                         required: true,
-                                    }}>{this.createSexMenuItems()}
+                                    }}
+                                >
+                                    {this.createSexMenuItems()}
                                 </Select>
                             </FormControl>
                         </div>
@@ -253,7 +274,9 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                 variant="contained"
                                 color="secondary"
                                 size="large"
-                                type="submit">Next
+                                type="submit"
+                            >
+                                Next
                             </Button>
                         </div>
                         <div className="login-signup-redirect-link-container">

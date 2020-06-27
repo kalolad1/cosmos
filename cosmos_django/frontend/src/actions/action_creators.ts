@@ -1,78 +1,75 @@
 import * as actionTypes from './action_types';
 import * as patientApi from '../api/patient_api';
 
-
 /* User */
 export function requestGetUser() {
     return {
         type: actionTypes.REQUEST_GET_USER,
-    }
+    };
 }
 
 export function receiveGetUser(user) {
     return {
         type: actionTypes.RECEIVE_GET_USER,
         user: user,
-    }
+    };
 }
 
 export function fetchUser(history) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(requestGetUser());
 
-        return patientApi.getUser(history)
-            .then(function (response) {
-                dispatch(receiveGetUser(response.data));
-            });
-    }
+        return patientApi.getUser(history).then(function (response) {
+            dispatch(receiveGetUser(response.data));
+        });
+    };
 }
 
 export function requestUpdateUser() {
     return {
         type: actionTypes.REQUEST_UPDATE_USER,
-    }
+    };
 }
 
 export function receiveUpdateUser(user) {
     return {
         type: actionTypes.RECEIVE_UPDATE_USER,
         user: user,
-    }
+    };
 }
 
 export function updateUser(user, history) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(requestUpdateUser());
 
-        return patientApi.updateUser(user, history)
-            .then(function (response) {
-                dispatch(receiveUpdateUser(response.data));
-            });
-    }
+        return patientApi.updateUser(user, history).then(function (response) {
+            dispatch(receiveUpdateUser(response.data));
+        });
+    };
 }
-
 
 /* Encounter */
 export function requestAddEncounter() {
     return {
         type: actionTypes.REQUEST_ADD_ENCOUNTER,
-    }
+    };
 }
 
 export function receiveAddEncounter(encounter) {
     return {
         type: actionTypes.RECEIVE_ADD_ENCOUNTER,
         encounter: encounter,
-    }
+    };
 }
 
 export function addEncounter(encounter_type: string, note: string, history) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch(requestAddEncounter());
 
-        return patientApi.addEncounter(encounter_type, note, history)
+        return patientApi
+            .addEncounter(encounter_type, note, history)
             .then(function (response) {
                 dispatch(receiveAddEncounter(response.data));
             });
-    }
+    };
 }

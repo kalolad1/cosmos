@@ -1,24 +1,25 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.clearTokens = exports.hasTokens = exports.setToken = exports.getToken = exports.getAuthorizationRequestHeader = exports.refreshAccessToken = void 0;
 /* Contains authentication utility functions */
-var apiEndpointConstants = require("../constants/api_endpoint_constants");
-var tokenConstants = require("../constants/token_constants");
-var axiosConfig = require("../configs/axios_config");
+var apiEndpointConstants = require('../constants/api_endpoint_constants');
+var tokenConstants = require('../constants/token_constants');
+var axiosConfig = require('../configs/axios_config');
 function refreshAccessToken() {
-    return axiosConfig.axiosClient.post(apiEndpointConstants.REFRESH_TOKEN, {
-        'refresh': localStorage.getItem(tokenConstants.REFRESH_TOKEN)
-    })
+    return axiosConfig.axiosClient
+        .post(apiEndpointConstants.REFRESH_TOKEN, {
+            refresh: localStorage.getItem(tokenConstants.REFRESH_TOKEN),
+        })
         .then(function (response) {
-        return response;
-    });
+            return response;
+        });
 }
 exports.refreshAccessToken = refreshAccessToken;
 function getAuthorizationRequestHeader() {
     return {
         headers: {
-            'Authorization': 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN)
-        }
+            Authorization: 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN),
+        },
     };
 }
 exports.getAuthorizationRequestHeader = getAuthorizationRequestHeader;
@@ -31,8 +32,10 @@ function setToken(tokenType, value) {
 }
 exports.setToken = setToken;
 function hasTokens() {
-    return (localStorage.getItem(tokenConstants.ACCESS_TOKEN) !== null &&
-        localStorage.getItem(tokenConstants.REFRESH_TOKEN) !== null);
+    return (
+        localStorage.getItem(tokenConstants.ACCESS_TOKEN) !== null &&
+        localStorage.getItem(tokenConstants.REFRESH_TOKEN) !== null
+    );
 }
 exports.hasTokens = hasTokens;
 function clearTokens() {

@@ -2,11 +2,9 @@ import * as React from 'react';
 
 import * as types from '../../types/types';
 
-
 interface SummaryProps {
-    user: types.User,
+    user: types.User;
 }
-
 
 class Summary extends React.Component<SummaryProps, any> {
     constructor(props) {
@@ -14,11 +12,7 @@ class Summary extends React.Component<SummaryProps, any> {
     }
 
     render() {
-        return (
-            <div>
-                TODO IMPLEMENT
-            </div>
-        );
+        return <div>TODO IMPLEMENT</div>;
     }
 }
 

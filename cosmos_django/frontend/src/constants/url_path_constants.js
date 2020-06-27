@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 /* Contains URL paths for the project */
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.CREATE_VISIT = exports.VACCINATIONS_CHART = exports.MEDICATIONS_CHART = exports.TIMELINE_CHART = exports.ROOT = exports.SIGNUP = exports.LOGIN = exports.HOME = void 0;
 exports.HOME = '/home';
 exports.LOGIN = '/login';

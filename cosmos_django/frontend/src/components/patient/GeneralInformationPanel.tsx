@@ -5,7 +5,6 @@ import Panel from '../shared/Panel';
 
 const PANEL_TITLE = 'General Information';
 
-
 class GeneralInformationPanel extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -17,8 +16,12 @@ class GeneralInformationPanel extends React.Component<any, any> {
                 <div className="form-input-container form-bi-input-container">
                     <TextField
                         disabled={!this.props.editMode}
-                        className={"form-bi-input-field " +
-                        (!this.props.editMode ? "read-only-input-field" : "")}
+                        className={
+                            'form-bi-input-field ' +
+                            (!this.props.editMode
+                                ? 'read-only-input-field'
+                                : '')
+                        }
                         name="first_name"
                         onChange={this.props.handleInputChange}
                         value={this.props.first_name}
@@ -27,11 +30,16 @@ class GeneralInformationPanel extends React.Component<any, any> {
                         variant="outlined"
                         inputProps={{
                             required: true,
-                        }}/>
+                        }}
+                    />
                     <TextField
                         disabled={!this.props.editMode}
-                        className={"form-bi-input-field " +
-                        (!this.props.editMode ? "read-only-input-field" : "")}
+                        className={
+                            'form-bi-input-field ' +
+                            (!this.props.editMode
+                                ? 'read-only-input-field'
+                                : '')
+                        }
                         name="last_name"
                         onChange={this.props.handleInputChange}
                         value={this.props.last_name}
@@ -40,13 +48,18 @@ class GeneralInformationPanel extends React.Component<any, any> {
                         variant="outlined"
                         inputProps={{
                             required: true,
-                        }}/>
+                        }}
+                    />
                 </div>
                 <div className="form-input-container">
                     <TextField
                         disabled={!this.props.editMode}
-                        className={"form-bi-input-field " +
-                        (!this.props.editMode ? "read-only-input-field" : "")}
+                        className={
+                            'form-bi-input-field ' +
+                            (!this.props.editMode
+                                ? 'read-only-input-field'
+                                : '')
+                        }
                         name="email"
                         onChange={this.props.handleInputChange}
                         value={this.props.email}
@@ -56,13 +69,12 @@ class GeneralInformationPanel extends React.Component<any, any> {
                         inputProps={{
                             required: true,
                         }}
-                        fullWidth/>
+                        fullWidth
+                    />
                 </div>
             </div>
         );
-        return <Panel
-            title={PANEL_TITLE}
-            content={content}/>
+        return <Panel title={PANEL_TITLE} content={content} />;
     }
 }
 

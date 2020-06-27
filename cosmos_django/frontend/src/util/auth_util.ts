@@ -1,12 +1,12 @@
 /* Contains authentication utility functions */
 import * as apiEndpointConstants from '../constants/api_endpoint_constants';
 import * as tokenConstants from '../constants/token_constants';
-import * as axiosConfig from "../configs/axios_config";
-
+import * as axiosConfig from '../configs/axios_config';
 
 export function refreshAccessToken() {
-    return axiosConfig.axiosClient.post(apiEndpointConstants.REFRESH_TOKEN, {
-        'refresh': localStorage.getItem(tokenConstants.REFRESH_TOKEN)
+    return axiosConfig.axiosClient
+        .post(apiEndpointConstants.REFRESH_TOKEN, {
+            refresh: localStorage.getItem(tokenConstants.REFRESH_TOKEN),
         })
         .then(function (response) {
             return response;
@@ -16,9 +16,9 @@ export function refreshAccessToken() {
 export function getAuthorizationRequestHeader() {
     return {
         headers: {
-            'Authorization': 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN)
-        }
-    }
+            Authorization: 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN),
+        },
+    };
 }
 
 export function getToken(tokenType: string): string | null {

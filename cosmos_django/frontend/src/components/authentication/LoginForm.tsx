@@ -1,20 +1,18 @@
-import * as React from 'react'
+import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as authApi from '../../api/auth_api';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
 
-import {Button, Snackbar, TextField} from '@material-ui/core';
-import {Alert} from "@material-ui/lab";
-
+import { Button, Snackbar, TextField } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 interface LoginFormState {
-    email: string,
-    password: string,
-    isErrorSnackbarOpen: boolean,
+    email: string;
+    password: string;
+    isErrorSnackbarOpen: boolean;
 }
-
 
 class LoginForm extends React.Component<any, LoginFormState> {
     constructor(props) {
@@ -26,7 +24,9 @@ class LoginForm extends React.Component<any, LoginFormState> {
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLoginRequest = this.handleLoginRequest.bind(this);
-        this.handleErrorSnackbarClose = this.handleErrorSnackbarClose.bind(this);
+        this.handleErrorSnackbarClose = this.handleErrorSnackbarClose.bind(
+            this
+        );
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -42,7 +42,8 @@ class LoginForm extends React.Component<any, LoginFormState> {
         event.preventDefault();
         console.log('Received request to log in.');
         const self = this;
-        authApi.loginRequest(this.state.email, this.state.password)
+        authApi
+            .loginRequest(this.state.email, this.state.password)
             .then(function () {
                 self.props.history.replace(urlPathConstants.HOME);
             })
@@ -51,7 +52,7 @@ class LoginForm extends React.Component<any, LoginFormState> {
                 self.setState({
                     ...self.state,
                     isErrorSnackbarOpen: true,
-                })
+                });
             });
     }
 
@@ -74,8 +75,12 @@ class LoginForm extends React.Component<any, LoginFormState> {
                         horizontal: 'center',
                     }}
                     open={this.state.isErrorSnackbarOpen}
-                    onClose={this.handleErrorSnackbarClose}>
-                    <Alert onClose={this.handleErrorSnackbarClose} severity="error">
+                    onClose={this.handleErrorSnackbarClose}
+                >
+                    <Alert
+                        onClose={this.handleErrorSnackbarClose}
+                        severity="error"
+                    >
                         Email or password is incorrect!
                     </Alert>
                 </Snackbar>
@@ -83,12 +88,14 @@ class LoginForm extends React.Component<any, LoginFormState> {
                     <div className="login-signup-form-content-logo-container">
                         <img
                             src={apiEndpointConstants.TEXT}
-                            alt="Cosmos logo with text."/>
+                            alt="Cosmos logo with text."
+                        />
                     </div>
                     <h1>Sign in</h1>
                     <form
                         className="login-signup-form"
-                        onSubmit={this.handleLoginRequest}>
+                        onSubmit={this.handleLoginRequest}
+                    >
                         <div className="form-input-container">
                             <TextField
                                 name="email"
@@ -100,7 +107,8 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 inputProps={{
                                     required: true,
                                 }}
-                                fullWidth/>
+                                fullWidth
+                            />
                         </div>
                         <div className="form-input-container">
                             <TextField
@@ -113,14 +121,16 @@ class LoginForm extends React.Component<any, LoginFormState> {
                                 inputProps={{
                                     required: true,
                                 }}
-                                fullWidth/>
+                                fullWidth
+                            />
                         </div>
                         <div className="form-button-container">
                             <Button
                                 type="submit"
                                 variant="contained"
                                 color="secondary"
-                                size="large">
+                                size="large"
+                            >
                                 Next
                             </Button>
                         </div>

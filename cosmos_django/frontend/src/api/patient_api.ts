@@ -1,10 +1,9 @@
-import * as authUtil from "../util/auth_util";
-import * as tokenConstants from "../constants/token_constants";
-import * as urlPathConstants from "../constants/url_path_constants";
-import * as axiosConfig from "../configs/axios_config";
-import * as apiEndpointConstants from "../constants/api_endpoint_constants";
-import {User} from "../types/types";
-
+import * as authUtil from '../util/auth_util';
+import * as tokenConstants from '../constants/token_constants';
+import * as urlPathConstants from '../constants/url_path_constants';
+import * as axiosConfig from '../configs/axios_config';
+import * as apiEndpointConstants from '../constants/api_endpoint_constants';
+import { User } from '../types/types';
 
 async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
     try {
@@ -14,7 +13,8 @@ async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
             const accessTokenResponse = await authUtil.refreshAccessToken();
             authUtil.setToken(
                 tokenConstants.ACCESS_TOKEN,
-                accessTokenResponse.data.access);
+                accessTokenResponse.data.access
+            );
             return await request();
         } catch (error) {
             authUtil.clearTokens();
@@ -25,27 +25,32 @@ async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
     return null;
 }
 
-
 export function getUser(history: any) {
     function request() {
         return axiosConfig.axiosClient.get(
             apiEndpointConstants.USERS,
-            authUtil.getAuthorizationRequestHeader());
+            authUtil.getAuthorizationRequestHeader()
+        );
     }
-    return makeAuthorizedRequestOrRedirectToLogin(request, history)
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
 
 export function updateUser(user: User, history: any) {
     function request() {
         return axiosConfig.axiosClient.put(
             apiEndpointConstants.USERS,
-            {...user},
-            authUtil.getAuthorizationRequestHeader());
+            { ...user },
+            authUtil.getAuthorizationRequestHeader()
+        );
     }
-    return makeAuthorizedRequestOrRedirectToLogin(request, history)
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
 
-export function addEncounter(encounter_type: string, note: string, history: any) {
+export function addEncounter(
+    encounter_type: string,
+    note: string,
+    history: any
+) {
     function request() {
         return axiosConfig.axiosClient.post(
             apiEndpointConstants.ENCOUNTERS,
@@ -53,7 +58,8 @@ export function addEncounter(encounter_type: string, note: string, history: any)
                 encounterType: encounter_type,
                 note: note,
             },
-            authUtil.getAuthorizationRequestHeader())
+            authUtil.getAuthorizationRequestHeader()
+        );
     }
-    return makeAuthorizedRequestOrRedirectToLogin(request, history)
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
