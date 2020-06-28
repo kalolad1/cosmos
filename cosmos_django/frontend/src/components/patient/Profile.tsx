@@ -14,6 +14,7 @@ import PanelGrid from '../shared/PanelGrid';
 
 import GeneralInformationPanel from './GeneralInformationPanel';
 import ContactInformationPanel from './ContactInformationPanel';
+import DemographicInformationPanel from './DemographicInformationPanel';
 
 // Update panel count according to how many populate the rendered PanelGrid.
 const PANEL_COUNT = 6;
@@ -34,6 +35,9 @@ interface ProfileState {
     city: string;
     state: string;
     zipCode: string;
+    race: string;
+    ethnicity: string;
+    religion: string;
     editMode: Array<boolean>;
     snackbarOpen: boolean;
 }
@@ -51,6 +55,9 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             city: this.props.user.patientProfile.address.city,
             state: this.props.user.patientProfile.address.state,
             zipCode: this.props.user.patientProfile.address.zipCode,
+            race: this.props.user.patientProfile.race,
+            ethnicity: this.props.user.patientProfile.ethnicity,
+            religion: this.props.user.patientProfile.religion,
             editMode: this.initEditModeArray(),
             snackbarOpen: false,
         };
@@ -106,6 +113,9 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                     state: this.state.state,
                     zipCode: this.state.zipCode,
                 },
+                race: this.state.race,
+                ethnicity: this.state.ethnicity,
+                religion: this.state.religion,
             },
         };
         this.props
@@ -194,14 +204,13 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 state={this.state.state}
                 zipCode={this.state.zipCode}
             />,
-            <GeneralInformationPanel
+            <DemographicInformationPanel
                 key={4}
                 editMode={this.state.editMode[5]}
                 handleInputChange={this.handleInputChange}
-                handleDateChange={this.handleDateChange}
-                firstName={this.state.firstName}
-                lastName={this.state.lastName}
-                dateOfBirth={this.state.dateOfBirth}
+                race={this.state.race}
+                ethnicity={this.state.ethnicity}
+                religion={this.state.religion}
             />,
             <GeneralInformationPanel
                 key={5}

@@ -144,6 +144,15 @@ class PatientProfile(models.Model):
         upload_to='profile_pictures/', blank=True, null=True)
 
     phone_number = PhoneNumberField(blank=True, null=True, default='')
+    race = models.CharField(max_length=60, blank=True, null=True, default='')
+    ethnicity = models.CharField(max_length=60,
+                                 blank=True,
+                                 null=True,
+                                 default='')
+    religion = models.CharField(max_length=60,
+                                blank=True,
+                                null=True,
+                                default='')
 
     def update_from_json(self, data):
         for attribute, value in data.items():

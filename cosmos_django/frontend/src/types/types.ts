@@ -22,6 +22,9 @@ export interface PatientProfile {
     age: number;
     profilePicture: string;
     phoneNumber: string;
+    race: string;
+    ethnicity: string;
+    religion: string;
     address: Address;
     encounters: Array<Encounter>;
     medications: Array<Medication>;
