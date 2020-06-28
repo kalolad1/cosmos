@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Panel from '../shared/Panel';
+import ProfilePanelHeader from './ProfilePanelHeader';
 
 const PANEL_TITLE = 'Prescription Information';
 
@@ -36,7 +37,12 @@ class PrescriptionInformationPanel extends React.Component<any, any> {
                 </div>
             </div>
         );
-        return <Panel title={PANEL_TITLE} content={content} />;
+        return (
+            <Panel
+                header={<ProfilePanelHeader title={PANEL_TITLE} />}
+                body={content}
+            />
+        );
     }
 }
 

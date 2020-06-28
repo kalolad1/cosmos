@@ -3,7 +3,6 @@ import * as React from 'react';
 
 import * as types from '../../types/types';
 
-
 interface TimelineProps {
     encounters: Array<types.Encounter>;
 }

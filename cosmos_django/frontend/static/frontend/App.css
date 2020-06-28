@@ -229,39 +229,17 @@
     opacity: 1;
 }
 
-.panel-title {
+.profile-panel-header-title {
     font-family: "Neue Hans Kendrick", sans-serif;
     font-size: 20px;
 }
 
-.panel-content {
+.panel-body {
     margin-top: 20px;
 }
 
-.panel-title-and-content {
+.panel-header-and-body {
     padding: 20px 20px 10px 20px;
-}
-
-.text-field-panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: inherit;
-    height: inherit;
-}
-
-.text-field-panel-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-}
-
-.text-field-panel-edit-button {
-    visibility: visible;
-}
-
-.text-field-panel-edit-button-hidden {
-    visibility: hidden;
 }
 
 /* Utilities */

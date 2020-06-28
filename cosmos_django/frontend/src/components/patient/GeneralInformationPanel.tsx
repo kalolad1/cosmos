@@ -7,6 +7,7 @@ import {
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import Panel from '../shared/Panel';
+import ProfilePanelHeader from './ProfilePanelHeader';
 
 const PANEL_TITLE = 'General Information';
 
@@ -83,7 +84,12 @@ class GeneralInformationPanel extends React.Component<any, any> {
                 </div>
             </div>
         );
-        return <Panel title={PANEL_TITLE} content={content} />;
+        return (
+            <Panel
+                header={<ProfilePanelHeader title={PANEL_TITLE} />}
+                body={content}
+            />
+        );
     }
 }
 

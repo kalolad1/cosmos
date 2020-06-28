@@ -2,22 +2,24 @@ import * as React from 'react';
 
 import { Divider } from '@material-ui/core';
 
-class Panel extends React.Component<any, any> {
+interface PanelProps {
+    header: any;
+    body: any;
+    footer?: any;
+}
+
+class Panel extends React.Component<PanelProps, any> {
     constructor(props) {
         super(props);
     }
 
     render() {
         return (
-            <div
-                className="panel"
-                onMouseEnter={this.props.onMouseEnter}
-                onMouseLeave={this.props.onMouseLeave}
-            >
-                <div className="panel-title-and-content">
-                    <div className="panel-title">{this.props.title}</div>
+            <div className="panel">
+                <div className="panel-header-and-body">
+                    <div className="panel-header">{this.props.header}</div>
                     <Divider />
-                    <div className="panel-content">{this.props.content}</div>
+                    <div className="panel-body">{this.props.body}</div>
                 </div>
                 <div className="panel-footer">{this.props.footer}</div>
             </div>
