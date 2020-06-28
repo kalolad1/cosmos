@@ -19,13 +19,13 @@ class TestModels(TestCase):
             sex='male')
 
     def test_create_user_no_email_raises_value_error(self):
-        self.assertRaises(custom_exceptions.DataForNewUserNotProvided,
+        self.assertRaises(custom_exceptions.DataForNewUserNotProvidedException,
                           models.User.objects.create_user,
                           email='',
                           password='1234')
 
     def test_create_user_no_password_raises_value_error(self):
-        self.assertRaises(custom_exceptions.DataForNewUserNotProvided,
+        self.assertRaises(custom_exceptions.DataForNewUserNotProvidedException,
                           models.User.objects.create_user,
                           email='test@gmail.com',
                           password='')

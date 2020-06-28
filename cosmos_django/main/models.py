@@ -1,4 +1,5 @@
 import datetime
+from dateutil import parser
 from typing import List, Tuple
 
 from django.conf import settings
@@ -16,10 +17,10 @@ class UserManager(BaseUserManager):
     def create_user(self, email: str, password: str) -> 'User':
         """Create a user."""
         if not email:
-            raise custom_exceptions.DataForNewUserNotProvided()
+            raise custom_exceptions.DataForNewUserNotProvidedException()
 
         if not password:
-            raise custom_exceptions.DataForNewUserNotProvided()
+            raise custom_exceptions.DataForNewUserNotProvidedException()
 
         if User.objects.filter(email=email).exists():
             raise custom_exceptions.UserAlreadyExistsException(
@@ -40,6 +41,38 @@ class UserManager(BaseUserManager):
         superuser.save(using=self._db)
         return superuser
 
+    def create_user_from_json(self, data) -> 'User':
+        """Creates a user from a JSON payload.
+
+        Args:
+            data: A dict like object containing data to instantiate a user with.
+
+        Raises:
+            DataForNewUserNotProvidedException: If required data are not
+                provided.
+
+        Returns:
+            The created User object.
+        """
+        try:
+            email = data['email']
+            password = data['password']
+            first_name = data['first_name']
+            last_name = data['last_name']
+            date_of_birth = data['date_of_birth']
+            sex = data['sex']
+        except KeyError:
+            raise custom_exceptions.DataForNewUserNotProvidedException()
+
+        user = User.objects.create_user(email=email, password=password)
+        PatientProfile.objects.create(
+            user=user,
+            first_name=first_name,
+            last_name=last_name,
+            date_of_birth=parser.parse(date_of_birth).date(),
+            sex=sex)
+        return user
+
 
 class User(AbstractBaseUser):
     """The Base User main."""
@@ -54,6 +87,17 @@ class User(AbstractBaseUser):
     # Specify which field the user will log in with.
     USERNAME_FIELD: str = 'email'
     EMAIL_FIELD: str = 'email'
+
+    def update_user_from_json(self, data) -> 'User':
+        """Updates an existing user from a JSON payload."""
+        for attribute, value in data.items():
+            if attribute == 'patient_profile':
+                self.patient_profile.update_patient_profile_from_json(
+                    data=value)
+            else:
+                setattr(self, attribute, value)
+        self.save()
+        return self
 
     def __str__(self) -> str:
         return str(self.email.__str__())
@@ -98,6 +142,14 @@ class PatientProfile(models.Model):
         upload_to='profile_pictures/', blank=True, null=True)
 
     phone_number = PhoneNumberField(blank=True, null=True, default='')
+
+    def update_patient_profile_from_json(self, data):
+        for attribute, value in data.items():
+            if attribute == 'date_of_birth':
+                setattr(self, attribute, parser.parse(value).date())
+            else:
+                setattr(self, attribute, value)
+        self.save()
 
     def get_full_name(self) -> str:
         return '{} {}'.format(self.first_name, self.last_name)

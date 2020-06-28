@@ -59,7 +59,8 @@ class TestApi(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response.data[custom_exceptions.USER_FACING_MESSAGE_KEY],
-            custom_exceptions.DataForNewUserNotProvided.USER_FACING_MESSAGE)
+            custom_exceptions.DataForNewUserNotProvidedException.
+            USER_FACING_MESSAGE)
 
     def test_create_user_fails_password_not_provided(self):
         request_data = copy.deepcopy(TEST_USER_REQUEST_DATA)
@@ -70,7 +71,8 @@ class TestApi(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response.data[custom_exceptions.USER_FACING_MESSAGE_KEY],
-            custom_exceptions.DataForNewUserNotProvided.USER_FACING_MESSAGE)
+            custom_exceptions.DataForNewUserNotProvidedException.
+            USER_FACING_MESSAGE)
 
     def test_create_user_fails_patient_profile_data_not_provided(self):
         request_data = copy.deepcopy(TEST_USER_REQUEST_DATA)
@@ -82,7 +84,8 @@ class TestApi(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response.data[custom_exceptions.USER_FACING_MESSAGE_KEY],
-            custom_exceptions.DataForNewUserNotProvided.USER_FACING_MESSAGE)
+            custom_exceptions.DataForNewUserNotProvidedException.
+            USER_FACING_MESSAGE)
 
     def test_create_user_succeeds(self):
         response = self._create_test_user()
@@ -155,7 +158,7 @@ class TestApi(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
             response.data[custom_exceptions.USER_FACING_MESSAGE_KEY],
-            custom_exceptions.DataForNewEncounterNotProvided.
+            custom_exceptions.DataForNewEncounterNotProvidedException.
             USER_FACING_MESSAGE)
 
     def test_create_encounter_succeeds(self):

@@ -8,7 +8,6 @@ API endpoints.
 tldr; When on server, expect snake_case everywhere, when on client, expect
 camelCase everywhere.
 """
-from dateutil import parser
 import logging
 import json
 
@@ -37,32 +36,14 @@ class AccountsEndpoint(views.APIView):
     def post(self, request: Request) -> response.Response:
         """Registers a new account."""
         try:
-            email = request.data['email']
-            password = request.data['password']
-            first_name = request.data['first_name']
-            last_name = request.data['last_name']
-            date_of_birth = request.data['date_of_birth']
-            sex = request.data['sex']
-        except KeyError:
-            custom_exception = custom_exceptions.DataForNewUserNotProvided()
-            return response.Response(
-                data=custom_exception.get_response_format(),
-                status=status.HTTP_400_BAD_REQUEST)
-
-        user: models.User
-        try:
-            user = models.User.objects.create_user(email=email,
-                                                   password=password)
+            user: models.User = models.User.objects.create_user_from_json(
+                data=request.data)
+        except custom_exceptions.DataForNewUserNotProvidedException as e:
+            return response.Response(data=e.get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
         except custom_exceptions.UserAlreadyExistsException as e:
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
-
-        models.PatientProfile.objects.create(
-            user=user,
-            first_name=first_name,
-            last_name=last_name,
-            date_of_birth=parser.parse(date_of_birth).date(),
-            sex=sex)
 
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
             instance=user)
@@ -72,22 +53,9 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_201_CREATED)
 
     def put(self, request: Request) -> response.Response:
-        user = models.User.objects.get(id=request.user.id)
-        for attribute, value in request.data.items():
-            if attribute == 'patient_profile':
-                for pp_attribute, pp_value in value.items():
-                    if pp_attribute == 'date_of_birth':
-                        setattr(user.patient_profile, pp_attribute,
-                                parser.parse(pp_value).date())
-                    else:
-                        setattr(user.patient_profile, pp_attribute, pp_value)
-            else:
-                setattr(user, attribute, value)
-        user.save()
-        user.patient_profile.save()
-
+        request.user.update_user_from_json(data=request.data)
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
-            instance=user)
+            instance=request.user)
         logging.info('Updating user: now has data %s.',
                      json.dumps(serialized_user.data))
         return response.Response(data=serialized_user.data,
@@ -113,7 +81,7 @@ class EncountersEndpoint(views.APIView):
             encounter_type = request.data['encounter_type']
             note = request.data['note']
         except KeyError:
-            custom_exception = custom_exceptions.DataForNewEncounterNotProvided(
+            custom_exception = custom_exceptions.DataForNewEncounterNotProvidedException(
             )
             return response.Response(
                 data=custom_exception.get_response_format(),
