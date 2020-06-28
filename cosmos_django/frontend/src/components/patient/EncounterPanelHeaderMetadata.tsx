@@ -11,11 +11,14 @@ class EncounterPanelHeaderMetadata extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <span>Physical</span>
-                    <VerifiedUserOutlinedIcon />
+                <div className="panel-header-title encounter-panel-title-container">
+                    <span className="encounter-panel-title">Physical</span>
+                    <VerifiedUserOutlinedIcon className="verified-encounter-icon" />
                 </div>
-                <Rating name="significance" defaultValue={2} max={3} readOnly />
+                <div className="encounter-significance-container">
+                    <Rating defaultValue={2} max={2} readOnly size="small" />
+                    <label className="significance-label">(Significant)</label>
+                </div>
             </div>
         );
     }

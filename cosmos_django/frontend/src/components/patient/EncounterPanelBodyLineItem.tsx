@@ -9,8 +9,8 @@ class EncounterPanelBodyLineItem extends React.Component {
 
     render() {
         return (
-            <div>
-                <NotesIcon />
+            <div className="encounter-panel-body-line-item">
+                <NotesIcon className="encounter-panel-body-line-item-icon" />
                 <span>The patient is doing well.</span>
             </div>
         );

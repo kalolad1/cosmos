@@ -12,11 +12,13 @@ class EncounterPanel extends React.Component {
 
     render() {
         return (
-            <Panel
-                header={<EncounterPanelHeader />}
-                body={<EncounterPanelBody />}
-                footer={<EncounterPanelFooter />}
-            />
+            <div className="encounter-panel">
+                <Panel
+                    header={<EncounterPanelHeader />}
+                    body={<EncounterPanelBody />}
+                    footer={<EncounterPanelFooter />}
+                />
+            </div>
         );
     }
 }

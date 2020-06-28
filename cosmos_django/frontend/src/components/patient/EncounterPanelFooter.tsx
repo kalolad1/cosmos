@@ -9,7 +9,7 @@ class EncounterPanelFooter extends React.Component<any, any> {
 
     render() {
         return (
-            <div>
+            <div className="encounter-panel-footer">
                 <Button>View full</Button>
             </div>
         );
