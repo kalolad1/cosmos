@@ -59,6 +59,86 @@ class ContactInformationPanel extends React.Component<any, any> {
                         }}
                     />
                 </div>
+                <div className="form-input-container">
+                    <TextField
+                        disabled={!this.props.editMode}
+                        className={
+                            'form-input-field ' +
+                            (!this.props.editMode
+                                ? 'read-only-input-field'
+                                : '')
+                        }
+                        name="addressLine"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.addressLine}
+                        label="Address Line"
+                        type="text"
+                        variant="outlined"
+                        inputProps={{
+                            required: true,
+                        }}
+                        fullWidth
+                    />
+                </div>
+                <div className="form-input-container">
+                    <TextField
+                        disabled={!this.props.editMode}
+                        className={
+                            'form-input-field ' +
+                            (!this.props.editMode
+                                ? 'read-only-input-field'
+                                : '')
+                        }
+                        name="city"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.city}
+                        label="City"
+                        type="text"
+                        variant="outlined"
+                        inputProps={{
+                            required: true,
+                        }}
+                        fullWidth
+                    />
+                </div>
+                <div className="form-input-container form-bi-input-container">
+                    <TextField
+                        disabled={!this.props.editMode}
+                        className={
+                            'form-bi-input-field ' +
+                            (!this.props.editMode
+                                ? 'read-only-input-field'
+                                : '')
+                        }
+                        name="state"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.state}
+                        label="State"
+                        type="text"
+                        variant="outlined"
+                        inputProps={{
+                            required: true,
+                        }}
+                    />
+                    <TextField
+                        disabled={!this.props.editMode}
+                        className={
+                            'form-bi-input-field ' +
+                            (!this.props.editMode
+                                ? 'read-only-input-field'
+                                : '')
+                        }
+                        name="zipCode"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.zipCode}
+                        label="Zip Code"
+                        type="text"
+                        variant="outlined"
+                        inputProps={{
+                            required: true,
+                        }}
+                    />
+                </div>
             </div>
         );
         return <Panel title={PANEL_TITLE} content={content} />;

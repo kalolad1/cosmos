@@ -53,7 +53,7 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_201_CREATED)
 
     def put(self, request: Request) -> response.Response:
-        request.user.update_user_from_json(data=request.data)
+        request.user.update_from_json(data=request.data)
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
             instance=request.user)
         logging.info('Updating user: now has data %s.',

@@ -30,6 +30,10 @@ interface ProfileState {
     lastName: string;
     dateOfBirth: Date;
     phoneNumber: string;
+    addressLine: string;
+    city: string;
+    state: string;
+    zipCode: string;
     editMode: Array<boolean>;
     snackbarOpen: boolean;
 }
@@ -43,6 +47,10 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             lastName: this.props.user.patientProfile.lastName,
             dateOfBirth: new Date(this.props.user.patientProfile.dateOfBirth),
             phoneNumber: this.props.user.patientProfile.phoneNumber,
+            addressLine: this.props.user.patientProfile.address.addressLine,
+            city: this.props.user.patientProfile.address.city,
+            state: this.props.user.patientProfile.address.state,
+            zipCode: this.props.user.patientProfile.address.zipCode,
             editMode: this.initEditModeArray(),
             snackbarOpen: false,
         };
@@ -92,6 +100,12 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 lastName: this.state.lastName,
                 dateOfBirth: this.state.dateOfBirth,
                 phoneNumber: this.state.phoneNumber,
+                address: {
+                    addressLine: this.state.addressLine,
+                    city: this.state.city,
+                    state: this.state.state,
+                    zipCode: this.state.zipCode,
+                },
             },
         };
         this.props
@@ -175,6 +189,10 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 handlePhoneNumberChange={this.handlePhoneNumberChange}
                 email={this.state.email}
                 phoneNumber={this.state.phoneNumber}
+                addressLine={this.state.addressLine}
+                city={this.state.city}
+                state={this.state.state}
+                zipCode={this.state.zipCode}
             />,
             <GeneralInformationPanel
                 key={4}

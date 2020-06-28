@@ -21,9 +21,16 @@ class EncounterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Address
+        fields = ('address_line', 'city', 'state', 'zip_code')
+
+
 class PatientProfileSerializer(serializers.ModelSerializer):
     age = serializers.SerializerMethodField('get_age')
 
+    address = AddressSerializer()
     encounters = EncounterSerializer(many=True)
     medications = MedicationSerializer(many=True)
     vaccinations = VaccinationSerializer(many=True)

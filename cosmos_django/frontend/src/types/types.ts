@@ -22,9 +22,17 @@ export interface PatientProfile {
     age: number;
     profilePicture: string;
     phoneNumber: string;
+    address: Address;
     encounters: Array<Encounter>;
     medications: Array<Medication>;
     vaccinations: Array<Vaccination>;
+}
+
+export interface Address {
+    addressLine: string;
+    city: string;
+    state: string;
+    zipCode: string;
 }
 
 export interface Encounter {

@@ -22,7 +22,13 @@ TEST_USER_PUT_REQUEST_DATA = {
     'patient_profile': {
         'first_name': 'Billy',
         'date_of_birth': '2000-06-27T20:48:49.065Z',
-        'phone_number': '18564985939'
+        'phone_number': '18564985939',
+        'address': {
+            'address_line': '1600 Penn Ave',
+            'city': 'Washington DC',
+            'state': 'Maryland',
+            'zip_code': '00600',
+        }
     }
 }
 
@@ -122,6 +128,9 @@ class TestApi(test.APITestCase):
         self.assertEqual(
             response.data['patient_profile']['phone_number'],
             TEST_USER_PUT_REQUEST_DATA['patient_profile']['phone_number'])
+        self.assertDictEqual(
+            response.data['patient_profile']['address'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['address'])
 
     def test_get_user_fails_not_authenticated(self):
         url = urls.reverse('main/users')

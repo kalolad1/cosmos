@@ -65,12 +65,15 @@ class UserManager(BaseUserManager):
             raise custom_exceptions.DataForNewUserNotProvidedException()
 
         user = User.objects.create_user(email=email, password=password)
-        PatientProfile.objects.create(
+        patient_profile = PatientProfile.objects.create(
             user=user,
             first_name=first_name,
             last_name=last_name,
             date_of_birth=parser.parse(date_of_birth).date(),
             sex=sex)
+        # Create an empty Address object as a placeholder so that we can udpate
+        # later.
+        Address.objects.create(patient_profile=patient_profile)
         return user
 
 
@@ -88,12 +91,11 @@ class User(AbstractBaseUser):
     USERNAME_FIELD: str = 'email'
     EMAIL_FIELD: str = 'email'
 
-    def update_user_from_json(self, data) -> 'User':
+    def update_from_json(self, data) -> 'User':
         """Updates an existing user from a JSON payload."""
         for attribute, value in data.items():
             if attribute == 'patient_profile':
-                self.patient_profile.update_patient_profile_from_json(
-                    data=value)
+                self.patient_profile.update_from_json(data=value)
             else:
                 setattr(self, attribute, value)
         self.save()
@@ -143,10 +145,12 @@ class PatientProfile(models.Model):
 
     phone_number = PhoneNumberField(blank=True, null=True, default='')
 
-    def update_patient_profile_from_json(self, data):
+    def update_from_json(self, data):
         for attribute, value in data.items():
             if attribute == 'date_of_birth':
                 setattr(self, attribute, parser.parse(value).date())
+            elif attribute == 'address':
+                self.address.update_from_json(value)
             else:
                 setattr(self, attribute, value)
         self.save()
@@ -166,6 +170,26 @@ class PatientProfile(models.Model):
 
     def __str__(self) -> str:
         return self.get_full_name()
+
+
+class Address(models.Model):
+    patient_profile = models.OneToOneField(to=PatientProfile,
+                                           on_delete=models.CASCADE,
+                                           blank=True,
+                                           related_name='address')
+    address_line = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
+    zip_code = models.CharField(max_length=5, blank=True, null=True)
+
+    def update_from_json(self, data):
+        for attribute, value in data.items():
+            setattr(self, attribute, value)
+        self.save()
+
+    def __str__(self):
+        return ', '.join(
+            [self.address_line, self.city, self.state, self.zip_code])
 
 
 class Encounter(models.Model):
