@@ -70,6 +70,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: white;
 }
 
 .patient-info {
@@ -97,10 +98,15 @@
 /* Patient charts */
 .charts {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .chart-content-container {
     margin-top: 10px;
+    width: 95%;
+    max-width: 1000px;
 }
 
 /* Profile Tab */
