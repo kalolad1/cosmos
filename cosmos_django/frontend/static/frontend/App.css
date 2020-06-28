@@ -128,6 +128,7 @@
 .encounter-panel-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 5px;
 }
 
@@ -153,6 +154,11 @@
     margin-left: 4px;
     font-size: 12px;
     color: grey;
+}
+
+.encounter-panel-avatar {
+    min-width: 50px;
+    min-height: 50px;
 }
 
 .encounter-panel-body-line-item {

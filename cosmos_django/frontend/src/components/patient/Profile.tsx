@@ -87,12 +87,9 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     }
 
     toggleAllEditMode() {
-        this.setState(
-            (prevState) => ({
-                editMode: prevState.editMode.map((element) => !element),
-            }),
-            () => console.log(this.state.editMode)
-        );
+        this.setState((prevState) => ({
+            editMode: prevState.editMode.map((element) => !element),
+        }));
     }
 
     toggleAllSave() {

@@ -1,8 +1,14 @@
 import * as React from 'react';
 
+import NotesIcon from '@material-ui/icons/Notes';
+
 import EncounterPanelBodyLineItem from './EncounterPanelBodyLineItem';
 
-class EncounterPanelBody extends React.Component {
+interface EncounterPanelBodyProps {
+    note: string;
+}
+
+class EncounterPanelBody extends React.Component<EncounterPanelBodyProps, any> {
     constructor(props) {
         super(props);
     }
@@ -10,9 +16,10 @@ class EncounterPanelBody extends React.Component {
     render() {
         return (
             <div>
-                <EncounterPanelBodyLineItem />
-                <EncounterPanelBodyLineItem />
-                <EncounterPanelBodyLineItem />
+                <EncounterPanelBodyLineItem
+                    icon={<NotesIcon />}
+                    content={this.props.note}
+                />
             </div>
         );
     }

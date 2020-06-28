@@ -3,8 +3,19 @@ import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 
 import EncounterPanelHeaderMetadata from './EncounterPanelHeaderMetadata';
+import * as textUtil from '../../util/text_util';
 
-class EncounterPanelHeader extends React.Component<any, any> {
+interface EncounterPanelHeaderProps {
+    title: string;
+    profilePicture: string;
+    firstName: string;
+    lastName: string;
+}
+
+class EncounterPanelHeader extends React.Component<
+    EncounterPanelHeaderProps,
+    any
+> {
     constructor(props) {
         super(props);
     }
@@ -12,8 +23,20 @@ class EncounterPanelHeader extends React.Component<any, any> {
     render() {
         return (
             <div className="encounter-panel-header">
-                <EncounterPanelHeaderMetadata />
-                <Avatar>SP</Avatar>
+                <EncounterPanelHeaderMetadata title={this.props.title} />
+                <Avatar
+                    alt={textUtil.createFullName(
+                        this.props.firstName,
+                        this.props.lastName
+                    )}
+                    src={this.props.profilePicture}
+                    className="encounter-panel-avatar"
+                >
+                    {textUtil.getInitials(
+                        this.props.firstName,
+                        this.props.lastName
+                    )}
+                </Avatar>
             </div>
         );
     }
