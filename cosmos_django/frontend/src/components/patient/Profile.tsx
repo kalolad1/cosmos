@@ -15,9 +15,11 @@ import PanelGrid from '../shared/PanelGrid';
 import GeneralInformationPanel from './GeneralInformationPanel';
 import ContactInformationPanel from './ContactInformationPanel';
 import DemographicInformationPanel from './DemographicInformationPanel';
+import PaymentInformationPanel from './PaymentInformationPanel';
+import PrescriptionInformationPanel from './PrescriptionInformationPanel';
 
 // Update panel count according to how many populate the rendered PanelGrid.
-const PANEL_COUNT = 6;
+const PANEL_COUNT = 5;
 
 interface ProfileProps {
     user: types.User;
@@ -38,6 +40,8 @@ interface ProfileState {
     race: string;
     ethnicity: string;
     religion: string;
+    insurance: string;
+    pharmacy: string;
     editMode: Array<boolean>;
     snackbarOpen: boolean;
 }
@@ -58,6 +62,8 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             race: this.props.user.patientProfile.race,
             ethnicity: this.props.user.patientProfile.ethnicity,
             religion: this.props.user.patientProfile.religion,
+            insurance: this.props.user.patientProfile.insurance,
+            pharmacy: this.props.user.patientProfile.pharmacy,
             editMode: this.initEditModeArray(),
             snackbarOpen: false,
         };
@@ -116,6 +122,8 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 race: this.state.race,
                 ethnicity: this.state.ethnicity,
                 religion: this.state.religion,
+                insurance: this.state.insurance,
+                pharmacy: this.state.pharmacy,
             },
         };
         this.props
@@ -124,14 +132,12 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     }
 
     handleSnackbarOpen() {
-        console.log('Opening snackbar.');
         this.setState({
             snackbarOpen: true,
         });
     }
 
     handleSnackbarClose() {
-        console.log('Closing snackbar.');
         this.setState({
             snackbarOpen: false,
         });
@@ -171,23 +177,17 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 lastName={this.state.lastName}
                 dateOfBirth={this.state.dateOfBirth}
             />,
-            <GeneralInformationPanel
+            <PaymentInformationPanel
                 key={1}
                 editMode={this.state.editMode[1]}
                 handleInputChange={this.handleInputChange}
-                handleDateChange={this.handleDateChange}
-                firstName={this.state.firstName}
-                lastName={this.state.lastName}
-                dateOfBirth={this.state.dateOfBirth}
+                insurance={this.state.insurance}
             />,
-            <GeneralInformationPanel
+            <PrescriptionInformationPanel
                 key={2}
                 editMode={this.state.editMode[2]}
                 handleInputChange={this.handleInputChange}
-                handleDateChange={this.handleDateChange}
-                firstName={this.state.firstName}
-                lastName={this.state.lastName}
-                dateOfBirth={this.state.dateOfBirth}
+                pharmacy={this.state.pharmacy}
             />,
         ];
 
@@ -206,20 +206,11 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             />,
             <DemographicInformationPanel
                 key={4}
-                editMode={this.state.editMode[5]}
+                editMode={this.state.editMode[4]}
                 handleInputChange={this.handleInputChange}
                 race={this.state.race}
                 ethnicity={this.state.ethnicity}
                 religion={this.state.religion}
-            />,
-            <GeneralInformationPanel
-                key={5}
-                editMode={this.state.editMode[6]}
-                handleInputChange={this.handleInputChange}
-                handleDateChange={this.handleDateChange}
-                firstName={this.state.firstName}
-                lastName={this.state.lastName}
-                dateOfBirth={this.state.dateOfBirth}
             />,
         ];
 

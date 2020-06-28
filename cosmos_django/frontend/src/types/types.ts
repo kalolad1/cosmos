@@ -25,6 +25,8 @@ export interface PatientProfile {
     race: string;
     ethnicity: string;
     religion: string;
+    insurance: string;
+    pharmacy: string;
     address: Address;
     encounters: Array<Encounter>;
     medications: Array<Medication>;

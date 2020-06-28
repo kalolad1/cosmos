@@ -153,6 +153,14 @@ class PatientProfile(models.Model):
                                 blank=True,
                                 null=True,
                                 default='')
+    insurance = models.CharField(max_length=60,
+                                 blank=True,
+                                 null=True,
+                                 default='')
+    pharmacy = models.CharField(max_length=60,
+                                blank=True,
+                                null=True,
+                                default='')
 
     def update_from_json(self, data):
         for attribute, value in data.items():

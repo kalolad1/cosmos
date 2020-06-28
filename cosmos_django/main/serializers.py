@@ -39,7 +39,8 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         model = models.PatientProfile
         fields = ('address', 'age', 'date_of_birth', 'encounters', 'ethnicity',
                   'first_name', 'last_name', 'phone_number', 'profile_picture',
-                  'race', 'religion', 'sex', 'medications', 'vaccinations')
+                  'race', 'religion', 'sex', 'medications', 'vaccinations',
+                  'insurance', 'pharmacy')
 
     def get_age(self, patient_profile_instance):
         return patient_profile_instance.get_age()

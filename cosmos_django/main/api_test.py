@@ -32,6 +32,8 @@ TEST_USER_PUT_REQUEST_DATA = {
         'race': 'white',
         'ethnicity': 'indian',
         'religion': 'Hindu',
+        'insurance': 'Aetna',
+        'pharmacy': 'Walgreens',
     }
 }
 
@@ -142,6 +144,12 @@ class TestApi(test.APITestCase):
         self.assertEqual(
             response.data['patient_profile']['religion'],
             TEST_USER_PUT_REQUEST_DATA['patient_profile']['religion'])
+        self.assertEqual(
+            response.data['patient_profile']['insurance'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['insurance'])
+        self.assertEqual(
+            response.data['patient_profile']['pharmacy'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['pharmacy'])
 
     def test_get_user_fails_not_authenticated(self):
         url = urls.reverse('main/users')
