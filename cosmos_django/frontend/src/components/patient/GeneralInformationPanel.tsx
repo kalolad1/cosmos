@@ -57,27 +57,6 @@ class GeneralInformationPanel extends React.Component<any, any> {
                     />
                 </div>
                 <div className="form-input-container">
-                    <TextField
-                        disabled={!this.props.editMode}
-                        className={
-                            'form-input-field ' +
-                            (!this.props.editMode
-                                ? 'read-only-input-field'
-                                : '')
-                        }
-                        name="email"
-                        onChange={this.props.handleInputChange}
-                        value={this.props.email}
-                        label="Email"
-                        type="email"
-                        variant="outlined"
-                        inputProps={{
-                            required: true,
-                        }}
-                        fullWidth
-                    />
-                </div>
-                <div className="form-input-container">
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             disabled={!this.props.editMode}

@@ -275,6 +275,10 @@
     margin-bottom: 20px;
 }
 
+.form-input-field {
+    width: 100%;
+}
+
 .form-bi-input-container {
     display: flex;
     justify-content: space-between;

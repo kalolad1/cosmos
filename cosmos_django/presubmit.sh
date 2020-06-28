@@ -11,5 +11,5 @@ yapf . --recursive -i
 prettier --debug-check frontend/src/*
 prettier --write frontend/src/*
 python manage.py test -p *_test.py
-echo "All presubmit checks passed!"
+echo "Presubmit passed!"
 cat .bird_asci_art.txt ; echo

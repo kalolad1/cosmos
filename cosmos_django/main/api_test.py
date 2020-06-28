@@ -21,7 +21,8 @@ TEST_USER_PUT_REQUEST_DATA = {
     'email': 'another@gmail.com',
     'patient_profile': {
         'first_name': 'Billy',
-        'date_of_birth': "2000-06-27T20:48:49.065Z",
+        'date_of_birth': '2000-06-27T20:48:49.065Z',
+        'phone_number': '18564985939'
     }
 }
 
@@ -115,6 +116,9 @@ class TestApi(test.APITestCase):
             response.data['patient_profile']['date_of_birth'],
             parser.parse(TEST_USER_PUT_REQUEST_DATA['patient_profile']
                          ['date_of_birth']).date().__str__())
+        self.assertEqual(
+            response.data['patient_profile']['phone_number'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['phone_number'])
 
     def test_get_user_fails_not_authenticated(self):
         url = urls.reverse('main/users')

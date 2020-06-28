@@ -11,7 +11,9 @@ import SaveIcon from '@material-ui/icons/Save';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import PanelGrid from '../shared/PanelGrid';
+
 import GeneralInformationPanel from './GeneralInformationPanel';
+import ContactInformationPanel from './ContactInformationPanel';
 
 // Update panel count according to how many populate the rendered PanelGrid.
 const PANEL_COUNT = 6;
@@ -27,6 +29,7 @@ interface ProfileState {
     firstName: string;
     lastName: string;
     dateOfBirth: Date;
+    phoneNumber: string;
     editMode: Array<boolean>;
     snackbarOpen: boolean;
 }
@@ -39,11 +42,13 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             firstName: this.props.user.patientProfile.firstName,
             lastName: this.props.user.patientProfile.lastName,
             dateOfBirth: new Date(this.props.user.patientProfile.dateOfBirth),
+            phoneNumber: this.props.user.patientProfile.phoneNumber,
             editMode: this.initEditModeArray(),
             snackbarOpen: false,
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
         this.initEditModeArray = this.initEditModeArray.bind(this);
         this.toggleAllEditMode = this.toggleAllEditMode.bind(this);
         this.toggleAllSave = this.toggleAllSave.bind(this);
@@ -86,6 +91,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 dateOfBirth: this.state.dateOfBirth,
+                phoneNumber: this.state.phoneNumber,
             },
         };
         this.props
@@ -118,8 +124,13 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
 
     handleDateChange(date: Date | null): void {
         this.setState({
-            ...this.state,
             dateOfBirth: date!,
+        });
+    }
+
+    handlePhoneNumberChange(value: string): void {
+        this.setState({
+            phoneNumber: value,
         });
     }
 
@@ -132,7 +143,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 editMode={this.state.editMode[0]}
                 handleInputChange={this.handleInputChange}
                 handleDateChange={this.handleDateChange}
-                email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
                 dateOfBirth={this.state.dateOfBirth}
@@ -142,7 +152,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 editMode={this.state.editMode[1]}
                 handleInputChange={this.handleInputChange}
                 handleDateChange={this.handleDateChange}
-                email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
                 dateOfBirth={this.state.dateOfBirth}
@@ -152,7 +161,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 editMode={this.state.editMode[2]}
                 handleInputChange={this.handleInputChange}
                 handleDateChange={this.handleDateChange}
-                email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
                 dateOfBirth={this.state.dateOfBirth}
@@ -160,22 +168,19 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         ];
 
         const secondaryColumnChildrenPanels = [
-            <GeneralInformationPanel
+            <ContactInformationPanel
                 key={3}
                 editMode={this.state.editMode[3]}
                 handleInputChange={this.handleInputChange}
-                handleDateChange={this.handleDateChange}
+                handlePhoneNumberChange={this.handlePhoneNumberChange}
                 email={this.state.email}
-                firstName={this.state.firstName}
-                lastName={this.state.lastName}
-                dateOfBirth={this.state.dateOfBirth}
+                phoneNumber={this.state.phoneNumber}
             />,
             <GeneralInformationPanel
                 key={4}
                 editMode={this.state.editMode[5]}
                 handleInputChange={this.handleInputChange}
                 handleDateChange={this.handleDateChange}
-                email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
                 dateOfBirth={this.state.dateOfBirth}
@@ -185,7 +190,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 editMode={this.state.editMode[6]}
                 handleInputChange={this.handleInputChange}
                 handleDateChange={this.handleDateChange}
-                email={this.state.email}
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
                 dateOfBirth={this.state.dateOfBirth}

@@ -20,7 +20,8 @@ export interface PatientProfile {
     dateOfBirth: Date;
     sex: string;
     age: number;
-    profilePicture?: string;
+    profilePicture: string;
+    phoneNumber: string;
     encounters: Array<Encounter>;
     medications: Array<Medication>;
     vaccinations: Array<Vaccination>;
