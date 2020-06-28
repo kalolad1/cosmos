@@ -115,9 +115,10 @@
     justify-content: flex-end;
 }
 
-/* Encounter */
-.encounter {
-    margin-bottom: 10px;
+/* Timeline */
+.encounter-panel-header {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Medication */

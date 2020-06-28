@@ -3,13 +3,19 @@ import * as React from 'react';
 
 import * as types from '../../types/types';
 
+import EncounterPanel from './EncounterPanel';
+
 interface TimelineProps {
     encounters: Array<types.Encounter>;
 }
 
 class Timeline extends React.Component<TimelineProps, any> {
     render() {
-        return <div>Timeline</div>;
+        return (
+            <div>
+                <EncounterPanel />
+            </div>
+        );
     }
 }
 
