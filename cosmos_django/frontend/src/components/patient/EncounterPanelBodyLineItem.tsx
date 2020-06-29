@@ -16,10 +16,10 @@ class EncounterPanelBodyLineItem extends React.Component<
     render() {
         return (
             <div className="encounter-panel-body-line-item">
-                <span className="encounter-panel-body-line-item-icon">
+                <div className="encounter-panel-body-line-item-icon-container">
                     {this.props.icon}
-                </span>
-                <span>{this.props.content}</span>
+                </div>
+                <div>{this.props.content}</div>
             </div>
         );
     }
