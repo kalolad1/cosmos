@@ -18,7 +18,7 @@ class MedicationSerializer(serializers.ModelSerializer):
 class EncounterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Encounter
-        fields = '__all__'
+        fields = ('id', 'encounter_type', 'note', 'created_at', 'updated_at')
 
 
 class AddressSerializer(serializers.ModelSerializer):

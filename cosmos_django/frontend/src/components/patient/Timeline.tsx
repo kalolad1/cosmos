@@ -23,10 +23,27 @@ class Timeline extends React.Component<TimelineProps, any> {
     constructor(props) {
         super(props);
         this.getTimelineItems = this.getTimelineItems.bind(this);
+        this.getFormattedDate = this.getFormattedDate.bind(this);
+    }
+
+    getFormattedDate(dateString: string): string {
+        const dateStringOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+        };
+        return new Date(dateString).toLocaleTimeString(
+            'en-us',
+            dateStringOptions
+        );
     }
 
     getTimelineItems() {
         const self = this;
+
         return this.props.user.patientProfile.encounters.map(function (
             encounter
         ) {
@@ -34,7 +51,7 @@ class Timeline extends React.Component<TimelineProps, any> {
                 <TimelineItem key={encounter.id}>
                     <TimelineOppositeContent>
                         <Typography variant="body2" color="textSecondary">
-                            9:30 am
+                            {self.getFormattedDate(encounter.createdAt)}
                         </Typography>
                     </TimelineOppositeContent>
                     <TimelineSeparator>

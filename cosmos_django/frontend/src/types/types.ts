@@ -17,7 +17,7 @@ export interface PatientProfile {
     id: number;
     firstName: string;
     lastName: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     sex: string;
     age: number;
     profilePicture: string;
@@ -45,6 +45,8 @@ export interface Encounter {
     patientProfile: number;
     note: string;
     encounterType: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface Medication {
