@@ -1,10 +1,13 @@
 /* Contains all the charts of the patient, organized in tabs. */
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
 
+import * as urlPathConstants from '../../constants/url_path_constants';
 import * as types from '../../types/types';
 
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Profile from './Profile';
 import Summary from './Summary';
@@ -12,46 +15,18 @@ import Timeline from './Timeline';
 
 interface ChartsProps {
     user: types.User;
+    history: any;
 }
 
-interface ChartsState {
-    selectedTab: number;
-}
-
-class Charts extends React.Component<ChartsProps, ChartsState> {
+class Charts extends React.Component<ChartsProps, any> {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedTab: 0,
-        };
 
         this.handleTabChange = this.handleTabChange.bind(this);
-        this.getOpenChartComponent = this.getOpenChartComponent.bind(this);
     }
 
-    handleTabChange(event: React.SyntheticEvent, newValue: number): void {
-        this.setState({
-            ...this.state,
-            selectedTab: newValue,
-        });
-    }
-
-    getOpenChartComponent() {
-        let openChart;
-        switch (this.state.selectedTab) {
-            case 0:
-                openChart = <Summary user={this.props.user} />;
-                break;
-            case 1:
-                openChart = <Timeline user={this.props.user} />;
-                break;
-            case 2:
-                openChart = <Profile user={this.props.user} />;
-                break;
-            default:
-                openChart = <Summary user={this.props.user} />;
-        }
-        return openChart;
+    handleTabChange(unusedEvent, newPath) {
+        this.props.history.push(newPath);
     }
 
     render() {
@@ -60,24 +35,44 @@ class Charts extends React.Component<ChartsProps, ChartsState> {
                 <div className="charts-tab-row">
                     <div>
                         <Tabs
-                            value={this.state.selectedTab}
+                            value={this.props.history.location.pathname}
                             onChange={this.handleTabChange}
                             indicatorColor="primary"
                             textColor="primary"
                             centered
                         >
-                            <Tab label="Summary" />
-                            <Tab label="Timeline" />
-                            <Tab label="Profile" />
+                            <Tab
+                                label="Summary"
+                                value={urlPathConstants.SUMMARY}
+                            />
+                            <Tab
+                                label="Timeline"
+                                value={urlPathConstants.TIMELINE}
+                            />
+                            <Tab
+                                label="Profile"
+                                value={urlPathConstants.PROFILE}
+                            />
                         </Tabs>
                     </div>
                 </div>
                 <div className="chart-content-container">
-                    {this.getOpenChartComponent()}
+                    <Switch>
+                        <Route path={urlPathConstants.SUMMARY}>
+                            <Summary user={this.props.user} />
+                        </Route>
+                        <Route path={urlPathConstants.TIMELINE}>
+                            <Timeline user={this.props.user} />
+                        </Route>
+                        <Route path={urlPathConstants.PROFILE}>
+                            <Profile user={this.props.user} />
+                        </Route>
+                        <Redirect to={urlPathConstants.SUMMARY} />
+                    </Switch>
                 </div>
             </div>
         );
     }
 }
 
-export default Charts;
+export default ReactRouterDOM.withRouter(Charts);

@@ -62,10 +62,7 @@ class App extends React.Component<any, AppState> {
                         >
                             <LoginForm />
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.HOME}
-                        >
+                        <ReactRouterDOM.Route path={urlPathConstants.HOME}>
                             <Home />
                         </ReactRouterDOM.Route>
                         <ReactRouterDOM.Route

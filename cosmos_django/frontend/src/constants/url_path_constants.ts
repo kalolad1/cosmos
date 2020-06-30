@@ -5,8 +5,8 @@ export const LOGIN = '/login';
 export const SIGNUP = '/signup';
 export const ROOT = '/';
 
-export const TIMELINE_CHART = '/home/timeline';
-export const MEDICATIONS_CHART = '/home/medications';
-export const VACCINATIONS_CHART = '/home/vaccinations';
+export const SUMMARY = '/home/summary';
+export const TIMELINE = '/home/timeline';
+export const PROFILE = '/home/profile';
 
 export const ADD_ENCOUNTER = '/add-encounter';

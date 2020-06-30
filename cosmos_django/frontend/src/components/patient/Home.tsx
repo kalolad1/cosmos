@@ -54,6 +54,7 @@ class Home extends React.Component<any, HomeState> {
     }
 
     componentDidMount() {
+        console.log('Fetching user.');
         this.props.dispatch(actionCreators.fetchUser(this.props.history));
     }
 

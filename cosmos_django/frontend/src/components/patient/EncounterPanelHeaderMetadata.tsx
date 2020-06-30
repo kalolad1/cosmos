@@ -5,7 +5,7 @@ import * as textUtil from '../../util/text_util';
 
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import Rating from '@material-ui/lab/Rating';
-import Tooltip from "@material-ui/core/Tooltip";
+import Tooltip from '@material-ui/core/Tooltip';
 
 interface EncounterPanelHeaderMetadataProps {
     title: string;
@@ -18,8 +18,10 @@ const SIGNIFICANCE_BAND_STARS_MAPPING = {
     [modelConstants.EncounterSignificanceBands.HIGH]: 3,
 };
 
-class EncounterPanelHeaderMetadata extends React.Component<EncounterPanelHeaderMetadataProps,
-    any> {
+class EncounterPanelHeaderMetadata extends React.Component<
+    EncounterPanelHeaderMetadataProps,
+    any
+> {
     constructor(props) {
         super(props);
         this.getNumOfSignificanceStars = this.getNumOfSignificanceStars.bind(
@@ -38,8 +40,11 @@ class EncounterPanelHeaderMetadata extends React.Component<EncounterPanelHeaderM
                     <span className="encounter-panel-title">
                         {textUtil.capitalizeFirstLetter(this.props.title)}
                     </span>
-                    <Tooltip title="Verified encounter" aria-label="verified encounter">
-                        <CheckCircleOutlineOutlinedIcon className="verified-encounter-icon"/>
+                    <Tooltip
+                        title="Verified encounter"
+                        aria-label="verified encounter"
+                    >
+                        <CheckCircleOutlineOutlinedIcon className="verified-encounter-icon" />
                     </Tooltip>
                 </div>
                 <div className="encounter-significance-container">
