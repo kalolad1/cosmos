@@ -192,6 +192,10 @@
     margin: 60px 20px 20px 20px;
 }
 
+.significance-slider {
+    max-width: 300px;
+}
+
 .encounter-creator-close-button {
     position: absolute;
     right: 20px;

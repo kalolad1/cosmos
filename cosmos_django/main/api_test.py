@@ -40,6 +40,7 @@ TEST_USER_PUT_REQUEST_DATA = {
 TEST_ENCOUNTER_REQUEST_DATA = {
     'encounter_type': 'physical',
     'note': 'This is a test physician note.',
+    'significance_band': 'low',
 }
 
 

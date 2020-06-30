@@ -80,6 +80,7 @@ class EncountersEndpoint(views.APIView):
         try:
             encounter_type = request.data['encounter_type']
             note = request.data['note']
+            significance_band = request.data['significance_band']
         except KeyError:
             custom_exception = custom_exceptions.DataForNewEncounterNotProvidedException(
             )
@@ -90,7 +91,8 @@ class EncountersEndpoint(views.APIView):
         encounter: models.Encounter = models.Encounter.objects.create(
             patient_profile=request.user.patient_profile,
             encounter_type=encounter_type,
-            note=note)
+            note=note,
+            significance_band=significance_band)
 
         serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
             instance=encounter)
