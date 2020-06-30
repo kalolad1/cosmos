@@ -23,8 +23,8 @@ import {
 import { Alert } from '@material-ui/lab';
 
 const SEX_OPTIONS = [
-    { id: 1, value: 'male', humanReadable: 'Male' },
-    { id: 2, value: 'female', humanReadable: 'Female' },
+    { id: 1, value: 'male', formatted: 'Male' },
+    { id: 2, value: 'female', formatted: 'Female' },
 ];
 
 interface SignupFormState {
@@ -93,7 +93,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
         return SEX_OPTIONS.map(function (option) {
             return (
                 <MenuItem key={option.id} value={option.value}>
-                    {option.humanReadable}
+                    {option.formatted}
                 </MenuItem>
             );
         });

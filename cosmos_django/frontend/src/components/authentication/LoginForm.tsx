@@ -40,7 +40,6 @@ class LoginForm extends React.Component<any, LoginFormState> {
 
     handleLoginRequest(event: React.SyntheticEvent): void {
         event.preventDefault();
-        console.log('Received request to log in.');
         const self = this;
         authApi
             .loginRequest(this.state.email, this.state.password)

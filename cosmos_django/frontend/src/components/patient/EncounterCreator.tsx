@@ -3,7 +3,9 @@ import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as actionCreators from '../../actions/action_creators';
+import * as modelConstants from '../../constants/model_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
+import * as textUtil from '../../util/text_util';
 
 import {
     Button,
@@ -13,18 +15,10 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
-import FullPageSpinner from '../shared/FullPageSpinner';
-
-const ENCOUNTER_TYPE_OPTIONS = [
-    { id: 1, value: 'physical', humanReadable: 'Physical' },
-    { id: 2, value: 'illness', humanReadable: 'Illness' },
-    { id: 3, value: 'vaccination', humanReadable: 'Vaccination' },
-];
 
 interface EncounterCreatorProps {
     history: any;
     dispatch: any;
-    isCreatingEncounter: boolean;
 }
 
 interface EncounterCreatorState {
@@ -61,10 +55,21 @@ class EncounterCreator extends React.Component<
     }
 
     createEncounterTypeMenuItems() {
-        return ENCOUNTER_TYPE_OPTIONS.map(function (option) {
+        const encounterTypeOptions = Object.keys(
+            modelConstants.EncounterTypes
+        ).map(function (key, index) {
+            const encounterType = modelConstants.EncounterTypes[key];
+            return {
+                id: index,
+                value: encounterType,
+                formatted: textUtil.capitalizeFirstLetter(encounterType),
+            };
+        });
+
+        return encounterTypeOptions.map(function (option) {
             return (
                 <MenuItem key={option.id} value={option.value}>
-                    {option.humanReadable}
+                    {option.formatted}
                 </MenuItem>
             );
         });
@@ -162,12 +167,6 @@ class EncounterCreator extends React.Component<
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        isCreatingEncounter: state.isCreatingEncounter,
-    };
-}
-
-export default ReactRedux.connect(mapStateToProps)(
+export default ReactRedux.connect()(
     ReactRouterDOM.withRouter(EncounterCreator)
 );
