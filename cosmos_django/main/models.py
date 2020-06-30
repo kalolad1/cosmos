@@ -210,6 +210,10 @@ class Address(models.Model):
 
 
 class Encounter(models.Model):
+    # The client needs them ordered by creation to populate the timeline.
+    class Meta:
+        ordering = ('-created_at', )
+
     patient_profile: models.ForeignKey = models.ForeignKey(
         PatientProfile,
         on_delete=models.CASCADE,
