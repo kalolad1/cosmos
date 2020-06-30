@@ -19,7 +19,9 @@ class EncounterPanelBodyLineItem extends React.Component<
                 <div className="encounter-panel-body-line-item-icon-container">
                     {this.props.icon}
                 </div>
-                <div>{this.props.content}</div>
+                <div className="encounter-panel-body-line-item-content">
+                    {this.props.content}
+                </div>
             </div>
         );
     }

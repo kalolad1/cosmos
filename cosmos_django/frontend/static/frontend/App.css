@@ -163,13 +163,16 @@
 
 .encounter-panel-body-line-item {
     display: flex;
-    align-items: center;
 }
 
 .encounter-panel-body-line-item-icon-container {
     margin-right: 20px;
     display: flex;
     justify-content: center;
+}
+
+.encounter-panel-body-line-item-content {
+    text-align: left;
 }
 
 .encounter-panel-footer {
