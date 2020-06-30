@@ -5,3 +5,9 @@ export const EncounterTypes = {
     ILLNESS: 'illness',
     VACCINATION: 'vaccination',
 };
+
+export const EncounterSignificanceBands = {
+    HIGH: 'high',
+    MEDIUM: 'medium',
+    LOW: 'low',
+};

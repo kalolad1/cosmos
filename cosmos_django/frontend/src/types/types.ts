@@ -47,6 +47,7 @@ export interface Encounter {
     encounterType: string;
     createdAt: string;
     updatedAt: string;
+    significanceBand: string;
 }
 
 export interface Medication {

@@ -10,6 +10,7 @@ interface EncounterPanelHeaderProps {
     profilePicture: string;
     firstName: string;
     lastName: string;
+    significanceBand: string;
 }
 
 class EncounterPanelHeader extends React.Component<
@@ -23,7 +24,10 @@ class EncounterPanelHeader extends React.Component<
     render() {
         return (
             <div className="encounter-panel-header">
-                <EncounterPanelHeaderMetadata title={this.props.title} />
+                <EncounterPanelHeaderMetadata
+                    title={this.props.title}
+                    significanceBand={this.props.significanceBand}
+                />
                 <Avatar
                     alt={textUtil.createFullName(
                         this.props.firstName,

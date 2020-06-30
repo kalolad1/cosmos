@@ -84,6 +84,7 @@ class Timeline extends React.Component<TimelineProps, any> {
                             }
                             firstName={self.props.user.patientProfile.firstName}
                             lastName={self.props.user.patientProfile.lastName}
+                            significanceBand={encounter.significanceBand}
                         />
                     </TimelineContent>
                 </TimelineItem>

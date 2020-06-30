@@ -216,9 +216,9 @@ class Encounter(models.Model):
         null=True,
         related_name='encounters')
 
-    PHYSICAL: str = 'physical'
-    VACCINATION: str = 'vaccination'
-    ILLNESS: str = 'illness'
+    PHYSICAL = 'physical'
+    VACCINATION = 'vaccination'
+    ILLNESS = 'illness'
     # (database representation, human-readable version)
     ENCOUNTER_TYPE_CHOICES: List[Tuple[str, str]] = [
         (PHYSICAL, 'Physical'),
@@ -230,6 +230,17 @@ class Encounter(models.Model):
     note: models.CharField = models.CharField(max_length=1000,
                                               blank=False,
                                               default=None)
+    HIGH = 'high'
+    MEDIUM = 'medium'
+    LOW = 'low'
+    SIGNIFICANCE_BAND_CHOICES: List[Tuple[str, str]] = [
+        (HIGH, 'High'),
+        (MEDIUM, 'Medium'),
+        (LOW, 'Low'),
+    ]
+    significance_band = models.CharField(max_length=60,
+                                         choices=SIGNIFICANCE_BAND_CHOICES,
+                                         default=LOW)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
