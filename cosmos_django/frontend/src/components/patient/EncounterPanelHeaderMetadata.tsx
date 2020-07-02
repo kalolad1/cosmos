@@ -36,7 +36,7 @@ class EncounterPanelHeaderMetadata extends React.Component<
     render() {
         return (
             <div>
-                <div className="panel-header-title encounter-panel-title-container">
+                <div className="title-panel-header-title encounter-panel-title-container">
                     <span className="encounter-panel-title">
                         {textUtil.capitalizeFirstLetter(this.props.title)}
                     </span>

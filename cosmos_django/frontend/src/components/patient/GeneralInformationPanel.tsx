@@ -6,8 +6,9 @@ import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+
 import Panel from '../shared/Panel';
-import ProfilePanelHeader from './ProfilePanelHeader';
+import TitlePanelHeader from '../shared/TitlePanelHeader';
 
 const PANEL_TITLE = 'General Information';
 
@@ -86,7 +87,7 @@ class GeneralInformationPanel extends React.Component<any, any> {
         );
         return (
             <Panel
-                header={<ProfilePanelHeader title={PANEL_TITLE} />}
+                header={<TitlePanelHeader title={PANEL_TITLE} />}
                 body={content}
             />
         );

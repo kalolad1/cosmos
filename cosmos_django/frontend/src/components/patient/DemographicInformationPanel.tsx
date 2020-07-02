@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 import TextField from '@material-ui/core/TextField';
+
 import Panel from '../shared/Panel';
-import ProfilePanelHeader from './ProfilePanelHeader';
+import TitlePanelHeader from '../shared/TitlePanelHeader';
 
 const PANEL_TITLE = 'Demographic Information';
 
@@ -81,7 +82,7 @@ class DemographicInformationPanel extends React.Component<any, any> {
         );
         return (
             <Panel
-                header={<ProfilePanelHeader title={PANEL_TITLE} />}
+                header={<TitlePanelHeader title={PANEL_TITLE} />}
                 body={content}
             />
         );

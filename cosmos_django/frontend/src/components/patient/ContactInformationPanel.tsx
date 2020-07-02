@@ -1,11 +1,11 @@
 import * as React from 'react';
 import 'react-phone-input-2/lib/material.css';
 
-import Panel from '../shared/Panel';
 import TextField from '@material-ui/core/TextField';
 import PhoneInput from 'react-phone-input-2';
 
-import ProfilePanelHeader from './ProfilePanelHeader';
+import Panel from '../shared/Panel';
+import TitlePanelHeader from '../shared/TitlePanelHeader';
 
 const PANEL_TITLE = 'Contact Information';
 
@@ -145,7 +145,7 @@ class ContactInformationPanel extends React.Component<any, any> {
         );
         return (
             <Panel
-                header={<ProfilePanelHeader title={PANEL_TITLE} />}
+                header={<TitlePanelHeader title={PANEL_TITLE} />}
                 body={content}
             />
         );
