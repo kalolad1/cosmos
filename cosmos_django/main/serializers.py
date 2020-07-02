@@ -15,6 +15,12 @@ class MedicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class DiagnosisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Diagnosis
+        fields = ('id', 'name', 'description')
+
+
 class EncounterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Encounter
@@ -33,6 +39,7 @@ class PatientProfileSerializer(serializers.ModelSerializer):
 
     address = AddressSerializer()
     encounters = EncounterSerializer(many=True)
+    diagnoses = DiagnosisSerializer(many=True)
     medications = MedicationSerializer(many=True)
     vaccinations = VaccinationSerializer(many=True)
 
@@ -41,7 +48,7 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         fields = ('address', 'age', 'date_of_birth', 'encounters', 'ethnicity',
                   'first_name', 'last_name', 'phone_number', 'profile_picture',
                   'race', 'religion', 'sex', 'medications', 'vaccinations',
-                  'insurance', 'pharmacy')
+                  'insurance', 'pharmacy', 'diagnoses')
 
     def get_age(self, patient_profile_instance):
         return patient_profile_instance.get_age()
