@@ -19,7 +19,7 @@ class Panel extends React.Component<PanelProps, any> {
         return (
             <div
                 className={clsx({
-                    'panel': !this.props.noHover,
+                    panel: !this.props.noHover,
                     'no-hover-panel': this.props.noHover,
                 })}
             >

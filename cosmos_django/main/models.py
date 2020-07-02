@@ -248,6 +248,20 @@ class Encounter(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @staticmethod
+    def create_from_json(data, patient_profile):
+        try:
+            encounter_type = data['encounter_type']
+            note = data['note']
+            significance_band = data['significance_band']
+        except KeyError:
+            raise custom_exceptions.DataForNewEncounterNotProvidedException()
+
+        return Encounter.objects.create(patient_profile=patient_profile,
+                                        encounter_type=encounter_type,
+                                        note=note,
+                                        significance_band=significance_band)
+
     def __str__(self) -> str:
         return self.note.__str__()
 

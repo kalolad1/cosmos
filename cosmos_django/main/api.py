@@ -78,21 +78,12 @@ class EncountersEndpoint(views.APIView):
     def post(self, request: Request) -> response.Response:
         """Adds a new visit for the user."""
         try:
-            encounter_type = request.data['encounter_type']
-            note = request.data['note']
-            significance_band = request.data['significance_band']
-        except KeyError:
-            custom_exception = custom_exceptions.DataForNewEncounterNotProvidedException(
-            )
-            return response.Response(
-                data=custom_exception.get_response_format(),
-                status=status.HTTP_400_BAD_REQUEST)
-
-        encounter: models.Encounter = models.Encounter.objects.create(
-            patient_profile=request.user.patient_profile,
-            encounter_type=encounter_type,
-            note=note,
-            significance_band=significance_band)
+            encounter: models.Encounter = models.Encounter.create_from_json(
+                data=request.data,
+                patient_profile=request.user.patient_profile)
+        except custom_exceptions.DataForNewEncounterNotProvidedException as e:
+            return response.Response(data=e.get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
 
         serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
             instance=encounter)
