@@ -6,9 +6,9 @@ import Panel from '../shared/Panel';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
 
-const PANEL_TITLE = 'Family History (Coming soon)';
+const PANEL_TITLE = 'Vitals (Coming soon)';
 
-class FamilyHistoryPanel extends React.Component<any, any> {
+class VitalsPanel extends React.Component<any, any> {
     constructor(props) {
         super(props);
     }
@@ -18,7 +18,7 @@ class FamilyHistoryPanel extends React.Component<any, any> {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <img
                     style={{ width: '50%', height: '50%' }}
-                    src={apiEndpointConstants.FAMILY_HISTORY_PLACEHOLDER}
+                    src={apiEndpointConstants.VITALS_PLACEHOLDER}
                 />
             </div>
         );
@@ -33,4 +33,4 @@ class FamilyHistoryPanel extends React.Component<any, any> {
     }
 }
 
-export default FamilyHistoryPanel;
+export default VitalsPanel;

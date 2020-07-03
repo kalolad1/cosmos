@@ -279,7 +279,7 @@
 }
 
 .panel:hover {
-    transform: scale(1.025, 1.025);
+    transform: scale(1.005, 1.005);
 }
 
 .panel:hover::after {

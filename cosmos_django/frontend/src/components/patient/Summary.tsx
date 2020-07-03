@@ -8,6 +8,7 @@ import MedicationsPanel from './MedicationsPanel';
 import AllergiesPanel from './AllergiesPanel';
 import VaccinationsPanel from './VaccinationsPanel';
 import FamilyHistoryPanel from './FamilyHistoryPanel';
+import VitalsPanel from './VitalsPanel';
 
 interface SummaryProps {
     user: types.User;
@@ -40,6 +41,7 @@ class Summary extends React.Component<SummaryProps, any> {
                 key={4}
                 vaccinations={this.props.user.patientProfile.vaccinations}
             />,
+            <VitalsPanel key={5} />,
         ];
 
         return (

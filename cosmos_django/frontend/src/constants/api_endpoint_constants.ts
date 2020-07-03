@@ -8,6 +8,7 @@ export const TEXT = STATIC + 'images/logos/text_800_220.png';
 export const LOGO_TEXT = STATIC + 'images/logos/logo_text_800x200.png';
 export const FAMILY_HISTORY_PLACEHOLDER =
     STATIC + 'images/family_history_placeholder.png';
+export const VITALS_PLACEHOLDER = STATIC + 'images/vitals_placeholder.jpg';
 
 export const GET_TOKEN = 'token/';
 export const REFRESH_TOKEN = 'token/refresh/';
