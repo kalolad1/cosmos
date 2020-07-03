@@ -122,6 +122,9 @@
 }
 
 /* Summary */
+.summary ul {
+    padding: 0;
+}
 
 /* Popup Panel */
 .popup-panel {
@@ -134,7 +137,6 @@
     display: flex;
     justify-content: flex-end;
 }
-
 
 /* Timeline */
 .encounter-panel-header {
@@ -260,6 +262,7 @@
 .no-hover-panel {
     background-color: white;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
     padding: 20px 20px 10px 20px;
 }
 
@@ -291,7 +294,7 @@
 }
 
 .panel-body {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .panel-body-line-item {
@@ -311,6 +314,10 @@
 .panel-title {
     font-family: "Neue Hans Kendrick", sans-serif;
     font-size: 20px;
+}
+
+.panel-footer {
+    margin-top: 10px;
 }
 
 .panel-button-footer {

@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Popover from '@material-ui/core/Popover';
 import { IconButton } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
 
 interface PopupListItemProps {
     content: any;
@@ -46,11 +47,12 @@ class PopupListItem extends React.Component<
         return (
             <div>
                 <ListItem onClick={this.handlePopupOpen} button>
-                    <span>{this.props.content}</span>
+                    <ListItemText primary={this.props.content} />
                     <ListItemSecondaryAction>
                         <IconButton
-                            edge="end"
                             aria-label="popup"
+                            edge="end"
+                            size="medium"
                             onClick={this.handlePopupOpen}
                         >
                             <ChevronRightIcon />
@@ -68,6 +70,11 @@ class PopupListItem extends React.Component<
                     transformOrigin={{
                         vertical: 'center',
                         horizontal: 'left',
+                    }}
+                    PaperProps={{
+                        style: {
+                            borderRadius: '10px',
+                        },
                     }}
                 >
                     {this.props.popup}

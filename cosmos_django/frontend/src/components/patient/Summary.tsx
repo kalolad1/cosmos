@@ -45,10 +45,14 @@ class Summary extends React.Component<SummaryProps, any> {
         ];
 
         return (
-            <PanelGrid
-                mainColumnChildrenPanels={mainColumnChildrenPanels}
-                secondaryColumnChildrenPanels={secondaryColumnChildrenPanels}
-            />
+            <div className="summary">
+                <PanelGrid
+                    mainColumnChildrenPanels={mainColumnChildrenPanels}
+                    secondaryColumnChildrenPanels={
+                        secondaryColumnChildrenPanels
+                    }
+                />
+            </div>
         );
     }
 }
