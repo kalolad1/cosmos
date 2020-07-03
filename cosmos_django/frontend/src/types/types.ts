@@ -62,10 +62,11 @@ export interface Diagnosis extends MedicalEntity {
     createdAt: string;
 }
 
-export interface Medication {
+export interface Medication extends MedicalEntity {
     id: number;
-    patientProfile: number;
     name: string;
+    description: string;
+    createdAt: string;
 }
 
 export interface Vaccination {

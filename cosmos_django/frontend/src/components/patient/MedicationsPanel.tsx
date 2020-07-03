@@ -7,35 +7,35 @@ import List from '@material-ui/core/List';
 import Panel from '../shared/Panel';
 import PopupListItem from '../shared/PopupListItem';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
-import DiagnosisPopupPanel from './DiagnosisPopupPanel';
+import MedicationPopupPanel from './MedicationPopupPanel';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
 
-const PANEL_TITLE = 'Diagnoses';
+const PANEL_TITLE = 'Medications';
 
-interface DiagnosesPanelProps {
-    diagnoses: Array<types.Diagnosis>;
+interface MedicationsPanelProps {
+    medications: Array<types.Medication>;
 }
 
-class DiagnosesPanel extends React.Component<DiagnosesPanelProps, any> {
+class MedicationsPanel extends React.Component<MedicationsPanelProps, any> {
     constructor(props) {
         super(props);
-        this.getDiagnosisListItems = this.getDiagnosisListItems.bind(this);
+        this.getMedicationListItems = this.getMedicationListItems.bind(this);
     }
 
-    getDiagnosisListItems() {
-        return this.props.diagnoses.map(function (diagnosis) {
+    getMedicationListItems() {
+        return this.props.medications.map(function (medication) {
             return (
                 <PopupListItem
-                    key={diagnosis.id}
-                    content={diagnosis.name}
-                    popup={<DiagnosisPopupPanel diagnosis={diagnosis} />}
+                    key={medication.id}
+                    content={medication.name}
+                    popup={<MedicationPopupPanel medication={medication} />}
                 />
             );
         });
     }
 
     render() {
-        const body = <List>{this.getDiagnosisListItems()}</List>;
+        const body = <List>{this.getMedicationListItems()}</List>;
         const footer = <PanelButtonFooter buttons={{ add: null }} />;
         return (
             <Panel
@@ -47,4 +47,4 @@ class DiagnosesPanel extends React.Component<DiagnosesPanelProps, any> {
     }
 }
 
-export default DiagnosesPanel;
+export default MedicationsPanel;

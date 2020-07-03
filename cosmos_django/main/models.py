@@ -274,6 +274,9 @@ class Encounter(MedicalEntity):
 
 
 class Diagnosis(MedicalEntity):
+    class Meta:
+        ordering = ('-created_at', )
+
     patient_profile = models.ForeignKey(PatientProfile,
                                         on_delete=models.CASCADE,
                                         null=True,
@@ -286,13 +289,17 @@ class Diagnosis(MedicalEntity):
         return self.name.__str__()
 
 
-class Medication(models.Model):
-    patient_profile: models.ForeignKey = models.ForeignKey(
-        PatientProfile,
-        on_delete=models.CASCADE,
-        null=True,
-        related_name='medications')
-    name: models.CharField = models.CharField(max_length=100)
+class Medication(MedicalEntity):
+    class Meta:
+        ordering = ('-created_at', )
+
+    patient_profile = models.ForeignKey(PatientProfile,
+                                        on_delete=models.CASCADE,
+                                        null=True,
+                                        related_name='medications')
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.name.__str__()

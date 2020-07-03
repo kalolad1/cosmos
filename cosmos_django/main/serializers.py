@@ -12,7 +12,14 @@ class VaccinationSerializer(serializers.ModelSerializer):
 class MedicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Medication
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+            'description',
+            'created_at',
+            'significance_score',
+            'significance_group',
+        )
 
 
 class DiagnosisSerializer(serializers.ModelSerializer):

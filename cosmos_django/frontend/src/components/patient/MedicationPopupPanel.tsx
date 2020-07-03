@@ -11,12 +11,12 @@ import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
 import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
 
-interface DiagnosisPopupPanelProps {
-    diagnosis: types.Diagnosis;
+interface MedicationPopupPanelProps {
+    medication: types.Diagnosis;
 }
 
-class DiagnosisPopupPanel extends React.Component<
-    DiagnosisPopupPanelProps,
+class MedicationPopupPanel extends React.Component<
+    MedicationPopupPanelProps,
     any
 > {
     constructor(props) {
@@ -26,8 +26,8 @@ class DiagnosisPopupPanel extends React.Component<
     render() {
         const header = (
             <PanelHeaderMetadata
-                title={this.props.diagnosis.name}
-                significanceGroup={this.props.diagnosis.significanceGroup}
+                title={this.props.medication.name}
+                significanceGroup={this.props.medication.significanceGroup}
             />
         );
         const body = (
@@ -35,12 +35,12 @@ class DiagnosisPopupPanel extends React.Component<
                 <PanelBodyLineItem
                     icon={<EventIcon />}
                     content={dateUtil.getFormattedDate(
-                        this.props.diagnosis.createdAt
+                        this.props.medication.createdAt
                     )}
                 />
                 <PanelBodyLineItem
                     icon={<NotesIcon />}
-                    content={this.props.diagnosis.description}
+                    content={this.props.medication.description}
                 />
             </div>
         );
@@ -56,4 +56,4 @@ class DiagnosisPopupPanel extends React.Component<
     }
 }
 
-export default DiagnosisPopupPanel;
+export default MedicationPopupPanel;
