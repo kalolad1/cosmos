@@ -9,6 +9,19 @@ class VaccinationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AllergySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Allergy
+        fields = (
+            'id',
+            'name',
+            'description',
+            'created_at',
+            'significance_score',
+            'significance_group',
+        )
+
+
 class MedicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Medication
@@ -62,6 +75,7 @@ class PatientProfileSerializer(serializers.ModelSerializer):
     encounters = EncounterSerializer(many=True)
     diagnoses = DiagnosisSerializer(many=True)
     medications = MedicationSerializer(many=True)
+    allergies = AllergySerializer(many=True)
     vaccinations = VaccinationSerializer(many=True)
 
     class Meta:
@@ -69,7 +83,7 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         fields = ('address', 'age', 'date_of_birth', 'encounters', 'ethnicity',
                   'first_name', 'last_name', 'phone_number', 'profile_picture',
                   'race', 'religion', 'sex', 'medications', 'vaccinations',
-                  'insurance', 'pharmacy', 'diagnoses')
+                  'insurance', 'pharmacy', 'diagnoses', 'allergies')
 
     def get_age(self, patient_profile_instance):
         return patient_profile_instance.get_age()

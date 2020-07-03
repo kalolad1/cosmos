@@ -31,6 +31,7 @@ export interface PatientProfile {
     encounters: Array<Encounter>;
     diagnoses: Array<Diagnosis>;
     medications: Array<Medication>;
+    allergies: Array<Allergy>;
     vaccinations: Array<Vaccination>;
 }
 
@@ -63,6 +64,13 @@ export interface Diagnosis extends MedicalEntity {
 }
 
 export interface Medication extends MedicalEntity {
+    id: number;
+    name: string;
+    description: string;
+    createdAt: string;
+}
+
+export interface Allergy extends MedicalEntity {
     id: number;
     name: string;
     description: string;

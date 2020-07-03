@@ -5,6 +5,7 @@ import * as types from '../../types/types';
 import DiagnosesPanel from './DiagnosesPanel';
 import PanelGrid from '../shared/PanelGrid';
 import MedicationsPanel from './MedicationsPanel';
+import AllergiesPanel from './AllergiesPanel';
 
 interface SummaryProps {
     user: types.User;
@@ -28,9 +29,9 @@ class Summary extends React.Component<SummaryProps, any> {
         ];
 
         const secondaryColumnChildrenPanels = [
-            <DiagnosesPanel
+            <AllergiesPanel
                 key={2}
-                diagnoses={this.props.user.patientProfile.diagnoses}
+                allergies={this.props.user.patientProfile.allergies}
             />,
         ];
 

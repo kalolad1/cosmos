@@ -305,6 +305,22 @@ class Medication(MedicalEntity):
         return self.name.__str__()
 
 
+class Allergy(MedicalEntity):
+    class Meta:
+        ordering = ('-created_at', )
+
+    patient_profile = models.ForeignKey(PatientProfile,
+                                        on_delete=models.CASCADE,
+                                        null=True,
+                                        related_name='allergies')
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.name.__str__()
+
+
 class Vaccination(models.Model):
     patient_profile: models.ForeignKey = models.ForeignKey(
         PatientProfile,
