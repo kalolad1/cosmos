@@ -9,6 +9,7 @@ import Panel from '../shared/Panel';
 import PopupListItem from '../shared/PopupListItem';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import DiagnosisPopupPanel from './DiagnosisPopupPanel';
+import PanelButtonFooter from '../shared/PanelButtonFooter';
 
 const PANEL_TITLE = 'Diagnoses';
 
@@ -36,10 +37,12 @@ class DiagnosesPanel extends React.Component<DiagnosesPanelProps, any> {
 
     render() {
         const body = <List>{this.getDiagnosisListItems()}</List>;
+        const footer = <PanelButtonFooter buttons={{ add: null }} />;
         return (
             <Panel
                 header={<TitlePanelHeader title={PANEL_TITLE} />}
                 body={body}
+                footer={footer}
             />
         );
     }

@@ -3,14 +3,14 @@ import Rating from '@material-ui/lab/Rating';
 import * as textUtil from '../../util/text_util';
 import * as modelConstants from '../../constants/model_constants';
 
-const SIGNIFICANCE_BAND_STARS_MAPPING = {
+const SIGNIFICANCE_GROUP_STARS_MAPPING = {
     [modelConstants.EncounterSignificanceBands.LOW]: 1,
     [modelConstants.EncounterSignificanceBands.MEDIUM]: 2,
     [modelConstants.EncounterSignificanceBands.HIGH]: 3,
 };
 
 interface SignificanceLabelProps {
-    significanceBand: string;
+    significanceGroup: string;
 }
 
 class SignificanceLabel extends React.Component<SignificanceLabelProps, any> {
@@ -22,7 +22,7 @@ class SignificanceLabel extends React.Component<SignificanceLabelProps, any> {
     }
 
     getNumOfSignificanceStars() {
-        return SIGNIFICANCE_BAND_STARS_MAPPING[this.props.significanceBand];
+        return SIGNIFICANCE_GROUP_STARS_MAPPING[this.props.significanceGroup];
     }
 
     render() {
@@ -36,7 +36,7 @@ class SignificanceLabel extends React.Component<SignificanceLabelProps, any> {
                 />
                 <label className="significance-label">
                     {textUtil.capitalizeFirstLetter(
-                        this.props.significanceBand
+                        this.props.significanceGroup
                     )}
                 </label>
             </div>

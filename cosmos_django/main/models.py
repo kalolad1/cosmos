@@ -211,7 +211,25 @@ class Address(models.Model):
             [self.address_line, self.city, self.state, self.zip_code])
 
 
-class Encounter(models.Model):
+class MedicalEntity(models.Model):
+    class Meta:
+        abstract = True
+
+    significance_score = models.IntegerField(default=1)
+    HIGH = 'high'
+    MEDIUM = 'medium'
+    LOW = 'low'
+    SIGNIFICANCE_GROUP_CHOICES: List[Tuple[str, str]] = [
+        (HIGH, 'High'),
+        (MEDIUM, 'Medium'),
+        (LOW, 'Low'),
+    ]
+    significance_group = models.CharField(max_length=60,
+                                          choices=SIGNIFICANCE_GROUP_CHOICES,
+                                          default=LOW)
+
+
+class Encounter(MedicalEntity):
     # The client needs them ordered by creation to populate the timeline.
     class Meta:
         ordering = ('-created_at', )
@@ -236,17 +254,6 @@ class Encounter(models.Model):
     note: models.CharField = models.CharField(max_length=1000,
                                               blank=False,
                                               default=None)
-    HIGH = 'high'
-    MEDIUM = 'medium'
-    LOW = 'low'
-    SIGNIFICANCE_BAND_CHOICES: List[Tuple[str, str]] = [
-        (HIGH, 'High'),
-        (MEDIUM, 'Medium'),
-        (LOW, 'Low'),
-    ]
-    significance_band = models.CharField(max_length=60,
-                                         choices=SIGNIFICANCE_BAND_CHOICES,
-                                         default=LOW)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -255,38 +262,18 @@ class Encounter(models.Model):
         try:
             encounter_type = data['encounter_type']
             note = data['note']
-            significance_band = data['significance_band']
         except KeyError:
             raise custom_exceptions.DataForNewEncounterNotProvidedException()
 
         return Encounter.objects.create(patient_profile=patient_profile,
                                         encounter_type=encounter_type,
-                                        note=note,
-                                        significance_band=significance_band)
+                                        note=note)
 
     def __str__(self) -> str:
         return self.note.__str__()
 
 
-class Significance(models.Model):
-    score = models.IntegerField(default=1)
-    HIGH = 'high'
-    MEDIUM = 'medium'
-    LOW = 'low'
-    SIGNIFICANCE_GROUP_CHOICES: List[Tuple[str, str]] = [
-        (HIGH, 'High'),
-        (MEDIUM, 'Medium'),
-        (LOW, 'Low'),
-    ]
-    group = models.CharField(max_length=60,
-                             choices=SIGNIFICANCE_GROUP_CHOICES,
-                             default=LOW)
-
-    def __str__(self) -> str:
-        return str(self.id)
-
-
-class Diagnosis(models.Model):
+class Diagnosis(MedicalEntity):
     patient_profile = models.ForeignKey(PatientProfile,
                                         on_delete=models.CASCADE,
                                         null=True,
@@ -294,11 +281,6 @@ class Diagnosis(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
-    significance = AutoOneToOneField(Significance,
-                                     blank=True,
-                                     null=True,
-                                     related_name='significance',
-                                     on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.name.__str__()

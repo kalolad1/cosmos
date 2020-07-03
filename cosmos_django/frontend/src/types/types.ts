@@ -41,17 +41,21 @@ export interface Address {
     zipCode: string;
 }
 
-export interface Encounter {
+interface MedicalEntity {
+    significanceScore: number;
+    significanceGroup: string;
+}
+
+export interface Encounter extends MedicalEntity {
     id: number;
     patientProfile: number;
     note: string;
     encounterType: string;
     createdAt: string;
     updatedAt: string;
-    significanceBand: string;
 }
 
-export interface Diagnosis {
+export interface Diagnosis extends MedicalEntity {
     id: number;
     name: string;
     description: string;

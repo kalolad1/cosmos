@@ -57,7 +57,6 @@ export function updateUser(user: types.User, history: any) {
 export function addEncounter(
     encounterType: string,
     note: string,
-    significanceBand: string,
     history: any
 ) {
     /**
@@ -69,7 +68,6 @@ export function addEncounter(
             {
                 encounterType: encounterType,
                 note: note,
-                significanceBand: significanceBand,
             },
             authUtil.getAuthorizationRequestHeader()
         );

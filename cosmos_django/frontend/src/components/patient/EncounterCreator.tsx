@@ -15,7 +15,6 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
-import Slider from '@material-ui/core/Slider';
 
 interface EncounterCreatorProps {
     history: any;
@@ -25,35 +24,7 @@ interface EncounterCreatorProps {
 interface EncounterCreatorState {
     encounterType: string;
     note: string;
-    significance;
 }
-
-const SIGNIFICANCE_SCORE_MAPPING = {
-    1: modelConstants.EncounterSignificanceBands.LOW,
-    2: modelConstants.EncounterSignificanceBands.MEDIUM,
-    3: modelConstants.EncounterSignificanceBands.HIGH,
-};
-
-const SIGNIFICANCE_MARKS = [
-    {
-        value: 1,
-        label: textUtil.capitalizeFirstLetter(
-            modelConstants.EncounterSignificanceBands.LOW
-        ),
-    },
-    {
-        value: 2,
-        label: textUtil.capitalizeFirstLetter(
-            modelConstants.EncounterSignificanceBands.MEDIUM
-        ),
-    },
-    {
-        value: 3,
-        label: textUtil.capitalizeFirstLetter(
-            modelConstants.EncounterSignificanceBands.HIGH
-        ),
-    },
-];
 
 class EncounterCreator extends React.Component<
     EncounterCreatorProps,
@@ -64,7 +35,6 @@ class EncounterCreator extends React.Component<
         this.state = {
             encounterType: '',
             note: '',
-            significance: 1,
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.createEncounterTypeMenuItems = this.createEncounterTypeMenuItems.bind(
@@ -73,15 +43,6 @@ class EncounterCreator extends React.Component<
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleEncounterAdd = this.handleEncounterAdd.bind(this);
         this.handleExitClick = this.handleExitClick.bind(this);
-        this.handleSignificanceSliderChange = this.handleSignificanceSliderChange.bind(
-            this
-        );
-    }
-
-    handleSignificanceSliderChange(event, newValue) {
-        this.setState({
-            significance: newValue,
-        });
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -131,7 +92,6 @@ class EncounterCreator extends React.Component<
                 actionCreators.addEncounter(
                     this.state.encounterType,
                     this.state.note,
-                    SIGNIFICANCE_SCORE_MAPPING[this.state.significance],
                     this.props.history
                 )
             )
@@ -146,7 +106,6 @@ class EncounterCreator extends React.Component<
     }
 
     render() {
-        console.log(this.state.significance);
         return (
             <div className="encounter-creator">
                 <a
@@ -190,19 +149,6 @@ class EncounterCreator extends React.Component<
                                     required: true,
                                 }}
                                 fullWidth
-                            />
-                        </div>
-                        <div className="form-input-container">
-                            <p>Significance</p>
-                            <Slider
-                                className="significance-slider"
-                                onChange={this.handleSignificanceSliderChange}
-                                value={this.state.significance}
-                                aria-labelledby="significance slider"
-                                step={1}
-                                marks={SIGNIFICANCE_MARKS}
-                                min={1}
-                                max={3}
                             />
                         </div>
                         <div className="form-button-container">

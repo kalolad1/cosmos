@@ -10,7 +10,7 @@ interface EncounterPanelHeaderProps {
     profilePicture: string;
     firstName: string;
     lastName: string;
-    significanceBand: string;
+    significanceGroup: string;
 }
 
 class EncounterPanelHeader extends React.Component<
@@ -26,7 +26,7 @@ class EncounterPanelHeader extends React.Component<
             <div className="encounter-panel-header">
                 <PanelHeaderMetadata
                     title={this.props.title}
-                    significanceBand={this.props.significanceBand}
+                    significanceGroup={this.props.significanceGroup}
                 />
                 <Avatar
                     alt={textUtil.createFullName(

@@ -18,11 +18,8 @@ export function getFormattedDate(dateTimeString: string): string {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
     };
-    return new Date(dateTimeString).toLocaleTimeString(
+    return new Date(dateTimeString).toLocaleDateString(
         'en-US',
         dateStringOptions
     );

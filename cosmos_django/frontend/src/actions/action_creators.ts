@@ -91,12 +91,7 @@ export function receiveAddEncounter(encounter) {
     };
 }
 
-export function addEncounter(
-    encounterType: string,
-    note: string,
-    significanceBand: string,
-    history
-) {
+export function addEncounter(encounterType: string, note: string, history) {
     /**
      * Adds an encounter and saves it to the client store.
      */
@@ -104,7 +99,7 @@ export function addEncounter(
         dispatch(requestAddEncounter());
 
         return patientApi
-            .addEncounter(encounterType, note, significanceBand, history)
+            .addEncounter(encounterType, note, history)
             .then(function (response) {
                 dispatch(receiveAddEncounter(response.data));
             });

@@ -5,6 +5,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Popover from '@material-ui/core/Popover';
+import { IconButton } from '@material-ui/core';
 
 interface PopupListItemProps {
     content: any;
@@ -47,7 +48,13 @@ class PopupListItem extends React.Component<
                 <ListItem onClick={this.handlePopupOpen} button>
                     <span>{this.props.content}</span>
                     <ListItemSecondaryAction>
-                        <ChevronRightIcon />
+                        <IconButton
+                            edge="end"
+                            aria-label="popup"
+                            onClick={this.handlePopupOpen}
+                        >
+                            <ChevronRightIcon />
+                        </IconButton>
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Popover

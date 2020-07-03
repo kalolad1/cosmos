@@ -6,7 +6,7 @@ import SignificanceLabel from '../patient/SignificanceLabel';
 
 interface PanelHeaderMetadataProps {
     title: string;
-    significanceBand: string;
+    significanceGroup: string;
 }
 
 class PanelHeaderMetadata extends React.Component<
@@ -26,7 +26,7 @@ class PanelHeaderMetadata extends React.Component<
                     </span>
                 </div>
                 <SignificanceLabel
-                    significanceBand={this.props.significanceBand}
+                    significanceGroup={this.props.significanceGroup}
                 />
             </div>
         );

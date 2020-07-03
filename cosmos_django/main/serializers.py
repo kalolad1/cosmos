@@ -18,14 +18,28 @@ class MedicationSerializer(serializers.ModelSerializer):
 class DiagnosisSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Diagnosis
-        fields = ('id', 'name', 'description', 'created_at')
+        fields = (
+            'id',
+            'name',
+            'description',
+            'created_at',
+            'significance_score',
+            'significance_group',
+        )
 
 
 class EncounterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Encounter
-        fields = ('id', 'encounter_type', 'note', 'created_at', 'updated_at',
-                  'significance_band')
+        fields = (
+            'id',
+            'encounter_type',
+            'note',
+            'created_at',
+            'updated_at',
+            'significance_score',
+            'significance_group',
+        )
 
 
 class AddressSerializer(serializers.ModelSerializer):

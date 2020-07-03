@@ -12,7 +12,7 @@ interface EncounterPanelProps {
     profilePicture: string;
     firstName: string;
     lastName: string;
-    significanceBand: string;
+    significanceGroup: string;
 }
 
 class EncounterPanel extends React.Component<EncounterPanelProps, any> {
@@ -30,7 +30,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
                             profilePicture={this.props.profilePicture}
                             firstName={this.props.firstName}
                             lastName={this.props.lastName}
-                            significanceBand={this.props.significanceBand}
+                            significanceGroup={this.props.significanceGroup}
                         />
                     }
                     body={
