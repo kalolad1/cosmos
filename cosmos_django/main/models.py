@@ -2,6 +2,7 @@ import datetime
 from dateutil import parser
 from typing import List, Tuple
 
+from annoying.fields import AutoOneToOneField
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.validators import MinLengthValidator
@@ -71,7 +72,7 @@ class UserManager(BaseUserManager):
             last_name=last_name,
             date_of_birth=parser.parse(date_of_birth).date(),
             sex=sex)
-        # Create an empty Address object as a placeholder so that we can udpate
+        # Create an empty Address object as a placeholder so that we can update
         # later.
         Address.objects.create(patient_profile=patient_profile)
         return user
@@ -190,6 +191,7 @@ class PatientProfile(models.Model):
 
 
 class Address(models.Model):
+    # TODO change to autofield.
     patient_profile = models.OneToOneField(to=PatientProfile,
                                            on_delete=models.CASCADE,
                                            blank=True,
@@ -266,6 +268,24 @@ class Encounter(models.Model):
         return self.note.__str__()
 
 
+class Significance(models.Model):
+    score = models.IntegerField(default=1)
+    HIGH = 'high'
+    MEDIUM = 'medium'
+    LOW = 'low'
+    SIGNIFICANCE_GROUP_CHOICES: List[Tuple[str, str]] = [
+        (HIGH, 'High'),
+        (MEDIUM, 'Medium'),
+        (LOW, 'Low'),
+    ]
+    group = models.CharField(max_length=60,
+                             choices=SIGNIFICANCE_GROUP_CHOICES,
+                             default=LOW)
+
+    def __str__(self) -> str:
+        return str(self.id)
+
+
 class Diagnosis(models.Model):
     patient_profile = models.ForeignKey(PatientProfile,
                                         on_delete=models.CASCADE,
@@ -274,6 +294,11 @@ class Diagnosis(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
+    significance = AutoOneToOneField(Significance,
+                                     blank=True,
+                                     null=True,
+                                     related_name='significance',
+                                     on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.name.__str__()

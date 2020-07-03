@@ -18,6 +18,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
+    'annoying',
     'frontend',
     'phonenumber_field',
     'main',
