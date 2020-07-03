@@ -18,7 +18,7 @@ class VitalsPanel extends React.Component<any, any> {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <img
                     style={{ width: '50%', height: '50%' }}
-                    src={apiEndpointConstants.VITALS_PLACEHOLDER}
+                    src={apiEndpointConstants.PANEL_PLACEHOLDER}
                 />
             </div>
         );

@@ -6,9 +6,9 @@ import Panel from '../shared/Panel';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
 
-const PANEL_TITLE = 'Family History (Coming soon)';
+const PANEL_TITLE = 'Social History (Coming soon)';
 
-class FamilyHistoryPanel extends React.Component<any, any> {
+class SocialHistoryPanel extends React.Component<any, any> {
     constructor(props) {
         super(props);
     }
@@ -33,4 +33,4 @@ class FamilyHistoryPanel extends React.Component<any, any> {
     }
 }
 
-export default FamilyHistoryPanel;
+export default SocialHistoryPanel;
