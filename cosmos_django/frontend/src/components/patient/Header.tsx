@@ -5,8 +5,11 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as textUtil from '../../util/text_util';
 
+import AddIcon from '@material-ui/icons/Add';
+import Avatar from '@material-ui/core/Avatar';
+import Fab from '@material-ui/core/Fab';
+
 import HeaderMetadata from './HeaderMetadata';
-import { Avatar, Button } from '@material-ui/core';
 
 interface HeaderProps {
     profilePicture: string;
@@ -32,7 +35,7 @@ class Header extends React.Component<HeaderProps, any> {
 
     render() {
         return (
-            <div className="patient-header rounded-grey-container">
+            <div className="patient-header">
                 <div className="patient-info">
                     <Avatar
                         alt={textUtil.createFullName(
@@ -54,14 +57,16 @@ class Header extends React.Component<HeaderProps, any> {
                         age={this.props.age}
                     />
                 </div>
-                <Button
-                    variant="contained"
+                <Fab
+                    className="add-encounter-button"
                     color="secondary"
-                    size="large"
+                    variant="extended"
+                    aria-label="add encounter"
                     onClick={this.handleNewEncounterButtonClick}
                 >
+                    <AddIcon />
                     New Encounter
-                </Button>
+                </Fab>
             </div>
         );
     }

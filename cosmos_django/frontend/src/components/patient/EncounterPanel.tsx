@@ -22,7 +22,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
 
     render() {
         return (
-            <div className="encounter-panel">
+            <div>
                 <Panel
                     header={
                         <EncounterPanelHeader

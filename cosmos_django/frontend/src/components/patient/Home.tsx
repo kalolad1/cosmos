@@ -125,22 +125,24 @@ class Home extends React.Component<any, HomeState> {
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
-                        <div>
-                            <Header
-                                profilePicture={
-                                    this.props.user.patientProfile
-                                        .profilePicture
-                                }
-                                firstName={
-                                    this.props.user.patientProfile.firstName
-                                }
-                                lastName={
-                                    this.props.user.patientProfile.lastName
-                                }
-                                sex={this.props.user.patientProfile.sex}
-                                age={this.props.user.patientProfile.age}
-                            />
-                            <Charts user={this.props.user} />
+                        <div className="home-content-container">
+                            <div className="home-content">
+                                <Header
+                                    profilePicture={
+                                        this.props.user.patientProfile
+                                            .profilePicture
+                                    }
+                                    firstName={
+                                        this.props.user.patientProfile.firstName
+                                    }
+                                    lastName={
+                                        this.props.user.patientProfile.lastName
+                                    }
+                                    sex={this.props.user.patientProfile.sex}
+                                    age={this.props.user.patientProfile.age}
+                                />
+                                <Charts user={this.props.user} />
+                            </div>
                         </div>
                     </main>
                 </div>
