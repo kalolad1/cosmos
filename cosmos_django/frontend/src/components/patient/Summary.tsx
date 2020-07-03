@@ -7,6 +7,7 @@ import PanelGrid from '../shared/PanelGrid';
 import MedicationsPanel from './MedicationsPanel';
 import AllergiesPanel from './AllergiesPanel';
 import VaccinationsPanel from './VaccinationsPanel';
+import FamilyHistoryPanel from './FamilyHistoryPanel';
 
 interface SummaryProps {
     user: types.User;
@@ -27,15 +28,16 @@ class Summary extends React.Component<SummaryProps, any> {
                 key={1}
                 medications={this.props.user.patientProfile.medications}
             />,
+            <FamilyHistoryPanel key={2} />,
         ];
 
         const secondaryColumnChildrenPanels = [
             <AllergiesPanel
-                key={2}
+                key={3}
                 allergies={this.props.user.patientProfile.allergies}
             />,
             <VaccinationsPanel
-                key={3}
+                key={4}
                 vaccinations={this.props.user.patientProfile.vaccinations}
             />,
         ];
