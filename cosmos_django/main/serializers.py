@@ -6,7 +6,14 @@ from . import models
 class VaccinationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Vaccination
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+            'description',
+            'created_at',
+            'significance_score',
+            'significance_group',
+        )
 
 
 class AllergySerializer(serializers.ModelSerializer):
