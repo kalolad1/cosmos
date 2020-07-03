@@ -109,16 +109,19 @@
     max-width: 1000px;
 }
 
+/* Summary */
+
+/* Diagnosis Panel */
+.diagnosis-popup-panel {
+    min-width: 300px;
+}
+
 /* Profile */
 .profile-button-row {
     display: flex;
     justify-content: flex-end;
 }
 
-.profile-panel-header-title {
-    font-family: "Neue Hans Kendrick", sans-serif;
-    font-size: 20px;
-}
 
 /* Timeline */
 .encounter-panel {
@@ -132,13 +135,9 @@
     margin-bottom: 5px;
 }
 
-.encounter-panel-title-container {
+.panel-title-container {
     display: flex;
     align-items: center;
-}
-
-.encounter-panel-title {
-    margin-right: 4px;
 }
 
 .verified-encounter-icon {
@@ -159,20 +158,6 @@
 .encounter-panel-avatar {
     min-width: 50px;
     min-height: 50px;
-}
-
-.encounter-panel-body-line-item {
-    display: flex;
-}
-
-.encounter-panel-body-line-item-icon-container {
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.encounter-panel-body-line-item-content {
-    text-align: left;
 }
 
 .encounter-panel-footer {
@@ -304,7 +289,21 @@
     margin-top: 20px;
 }
 
-.title-panel-header-title {
+.panel-body-line-item {
+    display: flex;
+}
+
+.panel-body-line-item-icon-container {
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.panel-body-line-item-content {
+    text-align: left;
+}
+
+.panel-title {
     font-family: "Neue Hans Kendrick", sans-serif;
     font-size: 20px;
 }

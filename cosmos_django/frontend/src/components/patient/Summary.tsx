@@ -15,9 +15,19 @@ class Summary extends React.Component<SummaryProps, any> {
     }
 
     render() {
-        const mainColumnChildrenPanels = [<DiagnosesPanel key={0} />];
+        const mainColumnChildrenPanels = [
+            <DiagnosesPanel
+                key={0}
+                diagnoses={this.props.user.patientProfile.diagnoses}
+            />,
+        ];
 
-        const secondaryColumnChildrenPanels = [<DiagnosesPanel key={1} />];
+        const secondaryColumnChildrenPanels = [
+            <DiagnosesPanel
+                key={1}
+                diagnoses={this.props.user.patientProfile.diagnoses}
+            />,
+        ];
 
         return (
             <PanelGrid

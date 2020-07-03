@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Avatar from '@material-ui/core/Avatar';
 
-import EncounterPanelHeaderMetadata from './EncounterPanelHeaderMetadata';
+import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
 import * as textUtil from '../../util/text_util';
 
 interface EncounterPanelHeaderProps {
@@ -24,7 +24,7 @@ class EncounterPanelHeader extends React.Component<
     render() {
         return (
             <div className="encounter-panel-header">
-                <EncounterPanelHeaderMetadata
+                <PanelHeaderMetadata
                     title={this.props.title}
                     significanceBand={this.props.significanceBand}
                 />

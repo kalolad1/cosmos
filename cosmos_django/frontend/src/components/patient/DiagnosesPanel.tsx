@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import * as types from '../../types/types';
+import * as dateUtil from '../../util/date_util';
+
 import List from '@material-ui/core/List';
 
 import Panel from '../shared/Panel';
@@ -9,24 +12,30 @@ import DiagnosisPopupPanel from './DiagnosisPopupPanel';
 
 const PANEL_TITLE = 'Diagnoses';
 
-class DiagnosesPanel extends React.Component {
+interface DiagnosesPanelProps {
+    diagnoses: Array<types.Diagnosis>;
+}
+
+class DiagnosesPanel extends React.Component<DiagnosesPanelProps, any> {
     constructor(props) {
         super(props);
+        this.getDiagnosisListItems = this.getDiagnosisListItems.bind(this);
+    }
+
+    getDiagnosisListItems() {
+        return this.props.diagnoses.map(function (diagnosis) {
+            return (
+                <PopupListItem
+                    key={diagnosis.id}
+                    content={diagnosis.name}
+                    popup={<DiagnosisPopupPanel diagnosis={diagnosis} />}
+                />
+            );
+        });
     }
 
     render() {
-        const body = (
-            <List>
-                <PopupListItem
-                    content={'List item content'}
-                    popup={<DiagnosisPopupPanel />}
-                />
-                <PopupListItem
-                    content={'List item content'}
-                    popup={<DiagnosisPopupPanel />}
-                />
-            </List>
-        );
+        const body = <List>{this.getDiagnosisListItems()}</List>;
         return (
             <Panel
                 header={<TitlePanelHeader title={PANEL_TITLE} />}

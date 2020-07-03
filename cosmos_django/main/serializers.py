@@ -18,7 +18,7 @@ class MedicationSerializer(serializers.ModelSerializer):
 class DiagnosisSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Diagnosis
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'description', 'created_at')
 
 
 class EncounterSerializer(serializers.ModelSerializer):

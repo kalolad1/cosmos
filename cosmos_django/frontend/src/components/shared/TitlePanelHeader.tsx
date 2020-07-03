@@ -10,7 +10,7 @@ class TitlePanelHeader extends React.Component<ProfilePanelHeaderProps, any> {
     }
 
     render() {
-        return <p className="title-panel-header-title">{this.props.title}</p>;
+        return <p className="panel-title">{this.props.title}</p>;
     }
 }
 

@@ -3,8 +3,8 @@ import * as React from 'react';
 
 import * as modelConstants from '../../constants/model_constants';
 import * as types from '../../types/types';
+import * as dateUtil from '../../util/date_util';
 
-import NotesIcon from '@material-ui/icons/Notes';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AirlineSeatIndividualSuiteIcon from '@material-ui/icons/AirlineSeatIndividualSuite';
 import ColorizeIcon from '@material-ui/icons/Colorize';
@@ -33,23 +33,7 @@ class Timeline extends React.Component<TimelineProps, any> {
     constructor(props) {
         super(props);
         this.getTimelineItems = this.getTimelineItems.bind(this);
-        this.getFormattedDate = this.getFormattedDate.bind(this);
         this.getEncounterTypeIcon = this.getEncounterTypeIcon.bind(this);
-    }
-
-    getFormattedDate(dateString: string): string {
-        const dateStringOptions = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-        };
-        return new Date(dateString).toLocaleTimeString(
-            'en-us',
-            dateStringOptions
-        );
     }
 
     getEncounterTypeIcon(type: string) {
@@ -66,7 +50,9 @@ class Timeline extends React.Component<TimelineProps, any> {
                 <TimelineItem key={encounter.id}>
                     <TimelineOppositeContent>
                         <Typography variant="body2" color="textSecondary">
-                            {self.getFormattedDate(encounter.createdAt)}
+                            {dateUtil.getFormattedDateAndTime(
+                                encounter.createdAt
+                            )}
                         </Typography>
                     </TimelineOppositeContent>
                     <TimelineSeparator>

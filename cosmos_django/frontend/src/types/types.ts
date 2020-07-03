@@ -29,6 +29,7 @@ export interface PatientProfile {
     pharmacy: string;
     address: Address;
     encounters: Array<Encounter>;
+    diagnoses: Array<Diagnosis>;
     medications: Array<Medication>;
     vaccinations: Array<Vaccination>;
 }
@@ -48,6 +49,13 @@ export interface Encounter {
     createdAt: string;
     updatedAt: string;
     significanceBand: string;
+}
+
+export interface Diagnosis {
+    id: number;
+    name: string;
+    description: string;
+    createdAt: string;
 }
 
 export interface Medication {
