@@ -171,11 +171,6 @@
     min-height: 50px;
 }
 
-.encounter-panel-footer {
-    display: flex;
-    justify-content: flex-end;
-}
-
 /* Medication */
 .medication {
     margin-bottom: 10px;

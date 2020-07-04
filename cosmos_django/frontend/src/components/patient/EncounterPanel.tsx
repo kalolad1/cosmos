@@ -5,7 +5,7 @@ import * as types from '../../types/types';
 import Panel from '../shared/Panel';
 import EncounterPanelBody from './EncounterPanelBody';
 import EncounterPanelHeader from './EncounterPanelHeader';
-import EncounterPanelFooter from './EncounterPanelFooter';
+import PanelButtonFooter from '../shared/PanelButtonFooter';
 
 interface EncounterPanelProps {
     encounter: types.Encounter;
@@ -36,7 +36,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
                     body={
                         <EncounterPanelBody note={this.props.encounter.note} />
                     }
-                    footer={<EncounterPanelFooter />}
+                    footer={<PanelButtonFooter buttons={{ viewFull: null }} />}
                 />
             </div>
         );
