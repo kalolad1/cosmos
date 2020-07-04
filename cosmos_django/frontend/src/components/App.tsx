@@ -15,6 +15,11 @@ import SignupForm from './authentication/SignupForm';
 import LoginForm from '../components/authentication/LoginForm';
 import VisitCreator from './patient/EncounterCreator';
 import Home from './patient/Home';
+import EncounterFullView from './patient/EncounterFullView';
+import EncounterContainer from './patient/EncounterContainer';
+import { FormModes } from '../constants/form_constants';
+import { Switch } from 'react-router-dom';
+import { url } from 'inspector';
 
 export const store = Redux.createStore(
     reducers.rootReducer,
@@ -62,14 +67,32 @@ class App extends React.Component<any, AppState> {
                         >
                             <LoginForm />
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route path={urlPathConstants.HOME}>
-                            <Home />
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.NEW_ENCOUNTER}
+                        >
+                            <EncounterContainer mode={FormModes.CREATE} />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.UPDATE_ENCOUNTER}
+                        >
+                            <EncounterContainer mode={FormModes.UPDATE} />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.VIEW_ENCOUNTER}
+                        >
+                            <EncounterContainer mode={FormModes.VIEW} />
                         </ReactRouterDOM.Route>
                         <ReactRouterDOM.Route
                             exact
                             path={urlPathConstants.ADD_ENCOUNTER}
                         >
                             <VisitCreator />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route path={urlPathConstants.HOME}>
+                            <Home />
                         </ReactRouterDOM.Route>
                         <ReactRouterDOM.Redirect to={this.state.rootUrl} />
                     </ReactRouterDOM.Switch>

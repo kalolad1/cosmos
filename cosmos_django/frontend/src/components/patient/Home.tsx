@@ -24,6 +24,9 @@ import FullPageSpinner from '../shared/FullPageSpinner';
 
 import Charts from './Charts';
 import Header from './Header';
+import EncounterContainer from './EncounterContainer';
+import { Switch } from 'react-router-dom';
+import { FormModes } from '../../constants/form_constants';
 
 interface HomeState {
     isVerticalNavbarOpen: boolean;
