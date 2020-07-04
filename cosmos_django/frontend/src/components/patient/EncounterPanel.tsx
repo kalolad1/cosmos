@@ -36,7 +36,15 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
                     body={
                         <EncounterPanelBody note={this.props.encounter.note} />
                     }
-                    footer={<PanelButtonFooter buttons={{ viewFull: null }} />}
+                    footer={
+                        <PanelButtonFooter
+                            buttons={{
+                                edit: null,
+                                delete: null,
+                                viewFull: null,
+                            }}
+                        />
+                    }
                 />
             </div>
         );

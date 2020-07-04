@@ -7,6 +7,7 @@ import * as modelConstants from '../../constants/model_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as textUtil from '../../util/text_util';
 
+// TODO refactor
 import {
     Button,
     FormControl,
@@ -15,6 +16,8 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
+import NotesIcon from '@material-ui/icons/Notes';
+import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 
 interface EncounterCreatorProps {
     history: any;
@@ -137,18 +140,23 @@ class EncounterCreator extends React.Component<
                             </FormControl>
                         </div>
                         <div className="form-input-container">
-                            <TextField
-                                name="note"
-                                onChange={this.handleInputChange}
-                                value={this.state.note}
-                                label="Note"
-                                multiline
-                                rows={24}
-                                variant="outlined"
-                                inputProps={{
-                                    required: true,
-                                }}
-                                fullWidth
+                            <PanelBodyLineItem
+                                icon={<NotesIcon />}
+                                content={
+                                    <TextField
+                                        name="note"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.note}
+                                        label="Note"
+                                        multiline
+                                        rows={24}
+                                        variant="outlined"
+                                        inputProps={{
+                                            required: true,
+                                        }}
+                                        fullWidth
+                                    />
+                                }
                             />
                         </div>
                         <div className="form-button-container">

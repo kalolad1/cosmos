@@ -18,22 +18,29 @@ class PanelButtonFooter extends React.Component<PanelButtonFooterProps, any> {
     render() {
         return (
             <div className="panel-button-footer">
-                {'edit' in this.props.buttons && (
-                    <IconButton aria-label="edit" size="medium">
-                        <EditIcon />
-                    </IconButton>
-                )}
-                {'delete' in this.props.buttons && (
-                    <IconButton aria-label="delete" size="medium">
-                        <DeleteIcon />
-                    </IconButton>
-                )}
-                {'add' in this.props.buttons && (
-                    <IconButton aria-label="add" size="medium">
-                        <AddIcon />
-                    </IconButton>
-                )}
-                {'viewFull' in this.props.buttons && <Button>View full</Button>}
+                <div>
+                    {'viewFull' in this.props.buttons && (
+                        <Button>View full</Button>
+                    )}
+                </div>
+
+                <div>
+                    {'edit' in this.props.buttons && (
+                        <IconButton aria-label="edit" size="medium">
+                            <EditIcon />
+                        </IconButton>
+                    )}
+                    {'delete' in this.props.buttons && (
+                        <IconButton aria-label="delete" size="medium">
+                            <DeleteIcon />
+                        </IconButton>
+                    )}
+                    {'add' in this.props.buttons && (
+                        <IconButton aria-label="add" size="medium">
+                            <AddIcon />
+                        </IconButton>
+                    )}
+                </div>
             </div>
         );
     }

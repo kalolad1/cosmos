@@ -304,6 +304,7 @@
 
 .panel-body-line-item-content {
     text-align: left;
+    width: 100%;
 }
 
 .panel-title {
@@ -312,13 +313,13 @@
 }
 
 .panel-footer {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .panel-button-footer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 /* Utilities */

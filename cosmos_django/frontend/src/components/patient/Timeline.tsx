@@ -80,7 +80,7 @@ class Timeline extends React.Component<TimelineProps, any> {
 
     render() {
         return (
-            <TimelineComp align="alternate">
+            <TimelineComp style={{ padding: '0' }} align="alternate">
                 {this.getTimelineItems()}
             </TimelineComp>
         );
