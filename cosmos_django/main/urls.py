@@ -19,5 +19,7 @@ urlpatterns = [
          api.MedicationsEndpoint.as_view(),
          name='main/medications'),
     path('allergies/', api.AllergiesEndpoint.as_view(), name='main/allergies'),
-    path('vaccinations/', api.VaccinationsEndpoint.as_view(), name='main/vaccinations'),
+    path('vaccinations/',
+         api.VaccinationsEndpoint.as_view(),
+         name='main/vaccinations'),
 ]

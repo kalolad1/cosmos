@@ -2,6 +2,7 @@ import * as axiosConfig from '../configs/axios_config';
 import * as apiEndpointConstants from '../constants/api_endpoint_constants';
 import * as tokenConstants from '../constants/token_constants';
 import * as authUtil from '../util/auth_util';
+import { bool } from 'prop-types';
 
 export function loginRequest(email: string, password: string) {
     /**
@@ -31,7 +32,8 @@ export function signupRequest(
     firstName: string,
     lastName: string,
     dateOfBirth: Date,
-    sex: string
+    sex: string,
+    isProvider: boolean
 ) {
     /**
      * Sends a signup request to the server.
@@ -43,5 +45,6 @@ export function signupRequest(
         lastName: lastName,
         dateOfBirth: dateOfBirth,
         sex: sex,
+        isProvider: isProvider,
     });
 }

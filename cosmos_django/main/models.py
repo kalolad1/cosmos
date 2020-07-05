@@ -62,19 +62,28 @@ class UserManager(BaseUserManager):
             last_name = data['last_name']
             date_of_birth = data['date_of_birth']
             sex = data['sex']
+            is_provider = data['is_provider']
         except KeyError:
             raise custom_exceptions.DataForNewUserNotProvidedException()
 
         user = User.objects.create_user(email=email, password=password)
-        patient_profile = PatientProfile.objects.create(
-            user=user,
-            first_name=first_name,
-            last_name=last_name,
-            date_of_birth=parser.parse(date_of_birth).date(),
-            sex=sex)
-        # Create an empty Address object as a placeholder so that we can update
-        # later.
-        Address.objects.create(patient_profile=patient_profile)
+        if is_provider:
+            provider_profile = ProviderProfile.objects.create(
+                user=user,
+                first_name=first_name,
+                last_name=last_name,
+                date_of_birth=parser.parse(date_of_birth).date(),
+                sex=sex)
+        else:
+            patient_profile = PatientProfile.objects.create(
+                user=user,
+                first_name=first_name,
+                last_name=last_name,
+                date_of_birth=parser.parse(date_of_birth).date(),
+                sex=sex)
+            # Create an empty Address object as a placeholder so that we can update
+            # later.
+            Address.objects.create(patient_profile=patient_profile)
         return user
 
 
@@ -113,6 +122,29 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label: str) -> models.BooleanField:
         return self.is_admin
+
+
+class ProviderProfile(models.Model):
+    user: models.OneToOneField = models.OneToOneField(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=False,
+        related_name='provider_profile')
+    first_name: models.CharField = models.CharField(max_length=60,
+                                                    blank=False,
+                                                    default=None)
+    last_name: models.CharField = models.CharField(max_length=60,
+                                                   blank=False,
+                                                   default=None)
+    date_of_birth: models.DateField = models.DateField(default=timezone.now)
+    MALE: str = 'male'
+    FEMALE: str = 'female'
+    SEX_CHOICES: List[Tuple[str, str]] = [
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    ]
+    sex: models.CharField = models.CharField(max_length=60,
+                                             choices=SEX_CHOICES)
 
 
 class PatientProfile(models.Model):
@@ -398,8 +430,8 @@ class Vaccination(MedicalEntity):
             raise custom_exceptions.DataNotProvided()
 
         return Vaccination.objects.create(patient_profile=patient_profile,
-                                      name=name,
-                                      description=description)
+                                          name=name,
+                                          description=description)
 
     def update_from_json(self, data):
         for attribute, value in data.items():

@@ -21,6 +21,10 @@ import {
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import { Alert } from '@material-ui/lab';
+import FormLabel from '@material-ui/core/FormLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
 
 const SEX_OPTIONS = [
     { id: 1, value: 'male', formatted: 'Male' },
@@ -34,6 +38,7 @@ interface SignupFormState {
     lastName: string;
     dateOfBirth?: Date;
     sex: string;
+    isProvider: string;
     isErrorSnackbarOpen: boolean;
     snackBarErrorMessage: string;
 }
@@ -50,6 +55,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
             sex: '',
             isErrorSnackbarOpen: false,
             snackBarErrorMessage: 'An error has occurred!',
+            isProvider: 'no',
         };
 
         this.handleRegistrationRequest = this.handleRegistrationRequest.bind(
@@ -110,7 +116,8 @@ class SignupForm extends React.Component<any, SignupFormState> {
                 this.state.firstName,
                 this.state.lastName,
                 this.state.dateOfBirth!,
-                this.state.sex
+                this.state.sex,
+                this.state.isProvider === 'yes'
             )
             .then(function () {
                 authApi
@@ -263,6 +270,30 @@ class SignupForm extends React.Component<any, SignupFormState> {
                                     openTo="year"
                                 />
                             </MuiPickersUtilsProvider>
+                        </div>
+                        <div className="form-input-container">
+                            <FormControl component="fieldset">
+                                <FormLabel component="legend">
+                                    Are you a healthcare provider?
+                                </FormLabel>
+                                <RadioGroup
+                                    aria-label="isProvider"
+                                    name="isProvider"
+                                    value={this.state.isProvider}
+                                    onChange={this.handleInputChange}
+                                >
+                                    <FormControlLabel
+                                        value="no"
+                                        control={<Radio />}
+                                        label="No"
+                                    />
+                                    <FormControlLabel
+                                        value="yes"
+                                        control={<Radio />}
+                                        label="Yes"
+                                    />
+                                </RadioGroup>
+                            </FormControl>
                         </div>
                         <div className="form-button-container">
                             <Button

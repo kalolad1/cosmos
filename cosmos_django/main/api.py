@@ -311,6 +311,7 @@ class AllergiesEndpoint(views.APIView):
             return response.Response(status=status.HTTP_204_NO_CONTENT)
         return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
+
 class VaccinationsEndpoint(views.APIView):
     """Endpoints for Vaccination objects."""
     permission_classes = (custom_permissions.VaccinationsPermissions, )

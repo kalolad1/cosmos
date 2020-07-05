@@ -14,6 +14,7 @@ TEST_USER_REQUEST_DATA = {
     'first_name': 'John',
     'last_name': 'Doe',
     'sex': 'male',
+    'is_provider': False,
 }
 
 

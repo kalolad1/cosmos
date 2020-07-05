@@ -75,6 +75,12 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = ('address_line', 'city', 'state', 'zip_code')
 
 
+class ProviderProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProviderProfile
+        fields = ('date_of_birth', 'first_name', 'last_name', 'sex')
+
+
 class PatientProfileSerializer(serializers.ModelSerializer):
     age = serializers.SerializerMethodField('get_age')
 
@@ -98,7 +104,8 @@ class PatientProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     patient_profile = PatientProfileSerializer()
+    provider_profile = ProviderProfileSerializer()
 
     class Meta:
         model = models.User
-        fields = ('email', 'patient_profile')
+        fields = ('email', 'patient_profile', 'provider_profile')

@@ -287,7 +287,11 @@ export function deleteAllergy(id: number, history: any) {
 }
 
 /* Vaccination */
-export function addVaccination(name: string, description: string, history: any) {
+export function addVaccination(
+    name: string,
+    description: string,
+    history: any
+) {
     /**
      * Adds a vaccination.
      */
@@ -332,13 +336,15 @@ export function deleteVaccination(id: number, history: any) {
      * Deletes an vaccination.
      */
     function request() {
-        return axiosConfig.axiosClient.delete(apiEndpointConstants.VACCINATIONS, {
-            data: {
-                id: id,
-            },
-            ...authUtil.getAuthorizationRequestHeader(),
-        });
+        return axiosConfig.axiosClient.delete(
+            apiEndpointConstants.VACCINATIONS,
+            {
+                data: {
+                    id: id,
+                },
+                ...authUtil.getAuthorizationRequestHeader(),
+            }
+        );
     }
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
-

@@ -595,4 +595,3 @@ export function deleteVaccination(id: number, history: any) {
         });
     };
 }
-

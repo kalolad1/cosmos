@@ -9,7 +9,17 @@
  * */
 export interface User {
     email: string;
-    patientProfile: PatientProfile;
+    patientProfile?: PatientProfile;
+    providerProfile?: ProviderProfile;
+}
+
+export interface ProviderProfile {
+    account: number;
+    id: number;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    sex: string;
 }
 
 export interface PatientProfile {

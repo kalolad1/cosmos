@@ -6,7 +6,7 @@ import * as types from '../../types/types';
 import * as actionCreators from '../../actions/action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
-import VaccinationFullView from "./VaccinationFullView";
+import VaccinationFullView from './VaccinationFullView';
 
 interface VaccinationFullViewContainerProps {
     mode: string;

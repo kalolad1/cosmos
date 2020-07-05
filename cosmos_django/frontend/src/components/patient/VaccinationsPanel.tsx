@@ -9,8 +9,8 @@ import PopupListItem from '../shared/PopupListItem';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import VaccinationPopupPanel from './VaccinationPopupPanel';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as ReactRouterDOM from "react-router-dom";
-import * as urlPathConstants from "../../constants/url_path_constants";
+import * as ReactRouterDOM from 'react-router-dom';
+import * as urlPathConstants from '../../constants/url_path_constants';
 
 const PANEL_TITLE = 'Vaccinations';
 
@@ -32,7 +32,7 @@ class VaccinationsPanel extends React.Component<VaccinationsPanelProps, any> {
                 <PopupListItem
                     key={vaccination.id}
                     content={vaccination.name}
-                    popup={<VaccinationPopupPanel vaccination={vaccination}/>}
+                    popup={<VaccinationPopupPanel vaccination={vaccination} />}
                 />
             );
         });
@@ -44,10 +44,12 @@ class VaccinationsPanel extends React.Component<VaccinationsPanelProps, any> {
 
     render() {
         const body = <List>{this.getVaccinationListItems()}</List>;
-        const footer = <PanelButtonFooter buttons={{add: this.handleAddButtonClick}}/>;
+        const footer = (
+            <PanelButtonFooter buttons={{ add: this.handleAddButtonClick }} />
+        );
         return (
             <Panel
-                header={<TitlePanelHeader title={PANEL_TITLE}/>}
+                header={<TitlePanelHeader title={PANEL_TITLE} />}
                 body={body}
                 footer={footer}
             />
@@ -56,4 +58,3 @@ class VaccinationsPanel extends React.Component<VaccinationsPanelProps, any> {
 }
 
 export default ReactRouterDOM.withRouter(VaccinationsPanel);
-

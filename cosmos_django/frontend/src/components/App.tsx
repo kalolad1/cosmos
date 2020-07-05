@@ -11,15 +11,17 @@ import * as urlPathConstants from '../constants/url_path_constants';
 import * as reducers from '../reducers/reducers';
 import * as authUtil from '../util/auth_util';
 
+import { Switch, HashRouter, Route } from 'react-router-dom';
 import SignupForm from './authentication/SignupForm';
 import LoginForm from '../components/authentication/LoginForm';
-import Home from './patient/Home';
+import PatientHome from './patient/PatientHome';
 import EncounterFullViewContainer from './patient/EncounterFullViewContainer';
 import MedicationFullViewContainer from './patient/MedicationFullViewContainer';
 import { FormModes } from '../constants/form_constants';
 import DiagnosisFullViewContainer from './patient/DiagnosisFullViewContainer';
 import AllergyFullViewContainer from './patient/AllergyFullViewContainer';
-import VaccinationFullViewContainer from "./patient/VaccinationFullViewContainer";
+import VaccinationFullViewContainer from './patient/VaccinationFullViewContainer';
+import AppHome from './AppHome';
 
 export const store = Redux.createStore(
     reducers.rootReducer,
@@ -53,28 +55,19 @@ class App extends React.Component<any, AppState> {
     render() {
         return (
             <ReactRedux.Provider store={store}>
-                <ReactRouterDOM.HashRouter>
-                    <ReactRouterDOM.Switch>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.SIGNUP}
-                        >
+                <HashRouter>
+                    <Switch>
+                        <Route exact path={urlPathConstants.SIGNUP}>
                             <SignupForm />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.LOGIN}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.LOGIN}>
                             <LoginForm />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.NEW_ENCOUNTER}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.NEW_ENCOUNTER}>
                             <EncounterFullViewContainer
                                 mode={FormModes.CREATE}
                             />
-                        </ReactRouterDOM.Route>
+                        </Route>
                         <ReactRouterDOM.Route
                             exact
                             path={urlPathConstants.UPDATE_ENCOUNTER}
@@ -83,105 +76,72 @@ class App extends React.Component<any, AppState> {
                                 mode={FormModes.UPDATE}
                             />
                         </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.VIEW_ENCOUNTER}
-                        >
+                        <Route exact path={urlPathConstants.VIEW_ENCOUNTER}>
                             <EncounterFullViewContainer mode={FormModes.VIEW} />
-                        </ReactRouterDOM.Route>
+                        </Route>
 
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.NEW_DIAGNOSIS}
-                        >
+                        <Route exact path={urlPathConstants.NEW_DIAGNOSIS}>
                             <DiagnosisFullViewContainer
                                 mode={FormModes.CREATE}
                             />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.UPDATE_DIAGNOSIS}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.UPDATE_DIAGNOSIS}>
                             <DiagnosisFullViewContainer
                                 mode={FormModes.UPDATE}
                             />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.VIEW_DIAGNOSIS}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.VIEW_DIAGNOSIS}>
                             <DiagnosisFullViewContainer mode={FormModes.VIEW} />
-                        </ReactRouterDOM.Route>
+                        </Route>
 
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.NEW_MEDICATION}
-                        >
+                        <Route exact path={urlPathConstants.NEW_MEDICATION}>
                             <MedicationFullViewContainer
                                 mode={FormModes.CREATE}
                             />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.UPDATE_MEDICATION}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.UPDATE_MEDICATION}>
                             <MedicationFullViewContainer
                                 mode={FormModes.UPDATE}
                             />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.VIEW_MEDICATION}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.VIEW_MEDICATION}>
                             <MedicationFullViewContainer
                                 mode={FormModes.VIEW}
                             />
-                        </ReactRouterDOM.Route>
+                        </Route>
 
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.NEW_ALLERGY}
-                        >
+                        <Route exact path={urlPathConstants.NEW_ALLERGY}>
                             <AllergyFullViewContainer mode={FormModes.CREATE} />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.UPDATE_ALLERGY}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.UPDATE_ALLERGY}>
                             <AllergyFullViewContainer mode={FormModes.UPDATE} />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.VIEW_ALLERGY}
-                        >
+                        </Route>
+                        <Route exact path={urlPathConstants.VIEW_ALLERGY}>
                             <AllergyFullViewContainer mode={FormModes.VIEW} />
-                        </ReactRouterDOM.Route>
+                        </Route>
 
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.NEW_VACCINATION}
-                        >
-                            <VaccinationFullViewContainer mode={FormModes.CREATE} />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.UPDATE_VACCINATION}
-                        >
-                            <VaccinationFullViewContainer mode={FormModes.UPDATE} />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.VIEW_VACCINATION}
-                        >
-                            <VaccinationFullViewContainer mode={FormModes.VIEW} />
-                        </ReactRouterDOM.Route>
+                        <Route exact path={urlPathConstants.NEW_VACCINATION}>
+                            <VaccinationFullViewContainer
+                                mode={FormModes.CREATE}
+                            />
+                        </Route>
+                        <Route exact path={urlPathConstants.UPDATE_VACCINATION}>
+                            <VaccinationFullViewContainer
+                                mode={FormModes.UPDATE}
+                            />
+                        </Route>
+                        <Route exact path={urlPathConstants.VIEW_VACCINATION}>
+                            <VaccinationFullViewContainer
+                                mode={FormModes.VIEW}
+                            />
+                        </Route>
 
-                        <ReactRouterDOM.Route path={urlPathConstants.HOME}>
-                            <Home />
-                        </ReactRouterDOM.Route>
+                        <Route path={urlPathConstants.HOME}>
+                            <AppHome />
+                        </Route>
                         <ReactRouterDOM.Redirect to={this.state.rootUrl} />
-                    </ReactRouterDOM.Switch>
-                </ReactRouterDOM.HashRouter>
+                    </Switch>
+                </HashRouter>
             </ReactRedux.Provider>
         );
     }
