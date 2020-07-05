@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
+import * as ReactRedux from 'react-redux';
 
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as types from '../../types/types';
@@ -9,6 +10,7 @@ import Panel from '../shared/Panel';
 import EncounterPanelBody from './EncounterPanelBody';
 import EncounterPanelHeader from './EncounterPanelHeader';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
+import * as actionCreators from '../../actions/action_creators';
 
 interface EncounterPanelProps {
     encounter: types.Encounter;
@@ -17,6 +19,7 @@ interface EncounterPanelProps {
     lastName: string;
     significanceGroup: string;
     history: any;
+    dispatch: any;
 }
 
 class EncounterPanel extends React.Component<EncounterPanelProps, any> {
@@ -26,6 +29,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
         this.handleViewFullButtonClick = this.handleViewFullButtonClick.bind(
             this
         );
+        this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this);
     }
 
     handleEditButtonClick() {
@@ -42,6 +46,23 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
             this.props.encounter.id.toString()
         );
         this.props.history.push(viewEncounterPath);
+    }
+
+    handleDeleteButtonClick() {
+        console.log('DELETING ENCOUNTER!');
+        const self = this;
+        this.props
+            .dispatch(
+                actionCreators.deleteEncounter(
+                    this.props.encounter.id,
+                    this.props.history
+                )
+            )
+            .then(function () {
+                self.props.dispatch(
+                    actionCreators.fetchUser(self.props.history)
+                );
+            });
     }
 
     render() {
@@ -64,7 +85,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
                         <PanelButtonFooter
                             buttons={{
                                 edit: this.handleEditButtonClick,
-                                delete: null,
+                                delete: this.handleDeleteButtonClick,
                                 viewFull: this.handleViewFullButtonClick,
                             }}
                         />
@@ -75,4 +96,4 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
     }
 }
 
-export default ReactRouterDOM.withRouter(EncounterPanel);
+export default ReactRedux.connect()(ReactRouterDOM.withRouter(EncounterPanel));

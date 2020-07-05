@@ -24,6 +24,7 @@ class EncounterContainer extends React.Component<EncounterContainerProps, any> {
         if (this.props.match.params.hasOwnProperty('id')) {
             encounter = this.getEncounter(this.props.match.params.id);
         }
+
         this.state = {
             encounterType: encounter?.encounterType || '',
             note: encounter?.note || '',

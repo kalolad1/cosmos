@@ -37,7 +37,11 @@ class PanelButtonFooter extends React.Component<PanelButtonFooterProps, any> {
                         </IconButton>
                     )}
                     {'delete' in this.props.buttons && (
-                        <IconButton aria-label="delete" size="medium">
+                        <IconButton
+                            aria-label="delete"
+                            size="medium"
+                            onClick={this.props.buttons['delete']}
+                        >
                             <DeleteIcon />
                         </IconButton>
                     )}

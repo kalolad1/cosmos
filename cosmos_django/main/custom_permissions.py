@@ -31,4 +31,7 @@ class EncountersPermissions(permissions.BasePermission):
         if request.method == api.HTTPMethod.PUT:
             if request.user and request.user.is_authenticated:
                 return True
+        if request.method == api.HTTPMethod.DELETE:
+            if request.user and request.user.is_authenticated:
+                return True
         return False

@@ -117,7 +117,7 @@ export function requestUpdateEncounter(): { type: string } {
 
 export function receiveUpdateEncounter(encounter) {
     /**
-     * Returns an action to notify that an encounter was successfully udpated.
+     * Returns an action to notify that an encounter was successfully updated.
      */
     return {
         type: actionTypes.RECEIVE_UPDATE_ENCOUNTER,
@@ -139,6 +139,39 @@ export function updateEncounter(
 
         return patientApi
             .updateEncounter(id, encounterType, note, history)
+            .then(function (response) {
+                dispatch(receiveUpdateEncounter(response.data));
+            });
+    };
+}
+
+export function requestDeleteEncounter(): { type: string } {
+    /**
+     * Returns an action to notify that a DELETE encounter request was made.
+     */
+    return {
+        type: actionTypes.REQUEST_DELETE_ENCOUNTER,
+    };
+}
+
+export function receiveDeleteEncounter() {
+    /**
+     * Returns an action to notify that an encounter was successfully deleted.
+     */
+    return {
+        type: actionTypes.RECEIVE_UPDATE_ENCOUNTER,
+    };
+}
+
+export function deleteEncounter(id: number, history: any) {
+    /**
+     * Deletes an encounter.
+     */
+    return function (dispatch) {
+        dispatch(requestDeleteEncounter());
+
+        return patientApi
+            .deleteEncounter(id, history)
             .then(function (response) {
                 dispatch(receiveUpdateEncounter(response.data));
             });

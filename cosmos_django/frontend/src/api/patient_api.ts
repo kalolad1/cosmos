@@ -97,3 +97,18 @@ export function updateEncounter(
     }
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
+
+export function deleteEncounter(id: number, history: any) {
+    /**
+     * Deletes an encounter.
+     */
+    function request() {
+        return axiosConfig.axiosClient.delete(apiEndpointConstants.ENCOUNTERS, {
+            data: {
+                id: id,
+            },
+            ...authUtil.getAuthorizationRequestHeader(),
+        });
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}

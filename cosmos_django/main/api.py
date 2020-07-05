@@ -27,6 +27,7 @@ class HTTPMethod:
     GET = 'GET'
     POST = 'POST'
     PUT = 'PUT'
+    DELETE = 'DELETE'
 
 
 class AccountsEndpoint(views.APIView):
@@ -111,4 +112,21 @@ class EncountersEndpoint(views.APIView):
                          json.dumps(serialized_encounter.data))
             return response.Response(data=serialized_encounter.data,
                                      status=status.HTTP_200_OK)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request: Request) -> response.Response:
+        """Deletes an encounter."""
+        try:
+            encounter: models.Encounter = models.Encounter.objects.get(
+                id=request.data.pop('id'))
+        except models.Encounter.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            encounter.delete()
+        except Exception:
+            pass
+        else:
+            logging.info('Deleting encounter')
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
         return response.Response(status=status.HTTP_400_BAD_REQUEST)
