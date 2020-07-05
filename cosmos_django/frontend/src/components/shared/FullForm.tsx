@@ -16,14 +16,20 @@ class FullForm extends React.Component<FullFormProps, any> {
     render() {
         return (
             <div className="full-form">
-                <IconButton
-                    aria-label="close"
-                    size="medium"
-                    onClick={this.props.handleClose}
-                >
-                    <CloseIcon />
-                </IconButton>
-                {this.props.content}
+                <div className="full-form-close-button">
+                    <IconButton
+                        aria-label="close"
+                        size="medium"
+                        onClick={this.props.handleClose}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </div>
+                <div className="full-form-content-container">
+                    <div className="full-form-content">
+                        {this.props.content}
+                    </div>
+                </div>
             </div>
         );
     }

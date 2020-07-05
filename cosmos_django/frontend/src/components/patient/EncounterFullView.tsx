@@ -72,15 +72,19 @@ class EncounterFullView extends React.Component<
 
     render() {
         let buttonText;
+        let headingText;
         if (this.props.mode == formConstants.FormModes.UPDATE) {
             buttonText = 'Update';
+            headingText = 'Update Encounter';
         } else if (this.props.mode == formConstants.FormModes.CREATE) {
             buttonText = 'Create';
+            headingText = 'New Encounter';
         }
 
         const content = (
             <div>
                 <form onSubmit={this.props.handleSubmit}>
+                    <h1 className="main-heading">{headingText}</h1>
                     <div className="form-input-container">
                         <PanelBodyLineItem
                             icon={<LayersIcon />}
