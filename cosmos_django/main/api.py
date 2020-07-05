@@ -310,3 +310,62 @@ class AllergiesEndpoint(views.APIView):
             logging.info('Deleting allergy')
             return response.Response(status=status.HTTP_204_NO_CONTENT)
         return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+class VaccinationsEndpoint(views.APIView):
+    """Endpoints for Vaccination objects."""
+    permission_classes = (custom_permissions.VaccinationsPermissions, )
+
+    def post(self, request: Request) -> response.Response:
+        """Adds a new vaccination for the user."""
+        try:
+            vaccination: models.Vaccination = models.Vaccination.create_from_json(
+                data=request.data,
+                patient_profile=request.user.patient_profile)
+        except custom_exceptions.DataNotProvided as e:
+            return response.Response(data=e.get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
+
+        serialized_vaccination: serializers.VaccinationSerializer = serializers.VaccinationSerializer(
+            instance=vaccination)
+        logging.info('Creating a new vaccination with data: %s.',
+                     json.dumps(serialized_vaccination.data))
+        return response.Response(data=serialized_vaccination.data,
+                                 status=status.HTTP_201_CREATED)
+
+    def put(self, request: Request) -> response.Response:
+        """Updates an existing vaccination."""
+        try:
+            vaccination: models.Vaccination = models.Vaccination.objects.get(
+                id=request.data.pop('id'))
+        except models.Vaccination.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            vaccination.update_from_json(request.data)
+        except Exception:
+            pass
+        else:
+            serialized_vaccination: serializers.VaccinationSerializer = serializers.VaccinationSerializer(
+                instance=vaccination)
+            logging.info('Updating vaccination with new data: %s.',
+                         json.dumps(serialized_vaccination.data))
+            return response.Response(data=serialized_vaccination.data,
+                                     status=status.HTTP_200_OK)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request: Request) -> response.Response:
+        """Deletes a vaccination."""
+        try:
+            vaccination: models.Vaccination = models.Vaccination.objects.get(
+                id=request.data.pop('id'))
+        except models.Vaccination.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            vaccination.delete()
+        except Exception:
+            pass
+        else:
+            logging.info('Deleting vaccination')
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)

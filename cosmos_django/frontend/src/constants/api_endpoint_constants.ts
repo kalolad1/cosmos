@@ -16,3 +16,4 @@ export const ENCOUNTERS = 'encounters/';
 export const DIAGNOSES = 'diagnoses/';
 export const MEDICATIONS = 'medications/';
 export const ALLERGIES = 'allergies/';
+export const VACCINATIONS = 'vaccinations/';

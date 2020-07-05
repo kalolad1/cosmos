@@ -285,3 +285,60 @@ export function deleteAllergy(id: number, history: any) {
     }
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
+
+/* Vaccination */
+export function addVaccination(name: string, description: string, history: any) {
+    /**
+     * Adds a vaccination.
+     */
+    function request() {
+        return axiosConfig.axiosClient.post(
+            apiEndpointConstants.VACCINATIONS,
+            {
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function updateVaccination(
+    id: number,
+    name: string,
+    description: string,
+    history: any
+) {
+    /**
+     * Updates an vaccination.
+     */
+    function request() {
+        return axiosConfig.axiosClient.put(
+            apiEndpointConstants.VACCINATIONS,
+            {
+                id: id,
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function deleteVaccination(id: number, history: any) {
+    /**
+     * Deletes an vaccination.
+     */
+    function request() {
+        return axiosConfig.axiosClient.delete(apiEndpointConstants.VACCINATIONS, {
+            data: {
+                id: id,
+            },
+            ...authUtil.getAuthorizationRequestHeader(),
+        });
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+

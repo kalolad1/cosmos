@@ -1,4 +1,7 @@
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
+import * as ReactRedux from 'react-redux';
+
 
 import * as types from '../../types/types';
 import * as dateUtil from '../../util/date_util';
@@ -10,9 +13,14 @@ import Panel from '../shared/Panel';
 import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
 import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
+import * as urlUtil from "../../util/url_util";
+import * as urlPathConstants from "../../constants/url_path_constants";
+import * as actionCreators from "../../actions/action_creators";
 
 interface VaccinationPopupPanelProps {
     vaccination: types.Vaccination;
+    history: any;
+    dispatch: any;
 }
 
 class VaccinationPopupPanel extends React.Component<
@@ -21,7 +29,35 @@ class VaccinationPopupPanel extends React.Component<
 > {
     constructor(props) {
         super(props);
+
+        this.handleEditButtonClick = this.handleEditButtonClick.bind(this);
+        this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this);
     }
+
+     handleEditButtonClick() {
+        const updateVaccinationPath = urlUtil.getUrlPathWithId(
+            urlPathConstants.UPDATE_VACCINATION,
+            this.props.vaccination.id.toString()
+        );
+        this.props.history.push(updateVaccinationPath);
+    }
+
+    handleDeleteButtonClick() {
+        const self = this;
+        this.props
+            .dispatch(
+                actionCreators.deleteVaccination(
+                    this.props.vaccination.id,
+                    this.props.history
+                )
+            )
+            .then(function () {
+                self.props.dispatch(
+                    actionCreators.fetchUser(self.props.history)
+                );
+            });
+    }
+
 
     render() {
         const header = (
@@ -45,7 +81,7 @@ class VaccinationPopupPanel extends React.Component<
             </div>
         );
         const footer = (
-            <PanelButtonFooter buttons={{ edit: null, delete: null }} />
+            <PanelButtonFooter buttons={{ edit: this.handleEditButtonClick, delete: this.handleDeleteButtonClick }} />
         );
 
         return (
@@ -56,4 +92,7 @@ class VaccinationPopupPanel extends React.Component<
     }
 }
 
-export default VaccinationPopupPanel;
+export default ReactRedux.connect()(
+    ReactRouterDOM.withRouter(VaccinationPopupPanel)
+);
+

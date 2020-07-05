@@ -9,7 +9,7 @@ import NotesIcon from '@material-ui/icons/Notes';
 import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import FullForm from '../shared/FullForm';
 
-interface DiagnosisFullViewProps {
+interface VaccinationFullViewProps {
     mode: string;
     name: string;
     description: string;
@@ -19,11 +19,11 @@ interface DiagnosisFullViewProps {
     handleClose: any;
 }
 
-interface DiagnosisFullViewState {}
+interface VaccinationFullViewState {}
 
-class DiagnosisFullView extends React.Component<
-    DiagnosisFullViewProps,
-    DiagnosisFullViewState
+class VaccinationFullView extends React.Component<
+    VaccinationFullViewProps,
+    VaccinationFullViewState
 > {
     constructor(props) {
         super(props);
@@ -39,10 +39,10 @@ class DiagnosisFullView extends React.Component<
         let headingText;
         if (this.props.mode == formConstants.FormModes.UPDATE) {
             buttonText = 'Update';
-            headingText = 'Update Diagnosis';
+            headingText = 'Update Vaccination';
         } else if (this.props.mode == formConstants.FormModes.CREATE) {
             buttonText = 'Create';
-            headingText = 'New Diagnosis';
+            headingText = 'New Vaccination';
         }
 
         const content = (
@@ -115,4 +115,4 @@ class DiagnosisFullView extends React.Component<
     }
 }
 
-export default DiagnosisFullView;
+export default VaccinationFullView;

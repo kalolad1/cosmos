@@ -25,4 +25,8 @@ export const NEW_ALLERGY = '/allergy/new';
 export const VIEW_ALLERGY = '/allergy/:id';
 export const UPDATE_ALLERGY = '/allergy/:id/update';
 
+export const NEW_VACCINATION = '/vaccination/new';
+export const VIEW_VACCINATION = '/vaccination/:id';
+export const UPDATE_VACCINATION = '/vaccination/:id/update';
+
 export const ADD_ENCOUNTER = '/add-encounter';
