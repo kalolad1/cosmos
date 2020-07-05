@@ -322,6 +322,11 @@
     justify-content: space-between;
 }
 
+/* FullForm */
+.full-form {
+    padding: 40px;
+}
+
 /* Utilities */
 /* Containers */
 .rounded-grey-container {

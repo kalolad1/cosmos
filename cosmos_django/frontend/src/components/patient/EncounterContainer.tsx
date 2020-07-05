@@ -3,6 +3,9 @@ import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as types from '../../types/types';
+import * as actionCreators from '../../actions/action_creators';
+import * as urlPathConstants from '../../constants/url_path_constants';
+import * as formConstants from '../../constants/form_constants';
 
 import EncounterFullView from './EncounterFullView';
 
@@ -10,12 +13,67 @@ interface EncounterContainerProps {
     mode: string;
     match: any;
     encounters: Array<types.Encounter>;
+    history: any;
+    dispatch: any;
 }
 
 class EncounterContainer extends React.Component<EncounterContainerProps, any> {
     constructor(props) {
         super(props);
+        let encounter;
+        if (this.props.match.params.hasOwnProperty('id')) {
+            encounter = this.getEncounter(this.props.match.params.id);
+        }
+        this.state = {
+            encounterType: encounter?.encounterType || '',
+            note: encounter?.note || '',
+        };
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.getEncounter = this.getEncounter.bind(this);
+        this.handleAddEncounterSubmit = this.handleAddEncounterSubmit.bind(
+            this
+        );
+        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleInputChange(event: React.SyntheticEvent): void {
+        const element = event.target as HTMLInputElement;
+        const name: string = element.name;
+        this.setState({
+            ...this.state,
+            [name]: element.value,
+        });
+    }
+
+    handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+        const element = event.target;
+        const name: string = element.name;
+        this.setState({
+            ...this.state,
+            [name]: element.value,
+        });
+    }
+
+    handleClose(event: React.SyntheticEvent): void {
+        event.preventDefault();
+        this.props.history.goBack();
+    }
+
+    handleAddEncounterSubmit(event) {
+        event.preventDefault();
+        const self = this;
+        this.props
+            .dispatch(
+                actionCreators.addEncounter(
+                    this.state.encounterType,
+                    this.state.note,
+                    this.props.history
+                )
+            )
+            .then(function () {
+                self.props.history.replace(urlPathConstants.TIMELINE);
+            });
     }
 
     getEncounter(id: number) {
@@ -30,17 +88,23 @@ class EncounterContainer extends React.Component<EncounterContainerProps, any> {
     }
 
     render() {
-        let fullEncounterView;
-        if (this.props.match.params.hasOwnProperty('id')) {
-            fullEncounterView = (
-                <EncounterFullView
-                    mode={this.props.mode}
-                    encounter={this.getEncounter(this.props.match.params.id)!}
-                />
-            );
-        } else {
-            fullEncounterView = <EncounterFullView mode={this.props.mode} />;
+        let handleSubmit;
+        if (this.props.mode == formConstants.FormModes.CREATE) {
+            handleSubmit = this.handleAddEncounterSubmit;
         }
+
+        let fullEncounterView = (
+            <EncounterFullView
+                mode={this.props.mode}
+                encounterType={this.state.encounterType}
+                note={this.state.note}
+                handleSubmit={handleSubmit}
+                handleInputChange={this.handleInputChange}
+                handleSelectChange={this.handleSelectChange}
+                handleClose={this.handleClose}
+            />
+        );
+
         return <div>{fullEncounterView}</div>;
     }
 }

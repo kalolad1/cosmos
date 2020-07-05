@@ -13,7 +13,6 @@ import * as authUtil from '../util/auth_util';
 
 import SignupForm from './authentication/SignupForm';
 import LoginForm from '../components/authentication/LoginForm';
-import VisitCreator from './patient/EncounterCreator';
 import Home from './patient/Home';
 import EncounterFullView from './patient/EncounterFullView';
 import EncounterContainer from './patient/EncounterContainer';
@@ -84,12 +83,6 @@ class App extends React.Component<any, AppState> {
                             path={urlPathConstants.VIEW_ENCOUNTER}
                         >
                             <EncounterContainer mode={FormModes.VIEW} />
-                        </ReactRouterDOM.Route>
-                        <ReactRouterDOM.Route
-                            exact
-                            path={urlPathConstants.ADD_ENCOUNTER}
-                        >
-                            <VisitCreator />
                         </ReactRouterDOM.Route>
                         <ReactRouterDOM.Route path={urlPathConstants.HOME}>
                             <Home />
