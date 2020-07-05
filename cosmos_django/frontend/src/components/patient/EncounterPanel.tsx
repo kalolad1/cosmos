@@ -23,6 +23,9 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
     constructor(props) {
         super(props);
         this.handleEditButtonClick = this.handleEditButtonClick.bind(this);
+        this.handleViewFullButtonClick = this.handleViewFullButtonClick.bind(
+            this
+        );
     }
 
     handleEditButtonClick() {
@@ -31,6 +34,14 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
             this.props.encounter.id.toString()
         );
         this.props.history.push(updateEncounterPath);
+    }
+
+    handleViewFullButtonClick() {
+        const viewEncounterPath = urlUtil.getUrlPathWithId(
+            urlPathConstants.VIEW_ENCOUNTER,
+            this.props.encounter.id.toString()
+        );
+        this.props.history.push(viewEncounterPath);
     }
 
     render() {
@@ -54,7 +65,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
                             buttons={{
                                 edit: this.handleEditButtonClick,
                                 delete: null,
-                                viewFull: null,
+                                viewFull: this.handleViewFullButtonClick,
                             }}
                         />
                     }

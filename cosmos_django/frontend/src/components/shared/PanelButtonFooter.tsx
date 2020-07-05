@@ -20,7 +20,9 @@ class PanelButtonFooter extends React.Component<PanelButtonFooterProps, any> {
             <div className="panel-button-footer">
                 <div>
                     {'viewFull' in this.props.buttons && (
-                        <Button>View full</Button>
+                        <Button onClick={this.props.buttons['viewFull']}>
+                            View full
+                        </Button>
                     )}
                 </div>
 

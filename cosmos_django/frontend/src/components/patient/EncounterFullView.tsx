@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
+import * as formConstants from '../../constants/form_constants';
 import * as modelConstants from '../../constants/model_constants';
 import * as textUtil from '../../util/text_util';
+
 import {
     Button,
     FormControl,
@@ -40,6 +42,11 @@ class EncounterFullView extends React.Component<
         this.createEncounterTypeMenuItems = this.createEncounterTypeMenuItems.bind(
             this
         );
+        this.isFormReadOnly = this.isFormReadOnly.bind(this);
+    }
+
+    isFormReadOnly() {
+        return this.props.mode == formConstants.FormModes.VIEW;
     }
 
     createEncounterTypeMenuItems() {
@@ -64,6 +71,13 @@ class EncounterFullView extends React.Component<
     }
 
     render() {
+        let buttonText;
+        if (this.props.mode == formConstants.FormModes.UPDATE) {
+            buttonText = 'Update';
+        } else if (this.props.mode == formConstants.FormModes.CREATE) {
+            buttonText = 'Create';
+        }
+
         const content = (
             <div>
                 <form onSubmit={this.props.handleSubmit}>
@@ -86,6 +100,7 @@ class EncounterFullView extends React.Component<
                                         inputProps={{
                                             required: true,
                                         }}
+                                        disabled={this.isFormReadOnly()}
                                     >
                                         {this.createEncounterTypeMenuItems()}
                                     </Select>
@@ -109,19 +124,22 @@ class EncounterFullView extends React.Component<
                                         required: true,
                                     }}
                                     fullWidth
+                                    disabled={this.isFormReadOnly()}
                                 />
                             }
                         />
                     </div>
-                    <div className="form-button-container">
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            type="submit"
-                        >
-                            Add
-                        </Button>
-                    </div>
+                    {!this.isFormReadOnly() && (
+                        <div className="form-button-container">
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                type="submit"
+                            >
+                                {buttonText}
+                            </Button>
+                        </div>
+                    )}
                 </form>
             </div>
         );
