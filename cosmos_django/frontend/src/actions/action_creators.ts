@@ -369,7 +369,7 @@ export function receiveDeleteMedication() {
      * Returns an action to notify that a medication was successfully deleted.
      */
     return {
-        type: actionTypes.RECEIVE_UPDATE_MEDICATION,
+        type: actionTypes.RECEIVE_DELETE_MEDICATION,
     };
 }
 
@@ -382,6 +382,111 @@ export function deleteMedication(id: number, history: any) {
 
         return patientApi.deleteMedication(id, history).then(function () {
             dispatch(receiveDeleteMedication());
+        });
+    };
+}
+
+/* Allergy */
+export function requestAddAllergy(): { type: string } {
+    /**
+     * Returns an action to notify that a POST allergy request was made.
+     */
+    return {
+        type: actionTypes.REQUEST_ADD_ALLERGY,
+    };
+}
+
+export function receiveAddAllergy(allergy) {
+    /**
+     * Returns an action to notify that a allergy was added.
+     */
+    return {
+        type: actionTypes.RECEIVE_ADD_ALLERGY,
+        allergy: allergy,
+    };
+}
+
+export function addAllergy(name: string, description: string, history) {
+    /**
+     * Adds a allergy and saves it to the client store.
+     */
+    return function (dispatch) {
+        dispatch(requestAddAllergy());
+
+        return patientApi
+            .addAllergy(name, description, history)
+            .then(function (response) {
+                dispatch(receiveAddAllergy(response.data));
+            });
+    };
+}
+
+export function requestUpdateAllergy(): { type: string } {
+    /**
+     * Returns an action to notify that a PUT allergy request was made.
+     */
+    return {
+        type: actionTypes.REQUEST_UPDATE_ALLERGY,
+    };
+}
+
+export function receiveUpdateAllergy(allergy) {
+    /**
+     * Returns an action to notify that an allergy was successfully updated.
+     */
+    return {
+        type: actionTypes.RECEIVE_UPDATE_ALLERGY,
+        allergy: allergy,
+    };
+}
+
+export function updateAllergy(
+    id: number,
+    name: string,
+    description: string,
+    history
+) {
+    /**
+     * Updates a allergy and saves updated state to the client store.
+     */
+    return function (dispatch) {
+        dispatch(requestUpdateAllergy());
+
+        return patientApi
+            .updateAllergy(id, name, description, history)
+            .then(function (response) {
+                dispatch(receiveUpdateAllergy(response.data));
+            });
+    };
+}
+
+export function requestDeleteAllergy(): { type: string } {
+    /**
+     * Returns an action to notify that a DELETE allergy request was made.
+     */
+    return {
+        type: actionTypes.REQUEST_DELETE_ALLERGY,
+    };
+}
+
+export function receiveDeleteAllergy() {
+    /**
+     * Returns an action to notify that a allergy was successfully deleted.
+     */
+    return {
+        type: actionTypes.RECEIVE_DELETE_ALLERGY,
+    };
+}
+
+export function deleteAllergy(id: number, history: any) {
+    /**
+     * Deletes a allergy.
+     */
+    return function (dispatch) {
+        dispatch(requestDeleteAllergy());
+
+        return patientApi.deleteAllergy(id, history).then(function () {
+            dispatch(receiveDeleteAllergy());
         });
     };
 }

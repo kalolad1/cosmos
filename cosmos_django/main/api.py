@@ -250,3 +250,63 @@ class MedicationsEndpoint(views.APIView):
             logging.info('Deleting medication')
             return response.Response(status=status.HTTP_204_NO_CONTENT)
         return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class AllergiesEndpoint(views.APIView):
+    """Endpoints for Allergy objects."""
+    permission_classes = (custom_permissions.AllergiesPermissions, )
+
+    def post(self, request: Request) -> response.Response:
+        """Adds a new allergy for the user."""
+        try:
+            allergy: models.Allergy = models.Allergy.create_from_json(
+                data=request.data,
+                patient_profile=request.user.patient_profile)
+        except custom_exceptions.DataNotProvided as e:
+            return response.Response(data=e.get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
+
+        serialized_allergy: serializers.AllergySerializer = serializers.AllergySerializer(
+            instance=allergy)
+        logging.info('Creating a new allergy with data: %s.',
+                     json.dumps(serialized_allergy.data))
+        return response.Response(data=serialized_allergy.data,
+                                 status=status.HTTP_201_CREATED)
+
+    def put(self, request: Request) -> response.Response:
+        """Updates an existing allergy."""
+        try:
+            allergy: models.Allergy = models.Allergy.objects.get(
+                id=request.data.pop('id'))
+        except models.Allergy.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            allergy.update_from_json(request.data)
+        except Exception:
+            pass
+        else:
+            serialized_allergy: serializers.AllergySerializer = serializers.AllergySerializer(
+                instance=allergy)
+            logging.info('Updating allergy with new data: %s.',
+                         json.dumps(serialized_allergy.data))
+            return response.Response(data=serialized_allergy.data,
+                                     status=status.HTTP_200_OK)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request: Request) -> response.Response:
+        """Deletes a allergy."""
+        try:
+            allergy: models.Allergy = models.Allergy.objects.get(
+                id=request.data.pop('id'))
+        except models.Allergy.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            allergy.delete()
+        except Exception:
+            pass
+        else:
+            logging.info('Deleting allergy')
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
 
 import * as types from '../../types/types';
 
@@ -9,17 +10,20 @@ import PopupListItem from '../shared/PopupListItem';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import AllergyPopupPanel from './AllergyPopupPanel';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
+import * as urlPathConstants from '../../constants/url_path_constants';
 
 const PANEL_TITLE = 'Allergies';
 
 interface AllergiesPanelProps {
     allergies: Array<types.Allergy>;
+    history: any;
 }
 
 class AllergiesPanel extends React.Component<AllergiesPanelProps, any> {
     constructor(props) {
         super(props);
         this.getAllergyListItems = this.getAllergyListItems.bind(this);
+        this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
     }
 
     getAllergyListItems() {
@@ -34,9 +38,15 @@ class AllergiesPanel extends React.Component<AllergiesPanelProps, any> {
         });
     }
 
+    handleAddButtonClick() {
+        this.props.history.push(urlPathConstants.NEW_ALLERGY);
+    }
+
     render() {
         const body = <List>{this.getAllergyListItems()}</List>;
-        const footer = <PanelButtonFooter buttons={{ add: null }} />;
+        const footer = (
+            <PanelButtonFooter buttons={{ add: this.handleAddButtonClick }} />
+        );
         return (
             <Panel
                 header={<TitlePanelHeader title={PANEL_TITLE} />}
@@ -47,4 +57,4 @@ class AllergiesPanel extends React.Component<AllergiesPanelProps, any> {
     }
 }
 
-export default AllergiesPanel;
+export default ReactRouterDOM.withRouter(AllergiesPanel);

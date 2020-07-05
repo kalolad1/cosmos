@@ -21,4 +21,8 @@ export const NEW_MEDICATION = '/medication/new';
 export const VIEW_MEDICATION = '/medication/:id';
 export const UPDATE_MEDICATION = '/medication/:id/update';
 
+export const NEW_ALLERGY = '/allergy/new';
+export const VIEW_ALLERGY = '/allergy/:id';
+export const UPDATE_ALLERGY = '/allergy/:id/update';
+
 export const ADD_ENCOUNTER = '/add-encounter';

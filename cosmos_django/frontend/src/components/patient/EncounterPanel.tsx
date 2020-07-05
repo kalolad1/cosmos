@@ -49,7 +49,6 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
     }
 
     handleDeleteButtonClick() {
-        console.log('DELETING ENCOUNTER!');
         const self = this;
         this.props
             .dispatch(

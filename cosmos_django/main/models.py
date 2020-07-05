@@ -359,6 +359,23 @@ class Allergy(MedicalEntity):
     def __str__(self) -> str:
         return self.name.__str__()
 
+    @staticmethod
+    def create_from_json(data, patient_profile):
+        try:
+            name = data['name']
+            description = data['description']
+        except KeyError:
+            raise custom_exceptions.DataNotProvided()
+
+        return Allergy.objects.create(patient_profile=patient_profile,
+                                      name=name,
+                                      description=description)
+
+    def update_from_json(self, data):
+        for attribute, value in data.items():
+            setattr(self, attribute, value)
+        self.save()
+
 
 class Vaccination(MedicalEntity):
     class Meta:

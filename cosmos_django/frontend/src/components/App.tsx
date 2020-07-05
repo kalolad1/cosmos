@@ -18,6 +18,7 @@ import EncounterFullViewContainer from './patient/EncounterFullViewContainer';
 import MedicationFullViewContainer from './patient/MedicationFullViewContainer';
 import { FormModes } from '../constants/form_constants';
 import DiagnosisFullViewContainer from './patient/DiagnosisFullViewContainer';
+import AllergyFullViewContainer from './patient/AllergyFullViewContainer';
 
 export const store = Redux.createStore(
     reducers.rootReducer,
@@ -134,6 +135,25 @@ class App extends React.Component<any, AppState> {
                             <MedicationFullViewContainer
                                 mode={FormModes.VIEW}
                             />
+                        </ReactRouterDOM.Route>
+
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.NEW_ALLERGY}
+                        >
+                            <AllergyFullViewContainer mode={FormModes.CREATE} />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.UPDATE_ALLERGY}
+                        >
+                            <AllergyFullViewContainer mode={FormModes.UPDATE} />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.VIEW_ALLERGY}
+                        >
+                            <AllergyFullViewContainer mode={FormModes.VIEW} />
                         </ReactRouterDOM.Route>
 
                         <ReactRouterDOM.Route path={urlPathConstants.HOME}>

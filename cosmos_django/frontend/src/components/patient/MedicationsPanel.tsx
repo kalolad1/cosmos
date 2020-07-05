@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
-import * as ReactRedux from 'react-redux';
 
 import * as types from '../../types/types';
 
@@ -58,6 +57,4 @@ class MedicationsPanel extends React.Component<MedicationsPanelProps, any> {
     }
 }
 
-export default ReactRedux.connect()(
-    ReactRouterDOM.withRouter(MedicationsPanel)
-);
+export default ReactRouterDOM.withRouter(MedicationsPanel);

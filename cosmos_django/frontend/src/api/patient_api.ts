@@ -229,3 +229,59 @@ export function deleteMedication(id: number, history: any) {
     }
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
+
+/* Allergy */
+export function addAllergy(name: string, description: string, history: any) {
+    /**
+     * Adds an allergy.
+     */
+    function request() {
+        return axiosConfig.axiosClient.post(
+            apiEndpointConstants.ALLERGIES,
+            {
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function updateAllergy(
+    id: number,
+    name: string,
+    description: string,
+    history: any
+) {
+    /**
+     * Updates an allergy.
+     */
+    function request() {
+        return axiosConfig.axiosClient.put(
+            apiEndpointConstants.ALLERGIES,
+            {
+                id: id,
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function deleteAllergy(id: number, history: any) {
+    /**
+     * Deletes an allergy.
+     */
+    function request() {
+        return axiosConfig.axiosClient.delete(apiEndpointConstants.ALLERGIES, {
+            data: {
+                id: id,
+            },
+            ...authUtil.getAuthorizationRequestHeader(),
+        });
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}

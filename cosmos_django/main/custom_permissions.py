@@ -56,7 +56,23 @@ class DiagnosesPermissions(permissions.BasePermission):
 class MedicationsPermissions(permissions.BasePermission):
     # TODO write tests for this.
     def has_permission(self, request: Request, view=None) -> bool:
-        # Require authentication to create a diagnosis.
+        # Require authentication to create a medication.
+        if request.method == api.HTTPMethod.POST:
+            if request.user and request.user.is_authenticated:
+                return True
+        if request.method == api.HTTPMethod.PUT:
+            if request.user and request.user.is_authenticated:
+                return True
+        if request.method == api.HTTPMethod.DELETE:
+            if request.user and request.user.is_authenticated:
+                return True
+        return False
+
+
+class AllergiesPermissions(permissions.BasePermission):
+    # TODO write tests for this.
+    def has_permission(self, request: Request, view=None) -> bool:
+        # Require authentication to create an allergy.
         if request.method == api.HTTPMethod.POST:
             if request.user and request.user.is_authenticated:
                 return True
