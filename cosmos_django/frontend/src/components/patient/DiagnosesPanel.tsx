@@ -1,4 +1,6 @@
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
+import * as ReactRedux from 'react-redux';
 
 import * as types from '../../types/types';
 
@@ -9,17 +11,20 @@ import PopupListItem from '../shared/PopupListItem';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import DiagnosisPopupPanel from './DiagnosisPopupPanel';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
+import * as urlPathConstants from '../../constants/url_path_constants';
 
 const PANEL_TITLE = 'Diagnoses';
 
 interface DiagnosesPanelProps {
     diagnoses: Array<types.Diagnosis>;
+    history: any;
 }
 
 class DiagnosesPanel extends React.Component<DiagnosesPanelProps, any> {
     constructor(props) {
         super(props);
         this.getDiagnosisListItems = this.getDiagnosisListItems.bind(this);
+        this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
     }
 
     getDiagnosisListItems() {
@@ -34,9 +39,15 @@ class DiagnosesPanel extends React.Component<DiagnosesPanelProps, any> {
         });
     }
 
+    handleAddButtonClick() {
+        this.props.history.push(urlPathConstants.NEW_DIAGNOSIS);
+    }
+
     render() {
         const body = <List>{this.getDiagnosisListItems()}</List>;
-        const footer = <PanelButtonFooter buttons={{ add: null }} />;
+        const footer = (
+            <PanelButtonFooter buttons={{ add: this.handleAddButtonClick }} />
+        );
         return (
             <Panel
                 header={<TitlePanelHeader title={PANEL_TITLE} />}
@@ -47,4 +58,4 @@ class DiagnosesPanel extends React.Component<DiagnosesPanelProps, any> {
     }
 }
 
-export default DiagnosesPanel;
+export default ReactRedux.connect()(ReactRouterDOM.withRouter(DiagnosesPanel));

@@ -12,3 +12,4 @@ export const GET_TOKEN = 'token/';
 export const REFRESH_TOKEN = 'token/refresh/';
 export const USERS = 'users/';
 export const ENCOUNTERS = 'encounters/';
+export const DIAGNOSES = 'diagnoses/';

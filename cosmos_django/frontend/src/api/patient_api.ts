@@ -27,6 +27,7 @@ async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
     return null;
 }
 
+/* User */
 export function getUser(history: any) {
     /**
      * Fetches user from the server.
@@ -54,6 +55,7 @@ export function updateUser(user: types.User, history: any) {
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
 
+/* Encounter */
 export function addEncounter(
     encounterType: string,
     note: string,
@@ -104,6 +106,62 @@ export function deleteEncounter(id: number, history: any) {
      */
     function request() {
         return axiosConfig.axiosClient.delete(apiEndpointConstants.ENCOUNTERS, {
+            data: {
+                id: id,
+            },
+            ...authUtil.getAuthorizationRequestHeader(),
+        });
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+/* Diagnosis */
+export function addDiagnosis(name: string, description: string, history: any) {
+    /**
+     * Adds a diagnosis.
+     */
+    function request() {
+        return axiosConfig.axiosClient.post(
+            apiEndpointConstants.DIAGNOSES,
+            {
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function updateDiagnosis(
+    id: number,
+    name: string,
+    description: string,
+    history: any
+) {
+    /**
+     * Updates a diagnosis.
+     */
+    function request() {
+        return axiosConfig.axiosClient.put(
+            apiEndpointConstants.DIAGNOSES,
+            {
+                id: id,
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function deleteDiagnosis(id: number, history: any) {
+    /**
+     * Deletes a diagnosis.
+     */
+    function request() {
+        return axiosConfig.axiosClient.delete(apiEndpointConstants.DIAGNOSES, {
             data: {
                 id: id,
             },

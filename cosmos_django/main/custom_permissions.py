@@ -35,3 +35,19 @@ class EncountersPermissions(permissions.BasePermission):
             if request.user and request.user.is_authenticated:
                 return True
         return False
+
+
+class DiagnosesPermissions(permissions.BasePermission):
+    # TODO write tests for this.
+    def has_permission(self, request: Request, view=None) -> bool:
+        # Require authentication to create a diagnosis.
+        if request.method == api.HTTPMethod.POST:
+            if request.user and request.user.is_authenticated:
+                return True
+        if request.method == api.HTTPMethod.PUT:
+            if request.user and request.user.is_authenticated:
+                return True
+        if request.method == api.HTTPMethod.DELETE:
+            if request.user and request.user.is_authenticated:
+                return True
+        return False

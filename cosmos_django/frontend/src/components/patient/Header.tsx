@@ -32,7 +32,6 @@ class Header extends React.Component<HeaderProps, any> {
         event.preventDefault();
 
         this.props.history.push(urlPathConstants.NEW_ENCOUNTER);
-        // this.props.history.push(urlPathConstants.ADD_ENCOUNTER);
     }
 
     render() {

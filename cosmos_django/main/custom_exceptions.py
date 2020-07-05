@@ -54,3 +54,13 @@ class DataForNewEncounterNotProvidedException(CustomException):
 
     def get_user_facing_message(self):
         return self.USER_FACING_MESSAGE
+
+
+class DataNotProvided(CustomException):
+    USER_FACING_MESSAGE = 'All information needed to create object was not provided!'
+
+    def __init__(self, message=None):
+        super().__init__(message)
+
+    def get_user_facing_message(self):
+        return self.USER_FACING_MESSAGE

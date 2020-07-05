@@ -14,4 +14,5 @@ urlpatterns = [
     path('encounters/',
          api.EncountersEndpoint.as_view(),
          name='main/encounters'),
+    path('diagnoses/', api.DiagnosesEndpoint.as_view(), name='main/diagnosis'),
 ]

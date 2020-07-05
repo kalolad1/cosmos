@@ -15,10 +15,11 @@ import SignupForm from './authentication/SignupForm';
 import LoginForm from '../components/authentication/LoginForm';
 import Home from './patient/Home';
 import EncounterFullView from './patient/EncounterFullView';
-import EncounterContainer from './patient/EncounterContainer';
+import EncounterFullViewContainer from './patient/EncounterFullViewContainer';
 import { FormModes } from '../constants/form_constants';
 import { Switch } from 'react-router-dom';
 import { url } from 'inspector';
+import DiagnosisFullViewContainer from './patient/DiagnosisFullViewContainer';
 
 export const store = Redux.createStore(
     reducers.rootReducer,
@@ -70,20 +71,48 @@ class App extends React.Component<any, AppState> {
                             exact
                             path={urlPathConstants.NEW_ENCOUNTER}
                         >
-                            <EncounterContainer mode={FormModes.CREATE} />
+                            <EncounterFullViewContainer
+                                mode={FormModes.CREATE}
+                            />
                         </ReactRouterDOM.Route>
                         <ReactRouterDOM.Route
                             exact
                             path={urlPathConstants.UPDATE_ENCOUNTER}
                         >
-                            <EncounterContainer mode={FormModes.UPDATE} />
+                            <EncounterFullViewContainer
+                                mode={FormModes.UPDATE}
+                            />
                         </ReactRouterDOM.Route>
                         <ReactRouterDOM.Route
                             exact
                             path={urlPathConstants.VIEW_ENCOUNTER}
                         >
-                            <EncounterContainer mode={FormModes.VIEW} />
+                            <EncounterFullViewContainer mode={FormModes.VIEW} />
                         </ReactRouterDOM.Route>
+
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.NEW_DIAGNOSIS}
+                        >
+                            <DiagnosisFullViewContainer
+                                mode={FormModes.CREATE}
+                            />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.UPDATE_DIAGNOSIS}
+                        >
+                            <DiagnosisFullViewContainer
+                                mode={FormModes.UPDATE}
+                            />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.VIEW_DIAGNOSIS}
+                        >
+                            <DiagnosisFullViewContainer mode={FormModes.VIEW} />
+                        </ReactRouterDOM.Route>
+
                         <ReactRouterDOM.Route path={urlPathConstants.HOME}>
                             <Home />
                         </ReactRouterDOM.Route>

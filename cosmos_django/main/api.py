@@ -130,3 +130,63 @@ class EncountersEndpoint(views.APIView):
             logging.info('Deleting encounter')
             return response.Response(status=status.HTTP_204_NO_CONTENT)
         return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class DiagnosesEndpoint(views.APIView):
+    """Endpoints for Diagnosis objects."""
+    permission_classes = (custom_permissions.DiagnosesPermissions, )
+
+    def post(self, request: Request) -> response.Response:
+        """Adds a new diagnosis for the user."""
+        try:
+            diagnosis: models.Diagnosis = models.Diagnosis.create_from_json(
+                data=request.data,
+                patient_profile=request.user.patient_profile)
+        except custom_exceptions.DataNotProvided as e:
+            return response.Response(data=e.get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
+
+        serialized_diagnosis: serializers.DiagnosisSerializer = serializers.DiagnosisSerializer(
+            instance=diagnosis)
+        logging.info('Creating a new diagnosis with data: %s.',
+                     json.dumps(serialized_diagnosis.data))
+        return response.Response(data=serialized_diagnosis.data,
+                                 status=status.HTTP_201_CREATED)
+
+    def put(self, request: Request) -> response.Response:
+        """Updates an existing diagnosis."""
+        try:
+            diagnosis: models.Diagnosis = models.Diagnosis.objects.get(
+                id=request.data.pop('id'))
+        except models.Diagnosis.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            diagnosis.update_from_json(request.data)
+        except Exception:
+            pass
+        else:
+            serialized_diagnosis: serializers.DiagnosisSerializer = serializers.DiagnosisSerializer(
+                instance=diagnosis)
+            logging.info('Updating diagnosis with new data: %s.',
+                         json.dumps(serialized_diagnosis.data))
+            return response.Response(data=serialized_diagnosis.data,
+                                     status=status.HTTP_200_OK)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request: Request) -> response.Response:
+        """Deletes a diagnosis."""
+        try:
+            diagnosis: models.Diagnosis = models.Diagnosis.objects.get(
+                id=request.data.pop('id'))
+        except models.Diagnosis.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            diagnosis.delete()
+        except Exception:
+            pass
+        else:
+            logging.info('Deleting diagnosis')
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)

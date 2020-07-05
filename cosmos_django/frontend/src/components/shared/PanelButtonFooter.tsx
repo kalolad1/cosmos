@@ -46,7 +46,11 @@ class PanelButtonFooter extends React.Component<PanelButtonFooterProps, any> {
                         </IconButton>
                     )}
                     {'add' in this.props.buttons && (
-                        <IconButton aria-label="add" size="medium">
+                        <IconButton
+                            aria-label="add"
+                            size="medium"
+                            onClick={this.props.buttons['add']}
+                        >
                             <AddIcon />
                         </IconButton>
                     )}

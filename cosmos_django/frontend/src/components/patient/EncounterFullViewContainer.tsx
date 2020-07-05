@@ -17,7 +17,10 @@ interface EncounterContainerProps {
     dispatch: any;
 }
 
-class EncounterContainer extends React.Component<EncounterContainerProps, any> {
+class EncounterFullViewContainer extends React.Component<
+    EncounterContainerProps,
+    any
+> {
     constructor(props) {
         super(props);
         let encounter;
@@ -139,5 +142,5 @@ function mapStateToProps(state) {
 }
 
 export default ReactRedux.connect(mapStateToProps)(
-    ReactRouterDOM.withRouter(EncounterContainer)
+    ReactRouterDOM.withRouter(EncounterFullViewContainer)
 );
