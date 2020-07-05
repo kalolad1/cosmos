@@ -170,3 +170,62 @@ export function deleteDiagnosis(id: number, history: any) {
     }
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
+
+/* Medication */
+export function addMedication(name: string, description: string, history: any) {
+    /**
+     * Adds a medication.
+     */
+    function request() {
+        return axiosConfig.axiosClient.post(
+            apiEndpointConstants.MEDICATIONS,
+            {
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function updateMedication(
+    id: number,
+    name: string,
+    description: string,
+    history: any
+) {
+    /**
+     * Updates a medication.
+     */
+    function request() {
+        return axiosConfig.axiosClient.put(
+            apiEndpointConstants.MEDICATIONS,
+            {
+                id: id,
+                name: name,
+                description: description,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}
+
+export function deleteMedication(id: number, history: any) {
+    /**
+     * Deletes a medication.
+     */
+    function request() {
+        return axiosConfig.axiosClient.delete(
+            apiEndpointConstants.MEDICATIONS,
+            {
+                data: {
+                    id: id,
+                },
+                ...authUtil.getAuthorizationRequestHeader(),
+            }
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}

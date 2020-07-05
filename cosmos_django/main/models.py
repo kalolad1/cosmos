@@ -323,6 +323,23 @@ class Medication(MedicalEntity):
     description = models.CharField(max_length=1000, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @staticmethod
+    def create_from_json(data, patient_profile):
+        try:
+            name = data['name']
+            description = data['description']
+        except KeyError:
+            raise custom_exceptions.DataNotProvided()
+
+        return Medication.objects.create(patient_profile=patient_profile,
+                                         name=name,
+                                         description=description)
+
+    def update_from_json(self, data):
+        for attribute, value in data.items():
+            setattr(self, attribute, value)
+        self.save()
+
     def __str__(self) -> str:
         return self.name.__str__()
 

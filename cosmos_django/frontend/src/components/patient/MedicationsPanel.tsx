@@ -1,4 +1,6 @@
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
+import * as ReactRedux from 'react-redux';
 
 import * as types from '../../types/types';
 
@@ -9,17 +11,24 @@ import PopupListItem from '../shared/PopupListItem';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import MedicationPopupPanel from './MedicationPopupPanel';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
+import * as urlPathConstants from '../../constants/url_path_constants';
 
 const PANEL_TITLE = 'Medications';
 
 interface MedicationsPanelProps {
     medications: Array<types.Medication>;
+    history: any;
 }
 
 class MedicationsPanel extends React.Component<MedicationsPanelProps, any> {
     constructor(props) {
         super(props);
         this.getMedicationListItems = this.getMedicationListItems.bind(this);
+        this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
+    }
+
+    handleAddButtonClick() {
+        this.props.history.push(urlPathConstants.NEW_MEDICATION);
     }
 
     getMedicationListItems() {
@@ -36,7 +45,9 @@ class MedicationsPanel extends React.Component<MedicationsPanelProps, any> {
 
     render() {
         const body = <List>{this.getMedicationListItems()}</List>;
-        const footer = <PanelButtonFooter buttons={{ add: null }} />;
+        const footer = (
+            <PanelButtonFooter buttons={{ add: this.handleAddButtonClick }} />
+        );
         return (
             <Panel
                 header={<TitlePanelHeader title={PANEL_TITLE} />}
@@ -47,4 +58,6 @@ class MedicationsPanel extends React.Component<MedicationsPanelProps, any> {
     }
 }
 
-export default MedicationsPanel;
+export default ReactRedux.connect()(
+    ReactRouterDOM.withRouter(MedicationsPanel)
+);

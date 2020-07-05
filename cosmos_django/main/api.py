@@ -190,3 +190,63 @@ class DiagnosesEndpoint(views.APIView):
             logging.info('Deleting diagnosis')
             return response.Response(status=status.HTTP_204_NO_CONTENT)
         return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class MedicationsEndpoint(views.APIView):
+    """Endpoints for Medication objects."""
+    permission_classes = (custom_permissions.MedicationsPermissions, )
+
+    def post(self, request: Request) -> response.Response:
+        """Adds a new medication for the user."""
+        try:
+            medication: models.Medication = models.Medication.create_from_json(
+                data=request.data,
+                patient_profile=request.user.patient_profile)
+        except custom_exceptions.DataNotProvided as e:
+            return response.Response(data=e.get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
+
+        serialized_medication: serializers.MedicationSerializer = serializers.MedicationSerializer(
+            instance=medication)
+        logging.info('Creating a new medication with data: %s.',
+                     json.dumps(serialized_medication.data))
+        return response.Response(data=serialized_medication.data,
+                                 status=status.HTTP_201_CREATED)
+
+    def put(self, request: Request) -> response.Response:
+        """Updates an existing medication."""
+        try:
+            medication: models.Medication = models.Medication.objects.get(
+                id=request.data.pop('id'))
+        except models.Medication.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            medication.update_from_json(request.data)
+        except Exception:
+            pass
+        else:
+            serialized_medication: serializers.MedicationSerializer = serializers.MedicationSerializer(
+                instance=medication)
+            logging.info('Updating medication with new data: %s.',
+                         json.dumps(serialized_medication.data))
+            return response.Response(data=serialized_medication.data,
+                                     status=status.HTTP_200_OK)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request: Request) -> response.Response:
+        """Deletes a medication."""
+        try:
+            medication: models.Medication = models.Medication.objects.get(
+                id=request.data.pop('id'))
+        except models.Medication.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            medication.delete()
+        except Exception:
+            pass
+        else:
+            logging.info('Deleting medication')
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)

@@ -13,3 +13,4 @@ export const REFRESH_TOKEN = 'token/refresh/';
 export const USERS = 'users/';
 export const ENCOUNTERS = 'encounters/';
 export const DIAGNOSES = 'diagnoses/';
+export const MEDICATIONS = 'medications/';

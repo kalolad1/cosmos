@@ -14,11 +14,9 @@ import * as authUtil from '../util/auth_util';
 import SignupForm from './authentication/SignupForm';
 import LoginForm from '../components/authentication/LoginForm';
 import Home from './patient/Home';
-import EncounterFullView from './patient/EncounterFullView';
 import EncounterFullViewContainer from './patient/EncounterFullViewContainer';
+import MedicationFullViewContainer from './patient/MedicationFullViewContainer';
 import { FormModes } from '../constants/form_constants';
-import { Switch } from 'react-router-dom';
-import { url } from 'inspector';
 import DiagnosisFullViewContainer from './patient/DiagnosisFullViewContainer';
 
 export const store = Redux.createStore(
@@ -111,6 +109,31 @@ class App extends React.Component<any, AppState> {
                             path={urlPathConstants.VIEW_DIAGNOSIS}
                         >
                             <DiagnosisFullViewContainer mode={FormModes.VIEW} />
+                        </ReactRouterDOM.Route>
+
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.NEW_MEDICATION}
+                        >
+                            <MedicationFullViewContainer
+                                mode={FormModes.CREATE}
+                            />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.UPDATE_MEDICATION}
+                        >
+                            <MedicationFullViewContainer
+                                mode={FormModes.UPDATE}
+                            />
+                        </ReactRouterDOM.Route>
+                        <ReactRouterDOM.Route
+                            exact
+                            path={urlPathConstants.VIEW_MEDICATION}
+                        >
+                            <MedicationFullViewContainer
+                                mode={FormModes.VIEW}
+                            />
                         </ReactRouterDOM.Route>
 
                         <ReactRouterDOM.Route path={urlPathConstants.HOME}>

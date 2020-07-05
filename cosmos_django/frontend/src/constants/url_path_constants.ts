@@ -17,4 +17,8 @@ export const NEW_DIAGNOSIS = '/diagnosis/new';
 export const VIEW_DIAGNOSIS = '/diagnosis/:id';
 export const UPDATE_DIAGNOSIS = '/diagnosis/:id/update';
 
+export const NEW_MEDICATION = '/medication/new';
+export const VIEW_MEDICATION = '/medication/:id';
+export const UPDATE_MEDICATION = '/medication/:id/update';
+
 export const ADD_ENCOUNTER = '/add-encounter';

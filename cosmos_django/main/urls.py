@@ -15,4 +15,7 @@ urlpatterns = [
          api.EncountersEndpoint.as_view(),
          name='main/encounters'),
     path('diagnoses/', api.DiagnosesEndpoint.as_view(), name='main/diagnosis'),
+    path('medications/',
+         api.MedicationsEndpoint.as_view(),
+         name='main/medications'),
 ]
