@@ -35,6 +35,9 @@ class EncounterContainer extends React.Component<EncounterContainerProps, any> {
         );
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleUpdateEncounterSubmit = this.handleUpdateEncounterSubmit.bind(
+            this
+        );
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -76,6 +79,23 @@ class EncounterContainer extends React.Component<EncounterContainerProps, any> {
             });
     }
 
+    handleUpdateEncounterSubmit(event) {
+        event.preventDefault();
+        const self = this;
+        this.props
+            .dispatch(
+                actionCreators.updateEncounter(
+                    this.props.match.params.id,
+                    this.state.encounterType,
+                    this.state.note,
+                    this.props.history
+                )
+            )
+            .then(function () {
+                self.props.history.replace(urlPathConstants.TIMELINE);
+            });
+    }
+
     getEncounter(id: number) {
         // Need to refactor encounter representation into dict to allow for hash
         // search.
@@ -91,6 +111,8 @@ class EncounterContainer extends React.Component<EncounterContainerProps, any> {
         let handleSubmit;
         if (this.props.mode == formConstants.FormModes.CREATE) {
             handleSubmit = this.handleAddEncounterSubmit;
+        } else if (this.props.mode == formConstants.FormModes.UPDATE) {
+            handleSubmit = this.handleUpdateEncounterSubmit;
         }
 
         let fullEncounterView = (

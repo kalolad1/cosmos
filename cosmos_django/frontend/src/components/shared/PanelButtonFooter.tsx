@@ -26,7 +26,11 @@ class PanelButtonFooter extends React.Component<PanelButtonFooterProps, any> {
 
                 <div>
                     {'edit' in this.props.buttons && (
-                        <IconButton aria-label="edit" size="medium">
+                        <IconButton
+                            aria-label="edit"
+                            size="medium"
+                            onClick={this.props.buttons['edit']}
+                        >
                             <EditIcon />
                         </IconButton>
                     )}

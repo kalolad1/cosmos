@@ -269,6 +269,11 @@ class Encounter(MedicalEntity):
                                         encounter_type=encounter_type,
                                         note=note)
 
+    def update_from_json(self, data):
+        for attribute, value in data.items():
+            setattr(self, attribute, value)
+        self.save()
+
     def __str__(self) -> str:
         return self.note.__str__()
 

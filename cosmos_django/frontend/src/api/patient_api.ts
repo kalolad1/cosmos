@@ -74,3 +74,26 @@ export function addEncounter(
     }
     return makeAuthorizedRequestOrRedirectToLogin(request, history);
 }
+
+export function updateEncounter(
+    id: number,
+    encounterType: string,
+    note: string,
+    history: any
+) {
+    /**
+     * Updates an encounter.
+     */
+    function request() {
+        return axiosConfig.axiosClient.put(
+            apiEndpointConstants.ENCOUNTERS,
+            {
+                id: id,
+                encounterType: encounterType,
+                note: note,
+            },
+            authUtil.getAuthorizationRequestHeader()
+        );
+    }
+    return makeAuthorizedRequestOrRedirectToLogin(request, history);
+}

@@ -1,6 +1,9 @@
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
 
+import * as urlPathConstants from '../../constants/url_path_constants';
 import * as types from '../../types/types';
+import * as urlUtil from '../../util/url_util';
 
 import Panel from '../shared/Panel';
 import EncounterPanelBody from './EncounterPanelBody';
@@ -13,11 +16,21 @@ interface EncounterPanelProps {
     firstName: string;
     lastName: string;
     significanceGroup: string;
+    history: any;
 }
 
 class EncounterPanel extends React.Component<EncounterPanelProps, any> {
     constructor(props) {
         super(props);
+        this.handleEditButtonClick = this.handleEditButtonClick.bind(this);
+    }
+
+    handleEditButtonClick() {
+        const updateEncounterPath = urlUtil.getUrlPathWithId(
+            urlPathConstants.UPDATE_ENCOUNTER,
+            this.props.encounter.id.toString()
+        );
+        this.props.history.push(updateEncounterPath);
     }
 
     render() {
@@ -39,7 +52,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
                     footer={
                         <PanelButtonFooter
                             buttons={{
-                                edit: null,
+                                edit: this.handleEditButtonClick,
                                 delete: null,
                                 viewFull: null,
                             }}
@@ -51,4 +64,4 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
     }
 }
 
-export default EncounterPanel;
+export default ReactRouterDOM.withRouter(EncounterPanel);

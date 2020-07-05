@@ -76,7 +76,7 @@ class EncountersEndpoint(views.APIView):
     permission_classes = (custom_permissions.EncountersPermissions, )
 
     def post(self, request: Request) -> response.Response:
-        """Adds a new visit for the user."""
+        """Adds a new encounter for the user."""
         try:
             encounter: models.Encounter = models.Encounter.create_from_json(
                 data=request.data,
@@ -91,3 +91,24 @@ class EncountersEndpoint(views.APIView):
                      json.dumps(serialized_encounter.data))
         return response.Response(data=serialized_encounter.data,
                                  status=status.HTTP_201_CREATED)
+
+    def put(self, request: Request) -> response.Response:
+        """Updates an existing encounter."""
+        try:
+            encounter: models.Encounter = models.Encounter.objects.get(
+                id=request.data.pop('id'))
+        except models.Encounter.DoesNotExist:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            encounter.update_from_json(request.data)
+        except Exception:
+            pass
+        else:
+            serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
+                instance=encounter)
+            logging.info('Updating encounter with new data: %s.',
+                         json.dumps(serialized_encounter.data))
+            return response.Response(data=serialized_encounter.data,
+                                     status=status.HTTP_200_OK)
+        return response.Response(status=status.HTTP_400_BAD_REQUEST)

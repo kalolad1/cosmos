@@ -74,7 +74,7 @@ export function updateUser(user, history) {
 /* Encounter */
 export function requestAddEncounter(): { type: string } {
     /**
-     * Returns an action to notify that a PUT encounter request was made.
+     * Returns an action to notify that a POST encounter request was made.
      */
     return {
         type: actionTypes.REQUEST_ADD_ENCOUNTER,
@@ -102,6 +102,45 @@ export function addEncounter(encounterType: string, note: string, history) {
             .addEncounter(encounterType, note, history)
             .then(function (response) {
                 dispatch(receiveAddEncounter(response.data));
+            });
+    };
+}
+
+export function requestUpdateEncounter(): { type: string } {
+    /**
+     * Returns an action to notify that a PUT encounter request was made.
+     */
+    return {
+        type: actionTypes.REQUEST_UPDATE_USER,
+    };
+}
+
+export function receiveUpdateEncounter(encounter) {
+    /**
+     * Returns an action to notify that an encounter was successfully udpated.
+     */
+    return {
+        type: actionTypes.RECEIVE_UPDATE_ENCOUNTER,
+        encounter: encounter,
+    };
+}
+
+export function updateEncounter(
+    id: number,
+    encounterType: string,
+    note: string,
+    history
+) {
+    /**
+     * Updates an encounter and saves updated state to the client store.
+     */
+    return function (dispatch) {
+        dispatch(requestUpdateEncounter());
+
+        return patientApi
+            .updateEncounter(id, encounterType, note, history)
+            .then(function (response) {
+                dispatch(receiveUpdateEncounter(response.data));
             });
     };
 }
