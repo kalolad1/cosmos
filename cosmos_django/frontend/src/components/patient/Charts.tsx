@@ -12,6 +12,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Profile from './Profile';
 import Summary from './Summary';
 import Timeline from './Timeline';
+import Header from './Header';
 
 interface ChartsProps {
     user: types.User;
@@ -32,6 +33,15 @@ class Charts extends React.Component<ChartsProps, any> {
     render() {
         return (
             <div className="charts">
+                <Header
+                    profilePicture={
+                        this.props.user.patientProfile!.profilePicture
+                    }
+                    firstName={this.props.user.patientProfile!.firstName}
+                    lastName={this.props.user.patientProfile!.lastName}
+                    sex={this.props.user.patientProfile!.sex}
+                    age={this.props.user.patientProfile!.age}
+                />
                 <div className="charts-tab-row">
                     <div>
                         <Tabs

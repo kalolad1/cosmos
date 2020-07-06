@@ -5,9 +5,14 @@ export const LOGIN = '/login';
 export const SIGNUP = '/signup';
 export const ROOT = '/';
 
-export const SUMMARY = '/home/summary';
-export const TIMELINE = '/home/timeline';
-export const PROFILE = '/home/profile';
+export const CHARTS = '/home/charts';
+export const SUMMARY = '/home/charts/summary';
+export const TIMELINE = '/home/charts/timeline';
+export const PROFILE = '/home/charts/profile';
+
+export const SCHEDULE = '/home/schedule';
+export const INBOX = '/home/inbox';
+export const METRICS = '/home/metrics';
 
 export const NEW_ENCOUNTER = '/encounter/new';
 export const VIEW_ENCOUNTER = '/encounter/:id';

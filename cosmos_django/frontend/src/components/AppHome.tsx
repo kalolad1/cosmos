@@ -37,12 +37,14 @@ class AppHome extends React.Component<AppHomeProps, any> {
                 content = (
                     <AppShell
                         content={<PatientHome user={this.props.user} />}
+                        isProvider={false}
                     />
                 );
             } else if (this.props.user.providerProfile !== null) {
                 content = (
                     <AppShell
                         content={<ProviderHome user={this.props.user} />}
+                        isProvider={true}
                     />
                 );
             } else {

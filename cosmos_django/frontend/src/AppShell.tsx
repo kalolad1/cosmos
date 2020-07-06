@@ -13,6 +13,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import InboxIcon from '@material-ui/icons/Inbox';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ListItemText from '@material-ui/core/ListItemText';
 import Header from './components/patient/Header';
 import Charts from './components/patient/Charts';
@@ -24,6 +28,7 @@ interface AppShellProps {
     content: any;
     classes: any;
     history: any;
+    isProvider: boolean;
 }
 
 interface AppShellState {
@@ -41,6 +46,10 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         this.handleVerticalNavbarToggle = this.handleVerticalNavbarToggle.bind(
             this
         );
+        this.handleScheduleClick = this.handleScheduleClick.bind(this);
+        this.handleInboxClick = this.handleInboxClick.bind(this);
+        this.handleMetricsClick = this.handleMetricsClick.bind(this);
+        this.handleChartsClick = this.handleChartsClick.bind(this);
     }
 
     handleVerticalNavbarToggle() {
@@ -57,6 +66,22 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
     handleLogout() {
         authUtil.clearTokens();
         this.props.history.replace(urlPathConstants.LOGIN);
+    }
+
+    handleScheduleClick() {
+        this.props.history.push(urlPathConstants.SCHEDULE);
+    }
+
+    handleInboxClick() {
+        this.props.history.push(urlPathConstants.INBOX);
+    }
+
+    handleMetricsClick() {
+        this.props.history.push(urlPathConstants.METRICS);
+    }
+
+    handleChartsClick() {
+        this.props.history.push(urlPathConstants.CHARTS);
     }
 
     render() {
@@ -110,6 +135,50 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                                 <ExitToAppRoundedIcon />
                             </ListItemIcon>
                             <ListItemText primary="Logout" />
+                        </ListItem>
+                        {this.props.isProvider && (
+                            <ListItem
+                                button
+                                key="Schedule"
+                                onClick={this.handleScheduleClick}
+                            >
+                                <ListItemIcon>
+                                    <CalendarTodayIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Schedule" />
+                            </ListItem>
+                        )}
+                        {!this.props.isProvider && (
+                            <ListItem
+                                button
+                                key="Charts"
+                                onClick={this.handleChartsClick}
+                            >
+                                <ListItemIcon>
+                                    <FolderSharedIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Charts" />
+                            </ListItem>
+                        )}
+                        <ListItem
+                            button
+                            key="Inbox"
+                            onClick={this.handleInboxClick}
+                        >
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Inbox" />
+                        </ListItem>
+                        <ListItem
+                            button
+                            key="Metrics"
+                            onClick={this.handleMetricsClick}
+                        >
+                            <ListItemIcon>
+                                <AssessmentIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Metrics" />
                         </ListItem>
                     </List>
                 </Drawer>

@@ -28,6 +28,12 @@ import EncounterContainer from './EncounterFullViewContainer';
 import { Switch } from 'react-router-dom';
 import { FormModes } from '../../constants/form_constants';
 import AppShell from '../../AppShell';
+import { Route } from 'react-router-dom';
+import Schedule from '../provider/Schedule';
+import Inbox from '../shared/Inbox';
+import ProviderMetrics from '../provider/ProviderMetrics';
+import { Redirect } from 'react-router-dom';
+import PatientMetrics from './PatientMetrics';
 
 interface HomeState {}
 
@@ -44,16 +50,21 @@ class PatientHome extends React.Component<any, HomeState> {
             return (
                 <div className="home-content-container">
                     <div className="home-content">
-                        <Header
-                            profilePicture={
-                                this.props.user.patientProfile.profilePicture
-                            }
-                            firstName={this.props.user.patientProfile.firstName}
-                            lastName={this.props.user.patientProfile.lastName}
-                            sex={this.props.user.patientProfile.sex}
-                            age={this.props.user.patientProfile.age}
-                        />
-                        <Charts user={this.props.user} />
+                        <Switch>
+                            <Route path={urlPathConstants.SCHEDULE}>
+                                <Schedule />
+                            </Route>
+                            <Route path={urlPathConstants.INBOX}>
+                                <Inbox />
+                            </Route>
+                            <Route path={urlPathConstants.METRICS}>
+                                <PatientMetrics />
+                            </Route>
+                            <Route path={urlPathConstants.CHARTS}>
+                                <Charts user={this.props.user} />
+                            </Route>
+                            <Redirect to={urlPathConstants.CHARTS} />
+                        </Switch>
                     </div>
                 </div>
             );
