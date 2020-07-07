@@ -21,5 +21,5 @@ ssh jenkins@161.35.102.77 <<EOF
   venv/bin/python3.6 manage.py migrate
   venv/bin/python3.6 manage.py collectstatic --noinput
   venv/bin/python3.6 manage.py test -p *_test.py
-  exit
+  exit 0
 EOF

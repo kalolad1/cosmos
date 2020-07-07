@@ -21,5 +21,5 @@ ssh cosmos_deploy_user@167.99.154.182 <<EOF
   venv/bin/python3.6 manage.py migrate
   venv/bin/python3.6 manage.py collectstatic --noinput
   echo "Qd7#f_eMYL6ZyTU" | sudo -S systemctl restart gunicorn
-  exit
+  exit 0
 EOF
