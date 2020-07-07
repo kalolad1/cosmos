@@ -1,4 +1,13 @@
 #!/bin/bash
+set -e
+
+function alertFailure {
+  echo "Testing has failed!"
+}
+
+function alertSuccess {
+  echo "Testing has succeeded!"
+}
 
 ssh jenkins@161.35.102.77 <<EOF
   cd cosmos_cloned/cosmos_django
