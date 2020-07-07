@@ -5,7 +5,7 @@ import * as actionCreators from '../actions/action_creators';
 import { withStyles } from '@material-ui/core/styles';
 import * as ReactRouterDOM from 'react-router-dom';
 import { User } from '../types/types';
-import AppShell from '../AppShell';
+import AppShell from './AppShell';
 import Home from './patient/PatientHome';
 import PatientHome from './patient/PatientHome';
 import FullPageSpinner from './shared/FullPageSpinner';

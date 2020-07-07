@@ -27,7 +27,7 @@ import Header from './Header';
 import EncounterContainer from './EncounterFullViewContainer';
 import { Switch } from 'react-router-dom';
 import { FormModes } from '../../constants/form_constants';
-import AppShell from '../../AppShell';
+import AppShell from '../AppShell';
 import { Route } from 'react-router-dom';
 import Schedule from '../provider/Schedule';
 import Inbox from '../shared/Inbox';

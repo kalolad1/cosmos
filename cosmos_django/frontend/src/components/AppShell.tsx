@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import {withStyles, fade} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import clsx from 'clsx';
@@ -13,16 +13,19 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import InboxIcon from '@material-ui/icons/Inbox';
+import MailIcon from '@material-ui/icons/Mail';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ListItemText from '@material-ui/core/ListItemText';
-import Header from './components/patient/Header';
-import Charts from './components/patient/Charts';
-import * as authUtil from './util/auth_util';
-import * as urlPathConstants from './constants/url_path_constants';
-import { TextField } from '@material-ui/core';
+import Header from './patient/Header';
+import Charts from './patient/Charts';
+import SearchIcon from '@material-ui/icons/Search';
+import * as authUtil from '../util/auth_util';
+import * as urlPathConstants from '../constants/url_path_constants';
+import {TextField} from '@material-ui/core';
+import Divider from "@material-ui/core/Divider";
+import InputBase from "@material-ui/core/InputBase";
 
 interface AppShellProps {
     content: any;
@@ -33,6 +36,7 @@ interface AppShellProps {
 
 interface AppShellState {
     isVerticalNavbarOpen: boolean;
+    patientSearch: string;
 }
 
 class AppShell extends React.Component<AppShellProps, AppShellState> {
@@ -40,6 +44,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         super(props);
         this.state = {
             isVerticalNavbarOpen: false,
+            patientSearch: '',
         };
 
         this.handleLogout = this.handleLogout.bind(this);
@@ -50,6 +55,8 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         this.handleInboxClick = this.handleInboxClick.bind(this);
         this.handleMetricsClick = this.handleMetricsClick.bind(this);
         this.handleChartsClick = this.handleChartsClick.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handlePatientSearchSubmit = this.handlePatientSearchSubmit.bind(this);
     }
 
     handleVerticalNavbarToggle() {
@@ -61,6 +68,15 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
             }),
             () => window.dispatchEvent(new CustomEvent('resize'))
         );
+    }
+
+    handleInputChange(event: React.SyntheticEvent): void {
+        const element = event.target as HTMLInputElement;
+        const name: string = element.name;
+        this.setState({
+            ...this.state,
+            [name]: element.value,
+        });
     }
 
     handleLogout() {
@@ -84,12 +100,17 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         this.props.history.push(urlPathConstants.CHARTS);
     }
 
+    handlePatientSearchSubmit(event) {
+        event.preventDefault();
+        console.log('Submmitng search!')
+    }
+
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <div className={classes.root}>
-                <CssBaseline />
+                <CssBaseline/>
                 <AppBar
                     position="fixed"
                     className={clsx(classes.appBar, {
@@ -104,9 +125,29 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             edge="start"
                             className={classes.menuButton}
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
                         <h1 className="app-bar-company-name">Cosmos</h1>
+                        {this.props.isProvider &&
+                        <form onSubmit={this.handlePatientSearchSubmit}>
+                            <div className={classes.search}>
+                                <div className={classes.searchIcon}>
+                                    <SearchIcon/>
+                                </div>
+                                <InputBase
+                                    name="patientSearch"
+                                    placeholder="Search…"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    value={this.state.patientSearch}
+                                    onChange={this.handleInputChange}
+                                    inputProps={{'aria-label': 'search'}}
+                                />
+                            </div>
+                        </form>
+                        }
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -124,7 +165,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                         }),
                     }}
                 >
-                    <div className={classes.toolbar} />
+                    <div className={classes.toolbar}/>
                     <List>
                         <ListItem
                             button
@@ -132,10 +173,11 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             onClick={this.handleLogout}
                         >
                             <ListItemIcon>
-                                <ExitToAppRoundedIcon />
+                                <ExitToAppRoundedIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Logout" />
+                            <ListItemText primary="Logout"/>
                         </ListItem>
+                        <Divider/>
                         {this.props.isProvider && (
                             <ListItem
                                 button
@@ -143,9 +185,9 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                                 onClick={this.handleScheduleClick}
                             >
                                 <ListItemIcon>
-                                    <CalendarTodayIcon />
+                                    <CalendarTodayIcon/>
                                 </ListItemIcon>
-                                <ListItemText primary="Schedule" />
+                                <ListItemText primary="Schedule"/>
                             </ListItem>
                         )}
                         {!this.props.isProvider && (
@@ -155,9 +197,9 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                                 onClick={this.handleChartsClick}
                             >
                                 <ListItemIcon>
-                                    <FolderSharedIcon />
+                                    <FolderSharedIcon/>
                                 </ListItemIcon>
-                                <ListItemText primary="Charts" />
+                                <ListItemText primary="Charts"/>
                             </ListItem>
                         )}
                         <ListItem
@@ -166,9 +208,9 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             onClick={this.handleInboxClick}
                         >
                             <ListItemIcon>
-                                <InboxIcon />
+                                <MailIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Inbox" />
+                            <ListItemText primary="Inbox"/>
                         </ListItem>
                         <ListItem
                             button
@@ -176,14 +218,14 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             onClick={this.handleMetricsClick}
                         >
                             <ListItemIcon>
-                                <AssessmentIcon />
+                                <AssessmentIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Metrics" />
+                            <ListItemText primary="Metrics"/>
                         </ListItem>
                     </List>
                 </Drawer>
                 <main className={classes.content}>
-                    <div className={classes.toolbar} />
+                    <div className={classes.toolbar}/>
                     {this.props.content}
                 </main>
             </div>
@@ -239,6 +281,43 @@ const useStyles = function (theme) {
         content: {
             flexGrow: 1,
             padding: theme.spacing(3),
+        },
+        search: {
+            position: 'relative',
+            borderRadius: theme.shape.borderRadius,
+            backgroundColor: fade(theme.palette.common.white, 0.15),
+            '&:hover': {
+                backgroundColor: fade(theme.palette.common.white, 0.25),
+            },
+            marginRight: theme.spacing(2),
+            marginLeft: 0,
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                marginLeft: theme.spacing(3),
+                width: 'auto',
+            },
+        },
+        searchIcon: {
+            padding: theme.spacing(0, 2),
+            height: '100%',
+            position: 'absolute',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        inputRoot: {
+            color: 'inherit',
+        },
+        inputInput: {
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('md')]: {
+                width: '20ch',
+            },
         },
     };
 };
