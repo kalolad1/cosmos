@@ -10,6 +10,8 @@ function alertSuccess {
 }
 
 ssh jenkins@161.35.102.77 <<EOF
+  set -e
+  trap alertFailure ERR
   cd cosmos_cloned/cosmos_django
   source venv/bin/activate
   git pull

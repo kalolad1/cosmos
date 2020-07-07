@@ -10,6 +10,7 @@ function alertSuccess {
 }
 
 ssh cosmos_deploy_user@167.99.154.182 <<EOF
+  set -e
   trap alertFailure ERR
   cd cosmos/cosmos_django
   source venv/bin/activate
