@@ -60,11 +60,16 @@
     margin-bottom: 20px;
 }
 
-/* Patient Home */
+/* AppShell */
 .app-bar-company-name {
+    color: white;
+    font-size: 30px;
     font-family: "Neue Hans Kendrick", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
 }
 
+/* Patient Home */
 .home-content-container {
     display: flex;
     justify-content: center;
