@@ -6,9 +6,7 @@ class PatientSearchResults extends React.Component<any, any> {
     }
 
     render() {
-        return (
-            <div>Patient search.</div>
-        );
+        return <div>Patient search.</div>;
     }
 }
 
