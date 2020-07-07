@@ -47,8 +47,7 @@ class TestUsersPermissions(test.APITestCase):
         expected_permission = self.user_permissions.has_permission(
             request=rest_request)
 
-        # Todo change back to assertTrue
-        self.assertFalse(expected_permission)
+        self.assertTrue(expected_permission)
 
     def test_put_new_user_fails_no_authentication(self):
         http_request = http.HttpRequest()
