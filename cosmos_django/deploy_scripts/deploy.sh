@@ -1,15 +1,14 @@
 #!/bin/bash
 set -e
 
-function alertFailure {
-  echo "Deployment has failed!"
-}
-
-function alertSuccess {
-  echo "Deployment has succeeded!"
-}
-
 ssh cosmos_deploy_user@167.99.154.182 <<EOF
+  function alertFailure {
+    echo "Deployment has failed!"
+  }
+
+  function alertSuccess {
+    echo "Deployment has succeeded!"
+  }
   set -e
   trap alertFailure ERR
   cd cosmos/cosmos_django

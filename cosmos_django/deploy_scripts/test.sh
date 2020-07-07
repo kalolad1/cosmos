@@ -1,15 +1,14 @@
 #!/bin/bash
 set -e
 
-function alertFailure {
-  echo "Testing has failed!"
-}
-
-function alertSuccess {
-  echo "Testing has succeeded!"
-}
-
 ssh jenkins@161.35.102.77 <<EOF
+  function alertFailure {
+    echo "Testing has failed!"
+  }
+
+  function alertSuccess {
+    echo "Testing has succeeded!"
+  }
   set -e
   trap alertFailure ERR
   cd cosmos_cloned/cosmos_django
