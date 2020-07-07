@@ -239,17 +239,17 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
-                        horizontal: 'left',
+                        horizontal: 'center',
                     }}
                     open={this.state.snackbarOpen}
                     onClose={this.handleSnackbarClose}
-                    autoHideDuration={4000}
+                    autoHideDuration={10000}
                 >
                     <Alert
                         onClose={this.handleSnackbarClose}
                         severity="success"
                     >
-                        Saved!
+                        Changes saved!
                     </Alert>
                 </Snackbar>
                 <div className="profile-button-row">{toggleAllIconButton}</div>
