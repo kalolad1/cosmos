@@ -35,3 +35,7 @@ def initialize_logging() -> None:
         logging.basicConfig(filename=log_path,
                             filemode='w',
                             level=logging.INFO)
+    else:
+        # Disable debug/info logging during tests.
+        logging.disable(logging.CRITICAL)
+
