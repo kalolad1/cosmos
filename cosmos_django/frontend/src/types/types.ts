@@ -8,6 +8,7 @@
  * camelCase everywhere.
  * */
 export interface User {
+    id: number;
     email: string;
     patientProfile?: PatientProfile;
     providerProfile?: ProviderProfile;

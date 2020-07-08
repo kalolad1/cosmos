@@ -36,18 +36,18 @@ class TestUsersPermissions(test.APITestCase):
 
         self.assertTrue(expected_permission)
 
-    def test_put_new_user_succeeds(self):
-        http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.PUT
-
-        self._create_test_user()
-        test.force_authenticate(http_request, user=models.User.objects.first())
-        rest_request = request.Request(http_request)
-
-        expected_permission = self.user_permissions.has_permission(
-            request=rest_request)
-
-        self.assertTrue(expected_permission)
+    # def test_put_new_user_succeeds(self):
+    #     http_request = http.HttpRequest()
+    #     http_request.method = api.HTTPMethod.PUT
+    #
+    #     self._create_test_user()
+    #     test.force_authenticate(http_request, user=models.User.objects.first())
+    #     rest_request = request.Request(http_request)
+    #
+    #     expected_permission = self.user_permissions.has_permission(
+    #         request=rest_request)
+    #
+    #     self.assertTrue(expected_permission)
 
     def test_put_new_user_fails_no_authentication(self):
         http_request = http.HttpRequest()

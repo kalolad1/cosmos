@@ -108,4 +108,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ('email', 'patient_profile', 'provider_profile')
+        fields = ('id', 'email', 'patient_profile', 'provider_profile')

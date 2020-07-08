@@ -105,9 +105,9 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
 
     dispatchUpdateUser() {
         // TODO make a check for equality to avoid useless put request.
-        console.log('Making new user.');
         const self = this;
         const newUser = {
+            id: this.props.user.id,
             email: this.state.email,
             patientProfile: {
                 firstName: this.state.firstName,

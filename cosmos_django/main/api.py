@@ -53,24 +53,37 @@ class AccountsEndpoint(views.APIView):
         return response.Response(data=serialized_user.data,
                                  status=status.HTTP_201_CREATED)
 
-    def put(self, request: Request) -> response.Response:
+    def put(self, request: Request, user_id: int) -> response.Response:
         try:
-            request.user.update_from_json(data=request.data)
+            user: models.User = models.User.objects.get(id=user_id)
+        except models.User.DoesNotExist:
+            return response.Response(data=custom_exceptions.ObjectDoesNotExist(
+            ).get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user.update_from_json(data=request.data)
         except custom_exceptions.UpdatingUserToExistingEmailException as e:
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
-            instance=request.user)
+            instance=user)
         logging.info('Updating user: now has data %s.',
                      json.dumps(serialized_user.data))
         return response.Response(data=serialized_user.data,
                                  status=status.HTTP_200_OK)
 
-    def get(self, request: Request) -> response.Response:
+    def get(self, request: Request, user_id=None) -> response.Response:
         """Returns the users main if they are authenticated."""
+        user: models.User = request.user
+        if user_id:
+            try:
+                user = models.User.objects.get(id=user_id)
+            except models.User.DoesNotExist as e:
+                return response.Response(data=e.__dict__,
+                                         status=status.HTTP_400_BAD_REQUEST)
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
-            instance=request.user)
+            instance=user)
         logging.info('Getting the following user data: %s',
                      json.dumps(serialized_user.data))
         return response.Response(data=serialized_user.data,

@@ -10,7 +10,12 @@ urlpatterns = [
     path('token/refresh/',
          jwt_views.TokenRefreshView.as_view(),
          name='token_refresh'),
+    # Used for base GET and POST
     path('users/', api.AccountsEndpoint.as_view(), name='main/users'),
+    # Used for GET and PUT
+    path('users/<int:user_id>/',
+         api.AccountsEndpoint.as_view(),
+         name='main/users'),
     path('encounters/',
          api.EncountersEndpoint.as_view(),
          name='main/encounters'),

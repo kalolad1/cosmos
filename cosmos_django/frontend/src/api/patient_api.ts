@@ -36,6 +36,7 @@ async function getFreshTokensOrRedirectToLogin(history) {
     return false;
 }
 
+// DEPRECATE
 async function makeAuthorizedRequestOrRedirectToLogin(request, history) {
     /**
      * Attempts an asynchronous server request and redirects to login if fails.
@@ -80,7 +81,7 @@ export async function updateUser(user: types.User, history: any) {
 
     await getFreshTokensOrRedirectToLogin(history);
     return axiosConfig.axiosClient.put(
-        apiEndpointConstants.USERS,
+        apiEndpointConstants.USERS + user.id.toString() + '/',
         { ...user },
         authUtil.getAuthorizationRequestHeader()
     );

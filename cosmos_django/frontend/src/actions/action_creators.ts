@@ -68,6 +68,7 @@ export function updateUser(user, history) {
     /**
      * Updates a user and saves the updated user to the client store.
      */
+    console.log(user);
     return function (dispatch) {
         dispatch(requestUpdateUser());
 

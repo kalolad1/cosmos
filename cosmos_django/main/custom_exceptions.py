@@ -74,3 +74,13 @@ class DataNotProvided(CustomException):
 
     def get_user_facing_message(self):
         return self.USER_FACING_MESSAGE
+
+
+class ObjectDoesNotExist(CustomException):
+    USER_FACING_MESSAGE = 'That object does not exist!'
+
+    def __init__(self, message=None):
+        super().__init__(message)
+
+    def get_user_facing_message(self):
+        return self.USER_FACING_MESSAGE
