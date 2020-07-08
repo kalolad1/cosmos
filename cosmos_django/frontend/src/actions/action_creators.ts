@@ -53,7 +53,7 @@ export function receiveUpdateUser(user: types.User) {
     return {
         type: actionTypes.RECEIVE_UPDATE_USER,
         user: user,
-        success: {'userFacingMessage': 'Saved successfully!'},
+        success: { userFacingMessage: 'Saved successfully!' },
     };
 }
 
@@ -61,7 +61,7 @@ export function failureUpdateUser(error) {
     return {
         type: actionTypes.FAILURE_UPDATE_USER,
         error: error,
-    }
+    };
 }
 
 export function updateUser(user, history) {
@@ -71,13 +71,14 @@ export function updateUser(user, history) {
     return function (dispatch) {
         dispatch(requestUpdateUser());
 
-        return patientApi.updateUser(user, history)
+        return patientApi
+            .updateUser(user, history)
             .then(function (response) {
                 dispatch(receiveUpdateUser(response.data));
             })
             .catch(function (error) {
                 dispatch(failureUpdateUser(error.response.data));
-            })
+            });
     };
 }
 

@@ -21,7 +21,8 @@ class HeaderMetadata extends React.Component<HeaderMetadataProps, any> {
                     )}
                 </h1>
                 <p>
-                    {textUtil.capitalizeFirstLetter(this.props.sex)} &middot; {this.props.age} years old
+                    {textUtil.capitalizeFirstLetter(this.props.sex)} &middot;{' '}
+                    {this.props.age} years old
                 </p>
             </div>
         );

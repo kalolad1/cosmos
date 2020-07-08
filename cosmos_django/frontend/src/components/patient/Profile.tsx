@@ -5,8 +5,8 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as actionCreators from '../../actions/action_creators';
 import * as types from '../../types/types';
 
-import {Alert} from '@material-ui/lab';
-import {Snackbar} from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { Snackbar } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -131,7 +131,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             .dispatch(actionCreators.updateUser(newUser, this.props.history))
             .then(function () {
                 self.handleSnackbarOpen();
-            })
+            });
     }
 
     handleSnackbarOpen() {
@@ -225,7 +225,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                     size="medium"
                     onClick={this.toggleAllSave}
                 >
-                    <SaveIcon/>
+                    <SaveIcon />
                 </IconButton>
             );
         } else {
@@ -235,7 +235,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                     size="medium"
                     onClick={this.toggleAllEditMode}
                 >
-                    <EditIcon/>
+                    <EditIcon />
                 </IconButton>
             );
         }
@@ -244,18 +244,13 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         let alert;
         if (Object.keys(this.props.errorUpdateUser).length !== 0) {
             alert = (
-                <Alert
-                    onClose={this.handleSnackbarClose}
-                    severity="error"
-                >
+                <Alert onClose={this.handleSnackbarClose} severity="error">
                     {this.props.errorUpdateUser.userFacingMessage}
-                </Alert>);
+                </Alert>
+            );
         } else if (Object.keys(this.props.successUpdateUser !== 0)) {
             alert = (
-                <Alert
-                    onClose={this.handleSnackbarClose}
-                    severity="success"
-                >
+                <Alert onClose={this.handleSnackbarClose} severity="success">
                     {this.props.successUpdateUser.userFacingMessage}
                 </Alert>
             );
@@ -293,5 +288,6 @@ function mapStateToProps(state) {
     };
 }
 
-
-export default ReactRedux.connect(mapStateToProps)(ReactRouterDOM.withRouter(Profile));
+export default ReactRedux.connect(mapStateToProps)(
+    ReactRouterDOM.withRouter(Profile)
+);

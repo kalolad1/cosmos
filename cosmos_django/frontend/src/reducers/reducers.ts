@@ -34,7 +34,7 @@ export function rootReducer(state, action) {
                     ...state.UIMessages,
                     successUpdateUser: {},
                     errorUpdateUser: {},
-                }
+                },
             });
         case actionTypes.RECEIVE_UPDATE_USER:
             return Object.assign({}, state, {

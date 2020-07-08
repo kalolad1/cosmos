@@ -5,18 +5,23 @@ import * as urlPathConstants from '../constants/url_path_constants';
 import * as types from '../types/types';
 import * as authUtil from '../util/auth_util';
 
-
 async function getFreshTokensOrRedirectToLogin(history) {
     // Checks for fresh access token. If not, it tries to refresh it. If the
     // refresh token is expired, then it redirects to login.
 
     // Check for fresh access token.
     const currentTimeInMillisecond = new Date().getTime();
-    if (currentTimeInMillisecond < authUtil.getTokenExpiry(tokenConstants.ACCESS_TOKEN)) {
+    if (
+        currentTimeInMillisecond <
+        authUtil.getTokenExpiry(tokenConstants.ACCESS_TOKEN)
+    ) {
         return true;
     }
     // Check for fresh refresh token.
-    if (currentTimeInMillisecond < authUtil.getTokenExpiry(tokenConstants.REFRESH_TOKEN)) {
+    if (
+        currentTimeInMillisecond <
+        authUtil.getTokenExpiry(tokenConstants.REFRESH_TOKEN)
+    ) {
         const accessTokenResponse = await authUtil.refreshAccessToken();
         authUtil.setToken(
             tokenConstants.ACCESS_TOKEN,
@@ -76,9 +81,9 @@ export async function updateUser(user: types.User, history: any) {
     await getFreshTokensOrRedirectToLogin(history);
     return axiosConfig.axiosClient.put(
         apiEndpointConstants.USERS,
-        {...user},
-        authUtil.getAuthorizationRequestHeader());
-
+        { ...user },
+        authUtil.getAuthorizationRequestHeader()
+    );
 }
 
 /* Encounter */

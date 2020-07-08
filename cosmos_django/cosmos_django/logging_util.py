@@ -38,4 +38,3 @@ def initialize_logging() -> None:
     else:
         # Disable debug/info logging during tests.
         logging.disable(logging.CRITICAL)
-

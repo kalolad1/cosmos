@@ -112,9 +112,10 @@ class User(AbstractBaseUser):
                     try:
                         User.objects.get(email=value)
                     except User.DoesNotExist:
-                        pass
+                        setattr(self, attribute, value)
                     else:
-                        raise custom_exceptions.UpdatingUserToExistingEmailException()
+                        raise custom_exceptions.UpdatingUserToExistingEmailException(
+                        )
             else:
                 setattr(self, attribute, value)
         self.save()

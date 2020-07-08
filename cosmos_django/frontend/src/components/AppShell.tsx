@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import {withStyles, fade} from '@material-ui/core/styles';
+import { withStyles, fade } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import clsx from 'clsx';
@@ -23,7 +23,7 @@ import Charts from './patient/Charts';
 import SearchIcon from '@material-ui/icons/Search';
 import * as authUtil from '../util/auth_util';
 import * as urlPathConstants from '../constants/url_path_constants';
-import {TextField} from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import InputBase from '@material-ui/core/InputBase';
 
@@ -110,18 +110,18 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
 
     handleCompanyLogoClick() {
         if (this.props.isProvider) {
-            this.props.history.push(urlPathConstants.SCHEDULE)
+            this.props.history.push(urlPathConstants.SCHEDULE);
         } else {
-            this.props.history.push(urlPathConstants.CHARTS)
+            this.props.history.push(urlPathConstants.CHARTS);
         }
     }
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
 
         return (
             <div className={classes.root}>
-                <CssBaseline/>
+                <CssBaseline />
                 <AppBar
                     position="fixed"
                     className={clsx(classes.appBar, {
@@ -136,16 +136,19 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             edge="start"
                             className={classes.menuButton}
                         >
-                            <MenuIcon/>
+                            <MenuIcon />
                         </IconButton>
-                        <a onClick={this.handleCompanyLogoClick} className="app-bar-company-name">
+                        <a
+                            onClick={this.handleCompanyLogoClick}
+                            className="app-bar-company-name"
+                        >
                             <h1 className="app-bar-company-name">Cosmos</h1>
                         </a>
                         {this.props.isProvider && (
                             <form onSubmit={this.handlePatientSearchSubmit}>
                                 <div className={classes.search}>
                                     <div className={classes.searchIcon}>
-                                        <SearchIcon/>
+                                        <SearchIcon />
                                     </div>
                                     <InputBase
                                         name="patientSearch"
@@ -156,7 +159,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                                         }}
                                         value={this.state.patientSearch}
                                         onChange={this.handleInputChange}
-                                        inputProps={{'aria-label': 'search'}}
+                                        inputProps={{ 'aria-label': 'search' }}
                                     />
                                 </div>
                             </form>
@@ -178,7 +181,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                         }),
                     }}
                 >
-                    <div className={classes.toolbar}/>
+                    <div className={classes.toolbar} />
                     <List>
                         <ListItem
                             button
@@ -186,11 +189,11 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             onClick={this.handleLogout}
                         >
                             <ListItemIcon>
-                                <ExitToAppRoundedIcon/>
+                                <ExitToAppRoundedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Logout"/>
+                            <ListItemText primary="Logout" />
                         </ListItem>
-                        <Divider/>
+                        <Divider />
                         {this.props.isProvider && (
                             <ListItem
                                 button
@@ -198,9 +201,9 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                                 onClick={this.handleScheduleClick}
                             >
                                 <ListItemIcon>
-                                    <CalendarTodayIcon/>
+                                    <CalendarTodayIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Schedule"/>
+                                <ListItemText primary="Schedule" />
                             </ListItem>
                         )}
                         {!this.props.isProvider && (
@@ -210,9 +213,9 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                                 onClick={this.handleChartsClick}
                             >
                                 <ListItemIcon>
-                                    <FolderSharedIcon/>
+                                    <FolderSharedIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Charts"/>
+                                <ListItemText primary="Charts" />
                             </ListItem>
                         )}
                         <ListItem
@@ -221,9 +224,9 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             onClick={this.handleInboxClick}
                         >
                             <ListItemIcon>
-                                <MailIcon/>
+                                <MailIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Inbox"/>
+                            <ListItemText primary="Inbox" />
                         </ListItem>
                         <ListItem
                             button
@@ -231,14 +234,14 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             onClick={this.handleMetricsClick}
                         >
                             <ListItemIcon>
-                                <AssessmentIcon/>
+                                <AssessmentIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Metrics"/>
+                            <ListItemText primary="Metrics" />
                         </ListItem>
                     </List>
                 </Drawer>
                 <main className={classes.content}>
-                    <div className={classes.toolbar}/>
+                    <div className={classes.toolbar} />
                     {this.props.content}
                 </main>
             </div>

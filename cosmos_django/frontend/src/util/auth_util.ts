@@ -28,29 +28,36 @@ export function getToken(tokenType: string): string | null {
 export function getTokenExpiry(tokenType: string): number {
     let expiry;
     if (tokenType == tokenConstants.ACCESS_TOKEN) {
-        expiry = Number(localStorage.getItem(tokenConstants.ACCESS_TOKEN_EXPIRY_KEY));
+        expiry = Number(
+            localStorage.getItem(tokenConstants.ACCESS_TOKEN_EXPIRY_KEY)
+        );
     } else if (tokenType == tokenConstants.REFRESH_TOKEN) {
-        expiry = Number(localStorage.getItem(tokenConstants.REFRESH_TOKEN_EXPIRY_KEY));
+        expiry = Number(
+            localStorage.getItem(tokenConstants.REFRESH_TOKEN_EXPIRY_KEY)
+        );
     } else {
         throw 'Invalid token type.';
     }
     return expiry;
-
 }
 
 export function setToken(tokenType: string, value: string): void {
     // Set expiration times for access tokens.
     const currentTimeInMillisecond = new Date().getTime();
     if (tokenType == tokenConstants.ACCESS_TOKEN) {
-        const accessTokenExpiration = currentTimeInMillisecond + tokenConstants.ACCESS_TOKEN_LIFETIME;
+        const accessTokenExpiration =
+            currentTimeInMillisecond + tokenConstants.ACCESS_TOKEN_LIFETIME;
         localStorage.setItem(
             tokenConstants.ACCESS_TOKEN_EXPIRY_KEY,
-            accessTokenExpiration.toString());
+            accessTokenExpiration.toString()
+        );
     } else if (tokenType == tokenConstants.REFRESH_TOKEN) {
-        const refreshTokenExpiration = currentTimeInMillisecond + tokenConstants.REFRESH_TOKEN_LIFETIME;
+        const refreshTokenExpiration =
+            currentTimeInMillisecond + tokenConstants.REFRESH_TOKEN_LIFETIME;
         localStorage.setItem(
             tokenConstants.REFRESH_TOKEN_EXPIRY_KEY,
-            refreshTokenExpiration.toString());
+            refreshTokenExpiration.toString()
+        );
     }
     localStorage.setItem(tokenType, value);
 }
