@@ -51,9 +51,6 @@ class PatientHome extends React.Component<any, HomeState> {
                 <div className="home-content-container">
                     <div className="home-content">
                         <Switch>
-                            <Route path={urlPathConstants.SCHEDULE}>
-                                <Schedule />
-                            </Route>
                             <Route path={urlPathConstants.INBOX}>
                                 <Inbox />
                             </Route>

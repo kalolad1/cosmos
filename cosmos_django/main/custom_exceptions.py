@@ -46,6 +46,16 @@ class DataForNewUserNotProvidedException(CustomException):
         return self.USER_FACING_MESSAGE
 
 
+class UpdatingUserToExistingEmailException(CustomException):
+    USER_FACING_MESSAGE = 'Sorry! Another user already has this email!'
+
+    def __init__(self, message=None):
+        super().__init__(message)
+
+    def get_user_facing_message(self):
+        return self.USER_FACING_MESSAGE
+
+
 class DataForNewEncounterNotProvidedException(CustomException):
     USER_FACING_MESSAGE = 'All information needed to create encounter was not provided!'
 

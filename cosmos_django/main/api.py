@@ -54,7 +54,12 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_201_CREATED)
 
     def put(self, request: Request) -> response.Response:
-        request.user.update_from_json(data=request.data)
+        try:
+            request.user.update_from_json(data=request.data)
+        except custom_exceptions.UpdatingUserToExistingEmailException as e:
+            return response.Response(data=e.get_response_format(),
+                                     status=status.HTTP_400_BAD_REQUEST)
+
         serialized_user: serializers.UserSerializer = serializers.UserSerializer(
             instance=request.user)
         logging.info('Updating user: now has data %s.',

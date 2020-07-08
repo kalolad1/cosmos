@@ -106,6 +106,15 @@ class User(AbstractBaseUser):
         for attribute, value in data.items():
             if attribute == 'patient_profile':
                 self.patient_profile.update_from_json(data=value)
+            elif attribute == 'email':
+                if value != self.email:
+                    # Raise error if another user already has this email.
+                    try:
+                        User.objects.get(email=value)
+                    except User.DoesNotExist:
+                        pass
+                    else:
+                        raise custom_exceptions.UpdatingUserToExistingEmailException()
             else:
                 setattr(self, attribute, value)
         self.save()

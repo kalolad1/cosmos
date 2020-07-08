@@ -5,8 +5,8 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as actionCreators from '../../actions/action_creators';
 import * as types from '../../types/types';
 
-import { Alert } from '@material-ui/lab';
-import { Snackbar } from '@material-ui/core';
+import {Alert} from '@material-ui/lab';
+import {Snackbar} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,6 +25,8 @@ interface ProfileProps {
     user: types.User;
     dispatch: any;
     history: any;
+    successUpdateUser: any;
+    errorUpdateUser: any;
 }
 
 interface ProfileState {
@@ -103,6 +105,8 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
 
     dispatchUpdateUser() {
         // TODO make a check for equality to avoid useless put request.
+        console.log('Making new user.');
+        const self = this;
         const newUser = {
             email: this.state.email,
             patientProfile: {
@@ -125,7 +129,9 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         };
         this.props
             .dispatch(actionCreators.updateUser(newUser, this.props.history))
-            .then(() => this.handleSnackbarOpen());
+            .then(function () {
+                self.handleSnackbarOpen();
+            })
     }
 
     handleSnackbarOpen() {
@@ -219,7 +225,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                     size="medium"
                     onClick={this.toggleAllSave}
                 >
-                    <SaveIcon />
+                    <SaveIcon/>
                 </IconButton>
             );
         } else {
@@ -229,8 +235,29 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                     size="medium"
                     onClick={this.toggleAllEditMode}
                 >
-                    <EditIcon />
+                    <EditIcon/>
                 </IconButton>
+            );
+        }
+        console.log(this.props.successUpdateUser);
+        console.log(this.props.errorUpdateUser);
+        let alert;
+        if (Object.keys(this.props.errorUpdateUser).length !== 0) {
+            alert = (
+                <Alert
+                    onClose={this.handleSnackbarClose}
+                    severity="error"
+                >
+                    {this.props.errorUpdateUser.userFacingMessage}
+                </Alert>);
+        } else if (Object.keys(this.props.successUpdateUser !== 0)) {
+            alert = (
+                <Alert
+                    onClose={this.handleSnackbarClose}
+                    severity="success"
+                >
+                    {this.props.successUpdateUser.userFacingMessage}
+                </Alert>
             );
         }
 
@@ -245,12 +272,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                     onClose={this.handleSnackbarClose}
                     autoHideDuration={10000}
                 >
-                    <Alert
-                        onClose={this.handleSnackbarClose}
-                        severity="success"
-                    >
-                        Changes saved!
-                    </Alert>
+                    {alert}
                 </Snackbar>
                 <div className="profile-button-row">{toggleAllIconButton}</div>
                 <PanelGrid
@@ -264,4 +286,12 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     }
 }
 
-export default ReactRedux.connect()(ReactRouterDOM.withRouter(Profile));
+function mapStateToProps(state) {
+    return {
+        errorUpdateUser: state.UIMessages.errorUpdateUser,
+        successUpdateUser: state.UIMessages.successUpdateUser,
+    };
+}
+
+
+export default ReactRedux.connect(mapStateToProps)(ReactRouterDOM.withRouter(Profile));
