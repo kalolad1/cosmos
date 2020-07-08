@@ -16,7 +16,7 @@ class UsersPermissions(permissions.BasePermission):
         # If accessing main, require authentication.
         elif request.method == api.HTTPMethod.GET:
             # Only let user from access their own accounts if id in url.
-            if 'kwargs' not in context:
+            if not context['kwargs']:
                 if request.user and request.user.is_authenticated:
                     return True
             else:

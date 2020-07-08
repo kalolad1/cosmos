@@ -239,8 +239,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 </IconButton>
             );
         }
-        console.log(this.props.successUpdateUser);
-        console.log(this.props.errorUpdateUser);
         let alert;
         if (Object.keys(this.props.errorUpdateUser).length !== 0) {
             alert = (
