@@ -5,16 +5,15 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as types from '../../types/types';
 
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Profile from './Profile';
 import Summary from './Summary';
 import Timeline from './Timeline';
 import Header from './Header';
-
 
 interface ChartsProps {
     user: types.User;
@@ -34,7 +33,7 @@ class Charts extends React.Component<ChartsProps, any> {
     }
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
         return (
             <div className="charts">
                 <Header
@@ -76,15 +75,15 @@ class Charts extends React.Component<ChartsProps, any> {
                 <div className="chart-content-container">
                     <Switch>
                         <Route path={urlPathConstants.SUMMARY}>
-                            <Summary user={this.props.user}/>
+                            <Summary user={this.props.user} />
                         </Route>
                         <Route path={urlPathConstants.TIMELINE}>
-                            <Timeline user={this.props.user}/>
+                            <Timeline user={this.props.user} />
                         </Route>
                         <Route path={urlPathConstants.PROFILE}>
-                            <Profile user={this.props.user}/>
+                            <Profile user={this.props.user} />
                         </Route>
-                        <Redirect to={urlPathConstants.SUMMARY}/>
+                        <Redirect to={urlPathConstants.SUMMARY} />
                     </Switch>
                 </div>
             </div>
@@ -95,7 +94,7 @@ class Charts extends React.Component<ChartsProps, any> {
 export default withStyles({
     chartTabButtons: {
         textTransform: 'none',
-        fontFamily: "Neue Hans Kendrick",
+        fontFamily: 'Neue Hans Kendrick',
         fontSize: '16px',
-    }
+    },
 })(ReactRouterDOM.withRouter(Charts));
