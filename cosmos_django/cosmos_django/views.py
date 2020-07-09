@@ -1,3 +1,5 @@
+"""Views for landing page."""
+
 from django.shortcuts import render
 
 

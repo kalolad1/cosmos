@@ -4,8 +4,9 @@
     "es6": true
   },
   "extends": [
-    "plugin:react/recommended",
-    "google"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -21,12 +22,27 @@
   },
   "plugins": [
     "react",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "eslint-plugin-tsdoc"
   ],
   "rules": {
     "indent": [
       "error",
       4
-    ]
+    ],
+    "tsdoc/syntax": "warn",
+    "require-jsdoc": 0,
+    "valid-jsdoc": 0,
+    "comma-dangle": [
+      "off",
+      "ignore"
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
