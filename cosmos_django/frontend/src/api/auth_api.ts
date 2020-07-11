@@ -1,49 +1,43 @@
+/* API methods for authentication. */
 import * as apiEndpointConstants from '../constants/api_endpoint_constants';
 import * as axiosConfig from '../configs/axios_config';
-import * as tokenConstants from '../constants/token_constants';
-import * as authUtil from '../util/auth_util';
+import * as modelTypes from '../types/modelTypes';
 
-export function loginRequest(email: string, password: string) {
-    /**
-     * Sends a login request to the server and sets auth tokens if successful.
-     */
-    return axiosConfig.axiosClient
-        .post(apiEndpointConstants.GET_TOKEN, {
-            email: email,
-            password: password,
-        })
-        .then(function (response) {
-            authUtil.setToken(
-                tokenConstants.ACCESS_TOKEN,
-                response.data.access
-            );
-            authUtil.setToken(
-                tokenConstants.REFRESH_TOKEN,
-                response.data.refresh
-            );
-            return response;
-        });
-}
-
-export function signupRequest(
+/**
+ * Sends a login request to the server.
+ *
+ * @remarks
+ * If successful, sets auth tokens in local storage.
+ *
+ * @param email - Email of the user.
+ * @param password - Password of the user.
+ * @param client - Axios instance used to make request.
+ * @returns A Promise to the login request.
+ */
+export function loginRequest(
     email: string,
     password: string,
-    firstName: string,
-    lastName: string,
-    dateOfBirth: Date,
-    sex: string,
-    isProvider: boolean
+    client = axiosConfig.axiosClient
 ) {
-    /**
-     * Sends a signup request to the server.
-     */
-    return axiosConfig.axiosClient.post(apiEndpointConstants.USERS, {
+    return client.post(apiEndpointConstants.GET_TOKEN, {
         email: email,
         password: password,
-        firstName: firstName,
-        lastName: lastName,
-        dateOfBirth: dateOfBirth,
-        sex: sex,
-        isProvider: isProvider,
+    });
+}
+
+/**
+ * Sends a sign up request to the server.
+ *
+ * @param newUser - An object containing data to create a new user.
+ * @param client - Axios instance used to make request.
+ *
+ * @returns A Promise to the signup request.
+ */
+export function signupRequest(
+    newUser: modelTypes.UserConstructor,
+    client = axiosConfig.axiosClient
+) {
+    return client.post(apiEndpointConstants.USERS, {
+        ...newUser,
     });
 }

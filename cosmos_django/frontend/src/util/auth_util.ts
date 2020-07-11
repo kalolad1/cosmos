@@ -45,6 +45,11 @@ export function getTokenExpiry(tokenType: string): number {
     return expiry;
 }
 
+export function setAuthTokens(tokens: { access: string; refresh: string }) {
+    setToken(tokenConstants.ACCESS_TOKEN, tokens.access);
+    setToken(tokenConstants.REFRESH_TOKEN, tokens.refresh);
+}
+
 export function setToken(tokenType: string, value: string): void {
     // Set expiration times for access tokens.
     const currentTimeInMillisecond = new Date().getTime();

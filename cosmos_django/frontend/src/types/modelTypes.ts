@@ -21,6 +21,16 @@ export interface UserUpdate {
     providerProfile?: ProviderProfileUpdate;
 }
 
+export interface UserConstructor {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    sex: string;
+    isProvider: boolean;
+}
+
 export interface ProviderProfile {
     account: number;
     id: number;

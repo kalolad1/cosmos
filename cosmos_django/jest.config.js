@@ -1,6 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  setupFiles: ["./frontend/src/mocks/localStorageMock.ts"],
+  testEnvironment: 'jsdom',
   testMatch: [
     "**/*.test.ts"
   ],

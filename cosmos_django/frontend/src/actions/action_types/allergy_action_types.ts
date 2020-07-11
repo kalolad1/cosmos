@@ -1,4 +1,4 @@
-/* Allergy Action action_types */
+/* Allergy Action Action Types */
 export const REQUEST_ADD_ALLERGY = 'REQUEST_ADD_ALLERGY';
 export const RECEIVE_ADD_ALLERGY = 'RECEIVE_ADD_ALLERGY';
 export const FAILURE_ADD_ALLERGY = 'FAILURE_ADD_ALLERGY';

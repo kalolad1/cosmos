@@ -4,6 +4,7 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as authApi from '../../api/auth_api';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
+import * as authUtil from '../../util/auth_util';
 
 import { Button, Snackbar, TextField } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -43,11 +44,11 @@ class LoginForm extends React.Component<any, LoginFormState> {
         const self = this;
         authApi
             .loginRequest(this.state.email, this.state.password)
-            .then(function () {
+            .then(function (response) {
+                authUtil.setAuthTokens(response.data);
                 self.props.history.replace(urlPathConstants.HOME);
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(function () {
                 self.setState({
                     ...self.state,
                     isErrorSnackbarOpen: true,

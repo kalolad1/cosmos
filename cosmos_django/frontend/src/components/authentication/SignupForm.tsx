@@ -6,6 +6,8 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as authApi from '../../api/auth_api';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
+import * as authUtil from '../../util/auth_util';
 
 import {
     Button,
@@ -108,21 +110,22 @@ class SignupForm extends React.Component<any, SignupFormState> {
     handleRegistrationRequest(event: React.SyntheticEvent): void {
         event.preventDefault();
         const self = this;
-
+        const newUser: modelTypes.UserConstructor = {
+            email: this.state.email,
+            password: this.state.password,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            dateOfBirth: this.state.dateOfBirth!.toLocaleDateString()!,
+            sex: this.state.sex,
+            isProvider: this.state.isProvider === 'yes',
+        };
         authApi
-            .signupRequest(
-                this.state.email,
-                this.state.password,
-                this.state.firstName,
-                this.state.lastName,
-                this.state.dateOfBirth!,
-                this.state.sex,
-                this.state.isProvider === 'yes'
-            )
+            .signupRequest(newUser)
             .then(function () {
                 authApi
                     .loginRequest(self.state.email, self.state.password)
-                    .then(function () {
+                    .then(function (response) {
+                        authUtil.setAuthTokens(response.data);
                         self.props.history.replace(urlPathConstants.HOME);
                     });
             })
