@@ -10,14 +10,14 @@ export function getUser() {
     return axiosConfig.axiosClient.get(apiEndpointConstants.USERS);
 }
 
-export async function updateUser(user: modelTypes.User) {
+export async function updateUser(updatedUser: modelTypes.UserUpdate) {
     /**
      * Updates the user with the new user object.
      */
 
     return axiosConfig.axiosClient.put(
-        apiEndpointConstants.USERS + user.id.toString() + '/',
-        { ...user }
+        apiEndpointConstants.USERS + updatedUser.id.toString() + '/',
+        { ...updatedUser }
     );
 }
 

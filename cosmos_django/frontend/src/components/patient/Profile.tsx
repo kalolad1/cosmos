@@ -106,13 +106,13 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     dispatchUpdateUser() {
         // TODO make a check for equality to avoid useless put request.
         const self = this;
-        const newUser = {
+        const updatedUser: modelTypes.UserUpdate = {
             id: this.props.user.id,
             email: this.state.email,
             patientProfile: {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
-                dateOfBirth: this.state.dateOfBirth,
+                dateOfBirth: this.state.dateOfBirth.toLocaleDateString(),
                 phoneNumber: this.state.phoneNumber,
                 address: {
                     addressLine: this.state.addressLine,
@@ -128,7 +128,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             },
         };
         this.props
-            .dispatch(userActionCreators.updateUser(newUser))
+            .dispatch(userActionCreators.updateUser(updatedUser))
             .then(function () {
                 self.handleSnackbarOpen();
             });

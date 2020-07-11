@@ -14,6 +14,13 @@ export interface User {
     providerProfile?: ProviderProfile;
 }
 
+export interface UserUpdate {
+    id: number;
+    email: string;
+    patientProfile?: PatientProfileUpdate;
+    providerProfile?: ProviderProfileUpdate;
+}
+
 export interface ProviderProfile {
     account: number;
     id: number;
@@ -23,9 +30,14 @@ export interface ProviderProfile {
     sex: string;
 }
 
+export interface ProviderProfileUpdate {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    sex: string;
+}
+
 export interface PatientProfile {
-    account: number;
-    id: number;
     firstName: string;
     lastName: string;
     dateOfBirth: string;
@@ -44,6 +56,19 @@ export interface PatientProfile {
     medications: Array<Medication>;
     allergies: Array<Allergy>;
     vaccinations: Array<Vaccination>;
+}
+
+export interface PatientProfileUpdate {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    phoneNumber: string;
+    race: string;
+    ethnicity: string;
+    religion: string;
+    insurance: string;
+    pharmacy: string;
+    address: Address;
 }
 
 export interface Address {

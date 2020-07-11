@@ -1,33 +1,42 @@
-/* User */
+/* User Action Creators */
 import * as userActionTypes from '../action_types/user_action_types';
-import * as modelTypes from '../../types/modelTypes';
 import * as patientApi from '../../api/patient_api';
+import * as errorTypes from '../../types/errorTypes';
+import * as modelTypes from '../../types/modelTypes';
 
+/**
+ * Creates a REQUEST_GET_USER action.
+ *
+ * @returns An action with type REQUEST_GET_USER.
+ */
 export function requestGetUser(): { type: string } {
-    /**
-     * Returns an action to notify that a GET user request was made.
-     */
     return {
         type: userActionTypes.REQUEST_GET_USER,
     };
 }
 
+/**
+ * Creates a RECEIVE_GET_USER action.
+ *
+ * @param user - The retrieved user object.
+ *
+ * @returns An action with type RECEIVE_GET_USER.
+ */
 export function receiveGetUser(
     user: modelTypes.User
 ): { type: string; user: modelTypes.User } {
-    /**
-     * Returns an action to notify that a user was received.
-     */
     return {
         type: userActionTypes.RECEIVE_GET_USER,
         user: user,
     };
 }
 
+/**
+ * Gets the user data and dispatches request and receive actions.
+ *
+ * @returns A function that when dispatched, gets the user data.
+ */
 export function getUser() {
-    /**
-     * Fetches a user and saves it to the client store.
-     */
     return function (dispatch) {
         dispatch(requestGetUser());
 
@@ -37,42 +46,66 @@ export function getUser() {
     };
 }
 
+/**
+ * Creates a REQUEST_UPDATE_USER action.
+ *
+ * @returns An action with type REQUEST_UPDATE_USER.
+ */
 export function requestUpdateUser(): { type: string } {
-    /**
-     * Returns an action to notify that a PUT user request was made.
-     */
     return {
         type: userActionTypes.REQUEST_UPDATE_USER,
     };
 }
 
-export function receiveUpdateUser(user: modelTypes.User) {
-    /**
-     * Returns an action to notify that a user was updated.
-     */
+/**
+ * Creates a RECEIVE_UPDATE_USER action.
+ *
+ * @param user - The updated User object.
+ *
+ * @returns An action with type RECEIVE_UPDATE_USER.
+ */
+export function receiveUpdateUser(
+    user: modelTypes.User
+): {
+    type: string;
+    user: modelTypes.User;
+    success: { userFacingMessage: string };
+} {
     return {
         type: userActionTypes.RECEIVE_UPDATE_USER,
         user: user,
         success: { userFacingMessage: 'Saved successfully!' },
     };
 }
-
-export function failureUpdateUser(error) {
+/**
+ * Creates a FAILURE_UPDATE_USER action.
+ *
+ * @param error - The error object specifying the failure.
+ *
+ * @returns An action with type FAILURE_UPDATE_USER.
+ */
+export function failureUpdateUser(
+    error: errorTypes.error
+): { type: string; error: errorTypes.error } {
     return {
         type: userActionTypes.FAILURE_UPDATE_USER,
         error: error,
     };
 }
 
-export function updateUser(user) {
-    /**
-     * Updates a user and saves the updated user to the client store.
-     */
+/**
+ * Updates a user and dispatches request and receive actions.
+ *
+ * @param updatedUser - An object representing an updated user.
+ *
+ * @returns A function that when dispatched, updates user object.
+ */
+export function updateUser(updatedUser: modelTypes.UserUpdate) {
     return function (dispatch) {
         dispatch(requestUpdateUser());
 
         return patientApi
-            .updateUser(user)
+            .updateUser(updatedUser)
             .then(function (response) {
                 dispatch(receiveUpdateUser(response.data));
             })
