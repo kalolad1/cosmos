@@ -96,7 +96,7 @@ test('updates an allergy and dispatches REQUEST and RECEIVE actions', () => {
 
     const store = mockStore({});
 
-    const updatedAllergy: modelTypes.AllergyUpdater = {
+    const updatedAllergy: modelTypes.AllergyUpdate = {
         id: 4,
         name: 'Peanut Butter',
         description: 'Peanut butter description.',

@@ -69,13 +69,11 @@ class DiagnosisFullViewContainer extends React.Component<
     handleAddDiagnosisSubmit(event) {
         event.preventDefault();
         const self = this;
-        this.props
-            .dispatch(
-                diagnosisActionCreators.addDiagnosis(
-                    this.state.name,
-                    this.state.description
-                )
-            )
+        const newDiagnosis: modelTypes.DiagnosisConstructor = {
+            name: this.state.name,
+            description: this.state.description,
+        };
+        this.props.dispatch(diagnosisActionCreators.addDiagnosis(newDiagnosis))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });
@@ -84,14 +82,13 @@ class DiagnosisFullViewContainer extends React.Component<
     handleUpdateDiagnosisSubmit(event) {
         event.preventDefault();
         const self = this;
-        this.props
-            .dispatch(
-                diagnosisActionCreators.updateDiagnosis(
-                    this.props.match.params.id,
-                    this.state.name,
-                    this.state.description
-                )
-            )
+        const updatedDiagnosis: modelTypes.DiagnosisUpdate = {
+            id: this.props.match.params.id,
+            name: this.state.name,
+            description: this.state.description,
+        };
+        this.props.dispatch(
+                diagnosisActionCreators.updateDiagnosis(updatedDiagnosis))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });

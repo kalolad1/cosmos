@@ -60,24 +60,21 @@ export function deleteEncounter(id: number) {
 }
 
 /* Diagnosis */
-export function addDiagnosis(name: string, description: string) {
+export function addDiagnosis(newDiagnosis: modelTypes.DiagnosisConstructor) {
     /**
      * Adds a diagnosis.
      */
     return axiosConfig.axiosClient.post(apiEndpointConstants.DIAGNOSES, {
-        name: name,
-        description: description,
+        ...newDiagnosis
     });
 }
 
-export function updateDiagnosis(id: number, name: string, description: string) {
+export function updateDiagnosis(updatedDiagnosis: modelTypes.DiagnosisUpdate) {
     /**
      * Updates a diagnosis.
      */
     return axiosConfig.axiosClient.put(apiEndpointConstants.DIAGNOSES, {
-        id: id,
-        name: name,
-        description: description,
+        ...updatedDiagnosis
     });
 }
 
@@ -139,14 +136,12 @@ export function addAllergy(newAllergy: modelTypes.AllergyConstructor) {
     });
 }
 
-export function updateAllergy(updatedAllergy: modelTypes.AllergyUpdater) {
+export function updateAllergy(updatedAllergy: modelTypes.AllergyUpdate) {
     /**
      * Updates an allergy.
      */
     return axiosConfig.axiosClient.put(apiEndpointConstants.ALLERGIES, {
-        id: updatedAllergy.id,
-        name: updatedAllergy.name,
-        description: updatedAllergy.description,
+        ...updatedAllergy
     });
 }
 

@@ -74,6 +74,17 @@ export interface Diagnosis extends MedicalEntity {
     createdAt: string;
 }
 
+export interface DiagnosisConstructor {
+    name: string;
+    description: string;
+}
+
+export interface DiagnosisUpdate {
+    id: number;
+    name: string;
+    description: string;
+}
+
 export interface Medication extends MedicalEntity {
     id: number;
     name: string;
@@ -93,7 +104,7 @@ export interface AllergyConstructor {
     description: string;
 }
 
-export interface AllergyUpdater {
+export interface AllergyUpdate {
     id: number;
     name: string;
     description: string;

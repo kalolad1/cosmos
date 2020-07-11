@@ -33,18 +33,17 @@ export function receiveAddDiagnosis(
 /**
  * Adds a new Diagnosis object and dispatches request and receive actions.
  *
- * @param name - The name of the diagnosis.
- * @param description - The description of the diagnosis.
+ * @param newDiagnosis - The new diagnosis to be added.
  *
  * @returns A function that when dispatched, adds a new Diagnosis object for the
  * patient.
  */
-export function addDiagnosis(name: string, description: string) {
+export function addDiagnosis(newDiagnosis: modelTypes.DiagnosisConstructor) {
     return function (dispatch) {
         dispatch(requestAddDiagnosis());
 
         return patientApi
-            .addDiagnosis(name, description)
+            .addDiagnosis(newDiagnosis)
             .then(function (response) {
                 dispatch(receiveAddDiagnosis(response.data));
             });
@@ -79,24 +78,19 @@ export function receiveUpdateDiagnosis(
 }
 
 /**
- * Updates an Allergy object and dispatches request and receive actions.
+ * Updates an Diagnosis object and dispatches request and receive actions.
  *
- * @param id - The id of the Allergy object.
- * @param name - The name of the allergy.
- * @param description - The description of the allergy.
+ * @param updatedDiagnosis - The updated diagnosis to be saved.
  *
- * @returns A function that when dispatched, updates a new Allergy object for
+ * @returns A function that when dispatched, updates a new Diagnosis object for
  * the patient.
  */
-export function updateDiagnosis(id: number, name: string, description: string) {
-    /**
-     * Updates a diagnosis and saves updated state to the client store.
-     */
+export function updateDiagnosis(updatedDiagnosis: modelTypes.DiagnosisUpdate) {
     return function (dispatch) {
         dispatch(requestUpdateDiagnosis());
 
         return patientApi
-            .updateDiagnosis(id, name, description)
+            .updateDiagnosis(updatedDiagnosis)
             .then(function (response) {
                 dispatch(receiveUpdateDiagnosis(response.data));
             });

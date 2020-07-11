@@ -89,7 +89,7 @@ export function receiveUpdateAllergy(
  * @returns A function that when dispatched, updates a new Allergy object for
  * the patient.
  */
-export function updateAllergy(updatedAllergy: modelTypes.AllergyUpdater) {
+export function updateAllergy(updatedAllergy: modelTypes.AllergyUpdate) {
     return function (dispatch) {
         dispatch(requestUpdateAllergy());
 

@@ -81,7 +81,7 @@ class AllergyFullViewContainer extends React.Component<
     handleUpdateAllergySubmit(event) {
         event.preventDefault();
         const self = this;
-        const updatedAllergy: modelTypes.AllergyUpdater = {
+        const updatedAllergy: modelTypes.AllergyUpdate = {
             id: this.props.match.params.id,
             name: this.state.name,
             description: this.state.description,
