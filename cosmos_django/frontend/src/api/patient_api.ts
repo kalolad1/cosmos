@@ -144,28 +144,25 @@ export function deleteAllergy(id: number) {
 }
 
 /* Vaccination */
-export function addVaccination(name: string, description: string) {
+export function addVaccination(
+    newVaccination: modelTypes.VaccinationConstructor
+) {
     /**
      * Adds a vaccination.
      */
     return axiosConfig.axiosClient.post(apiEndpointConstants.VACCINATIONS, {
-        name: name,
-        description: description,
+        ...newVaccination,
     });
 }
 
 export function updateVaccination(
-    id: number,
-    name: string,
-    description: string
+    updatedVaccination: modelTypes.VaccinationUpdate
 ) {
     /**
      * Updates an vaccination.
      */
     return axiosConfig.axiosClient.put(apiEndpointConstants.VACCINATIONS, {
-        id: id,
-        name: name,
-        description: description,
+        ...updatedVaccination,
     });
 }
 

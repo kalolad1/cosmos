@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 
 import * as medicationActionTypes from '../action_types/medication_action_types';
 import * as patientApi from '../../api/patient_api';
-import * as modelConstants from '../../constants/model_constants';
 import * as medicationActionCreators from './medication_action_creators';
 import * as modelTypes from '../../types/modelTypes';
 

@@ -69,13 +69,12 @@ class VaccinationFullViewContainer extends React.Component<
     handleAddVaccinationSubmit(event) {
         event.preventDefault();
         const self = this;
+        const newVaccination: modelTypes.VaccinationConstructor = {
+            name: this.state.name,
+            description: this.state.description,
+        };
         this.props
-            .dispatch(
-                vaccinationActionCreators.addVaccination(
-                    this.state.name,
-                    this.state.description
-                )
-            )
+            .dispatch(vaccinationActionCreators.addVaccination(newVaccination))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });
@@ -84,13 +83,14 @@ class VaccinationFullViewContainer extends React.Component<
     handleUpdateVaccinationSubmit(event) {
         event.preventDefault();
         const self = this;
+        const updatedVaccination: modelTypes.VaccinationUpdate = {
+            id: this.props.match.params.id,
+            name: this.state.name,
+            description: this.state.description,
+        };
         this.props
             .dispatch(
-                vaccinationActionCreators.updateVaccination(
-                    this.props.match.params.id,
-                    this.state.name,
-                    this.state.description
-                )
+                vaccinationActionCreators.updateVaccination(updatedVaccination)
             )
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);

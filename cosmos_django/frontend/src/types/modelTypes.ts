@@ -138,3 +138,14 @@ export interface Vaccination extends MedicalEntity {
     description: string;
     createdAt: string;
 }
+
+export interface VaccinationConstructor {
+    name: string;
+    description: string;
+}
+
+export interface VaccinationUpdate {
+    id: number;
+    name: string;
+    description: string;
+}
