@@ -1,4 +1,4 @@
-/* Contains Encounter Action Creators */
+/* Encounter Action Creators */
 import * as encounterActionTypes from '../action_types/encounter_action_types';
 import * as patientApi from '../../api/patient_api';
 import * as modelTypes from '../../types/modelTypes';

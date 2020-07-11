@@ -1,4 +1,4 @@
-/* Contains Diagnosis Action Creators */
+/* Diagnosis Action Creators */
 import * as patientApi from '../../api/patient_api';
 import * as diagnosisActionTypes from '../action_types/diagnosis_action_types';
 import * as modelTypes from '../../types/modelTypes';

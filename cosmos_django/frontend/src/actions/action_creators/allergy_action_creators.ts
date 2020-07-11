@@ -1,4 +1,4 @@
-/* Contains Allergy Action Creators */
+/* Allergy Action Creators */
 import * as allergyActionTypes from '../action_types/allergy_action_types';
 import * as patientApi from '../../api/patient_api';
 import * as modelTypes from '../../types/modelTypes';

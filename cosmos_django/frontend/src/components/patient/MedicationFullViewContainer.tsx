@@ -70,13 +70,12 @@ class MedicationFullViewContainer extends React.Component<
     handleAddMedicationSubmit(event) {
         event.preventDefault();
         const self = this;
+        const newMedication: modelTypes.MedicationConstructor = {
+            name: this.state.name,
+            description: this.state.description,
+        };
         this.props
-            .dispatch(
-                medicationActionCreators.addMedication(
-                    this.state.name,
-                    this.state.description
-                )
-            )
+            .dispatch(medicationActionCreators.addMedication(newMedication))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });
@@ -85,13 +84,14 @@ class MedicationFullViewContainer extends React.Component<
     handleUpdateMedicationSubmit(event) {
         event.preventDefault();
         const self = this;
+        const updatedMedication: modelTypes.MedicationUpdate = {
+            id: this.props.match.params.id,
+            name: this.state.name,
+            description: this.state.description,
+        };
         this.props
             .dispatch(
-                medicationActionCreators.updateMedication(
-                    this.props.match.params.id,
-                    this.state.name,
-                    this.state.description
-                )
+                medicationActionCreators.updateMedication(updatedMedication)
             )
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);

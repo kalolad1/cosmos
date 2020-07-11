@@ -82,28 +82,23 @@ export function deleteDiagnosis(id: number) {
 }
 
 /* Medication */
-export function addMedication(name: string, description: string) {
+export function addMedication(newMedication: modelTypes.MedicationConstructor) {
     /**
      * Adds a medication.
      */
     return axiosConfig.axiosClient.post(apiEndpointConstants.MEDICATIONS, {
-        name: name,
-        description: description,
+        ...newMedication,
     });
 }
 
 export function updateMedication(
-    id: number,
-    name: string,
-    description: string
+    updatedMedication: modelTypes.MedicationUpdate
 ) {
     /**
      * Updates a medication.
      */
     return axiosConfig.axiosClient.put(apiEndpointConstants.MEDICATIONS, {
-        id: id,
-        name: name,
-        description: description,
+        ...updatedMedication,
     });
 }
 

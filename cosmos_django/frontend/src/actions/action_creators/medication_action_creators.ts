@@ -1,64 +1,92 @@
-/* Medication */
+/* Medication Action Creators */
 import * as medicationActionTypes from '../action_types/medication_action_types';
 import * as patientApi from '../../api/patient_api';
+import * as modelTypes from '../../types/modelTypes';
 
+/**
+ * Creates a REQUEST_ADD_MEDICATION action.
+ *
+ * @returns An action with type REQUEST_ADD_MEDICATION.
+ */
 export function requestAddMedication(): { type: string } {
-    /**
-     * Returns an action to notify that a POST medication request was made.
-     */
     return {
         type: medicationActionTypes.REQUEST_ADD_MEDICATION,
     };
 }
 
-export function receiveAddMedication(medication) {
-    /**
-     * Returns an action to notify that a medication was added.
-     */
+/**
+ * Creates a RECEIVE_ADD_MEDICATION action.
+ *
+ * @param medication - The newly added Medication object, received from server.
+ *
+ * @returns An action with type RECEIVE_ADD_MEDICATION.
+ */
+export function receiveAddMedication(
+    medication: modelTypes.Medication
+): { type: string; medication: modelTypes.Medication } {
     return {
         type: medicationActionTypes.RECEIVE_ADD_MEDICATION,
         medication: medication,
     };
 }
 
-export function addMedication(name: string, description: string) {
-    /**
-     * Adds a medication and saves it to the client store.
-     */
+/**
+ * Adds a new Medication object and dispatches request and receive actions.
+ *
+ * @param newMedication - The new medication to be added.
+ *
+ * @returns A function that when dispatched, adds a new Medication object for the
+ * patient.
+ */
+export function addMedication(newMedication: modelTypes.MedicationConstructor) {
     return function (dispatch) {
         dispatch(requestAddMedication());
 
         return patientApi
-            .addMedication(name, description)
+            .addMedication(newMedication)
             .then(function (response) {
                 dispatch(receiveAddMedication(response.data));
             });
     };
 }
 
+/**
+ * Creates a REQUEST_UPDATE_MEDICATION action.
+ *
+ * @returns An action with type REQUEST_UPDATE_MEDICATION.
+ */
 export function requestUpdateMedication(): { type: string } {
-    /**
-     * Returns an action to notify that a PUT medication request was made.
-     */
     return {
         type: medicationActionTypes.REQUEST_UPDATE_MEDICATION,
     };
 }
 
-export function receiveUpdateMedication(medication) {
-    /**
-     * Returns an action to notify that an medication was successfully updated.
-     */
+/**
+ * Creates a RECEIVE_UPDATE_MEDICATION action.
+ *
+ * @param medication - The newly updated Medication object, received the server.
+ *
+ * @returns An action with type RECEIVE_UPDATE_MEDICATION.
+ */
+export function receiveUpdateMedication(
+    medication: modelTypes.Medication
+): { type: string; medication: modelTypes.Medication } {
     return {
         type: medicationActionTypes.RECEIVE_UPDATE_MEDICATION,
         medication: medication,
     };
 }
 
+/**
+ * Updates an Medication object and dispatches request and receive actions.
+ *
+ * @param updatedMedication - The updated medication to be saved.
+ *
+ * @returns A function that when dispatched, updates a new Medication object for
+ * the patient.
+ */
 export function updateMedication(
-    id: number,
-    name: string,
-    description: string
+    updatedMedication: modelTypes.MedicationUpdate
 ) {
     /**
      * Updates a medication and saves updated state to the client store.
@@ -67,35 +95,44 @@ export function updateMedication(
         dispatch(requestUpdateMedication());
 
         return patientApi
-            .updateMedication(id, name, description)
+            .updateMedication(updatedMedication)
             .then(function (response) {
                 dispatch(receiveUpdateMedication(response.data));
             });
     };
 }
 
+/**
+ * Creates a REQUEST_DELETE_MEDICATION action.
+ *
+ * @returns An action with type REQUEST_DELETE_MEDICATION.
+ */
 export function requestDeleteMedication(): { type: string } {
-    /**
-     * Returns an action to notify that a DELETE medication request was made.
-     */
     return {
         type: medicationActionTypes.REQUEST_DELETE_MEDICATION,
     };
 }
 
-export function receiveDeleteMedication() {
-    /**
-     * Returns an action to notify that a medication was successfully deleted.
-     */
+/**
+ * Creates a RECEIVE_DELETE_MEDICATION action.
+ *
+ * @returns An action with type RECEIVE_DELETE_MEDICATION.
+ */
+export function receiveDeleteMedication(): { type: string } {
     return {
         type: medicationActionTypes.RECEIVE_DELETE_MEDICATION,
     };
 }
 
+/**
+ * Deletes a medication and dispatches request and receive actions.
+ *
+ * @param id - The id of the Medication object.
+ *
+ * @returns A function that when dispatched, deletes an medication for the
+ * patient.
+ */
 export function deleteMedication(id: number) {
-    /**
-     * Deletes a medication.
-     */
     return function (dispatch) {
         dispatch(requestDeleteMedication());
 
