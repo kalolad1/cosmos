@@ -1,6 +1,6 @@
 /* Contains Allergy Action Creators */
-import * as patientApi from '../../api/patient_api';
 import * as allergyActionTypes from '../action_types/allergy_action_types';
+import * as patientApi from '../../api/patient_api';
 import * as modelTypes from '../../types/modelTypes';
 
 /**
@@ -72,9 +72,6 @@ export function requestUpdateAllergy(): { type: string } {
 export function receiveUpdateAllergy(
     allergy: modelTypes.Allergy
 ): { type: string; allergy: modelTypes.Allergy } {
-    /**
-     * Returns an action to notify that an allergy was successfully updated.
-     */
     return {
         type: allergyActionTypes.RECEIVE_UPDATE_ALLERGY,
         allergy: allergy,

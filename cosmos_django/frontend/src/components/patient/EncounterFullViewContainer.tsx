@@ -70,13 +70,13 @@ class EncounterFullViewContainer extends React.Component<
     handleAddEncounterSubmit(event) {
         event.preventDefault();
         const self = this;
+
+        const newEncounter: modelTypes.EncounterConstructor = {
+            encounterType: this.state.encounterType,
+            note: this.state.note,
+        };
         this.props
-            .dispatch(
-                encounterActionCreators.addEncounter(
-                    this.state.encounterType,
-                    this.state.note
-                )
-            )
+            .dispatch(encounterActionCreators.addEncounter(newEncounter))
             .then(function () {
                 self.props.history.replace(urlPathConstants.TIMELINE);
             });
@@ -85,14 +85,13 @@ class EncounterFullViewContainer extends React.Component<
     handleUpdateEncounterSubmit(event) {
         event.preventDefault();
         const self = this;
+        const updatedEncounter: modelTypes.EncounterUpdate = {
+            id: this.props.match.params.id,
+            encounterType: this.state.encounterType,
+            note: this.state.note,
+        };
         this.props
-            .dispatch(
-                encounterActionCreators.updateEncounter(
-                    this.props.match.params.id,
-                    this.state.encounterType,
-                    this.state.note
-                )
-            )
+            .dispatch(encounterActionCreators.updateEncounter(updatedEncounter))
             .then(function () {
                 self.props.history.replace(urlPathConstants.TIMELINE);
             });

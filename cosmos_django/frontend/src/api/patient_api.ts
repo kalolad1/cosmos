@@ -22,29 +22,21 @@ export async function updateUser(user: modelTypes.User) {
 }
 
 /* Encounter */
-export function addEncounter(encounterType: string, note: string) {
+export function addEncounter(newEncounter: modelTypes.EncounterConstructor) {
     /**
      * Adds an encounter.
      */
-
     return axiosConfig.axiosClient.post(apiEndpointConstants.ENCOUNTERS, {
-        encounterType: encounterType,
-        note: note,
+        ...newEncounter,
     });
 }
 
-export function updateEncounter(
-    id: number,
-    encounterType: string,
-    note: string
-) {
+export function updateEncounter(updatedEncounter: modelTypes.EncounterUpdate) {
     /**
      * Updates an encounter.
      */
     return axiosConfig.axiosClient.put(apiEndpointConstants.ENCOUNTERS, {
-        id: id,
-        encounterType: encounterType,
-        note: note,
+        ...updatedEncounter,
     });
 }
 

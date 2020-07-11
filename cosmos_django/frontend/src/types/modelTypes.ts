@@ -67,6 +67,17 @@ export interface Encounter extends MedicalEntity {
     updatedAt: string;
 }
 
+export interface EncounterConstructor {
+    note: string;
+    encounterType: string;
+}
+
+export interface EncounterUpdate {
+    id: number;
+    note: string;
+    encounterType: string;
+}
+
 export interface Diagnosis extends MedicalEntity {
     id: number;
     name: string;

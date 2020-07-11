@@ -36,7 +36,7 @@ async function getFreshTokensOrRedirectToLogin() {
 
     // Both tokens have expired, clear tokens and return to landing page.
     authUtil.clearTokens();
-    window.location.replace('https://google.com');
+    window.location.replace(baseUrlConstants.BASE_URL);
     return;
 }
 
