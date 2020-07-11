@@ -65,7 +65,7 @@ export function addDiagnosis(newDiagnosis: modelTypes.DiagnosisConstructor) {
      * Adds a diagnosis.
      */
     return axiosConfig.axiosClient.post(apiEndpointConstants.DIAGNOSES, {
-        ...newDiagnosis
+        ...newDiagnosis,
     });
 }
 
@@ -74,7 +74,7 @@ export function updateDiagnosis(updatedDiagnosis: modelTypes.DiagnosisUpdate) {
      * Updates a diagnosis.
      */
     return axiosConfig.axiosClient.put(apiEndpointConstants.DIAGNOSES, {
-        ...updatedDiagnosis
+        ...updatedDiagnosis,
     });
 }
 
@@ -141,7 +141,7 @@ export function updateAllergy(updatedAllergy: modelTypes.AllergyUpdate) {
      * Updates an allergy.
      */
     return axiosConfig.axiosClient.put(apiEndpointConstants.ALLERGIES, {
-        ...updatedAllergy
+        ...updatedAllergy,
     });
 }
 

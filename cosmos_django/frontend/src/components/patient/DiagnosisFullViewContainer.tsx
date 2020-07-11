@@ -73,7 +73,8 @@ class DiagnosisFullViewContainer extends React.Component<
             name: this.state.name,
             description: this.state.description,
         };
-        this.props.dispatch(diagnosisActionCreators.addDiagnosis(newDiagnosis))
+        this.props
+            .dispatch(diagnosisActionCreators.addDiagnosis(newDiagnosis))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });
@@ -87,8 +88,8 @@ class DiagnosisFullViewContainer extends React.Component<
             name: this.state.name,
             description: this.state.description,
         };
-        this.props.dispatch(
-                diagnosisActionCreators.updateDiagnosis(updatedDiagnosis))
+        this.props
+            .dispatch(diagnosisActionCreators.updateDiagnosis(updatedDiagnosis))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });

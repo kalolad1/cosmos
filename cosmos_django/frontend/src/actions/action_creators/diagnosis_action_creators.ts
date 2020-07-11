@@ -42,11 +42,9 @@ export function addDiagnosis(newDiagnosis: modelTypes.DiagnosisConstructor) {
     return function (dispatch) {
         dispatch(requestAddDiagnosis());
 
-        return patientApi
-            .addDiagnosis(newDiagnosis)
-            .then(function (response) {
-                dispatch(receiveAddDiagnosis(response.data));
-            });
+        return patientApi.addDiagnosis(newDiagnosis).then(function (response) {
+            dispatch(receiveAddDiagnosis(response.data));
+        });
     };
 }
 
@@ -97,28 +95,37 @@ export function updateDiagnosis(updatedDiagnosis: modelTypes.DiagnosisUpdate) {
     };
 }
 
+/**
+ * Creates a REQUEST_DELETE_DIAGNOSIS action.
+ *
+ * @returns An action with type REQUEST_DELETE_DIAGNOSIS.
+ */
 export function requestDeleteDiagnosis(): { type: string } {
-    /**
-     * Returns an action to notify that a DELETE diagnosis request was made.
-     */
     return {
         type: diagnosisActionTypes.REQUEST_DELETE_DIAGNOSIS,
     };
 }
 
-export function receiveDeleteDiagnosis() {
-    /**
-     * Returns an action to notify that a diagnosis was successfully deleted.
-     */
+/**
+ * Creates a RECEIVE_DELETE_DIAGNOSIS action.
+ *
+ * @returns An action with type RECEIVE_DELETE_DIAGNOSIS.
+ */
+export function receiveDeleteDiagnosis(): { type: string } {
     return {
-        type: diagnosisActionTypes.RECEIVE_UPDATE_DIAGNOSIS,
+        type: diagnosisActionTypes.RECEIVE_DELETE_DIAGNOSIS,
     };
 }
 
+/**
+ * Deletes an Diagnosis object and dispatches request and receive actions.
+ *
+ * @param id - The id of the Diagnosis object.
+ *
+ * @returns A function that when dispatched, deletes an Diagnosis object for the
+ * patient.
+ */
 export function deleteDiagnosis(id: number) {
-    /**
-     * Deletes a diagnosis.
-     */
     return function (dispatch) {
         dispatch(requestDeleteDiagnosis());
 
