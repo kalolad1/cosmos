@@ -4,4 +4,7 @@ module.exports = {
   roots: [
     "frontend/src"
   ],
+  testMatch: [
+    "**/*.test.ts"
+  ],
 };
