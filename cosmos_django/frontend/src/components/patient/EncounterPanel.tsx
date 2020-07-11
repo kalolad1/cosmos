@@ -3,17 +3,18 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as ReactRedux from 'react-redux';
 
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 import * as urlUtil from '../../util/url_util';
 
 import Panel from '../shared/Panel';
 import EncounterPanelBody from './EncounterPanelBody';
 import EncounterPanelHeader from './EncounterPanelHeader';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as actionCreators from '../../actions/action_creators';
+import * as encounterActionCreators from '../../actions/action_creators/encounter_action_creators';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
 
 interface EncounterPanelProps {
-    encounter: types.Encounter;
+    encounter: modelTypes.Encounter;
     profilePicture: string;
     firstName: string;
     lastName: string;
@@ -52,15 +53,10 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
         const self = this;
         this.props
             .dispatch(
-                actionCreators.deleteEncounter(
-                    this.props.encounter.id,
-                    this.props.history
-                )
+                encounterActionCreators.deleteEncounter(this.props.encounter.id)
             )
             .then(function () {
-                self.props.dispatch(
-                    actionCreators.fetchUser(self.props.history)
-                );
+                self.props.dispatch(userActionCreators.getUser());
             });
     }
 

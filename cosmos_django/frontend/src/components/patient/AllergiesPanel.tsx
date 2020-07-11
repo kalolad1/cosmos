@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 
 import List from '@material-ui/core/List';
 
@@ -15,7 +15,7 @@ import * as urlPathConstants from '../../constants/url_path_constants';
 const PANEL_TITLE = 'Allergies';
 
 interface AllergiesPanelProps {
-    allergies: Array<types.Allergy>;
+    allergies: Array<modelTypes.Allergy>;
     history: any;
 }
 

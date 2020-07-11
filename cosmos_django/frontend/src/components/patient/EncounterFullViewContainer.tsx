@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as types from '../../types/types';
-import * as actionCreators from '../../actions/action_creators';
+import * as modelTypes from '../../types/modelTypes';
+import * as encounterActionCreators from '../../actions/action_creators/encounter_action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
 
@@ -12,7 +12,7 @@ import EncounterFullView from './EncounterFullView';
 interface EncounterContainerProps {
     mode: string;
     match: any;
-    encounters: Array<types.Encounter>;
+    encounters: Array<modelTypes.Encounter>;
     history: any;
     dispatch: any;
 }
@@ -72,10 +72,9 @@ class EncounterFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.addEncounter(
+                encounterActionCreators.addEncounter(
                     this.state.encounterType,
-                    this.state.note,
-                    this.props.history
+                    this.state.note
                 )
             )
             .then(function () {
@@ -88,11 +87,10 @@ class EncounterFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.updateEncounter(
+                encounterActionCreators.updateEncounter(
                     this.props.match.params.id,
                     this.state.encounterType,
-                    this.state.note,
-                    this.props.history
+                    this.state.note
                 )
             )
             .then(function () {

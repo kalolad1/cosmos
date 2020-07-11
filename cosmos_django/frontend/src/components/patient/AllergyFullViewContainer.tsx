@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as types from '../../types/types';
-import * as actionCreators from '../../actions/action_creators';
+import * as modelTypes from '../../types/modelTypes';
+import * as allergyActionCreators from '../../actions/action_creators/allergy_action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
 import AllergyFullView from './AllergyFullView';
@@ -11,7 +11,7 @@ import AllergyFullView from './AllergyFullView';
 interface AllergyFullViewContainerProps {
     mode: string;
     match: any;
-    allergies: Array<types.Allergy>;
+    allergies: Array<modelTypes.Allergy>;
     history: any;
     dispatch: any;
 }
@@ -67,14 +67,12 @@ class AllergyFullViewContainer extends React.Component<
     handleAddAllergySubmit(event) {
         event.preventDefault();
         const self = this;
+        const newAllergy: modelTypes.AllergyConstructor = {
+            name: this.state.name,
+            description: this.state.description,
+        };
         this.props
-            .dispatch(
-                actionCreators.addAllergy(
-                    this.state.name,
-                    this.state.description,
-                    this.props.history
-                )
-            )
+            .dispatch(allergyActionCreators.addAllergy(newAllergy))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });
@@ -83,15 +81,13 @@ class AllergyFullViewContainer extends React.Component<
     handleUpdateAllergySubmit(event) {
         event.preventDefault();
         const self = this;
+        const updatedAllergy: modelTypes.AllergyUpdater = {
+            id: this.props.match.params.id,
+            name: this.state.name,
+            description: this.state.description,
+        };
         this.props
-            .dispatch(
-                actionCreators.updateAllergy(
-                    this.props.match.params.id,
-                    this.state.name,
-                    this.state.description,
-                    this.props.history
-                )
-            )
+            .dispatch(allergyActionCreators.updateAllergy(updatedAllergy))
             .then(function () {
                 self.props.history.replace(urlPathConstants.SUMMARY);
             });

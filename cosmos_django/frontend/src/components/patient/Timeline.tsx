@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import * as modelConstants from '../../constants/model_constants';
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 import * as dateUtil from '../../util/date_util';
 
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import EncounterPanel from './EncounterPanel';
 
 interface TimelineProps {
-    user: types.User;
+    user: modelTypes.User;
 }
 
 const ENCOUNTER_TYPE_ICON_MAPPING = {

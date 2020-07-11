@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 
-import * as actionCreators from '../actions/action_creators';
+import * as userActionCreators from '../actions/action_creators/user_action_creators';
 import { withStyles } from '@material-ui/core/styles';
 import * as ReactRouterDOM from 'react-router-dom';
-import { User } from '../types/types';
+import { User } from '../types/modelTypes';
 import AppShell from './AppShell';
 import Home from './patient/PatientHome';
 import PatientHome from './patient/PatientHome';
@@ -24,7 +24,7 @@ class AppHome extends React.Component<AppHomeProps, any> {
     }
 
     componentDidMount() {
-        this.props.dispatch(actionCreators.fetchUser(this.props.history));
+        this.props.dispatch(userActionCreators.getUser());
     }
 
     render() {

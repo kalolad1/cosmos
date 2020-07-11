@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 
 import { withStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
@@ -16,7 +16,7 @@ import Timeline from './Timeline';
 import Header from './Header';
 
 interface ChartsProps {
-    user: types.User;
+    user: modelTypes.User;
     history: any;
     classes: any;
 }

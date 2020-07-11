@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as types from '../../types/types';
-import * as actionCreators from '../../actions/action_creators';
+import * as modelTypes from '../../types/modelTypes';
+import * as medicationActionCreators from '../../actions/action_creators/medication_action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
 
@@ -12,7 +12,7 @@ import MedicationFullView from './MedicationFullView';
 interface MedicationFullViewContainerProps {
     mode: string;
     match: any;
-    medications: Array<types.Medication>;
+    medications: Array<modelTypes.Medication>;
     history: any;
     dispatch: any;
 }
@@ -72,10 +72,9 @@ class MedicationFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.addMedication(
+                medicationActionCreators.addMedication(
                     this.state.name,
-                    this.state.description,
-                    this.props.history
+                    this.state.description
                 )
             )
             .then(function () {
@@ -88,11 +87,10 @@ class MedicationFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.updateMedication(
+                medicationActionCreators.updateMedication(
                     this.props.match.params.id,
                     this.state.name,
-                    this.state.description,
-                    this.props.history
+                    this.state.description
                 )
             )
             .then(function () {

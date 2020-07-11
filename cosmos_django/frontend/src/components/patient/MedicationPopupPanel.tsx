@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import * as ReactRedux from 'react-redux';
 
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 import * as dateUtil from '../../util/date_util';
 
 import NotesIcon from '@material-ui/icons/Notes';
@@ -14,10 +14,11 @@ import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
 import * as urlUtil from '../../util/url_util';
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as actionCreators from '../../actions/action_creators';
+import * as medicationActionCreators from '../../actions/action_creators/medication_action_creators';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
 
 interface MedicationPopupPanelProps {
-    medication: types.Diagnosis;
+    medication: modelTypes.Diagnosis;
     history: any;
     dispatch: any;
 }
@@ -44,15 +45,12 @@ class MedicationPopupPanel extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.deleteMedication(
-                    this.props.medication.id,
-                    this.props.history
+                medicationActionCreators.deleteMedication(
+                    this.props.medication.id
                 )
             )
             .then(function () {
-                self.props.dispatch(
-                    actionCreators.fetchUser(self.props.history)
-                );
+                self.props.dispatch(userActionCreators.getUser());
             });
     }
 

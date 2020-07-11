@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as types from '../../types/types';
-import * as actionCreators from '../../actions/action_creators';
+import * as modelTypes from '../../types/modelTypes';
+import * as diagnosisActionCreators from '../../actions/action_creators/diagnosis_action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
 import DiagnosisFullView from './DiagnosisFullView';
@@ -11,7 +11,7 @@ import DiagnosisFullView from './DiagnosisFullView';
 interface DiagnosisFullViewContainerProps {
     mode: string;
     match: any;
-    diagnoses: Array<types.Diagnosis>;
+    diagnoses: Array<modelTypes.Diagnosis>;
     history: any;
     dispatch: any;
 }
@@ -71,10 +71,9 @@ class DiagnosisFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.addDiagnosis(
+                diagnosisActionCreators.addDiagnosis(
                     this.state.name,
-                    this.state.description,
-                    this.props.history
+                    this.state.description
                 )
             )
             .then(function () {
@@ -87,11 +86,10 @@ class DiagnosisFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.updateDiagnosis(
+                diagnosisActionCreators.updateDiagnosis(
                     this.props.match.params.id,
                     this.state.name,
-                    this.state.description,
-                    this.props.history
+                    this.state.description
                 )
             )
             .then(function () {

@@ -1,17 +1,15 @@
 import * as React from 'react';
 
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
-import Summary from '../patient/Summary';
-import Timeline from '../patient/Timeline';
-import Profile from '../patient/Profile';
+
 import Schedule from './Schedule';
 import Inbox from '../shared/Inbox';
 import ProviderMetrics from './ProviderMetrics';
 
 interface ProviderHomeProps {
-    user: types.User;
+    user: modelTypes.User;
 }
 
 class ProviderHome extends React.Component<ProviderHomeProps, any> {

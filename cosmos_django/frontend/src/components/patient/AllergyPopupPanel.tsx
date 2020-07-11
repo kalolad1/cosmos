@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import * as ReactRedux from 'react-redux';
 
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 import * as dateUtil from '../../util/date_util';
 
 import NotesIcon from '@material-ui/icons/Notes';
@@ -14,10 +14,11 @@ import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
 import * as urlUtil from '../../util/url_util';
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as actionCreators from '../../actions/action_creators';
+import * as allergyActionCreators from '../../actions/action_creators/allergy_action_creators';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
 
 interface AllergyPopupPanelProps {
-    allergy: types.Allergy;
+    allergy: modelTypes.Allergy;
     history: any;
     dispatch: any;
 }
@@ -42,15 +43,10 @@ class AllergyPopupPanel extends React.Component<AllergyPopupPanelProps, any> {
         const self = this;
         this.props
             .dispatch(
-                actionCreators.deleteAllergy(
-                    this.props.allergy.id,
-                    this.props.history
-                )
+                allergyActionCreators.deleteAllergy(this.props.allergy.id)
             )
             .then(function () {
-                self.props.dispatch(
-                    actionCreators.fetchUser(self.props.history)
-                );
+                self.props.dispatch(userActionCreators.getUser());
             });
     }
 

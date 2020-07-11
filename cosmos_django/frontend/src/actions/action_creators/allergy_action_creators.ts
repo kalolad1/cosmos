@@ -1,7 +1,7 @@
-/* Allergy */
+/* Contains Allergy Action Creators */
 import * as patientApi from '../../api/patient_api';
-import * as allergyActionTypes from '../types/allergy_action_types';
-import * as types from '../../types/types';
+import * as allergyActionTypes from '../action_types/allergy_action_types';
+import * as modelTypes from '../../types/modelTypes';
 
 /**
  * Creates a REQUEST_ADD_ALLERGY action.
@@ -22,10 +22,10 @@ export function requestAddAllergy(): { type: string } {
  * @returns An action with type RECEIVE_ADD_ALLERGY.
  */
 export function receiveAddAllergy(
-    allergy: types.Allergy
+    allergy: modelTypes.Allergy
 ): {
     type: string;
-    allergy: types.Allergy;
+    allergy: modelTypes.Allergy;
 } {
     return {
         type: allergyActionTypes.RECEIVE_ADD_ALLERGY,
@@ -36,22 +36,18 @@ export function receiveAddAllergy(
 /**
  * Adds a new Allergy object and dispatches request and receive actions.
  *
- * @param name - The name of the allergy.
- * @param description - The description of the allergy.
- * @param history - The history object of the invoking component.
+ * @param newAllergy - The new allergy to be added.
  *
  * @returns A function that when dispatched, adds a new Allergy object for the
  * patient.
  */
-export function addAllergy(name: string, description: string, history: any) {
+export function addAllergy(newAllergy: modelTypes.AllergyConstructor) {
     return function (dispatch) {
         dispatch(requestAddAllergy());
 
-        return patientApi
-            .addAllergy(name, description, history)
-            .then(function (response) {
-                dispatch(receiveAddAllergy(response.data));
-            });
+        return patientApi.addAllergy(newAllergy).then(function (response) {
+            dispatch(receiveAddAllergy(response.data));
+        });
     };
 }
 
@@ -74,8 +70,8 @@ export function requestUpdateAllergy(): { type: string } {
  * @returns An action with type RECEIVE_UPDATE_ALLERGY.
  */
 export function receiveUpdateAllergy(
-    allergy: types.Allergy
-): { type: string; allergy: types.Allergy } {
+    allergy: modelTypes.Allergy
+): { type: string; allergy: modelTypes.Allergy } {
     /**
      * Returns an action to notify that an allergy was successfully updated.
      */
@@ -88,25 +84,17 @@ export function receiveUpdateAllergy(
 /**
  * Updates an Allergy object and dispatches request and receive actions.
  *
- * @param id - The id of the Allergy object.
- * @param name - The name of the allergy.
- * @param description - The description of the allergy.
- * @param history - The history object of the invoking component.
+ * @param updatedAllergy - An object representing an updated Allergy.
  *
  * @returns A function that when dispatched, updates a new Allergy object for
  * the patient.
  */
-export function updateAllergy(
-    id: number,
-    name: string,
-    description: string,
-    history: any
-) {
+export function updateAllergy(updatedAllergy: modelTypes.AllergyUpdater) {
     return function (dispatch) {
         dispatch(requestUpdateAllergy());
 
         return patientApi
-            .updateAllergy(id, name, description, history)
+            .updateAllergy(updatedAllergy)
             .then(function (response) {
                 dispatch(receiveUpdateAllergy(response.data));
             });
@@ -139,16 +127,15 @@ export function receiveDeleteAllergy(): { type: string } {
  * Deletes an Allergy object and dispatches request and receive actions.
  *
  * @param id - The id of the Allergy object.
- * @param history - The history object of the invoking component.
  *
  * @returns A function that when dispatched, deletes an Allergy object for the
  * patient.
  */
-export function deleteAllergy(id: number, history: any) {
+export function deleteAllergy(id: number) {
     return function (dispatch) {
         dispatch(requestDeleteAllergy());
 
-        return patientApi.deleteAllergy(id, history).then(function () {
+        return patientApi.deleteAllergy(id).then(function () {
             dispatch(receiveDeleteAllergy());
         });
     };

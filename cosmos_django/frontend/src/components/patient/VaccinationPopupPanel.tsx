@@ -2,8 +2,12 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import * as ReactRedux from 'react-redux';
 
-import * as types from '../../types/types';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
+import * as vaccinationActionCreators from '../../actions/action_creators/vaccination_action_creators';
+import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
 import * as dateUtil from '../../util/date_util';
+import * as urlUtil from '../../util/url_util';
 
 import NotesIcon from '@material-ui/icons/Notes';
 import EventIcon from '@material-ui/icons/Event';
@@ -12,12 +16,9 @@ import Panel from '../shared/Panel';
 import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
 import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as urlUtil from '../../util/url_util';
-import * as urlPathConstants from '../../constants/url_path_constants';
-import * as actionCreators from '../../actions/action_creators';
 
 interface VaccinationPopupPanelProps {
-    vaccination: types.Vaccination;
+    vaccination: modelTypes.Vaccination;
     history: any;
     dispatch: any;
 }
@@ -45,15 +46,12 @@ class VaccinationPopupPanel extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.deleteVaccination(
-                    this.props.vaccination.id,
-                    this.props.history
+                vaccinationActionCreators.deleteVaccination(
+                    this.props.vaccination.id
                 )
             )
             .then(function () {
-                self.props.dispatch(
-                    actionCreators.fetchUser(self.props.history)
-                );
+                self.props.dispatch(userActionCreators.getUser());
             });
     }
 

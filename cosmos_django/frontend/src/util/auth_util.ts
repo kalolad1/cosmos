@@ -21,6 +21,10 @@ export function getAuthorizationRequestHeader() {
     };
 }
 
+export function getBearerToken() {
+    return 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN);
+}
+
 export function getToken(tokenType: string): string | null {
     return localStorage.getItem(tokenType);
 }

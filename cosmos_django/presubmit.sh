@@ -24,6 +24,7 @@ pip freeze > requirements.txt
 yapf . --recursive -i
 prettier --debug-check frontend/src/*
 prettier --write frontend/src/*
-eslint frontend/src/actions/creators/allergy_action_creators.ts --max-warnings 0
+eslint frontend/src/actions/action_creators/allergy_action_creators.ts --max-warnings 0
+npm test
 python manage.py test -p *_test.py
 alertSuccess

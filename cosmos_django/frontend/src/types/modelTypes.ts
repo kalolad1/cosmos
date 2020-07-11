@@ -88,6 +88,17 @@ export interface Allergy extends MedicalEntity {
     createdAt: string;
 }
 
+export interface AllergyConstructor {
+    name: string;
+    description: string;
+}
+
+export interface AllergyUpdater {
+    id: number;
+    name: string;
+    description: string;
+}
+
 export interface Vaccination extends MedicalEntity {
     id: number;
     name: string;

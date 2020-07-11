@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as actionCreators from '../../actions/action_creators';
-import * as types from '../../types/types';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
+import * as modelTypes from '../../types/modelTypes';
 
 import { Alert } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
@@ -22,7 +22,7 @@ import PrescriptionInformationPanel from './PrescriptionInformationPanel';
 const PANEL_COUNT = 5;
 
 interface ProfileProps {
-    user: types.User;
+    user: modelTypes.User;
     dispatch: any;
     history: any;
     successUpdateUser: any;
@@ -128,7 +128,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             },
         };
         this.props
-            .dispatch(actionCreators.updateUser(newUser, this.props.history))
+            .dispatch(userActionCreators.updateUser(newUser))
             .then(function () {
                 self.handleSnackbarOpen();
             });

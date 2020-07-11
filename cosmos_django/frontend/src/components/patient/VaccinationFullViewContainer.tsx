@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as types from '../../types/types';
-import * as actionCreators from '../../actions/action_creators';
+import * as modelTypes from '../../types/modelTypes';
+import * as vaccinationActionCreators from '../../actions/action_creators/vaccination_action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
 import VaccinationFullView from './VaccinationFullView';
@@ -11,7 +11,7 @@ import VaccinationFullView from './VaccinationFullView';
 interface VaccinationFullViewContainerProps {
     mode: string;
     match: any;
-    vaccinations: Array<types.Vaccination>;
+    vaccinations: Array<modelTypes.Vaccination>;
     history: any;
     dispatch: any;
 }
@@ -71,10 +71,9 @@ class VaccinationFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.addVaccination(
+                vaccinationActionCreators.addVaccination(
                     this.state.name,
-                    this.state.description,
-                    this.props.history
+                    this.state.description
                 )
             )
             .then(function () {
@@ -87,11 +86,10 @@ class VaccinationFullViewContainer extends React.Component<
         const self = this;
         this.props
             .dispatch(
-                actionCreators.updateVaccination(
+                vaccinationActionCreators.updateVaccination(
                     this.props.match.params.id,
                     this.state.name,
-                    this.state.description,
-                    this.props.history
+                    this.state.description
                 )
             )
             .then(function () {

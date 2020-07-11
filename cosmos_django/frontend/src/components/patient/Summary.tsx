@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as types from '../../types/types';
+import * as modelTypes from '../../types/modelTypes';
 
 import DiagnosesPanel from './DiagnosesPanel';
 import PanelGrid from '../shared/PanelGrid';
@@ -12,7 +12,7 @@ import VitalsPanel from './VitalsPanel';
 import SocialHistoryPanel from './SocialHistoryPanel';
 
 interface SummaryProps {
-    user: types.User;
+    user: modelTypes.User;
 }
 
 class Summary extends React.Component<SummaryProps, any> {
