@@ -4,19 +4,11 @@ import thunk from 'redux-thunk';
 import * as diagnosisActionCreators from './diagnosis_action_creators';
 import * as patientApi from '../../api/patient_api';
 import * as diagnosisActionTypes from '../action_types/diagnosis_action_types';
+import * as testModels from '../../fixtures/testModels';
 import * as modelTypes from '../../types/modelTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const testDiagnosis: modelTypes.Diagnosis = {
-    id: 4,
-    name: 'Flu',
-    description: 'Virus.',
-    createdAt: 'Some date.',
-    significanceGroup: modelTypes.SignificanceGroup.LOW,
-    significanceScore: 4,
-};
 
 test('create an action to request adding a diagnosis', () => {
     const expectedAction = {
@@ -30,11 +22,11 @@ test('create an action to request adding a diagnosis', () => {
 test('create an action to receive adding an diagnosis', () => {
     const expectedAction = {
         type: diagnosisActionTypes.RECEIVE_ADD_DIAGNOSIS,
-        diagnosis: testDiagnosis,
+        diagnosis: testModels.testDiagnosis,
     };
-    expect(diagnosisActionCreators.receiveAddDiagnosis(testDiagnosis)).toEqual(
-        expectedAction
-    );
+    expect(
+        diagnosisActionCreators.receiveAddDiagnosis(testModels.testDiagnosis)
+    ).toEqual(expectedAction);
 });
 
 test('adds diagnosis and dispatches REQUEST and RECEIVE actions', () => {
@@ -43,7 +35,7 @@ test('adds diagnosis and dispatches REQUEST and RECEIVE actions', () => {
         description: 'Virus.',
     };
     const response = {
-        data: testDiagnosis,
+        data: testModels.testDiagnosis,
     };
 
     // @ts-ignore
@@ -52,7 +44,7 @@ test('adds diagnosis and dispatches REQUEST and RECEIVE actions', () => {
         { type: diagnosisActionTypes.REQUEST_ADD_DIAGNOSIS },
         {
             type: diagnosisActionTypes.RECEIVE_ADD_DIAGNOSIS,
-            diagnosis: testDiagnosis,
+            diagnosis: testModels.testDiagnosis,
         },
     ];
 
@@ -77,16 +69,16 @@ test('create an action to request updating an diagnosis', () => {
 test('create an action to receive an updated diagnosis', () => {
     const expectedAction = {
         type: diagnosisActionTypes.RECEIVE_UPDATE_DIAGNOSIS,
-        diagnosis: testDiagnosis,
+        diagnosis: testModels.testDiagnosis,
     };
     expect(
-        diagnosisActionCreators.receiveUpdateDiagnosis(testDiagnosis)
+        diagnosisActionCreators.receiveUpdateDiagnosis(testModels.testDiagnosis)
     ).toEqual(expectedAction);
 });
 
 test('updates an diagnosis and dispatches REQUEST and RECEIVE actions', () => {
     const response = {
-        data: testDiagnosis,
+        data: testModels.testDiagnosis,
     };
 
     // @ts-ignore
@@ -95,7 +87,7 @@ test('updates an diagnosis and dispatches REQUEST and RECEIVE actions', () => {
         { type: diagnosisActionTypes.REQUEST_UPDATE_DIAGNOSIS },
         {
             type: diagnosisActionTypes.RECEIVE_UPDATE_DIAGNOSIS,
-            diagnosis: testDiagnosis,
+            diagnosis: testModels.testDiagnosis,
         },
     ];
 

@@ -3,22 +3,12 @@ import thunk from 'redux-thunk';
 
 import * as encounterActionTypes from '../action_types/encounter_action_types';
 import * as patientApi from '../../api/patient_api';
+import * as testModels from '../../fixtures/testModels';
 import * as encounterActionCreators from './encounter_action_creators';
 import * as modelTypes from '../../types/modelTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const testEncounter: modelTypes.Encounter = {
-    id: 4,
-    patientProfile: 2,
-    note: 'Patient encounter note.',
-    encounterType: modelTypes.EncounterType.ILLNESS,
-    createdAt: 'Some date.',
-    updatedAt: 'Some other date',
-    significanceGroup: modelTypes.SignificanceGroup.LOW,
-    significanceScore: 4,
-};
 
 test('create an action to request adding an encounter', () => {
     const expectedAction = {
@@ -32,11 +22,11 @@ test('create an action to request adding an encounter', () => {
 test('create an action to receive adding an encounter', () => {
     const expectedAction = {
         type: encounterActionTypes.RECEIVE_ADD_ENCOUNTER,
-        encounter: testEncounter,
+        encounter: testModels.testEncounter,
     };
-    expect(encounterActionCreators.receiveAddEncounter(testEncounter)).toEqual(
-        expectedAction
-    );
+    expect(
+        encounterActionCreators.receiveAddEncounter(testModels.testEncounter)
+    ).toEqual(expectedAction);
 });
 
 test('adds encounter and dispatches REQUEST and RECEIVE actions', () => {
@@ -45,7 +35,7 @@ test('adds encounter and dispatches REQUEST and RECEIVE actions', () => {
         encounterType: modelTypes.EncounterType.ILLNESS,
     };
     const response = {
-        data: testEncounter,
+        data: testModels.testEncounter,
     };
 
     // @ts-ignore
@@ -54,7 +44,7 @@ test('adds encounter and dispatches REQUEST and RECEIVE actions', () => {
         { type: encounterActionTypes.REQUEST_ADD_ENCOUNTER },
         {
             type: encounterActionTypes.RECEIVE_ADD_ENCOUNTER,
-            encounter: testEncounter,
+            encounter: testModels.testEncounter,
         },
     ];
 
@@ -79,16 +69,16 @@ test('create an action to request updating an encounter', () => {
 test('create an action to receive an updated encounter', () => {
     const expectedAction = {
         type: encounterActionTypes.RECEIVE_UPDATE_ENCOUNTER,
-        encounter: testEncounter,
+        encounter: testModels.testEncounter,
     };
     expect(
-        encounterActionCreators.receiveUpdateEncounter(testEncounter)
+        encounterActionCreators.receiveUpdateEncounter(testModels.testEncounter)
     ).toEqual(expectedAction);
 });
 
 test('updates an encounter and dispatches REQUEST and RECEIVE actions', () => {
     const response = {
-        data: testEncounter,
+        data: testModels.testEncounter,
     };
 
     // @ts-ignore
@@ -97,7 +87,7 @@ test('updates an encounter and dispatches REQUEST and RECEIVE actions', () => {
         { type: encounterActionTypes.REQUEST_UPDATE_ENCOUNTER },
         {
             type: encounterActionTypes.RECEIVE_UPDATE_ENCOUNTER,
-            encounter: testEncounter,
+            encounter: testModels.testEncounter,
         },
     ];
 

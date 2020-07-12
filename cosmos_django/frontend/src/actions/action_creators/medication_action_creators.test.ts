@@ -3,20 +3,12 @@ import thunk from 'redux-thunk';
 
 import * as medicationActionTypes from '../action_types/medication_action_types';
 import * as patientApi from '../../api/patient_api';
+import * as testModels from '../../fixtures/testModels';
 import * as medicationActionCreators from './medication_action_creators';
 import * as modelTypes from '../../types/modelTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const testMedication: modelTypes.Medication = {
-    id: 4,
-    name: 'Advil',
-    description: 'A drug.',
-    createdAt: 'Some date.',
-    significanceGroup: modelTypes.SignificanceGroup.LOW,
-    significanceScore: 4,
-};
 
 test('create an action to request adding an medication', () => {
     const expectedAction = {
@@ -30,10 +22,10 @@ test('create an action to request adding an medication', () => {
 test('create an action to receive adding an medication', () => {
     const expectedAction = {
         type: medicationActionTypes.RECEIVE_ADD_MEDICATION,
-        medication: testMedication,
+        medication: testModels.testMedication,
     };
     expect(
-        medicationActionCreators.receiveAddMedication(testMedication)
+        medicationActionCreators.receiveAddMedication(testModels.testMedication)
     ).toEqual(expectedAction);
 });
 
@@ -43,7 +35,7 @@ test('adds medication and dispatches REQUEST and RECEIVE actions', () => {
         description: 'A drug.',
     };
     const response = {
-        data: testMedication,
+        data: testModels.testMedication,
     };
 
     // @ts-ignore
@@ -52,7 +44,7 @@ test('adds medication and dispatches REQUEST and RECEIVE actions', () => {
         { type: medicationActionTypes.REQUEST_ADD_MEDICATION },
         {
             type: medicationActionTypes.RECEIVE_ADD_MEDICATION,
-            medication: testMedication,
+            medication: testModels.testMedication,
         },
     ];
 
@@ -77,16 +69,18 @@ test('create an action to request updating an medication', () => {
 test('create an action to receive an updated medication', () => {
     const expectedAction = {
         type: medicationActionTypes.RECEIVE_UPDATE_MEDICATION,
-        medication: testMedication,
+        medication: testModels.testMedication,
     };
     expect(
-        medicationActionCreators.receiveUpdateMedication(testMedication)
+        medicationActionCreators.receiveUpdateMedication(
+            testModels.testMedication
+        )
     ).toEqual(expectedAction);
 });
 
 test('updates an medication and dispatches REQUEST and RECEIVE actions', () => {
     const response = {
-        data: testMedication,
+        data: testModels.testMedication,
     };
 
     // @ts-ignore
@@ -95,7 +89,7 @@ test('updates an medication and dispatches REQUEST and RECEIVE actions', () => {
         { type: medicationActionTypes.REQUEST_UPDATE_MEDICATION },
         {
             type: medicationActionTypes.RECEIVE_UPDATE_MEDICATION,
-            medication: testMedication,
+            medication: testModels.testMedication,
         },
     ];
 

@@ -4,19 +4,11 @@ import thunk from 'redux-thunk';
 import * as allergyActionCreators from './allergy_action_creators';
 import * as patientApi from '../../api/patient_api';
 import * as allergyActionTypes from '../action_types/allergy_action_types';
+import * as testModels from '../../fixtures/testModels';
 import * as modelTypes from '../../types/modelTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const testAllergy: modelTypes.Allergy = {
-    id: 4,
-    name: 'Peanut Butter',
-    description: 'Peanut butter description.',
-    createdAt: 'Some date.',
-    significanceGroup: modelTypes.SignificanceGroup.LOW,
-    significanceScore: 4,
-};
 
 test('create an action to request adding an allergy', () => {
     const expectedAction = {
@@ -28,11 +20,11 @@ test('create an action to request adding an allergy', () => {
 test('create an action to receive adding an allergy', () => {
     const expectedAction = {
         type: allergyActionTypes.RECEIVE_ADD_ALLERGY,
-        allergy: testAllergy,
+        allergy: testModels.testAllergy,
     };
-    expect(allergyActionCreators.receiveAddAllergy(testAllergy)).toEqual(
-        expectedAction
-    );
+    expect(
+        allergyActionCreators.receiveAddAllergy(testModels.testAllergy)
+    ).toEqual(expectedAction);
 });
 
 test('adds allergy and dispatches REQUEST and RECEIVE actions', () => {
@@ -72,16 +64,16 @@ test('create an action to request updating an allergy', () => {
 test('create an action to receive an updated allergy', () => {
     const expectedAction = {
         type: allergyActionTypes.RECEIVE_UPDATE_ALLERGY,
-        allergy: testAllergy,
+        allergy: testModels.testAllergy,
     };
-    expect(allergyActionCreators.receiveUpdateAllergy(testAllergy)).toEqual(
-        expectedAction
-    );
+    expect(
+        allergyActionCreators.receiveUpdateAllergy(testModels.testAllergy)
+    ).toEqual(expectedAction);
 });
 
 test('updates an allergy and dispatches REQUEST and RECEIVE actions', () => {
     const response = {
-        data: testAllergy,
+        data: testModels.testAllergy,
     };
 
     // @ts-ignore
@@ -90,7 +82,7 @@ test('updates an allergy and dispatches REQUEST and RECEIVE actions', () => {
         { type: allergyActionTypes.REQUEST_UPDATE_ALLERGY },
         {
             type: allergyActionTypes.RECEIVE_UPDATE_ALLERGY,
-            allergy: testAllergy,
+            allergy: testModels.testAllergy,
         },
     ];
 

@@ -1,18 +1,18 @@
 /* Contains URL paths for the project */
-
 export const HOME = '/home';
 export const LOGIN = '/login';
 export const SIGNUP = '/signup';
-export const ROOT = '/';
 
-export const CHARTS = '/home/charts';
-export const SUMMARY = '/home/charts/summary';
-export const TIMELINE = '/home/charts/timeline';
-export const PROFILE = '/home/charts/profile';
+// Application pages
+export const CHARTS = HOME + '/charts';
+export const SCHEDULE = HOME + '/schedule';
+export const INBOX = HOME + '/inbox';
+export const METRICS = HOME + '/metrics';
 
-export const SCHEDULE = '/home/schedule';
-export const INBOX = '/home/inbox';
-export const METRICS = '/home/metrics';
+// Patient charts.
+export const SUMMARY = CHARTS + '/summary';
+export const TIMELINE = CHARTS + '/timeline';
+export const PROFILE = CHARTS + '/profile';
 
 export const NEW_ENCOUNTER = '/encounter/new';
 export const VIEW_ENCOUNTER = '/encounter/:id';
@@ -33,5 +33,3 @@ export const UPDATE_ALLERGY = '/allergy/:id/update';
 export const NEW_VACCINATION = '/vaccination/new';
 export const VIEW_VACCINATION = '/vaccination/:id';
 export const UPDATE_VACCINATION = '/vaccination/:id/update';
-
-export const ADD_ENCOUNTER = '/add-encounter';

@@ -5,38 +5,10 @@ import * as userActionTypes from '../action_types/user_action_types';
 import * as patientApi from '../../api/patient_api';
 import * as modelTypes from '../../types/modelTypes';
 import * as userActionCreators from './user_action_creators';
+import * as testModels from '../../fixtures/testModels';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const testUser: modelTypes.User = {
-    id: 4,
-    email: 'test123@gmail.com',
-    patientProfile: {
-        firstName: 'John',
-        lastName: 'Doe',
-        dateOfBirth: '1998-06-09',
-        sex: modelTypes.Sex.MALE,
-        age: 21,
-        profilePicture: 'some profile picture',
-        race: 'white',
-        ethnicity: 'white',
-        religion: 'hindu',
-        insurance: 'aetna',
-        pharmacy: 'walgreens',
-        address: {
-            addressLine: '1600 Penn Ave',
-            city: 'Washington DC',
-            state: 'Maryland',
-            zipCode: '08550',
-        },
-        encounters: [],
-        diagnoses: [],
-        vaccinations: [],
-        allergies: [],
-        medications: [],
-    },
-};
 
 test('create an action to request getting a user', () => {
     const expectedAction = {
@@ -48,14 +20,16 @@ test('create an action to request getting a user', () => {
 test('create an action to receive getting a user', () => {
     const expectedAction = {
         type: userActionTypes.RECEIVE_GET_USER,
-        user: testUser,
+        user: testModels.testUser,
     };
-    expect(userActionCreators.receiveGetUser(testUser)).toEqual(expectedAction);
+    expect(userActionCreators.receiveGetUser(testModels.testUser)).toEqual(
+        expectedAction
+    );
 });
 
 test('gets user and dispatches REQUEST and RECEIVE actions', () => {
     const response = {
-        data: testUser,
+        data: testModels.testUser,
     };
 
     // @ts-ignore
@@ -64,7 +38,7 @@ test('gets user and dispatches REQUEST and RECEIVE actions', () => {
         { type: userActionTypes.REQUEST_GET_USER },
         {
             type: userActionTypes.RECEIVE_GET_USER,
-            user: testUser,
+            user: testModels.testUser,
         },
     ];
 
@@ -85,19 +59,19 @@ test('create an action to request updating a user', () => {
 test('create an action to receive an updated user', () => {
     const expectedAction = {
         type: userActionTypes.RECEIVE_UPDATE_USER,
-        user: testUser,
+        user: testModels.testUser,
         success: {
             userFacingMessage: 'Saved successfully!',
         },
     };
-    expect(userActionCreators.receiveUpdateUser(testUser)).toEqual(
+    expect(userActionCreators.receiveUpdateUser(testModels.testUser)).toEqual(
         expectedAction
     );
 });
 
 test('updates a user and dispatches REQUEST and RECEIVE actions', () => {
     const response = {
-        data: testUser,
+        data: testModels.testUser,
     };
 
     // @ts-ignore
@@ -106,7 +80,7 @@ test('updates a user and dispatches REQUEST and RECEIVE actions', () => {
         { type: userActionTypes.REQUEST_UPDATE_USER },
         {
             type: userActionTypes.RECEIVE_UPDATE_USER,
-            user: testUser,
+            user: testModels.testUser,
             success: {
                 userFacingMessage: 'Saved successfully!',
             },

@@ -3,20 +3,12 @@ import thunk from 'redux-thunk';
 
 import * as vaccinationActionTypes from '../action_types/vaccination_action_types';
 import * as patientApi from '../../api/patient_api';
+import * as testModels from '../../fixtures/testModels';
 import * as modelTypes from '../../types/modelTypes';
 import * as vaccinationActionCreators from './vaccination_action_creators';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const testVaccination: modelTypes.Vaccination = {
-    id: 4,
-    name: 'Covid',
-    description: 'A vaccination.',
-    createdAt: 'Some date.',
-    significanceGroup: modelTypes.SignificanceGroup.LOW,
-    significanceScore: 4,
-};
 
 test('create an action to request adding a vaccination', () => {
     const expectedAction = {
@@ -30,10 +22,12 @@ test('create an action to request adding a vaccination', () => {
 test('create an action to receive adding a vaccination', () => {
     const expectedAction = {
         type: vaccinationActionTypes.RECEIVE_ADD_VACCINATION,
-        vaccination: testVaccination,
+        vaccination: testModels.testVaccination,
     };
     expect(
-        vaccinationActionCreators.receiveAddVaccination(testVaccination)
+        vaccinationActionCreators.receiveAddVaccination(
+            testModels.testVaccination
+        )
     ).toEqual(expectedAction);
 });
 
@@ -43,7 +37,7 @@ test('adds vaccination and dispatches REQUEST and RECEIVE actions', () => {
         description: 'A vaccination.',
     };
     const response = {
-        data: testVaccination,
+        data: testModels.testVaccination,
     };
 
     // @ts-ignore
@@ -52,7 +46,7 @@ test('adds vaccination and dispatches REQUEST and RECEIVE actions', () => {
         { type: vaccinationActionTypes.REQUEST_ADD_VACCINATION },
         {
             type: vaccinationActionTypes.RECEIVE_ADD_VACCINATION,
-            vaccination: testVaccination,
+            vaccination: testModels.testVaccination,
         },
     ];
 
@@ -77,16 +71,18 @@ test('create an action to request updating a vaccination', () => {
 test('create an action to receive a updated vaccination', () => {
     const expectedAction = {
         type: vaccinationActionTypes.RECEIVE_UPDATE_VACCINATION,
-        vaccination: testVaccination,
+        vaccination: testModels.testVaccination,
     };
     expect(
-        vaccinationActionCreators.receiveUpdateVaccination(testVaccination)
+        vaccinationActionCreators.receiveUpdateVaccination(
+            testModels.testVaccination
+        )
     ).toEqual(expectedAction);
 });
 
 test('updates a vaccination and dispatches REQUEST and RECEIVE actions', () => {
     const response = {
-        data: testVaccination,
+        data: testModels.testVaccination,
     };
 
     // @ts-ignore
@@ -95,7 +91,7 @@ test('updates a vaccination and dispatches REQUEST and RECEIVE actions', () => {
         { type: vaccinationActionTypes.REQUEST_UPDATE_VACCINATION },
         {
             type: vaccinationActionTypes.RECEIVE_UPDATE_VACCINATION,
-            vaccination: testVaccination,
+            vaccination: testModels.testVaccination,
         },
     ];
 
