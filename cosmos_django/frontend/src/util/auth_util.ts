@@ -4,25 +4,28 @@ import * as tokenConstants from '../constants/token_constants';
 import * as axiosConfig from '../configs/axios_config';
 
 export function refreshAccessToken() {
-    return axiosConfig.axiosClient
-        .post(apiEndpointConstants.REFRESH_TOKEN, {
-            refresh: localStorage.getItem(tokenConstants.REFRESH_TOKEN),
-        })
-        .then(function (response) {
-            return response;
-        });
+    return axiosConfig.axiosClient.post(apiEndpointConstants.REFRESH_TOKEN, {
+        refresh: localStorage.getItem(tokenConstants.REFRESH_TOKEN),
+    });
 }
 
-export function getAuthorizationRequestHeader() {
-    return {
-        headers: {
-            Authorization: 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN),
-        },
-    };
+export function getAuthorizationRequestHeaders() {
+    if (getToken(tokenConstants.ACCESS_TOKEN)) {
+        return {
+            headers: {
+                Authorization:
+                    'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN),
+            },
+        };
+    }
+    throw 'Access token not set.';
 }
 
 export function getBearerToken() {
-    return 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN);
+    if (getToken(tokenConstants.ACCESS_TOKEN)) {
+        return 'Bearer ' + getToken(tokenConstants.ACCESS_TOKEN);
+    }
+    throw 'Access token not set.';
 }
 
 export function getToken(tokenType: string): string | null {
@@ -85,4 +88,6 @@ export function hasTokens(): boolean {
 export function clearTokens(): void {
     localStorage.removeItem(tokenConstants.ACCESS_TOKEN);
     localStorage.removeItem(tokenConstants.REFRESH_TOKEN);
+    localStorage.removeItem(tokenConstants.ACCESS_TOKEN_EXPIRY_KEY);
+    localStorage.removeItem(tokenConstants.REFRESH_TOKEN_EXPIRY_KEY);
 }

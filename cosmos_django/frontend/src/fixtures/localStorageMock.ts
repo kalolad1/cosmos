@@ -2,6 +2,9 @@ const localStorageMock = (function () {
     let store = {};
     return {
         getItem: function (key) {
+            if (!store.hasOwnProperty(key)) {
+                return null;
+            }
             return store[key];
         },
         setItem: function (key, value) {
