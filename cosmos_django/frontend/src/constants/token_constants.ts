@@ -7,7 +7,7 @@ export const ACCESS_TOKEN_EXPIRY_KEY = 'accessTokenExpiryKey';
 export const REFRESH_TOKEN_EXPIRY_KEY = 'refreshTokenExpiryKey';
 
 // Keep lifetimes in sync with server values.
-// 5 second lifetime
-export const ACCESS_TOKEN_LIFETIME = 5000;
+// 5 minute lifetime
+export const ACCESS_TOKEN_LIFETIME = 300000;
 // 1 day lifetime
 export const REFRESH_TOKEN_LIFETIME = 86400000;
