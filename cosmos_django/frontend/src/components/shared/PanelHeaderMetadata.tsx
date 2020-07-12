@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import * as textUtil from '../../util/text_util';
 import * as modelTypes from '../../types/modelTypes';
+import * as textUtil from '../../util/text_util';
 
 import SignificanceLabel from '../patient/SignificanceLabel';
 

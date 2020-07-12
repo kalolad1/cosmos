@@ -1,31 +1,29 @@
+import clsx from 'clsx';
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import { withStyles, fade } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import * as authUtil from '../util/auth_util';
+import * as urlPathConstants from '../constants/url_path_constants';
+
 import AppBar from '@material-ui/core/AppBar';
-import clsx from 'clsx';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import MailIcon from '@material-ui/icons/Mail';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import FolderSharedIcon from '@material-ui/icons/FolderShared';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ListItemText from '@material-ui/core/ListItemText';
-import Header from './patient/Header';
-import Charts from './patient/Charts';
+import { withStyles, fade } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import * as authUtil from '../util/auth_util';
-import * as urlPathConstants from '../constants/url_path_constants';
-import { TextField } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
-import InputBase from '@material-ui/core/InputBase';
 
 interface AppShellProps {
     content: any;
@@ -56,9 +54,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         this.handleMetricsClick = this.handleMetricsClick.bind(this);
         this.handleChartsClick = this.handleChartsClick.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handlePatientSearchSubmit = this.handlePatientSearchSubmit.bind(
-            this
-        );
+        this.handlePatientSearch = this.handlePatientSearch.bind(this);
         this.handleCompanyLogoClick = this.handleCompanyLogoClick.bind(this);
     }
 
@@ -103,7 +99,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         this.props.history.push(urlPathConstants.CHARTS);
     }
 
-    handlePatientSearchSubmit(event) {
+    handlePatientSearch(event) {
         event.preventDefault();
         console.log('Submitting search!');
     }
@@ -145,7 +141,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             <h1 className="app-bar-company-name">Cosmos</h1>
                         </a>
                         {this.props.isProvider && (
-                            <form onSubmit={this.handlePatientSearchSubmit}>
+                            <form onSubmit={this.handlePatientSearch}>
                                 <div className={classes.search}>
                                     <div className={classes.searchIcon}>
                                         <SearchIcon />

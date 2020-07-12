@@ -1,18 +1,17 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
+import * as ReactRouterDOM from 'react-router-dom';
 
 import * as userActionCreators from '../actions/action_creators/user_action_creators';
-import { withStyles } from '@material-ui/core/styles';
-import * as ReactRouterDOM from 'react-router-dom';
-import { User } from '../types/modelTypes';
+import * as modelTypes from '../types/modelTypes';
+
 import AppShell from './AppShell';
-import Home from './patient/PatientHome';
 import PatientHome from './patient/PatientHome';
-import FullPageSpinner from './shared/FullPageSpinner';
 import ProviderHome from './provider/ProviderHome';
+import FullPageSpinner from './shared/FullPageSpinner';
 
 interface AppHomeProps {
-    user: User;
+    user: modelTypes.User;
     isFetchingUser: boolean;
     dispatch: any;
     history: any;

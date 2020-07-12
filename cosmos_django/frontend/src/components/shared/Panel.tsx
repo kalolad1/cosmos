@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import * as React from 'react';
 
-import { Divider } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 interface PanelProps {
     header: any;

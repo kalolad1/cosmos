@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import * as modelTypes from '../../types/modelTypes';
-import { Redirect, Route, Switch } from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
 
+import ProviderMetrics from './ProviderMetrics';
 import Schedule from './Schedule';
 import Inbox from '../shared/Inbox';
-import ProviderMetrics from './ProviderMetrics';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 interface ProviderHomeProps {
     user: modelTypes.User;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Panel from './Panel';
+
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 
 class Inbox extends React.Component {

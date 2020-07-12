@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { CircularProgress } from '@material-ui/core';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class FullPageSpinner extends React.Component<any, any> {
     render() {

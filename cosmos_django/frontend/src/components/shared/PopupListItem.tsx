@@ -2,11 +2,11 @@
 import * as React from 'react';
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Popover from '@material-ui/core/Popover';
-import { IconButton } from '@material-ui/core';
 import ListItemText from '@material-ui/core/ListItemText';
+import Popover from '@material-ui/core/Popover';
 
 interface PopupListItemProps {
     content: any;
