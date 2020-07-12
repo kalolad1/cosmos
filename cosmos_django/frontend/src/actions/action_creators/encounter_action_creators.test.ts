@@ -14,7 +14,7 @@ const testEncounter: modelTypes.Encounter = {
     id: 4,
     patientProfile: 2,
     note: 'Patient encounter note.',
-    encounterType: modelConstants.EncounterTypes.ILLNESS,
+    encounterType: modelTypes.EncounterType.ILLNESS,
     createdAt: 'Some date.',
     updatedAt: 'Some other date',
     significanceGroup: 'low',
@@ -43,7 +43,7 @@ test('create an action to receive adding an encounter', () => {
 test('adds encounter and dispatches REQUEST and RECEIVE actions', () => {
     const newEncounter: modelTypes.EncounterConstructor = {
         note: 'Patient encounter note.',
-        encounterType: modelConstants.EncounterTypes.ILLNESS,
+        encounterType: modelTypes.EncounterType.ILLNESS,
     };
     const response = {
         data: testEncounter,
@@ -107,7 +107,7 @@ test('updates an encounter and dispatches REQUEST and RECEIVE actions', () => {
     const updatedEncounter: modelTypes.EncounterUpdate = {
         id: 4,
         note: 'Patient encounter note.',
-        encounterType: modelConstants.EncounterTypes.ILLNESS,
+        encounterType: modelTypes.EncounterType.ILLNESS,
     };
     return store
         .dispatch(encounterActionCreators.updateEncounter(updatedEncounter))

@@ -24,9 +24,9 @@ interface TimelineProps {
 }
 
 const ENCOUNTER_TYPE_ICON_MAPPING = {
-    [modelConstants.EncounterTypes.PHYSICAL]: <AccessibilityIcon />,
-    [modelConstants.EncounterTypes.ILLNESS]: <AirlineSeatIndividualSuiteIcon />,
-    [modelConstants.EncounterTypes.VACCINATION]: <ColorizeIcon />,
+    [modelTypes.EncounterType.PHYSICAL]: <AccessibilityIcon />,
+    [modelTypes.EncounterType.ILLNESS]: <AirlineSeatIndividualSuiteIcon />,
+    [modelTypes.EncounterType.VACCINATION]: <ColorizeIcon />,
 };
 
 class Timeline extends React.Component<TimelineProps, any> {

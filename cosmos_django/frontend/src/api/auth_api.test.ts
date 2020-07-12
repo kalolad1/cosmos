@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as authApi from './auth_api';
 import * as apiEndpointConstants from '../constants/api_endpoint_constants';
 import * as modelTypes from '../types/modelTypes';
@@ -22,12 +21,15 @@ test('send a login request', () => {
             password: 'test',
         },
     ];
-    return authApi
-        .loginRequest('test@gmail.com', 'test', mockClient)
-        .then(function (response) {
-            expect(response).toEqual(expectedResponse);
-            expect(mockClient.post).toHaveBeenCalledWith(...loginParams);
-        });
+    return (
+        authApi
+            // @ts-ignore
+            .loginRequest('test@gmail.com', 'test', mockClient)
+            .then(function (response) {
+                expect(response).toEqual(expectedResponse);
+                expect(mockClient.post).toHaveBeenCalledWith(...loginParams);
+            })
+    );
 });
 
 test('send a signup request', () => {
@@ -52,6 +54,7 @@ test('send a signup request', () => {
         sex: 'male',
         isProvider: true,
     };
+    // @ts-ignore
     return authApi.signupRequest(newUser, mockClient).then((response) => {
         expect(response).toEqual(expectedResponse);
         expect(mockClient.post).toHaveBeenCalledWith(

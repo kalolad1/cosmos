@@ -102,15 +102,21 @@ export interface Encounter extends MedicalEntity {
     updatedAt: string;
 }
 
+export enum EncounterType {
+    PHYSICAL = 'physical',
+    ILLNESS = 'illness',
+    VACCINATION = 'vaccination',
+}
+
 export interface EncounterConstructor {
     note: string;
-    encounterType: string;
+    encounterType: EncounterType;
 }
 
 export interface EncounterUpdate {
     id: number;
     note: string;
-    encounterType: string;
+    encounterType: EncounterType;
 }
 
 export interface Diagnosis extends MedicalEntity {

@@ -3,6 +3,7 @@ import * as ReactRouterDOM from 'react-router-dom';
 
 import * as formConstants from '../../constants/form_constants';
 import * as modelConstants from '../../constants/model_constants';
+import * as modelTypes from '../../types/modelTypes';
 import * as textUtil from '../../util/text_util';
 
 import {
@@ -21,7 +22,7 @@ import FullForm from '../shared/FullForm';
 
 interface EncounterFullViewProps {
     mode: string;
-    encounterType: string;
+    encounterType: modelTypes.EncounterType;
     note: string;
     history: any;
     handleSubmit: any;
@@ -50,16 +51,16 @@ class EncounterFullView extends React.Component<
     }
 
     createEncounterTypeMenuItems() {
-        const encounterTypeOptions = Object.keys(
-            modelConstants.EncounterTypes
-        ).map(function (key, index) {
-            const encounterType = modelConstants.EncounterTypes[key];
-            return {
-                id: index,
-                value: encounterType,
-                formatted: textUtil.capitalizeFirstLetter(encounterType),
-            };
-        });
+        const encounterTypeOptions = Object.keys(modelTypes.EncounterType).map(
+            function (key, index) {
+                const encounterType = modelTypes.EncounterType[key];
+                return {
+                    id: index,
+                    value: encounterType,
+                    formatted: textUtil.capitalizeFirstLetter(encounterType),
+                };
+            }
+        );
 
         return encounterTypeOptions.map(function (option) {
             return (
