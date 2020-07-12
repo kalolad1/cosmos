@@ -1,16 +1,18 @@
 import * as React from 'react';
 
+import * as modelTypes from '../../types/modelTypes';
+import * as textUtil from '../../util/text_util';
+
 import Avatar from '@material-ui/core/Avatar';
 
 import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
-import * as textUtil from '../../util/text_util';
 
 interface EncounterPanelHeaderProps {
     title: string;
     profilePicture: string;
     firstName: string;
     lastName: string;
-    significanceGroup: string;
+    significanceGroup: modelTypes.SignificanceGroup;
 }
 
 class EncounterPanelHeader extends React.Component<

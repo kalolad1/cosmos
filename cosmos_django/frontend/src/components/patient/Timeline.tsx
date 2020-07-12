@@ -1,10 +1,10 @@
 /* Contains the timeline for patient encounters. */
 import * as React from 'react';
 
-import * as modelConstants from '../../constants/model_constants';
 import * as modelTypes from '../../types/modelTypes';
 import * as dateUtil from '../../util/date_util';
 
+import Typography from '@material-ui/core/Typography';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AirlineSeatIndividualSuiteIcon from '@material-ui/icons/AirlineSeatIndividualSuite';
 import ColorizeIcon from '@material-ui/icons/Colorize';
@@ -12,10 +12,9 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineItem from '@material-ui/lab/TimelineItem';
-import { Timeline as TimelineComp } from '@material-ui/lab';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
-import Typography from '@material-ui/core/Typography';
+import { Timeline as TimelineComp } from '@material-ui/lab';
 
 import EncounterPanel from './EncounterPanel';
 

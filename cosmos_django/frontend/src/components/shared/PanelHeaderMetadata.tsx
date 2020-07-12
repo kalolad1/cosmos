@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import * as textUtil from '../../util/text_util';
+import * as modelTypes from '../../types/modelTypes';
 
 import SignificanceLabel from '../patient/SignificanceLabel';
 
 interface PanelHeaderMetadataProps {
     title: string;
-    significanceGroup: string;
+    significanceGroup: modelTypes.SignificanceGroup;
 }
 
 class PanelHeaderMetadata extends React.Component<

@@ -2,23 +2,20 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as formConstants from '../../constants/form_constants';
-import * as modelConstants from '../../constants/model_constants';
 import * as modelTypes from '../../types/modelTypes';
 import * as textUtil from '../../util/text_util';
 
-import {
-    Button,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import LayersIcon from '@material-ui/icons/Layers';
+import MenuItem from '@material-ui/core/MenuItem';
 import NotesIcon from '@material-ui/icons/Notes';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
 
-import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import FullForm from '../shared/FullForm';
+import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 
 interface EncounterFullViewProps {
     mode: string;
@@ -40,9 +37,7 @@ class EncounterFullView extends React.Component<
     constructor(props) {
         super(props);
 
-        this.createEncounterTypeMenuItems = this.createEncounterTypeMenuItems.bind(
-            this
-        );
+        this.encounterTypeMenuItems = this.encounterTypeMenuItems.bind(this);
         this.isFormReadOnly = this.isFormReadOnly.bind(this);
     }
 
@@ -50,7 +45,7 @@ class EncounterFullView extends React.Component<
         return this.props.mode == formConstants.FormModes.VIEW;
     }
 
-    createEncounterTypeMenuItems() {
+    encounterTypeMenuItems() {
         const encounterTypeOptions = Object.keys(modelTypes.EncounterType).map(
             function (key, index) {
                 const encounterType = modelTypes.EncounterType[key];
@@ -107,7 +102,7 @@ class EncounterFullView extends React.Component<
                                         }}
                                         disabled={this.isFormReadOnly()}
                                     >
-                                        {this.createEncounterTypeMenuItems()}
+                                        {this.encounterTypeMenuItems()}
                                     </Select>
                                 </FormControl>
                             }

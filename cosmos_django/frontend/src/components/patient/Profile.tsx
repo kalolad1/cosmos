@@ -5,18 +5,18 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as userActionCreators from '../../actions/action_creators/user_action_creators';
 import * as modelTypes from '../../types/modelTypes';
 
-import { Alert } from '@material-ui/lab';
-import { Snackbar } from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
+import Alert from '@material-ui/lab/Alert';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import PanelGrid from '../shared/PanelGrid';
+import SaveIcon from '@material-ui/icons/Save';
+import Snackbar from '@material-ui/core/Snackbar';
 
-import GeneralInformationPanel from './GeneralInformationPanel';
 import ContactInformationPanel from './ContactInformationPanel';
 import DemographicInformationPanel from './DemographicInformationPanel';
+import GeneralInformationPanel from './GeneralInformationPanel';
 import PaymentInformationPanel from './PaymentInformationPanel';
 import PrescriptionInformationPanel from './PrescriptionInformationPanel';
+import PanelGrid from '../shared/PanelGrid';
 
 // Update panel count according to how many populate the rendered PanelGrid.
 const PANEL_COUNT = 5;
@@ -69,20 +69,39 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
-        this.initEditModeArray = this.initEditModeArray.bind(this);
-        this.toggleAllEditMode = this.toggleAllEditMode.bind(this);
-        this.toggleAllSave = this.toggleAllSave.bind(this);
-        this.dispatchUpdateUser = this.dispatchUpdateUser.bind(this);
         this.handleSnackbarOpen = this.handleSnackbarOpen.bind(this);
         this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
+        this.toggleAllEditMode = this.toggleAllEditMode.bind(this);
+        this.toggleAllSave = this.toggleAllSave.bind(this);
+        this.initEditModeArray = this.initEditModeArray.bind(this);
+        this.dispatchUpdateUser = this.dispatchUpdateUser.bind(this);
     }
 
-    initEditModeArray(): Array<boolean> {
-        let editMode: Array<boolean> = [];
-        for (let i = 0; i < PANEL_COUNT; i++) {
-            editMode.push(false);
-        }
-        return editMode;
+    handleInputChange(event: React.SyntheticEvent): void {
+        const element = event.target as HTMLInputElement;
+        const name: string = element.name;
+        this.setState({
+            ...this.state,
+            [name]: element.value,
+        });
+    }
+
+    handleDateChange(date: Date | null): void {
+        this.setState({
+            dateOfBirth: date!,
+        });
+    }
+
+    handleSnackbarOpen() {
+        this.setState({
+            snackbarOpen: true,
+        });
+    }
+
+    handleSnackbarClose() {
+        this.setState({
+            snackbarOpen: false,
+        });
     }
 
     toggleAllEditMode() {
@@ -98,6 +117,14 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             }),
             this.dispatchUpdateUser
         );
+    }
+
+    initEditModeArray(): Array<boolean> {
+        let editMode: Array<boolean> = [];
+        for (let i = 0; i < PANEL_COUNT; i++) {
+            editMode.push(false);
+        }
+        return editMode;
     }
 
     dispatchUpdateUser() {
@@ -128,33 +155,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             .then(function () {
                 self.handleSnackbarOpen();
             });
-    }
-
-    handleSnackbarOpen() {
-        this.setState({
-            snackbarOpen: true,
-        });
-    }
-
-    handleSnackbarClose() {
-        this.setState({
-            snackbarOpen: false,
-        });
-    }
-
-    handleInputChange(event: React.SyntheticEvent): void {
-        const element = event.target as HTMLInputElement;
-        const name: string = element.name;
-        this.setState({
-            ...this.state,
-            [name]: element.value,
-        });
-    }
-
-    handleDateChange(date: Date | null): void {
-        this.setState({
-            dateOfBirth: date!,
-        });
     }
 
     render() {

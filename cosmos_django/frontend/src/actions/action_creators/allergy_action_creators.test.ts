@@ -14,7 +14,7 @@ const testAllergy: modelTypes.Allergy = {
     name: 'Peanut Butter',
     description: 'Peanut butter description.',
     createdAt: 'Some date.',
-    significanceGroup: 'low',
+    significanceGroup: modelTypes.SignificanceGroup.LOW,
     significanceScore: 4,
 };
 

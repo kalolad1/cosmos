@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 
 import * as encounterActionTypes from '../action_types/encounter_action_types';
 import * as patientApi from '../../api/patient_api';
-import * as modelConstants from '../../constants/model_constants';
 import * as encounterActionCreators from './encounter_action_creators';
 import * as modelTypes from '../../types/modelTypes';
 
@@ -17,7 +16,7 @@ const testEncounter: modelTypes.Encounter = {
     encounterType: modelTypes.EncounterType.ILLNESS,
     createdAt: 'Some date.',
     updatedAt: 'Some other date',
-    significanceGroup: 'low',
+    significanceGroup: modelTypes.SignificanceGroup.LOW,
     significanceScore: 4,
 };
 

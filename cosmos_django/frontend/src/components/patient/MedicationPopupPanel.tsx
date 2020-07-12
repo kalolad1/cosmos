@@ -2,20 +2,20 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import * as ReactRedux from 'react-redux';
 
+import * as medicationActionCreators from '../../actions/action_creators/medication_action_creators';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
+import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 import * as dateUtil from '../../util/date_util';
+import * as urlUtil from '../../util/url_util';
 
 import NotesIcon from '@material-ui/icons/Notes';
 import EventIcon from '@material-ui/icons/Event';
 
 import Panel from '../shared/Panel';
-import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
 import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as urlUtil from '../../util/url_util';
-import * as urlPathConstants from '../../constants/url_path_constants';
-import * as medicationActionCreators from '../../actions/action_creators/medication_action_creators';
-import * as userActionCreators from '../../actions/action_creators/user_action_creators';
+import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
 
 interface MedicationPopupPanelProps {
     medication: modelTypes.Diagnosis;

@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
+import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 
 import List from '@material-ui/core/List';
 
 import Panel from '../shared/Panel';
-import PopupListItem from '../shared/PopupListItem';
-import TitlePanelHeader from '../shared/TitlePanelHeader';
-import MedicationPopupPanel from './MedicationPopupPanel';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as urlPathConstants from '../../constants/url_path_constants';
+import PopupListItem from '../shared/PopupListItem';
+import MedicationPopupPanel from './MedicationPopupPanel';
+import TitlePanelHeader from '../shared/TitlePanelHeader';
 
 const PANEL_TITLE = 'Medications';
 
@@ -26,10 +26,6 @@ class MedicationsPanel extends React.Component<MedicationsPanelProps, any> {
         this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
     }
 
-    handleAddButtonClick() {
-        this.props.history.push(urlPathConstants.NEW_MEDICATION);
-    }
-
     getMedicationListItems() {
         return this.props.medications.map(function (medication) {
             return (
@@ -40,6 +36,10 @@ class MedicationsPanel extends React.Component<MedicationsPanelProps, any> {
                 />
             );
         });
+    }
+
+    handleAddButtonClick() {
+        this.props.history.push(urlPathConstants.NEW_MEDICATION);
     }
 
     render() {

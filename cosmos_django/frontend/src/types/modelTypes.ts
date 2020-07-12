@@ -94,7 +94,13 @@ export enum Sex {
 
 interface MedicalEntity {
     significanceScore: number;
-    significanceGroup: string;
+    significanceGroup: SignificanceGroup;
+}
+
+export enum SignificanceGroup {
+    HIGH = 'high',
+    MEDIUM = 'medium',
+    LOW = 'low',
 }
 
 export interface Encounter extends MedicalEntity {

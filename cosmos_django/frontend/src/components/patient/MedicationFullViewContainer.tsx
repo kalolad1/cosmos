@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as modelTypes from '../../types/modelTypes';
 import * as medicationActionCreators from '../../actions/action_creators/medication_action_creators';
-import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
+import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
 
 import MedicationFullView from './MedicationFullView';
 
@@ -33,15 +33,11 @@ class MedicationFullViewContainer extends React.Component<
             description: medication?.description || '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.getMedication = this.getMedication.bind(this);
-        this.handleAddMedicationSubmit = this.handleAddMedicationSubmit.bind(
-            this
-        );
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleUpdateMedicationSubmit = this.handleUpdateMedicationSubmit.bind(
-            this
-        );
+        this.handleAddMedication = this.handleAddMedication.bind(this);
+        this.handleUpdateMedication = this.handleUpdateMedication.bind(this);
+        this.getMedication = this.getMedication.bind(this);
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -67,7 +63,7 @@ class MedicationFullViewContainer extends React.Component<
         this.props.history.goBack();
     }
 
-    handleAddMedicationSubmit(event) {
+    handleAddMedication(event) {
         event.preventDefault();
         const self = this;
         const newMedication: modelTypes.MedicationConstructor = {
@@ -81,7 +77,7 @@ class MedicationFullViewContainer extends React.Component<
             });
     }
 
-    handleUpdateMedicationSubmit(event) {
+    handleUpdateMedication(event) {
         event.preventDefault();
         const self = this;
         const updatedMedication: modelTypes.MedicationUpdate = {
@@ -99,8 +95,8 @@ class MedicationFullViewContainer extends React.Component<
     }
 
     getMedication(id: number) {
-        // Need to refactor medications representation into dict to allow for hash
-        // search.
+        // Need to refactor medications representation into dict to allow for
+        // hash search.
         for (let i = 0; i < this.props.medications.length; i++) {
             if (this.props.medications[i].id == id) {
                 return this.props.medications[i];
@@ -112,9 +108,9 @@ class MedicationFullViewContainer extends React.Component<
     render() {
         let handleSubmit;
         if (this.props.mode == formConstants.FormModes.CREATE) {
-            handleSubmit = this.handleAddMedicationSubmit;
+            handleSubmit = this.handleAddMedication;
         } else if (this.props.mode == formConstants.FormModes.UPDATE) {
-            handleSubmit = this.handleUpdateMedicationSubmit;
+            handleSubmit = this.handleUpdateMedication;
         }
 
         let fullMedicationView = (

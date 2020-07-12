@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as modelTypes from '../../types/modelTypes';
 import * as encounterActionCreators from '../../actions/action_creators/encounter_action_creators';
-import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
+import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
 
 import EncounterFullView from './EncounterFullView';
 
@@ -33,15 +33,11 @@ class EncounterFullViewContainer extends React.Component<
             note: encounter?.note || '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.getEncounter = this.getEncounter.bind(this);
-        this.handleAddEncounterSubmit = this.handleAddEncounterSubmit.bind(
-            this
-        );
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleUpdateEncounterSubmit = this.handleUpdateEncounterSubmit.bind(
-            this
-        );
+        this.handleAddEncounter = this.handleAddEncounter.bind(this);
+        this.handleUpdateEncounter = this.handleUpdateEncounter.bind(this);
+        this.getEncounter = this.getEncounter.bind(this);
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -67,7 +63,7 @@ class EncounterFullViewContainer extends React.Component<
         this.props.history.goBack();
     }
 
-    handleAddEncounterSubmit(event) {
+    handleAddEncounter(event) {
         event.preventDefault();
         const self = this;
 
@@ -82,7 +78,7 @@ class EncounterFullViewContainer extends React.Component<
             });
     }
 
-    handleUpdateEncounterSubmit(event) {
+    handleUpdateEncounter(event) {
         event.preventDefault();
         const self = this;
         const updatedEncounter: modelTypes.EncounterUpdate = {
@@ -111,9 +107,9 @@ class EncounterFullViewContainer extends React.Component<
     render() {
         let handleSubmit;
         if (this.props.mode == formConstants.FormModes.CREATE) {
-            handleSubmit = this.handleAddEncounterSubmit;
+            handleSubmit = this.handleAddEncounter;
         } else if (this.props.mode == formConstants.FormModes.UPDATE) {
-            handleSubmit = this.handleUpdateEncounterSubmit;
+            handleSubmit = this.handleUpdateEncounter;
         }
 
         let fullEncounterView = (

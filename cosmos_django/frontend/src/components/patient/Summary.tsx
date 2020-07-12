@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import * as modelTypes from '../../types/modelTypes';
 
-import DiagnosesPanel from './DiagnosesPanel';
-import PanelGrid from '../shared/PanelGrid';
-import MedicationsPanel from './MedicationsPanel';
 import AllergiesPanel from './AllergiesPanel';
-import VaccinationsPanel from './VaccinationsPanel';
+import DiagnosesPanel from './DiagnosesPanel';
 import FamilyHistoryPanel from './FamilyHistoryPanel';
-import VitalsPanel from './VitalsPanel';
+import MedicationsPanel from './MedicationsPanel';
+import PanelGrid from '../shared/PanelGrid';
 import SocialHistoryPanel from './SocialHistoryPanel';
+import VaccinationsPanel from './VaccinationsPanel';
+import VitalsPanel from './VitalsPanel';
 
 interface SummaryProps {
     user: modelTypes.User;

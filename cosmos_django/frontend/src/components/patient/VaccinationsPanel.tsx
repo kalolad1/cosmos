@@ -1,16 +1,16 @@
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
 
+import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 
 import List from '@material-ui/core/List';
 
 import Panel from '../shared/Panel';
+import PanelButtonFooter from '../shared/PanelButtonFooter';
 import PopupListItem from '../shared/PopupListItem';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
 import VaccinationPopupPanel from './VaccinationPopupPanel';
-import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as ReactRouterDOM from 'react-router-dom';
-import * as urlPathConstants from '../../constants/url_path_constants';
 
 const PANEL_TITLE = 'Vaccinations';
 

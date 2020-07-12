@@ -1,6 +1,6 @@
+import DateFnsUtils from '@date-io/date-fns';
 import * as React from 'react';
 
-import DateFnsUtils from '@date-io/date-fns';
 import TextField from '@material-ui/core/TextField';
 import {
     KeyboardDatePicker,

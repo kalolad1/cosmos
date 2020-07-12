@@ -14,7 +14,7 @@ const testDiagnosis: modelTypes.Diagnosis = {
     name: 'Flu',
     description: 'Virus.',
     createdAt: 'Some date.',
-    significanceGroup: 'low',
+    significanceGroup: modelTypes.SignificanceGroup.LOW,
     significanceScore: 4,
 };
 

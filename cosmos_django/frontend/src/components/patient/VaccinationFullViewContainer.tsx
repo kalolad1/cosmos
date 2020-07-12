@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as modelTypes from '../../types/modelTypes';
 import * as vaccinationActionCreators from '../../actions/action_creators/vaccination_action_creators';
-import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
+import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
+
 import VaccinationFullView from './VaccinationFullView';
 
 interface VaccinationFullViewContainerProps {
@@ -32,15 +33,11 @@ class VaccinationFullViewContainer extends React.Component<
             description: vaccination?.description || '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.getVaccination = this.getVaccination.bind(this);
-        this.handleAddVaccinationSubmit = this.handleAddVaccinationSubmit.bind(
-            this
-        );
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleUpdateVaccinationSubmit = this.handleUpdateVaccinationSubmit.bind(
-            this
-        );
+        this.handleAddVaccination = this.handleAddVaccination.bind(this);
+        this.handleUpdateVaccination = this.handleUpdateVaccination.bind(this);
+        this.getVaccination = this.getVaccination.bind(this);
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -66,7 +63,7 @@ class VaccinationFullViewContainer extends React.Component<
         this.props.history.goBack();
     }
 
-    handleAddVaccinationSubmit(event) {
+    handleAddVaccination(event) {
         event.preventDefault();
         const self = this;
         const newVaccination: modelTypes.VaccinationConstructor = {
@@ -80,7 +77,7 @@ class VaccinationFullViewContainer extends React.Component<
             });
     }
 
-    handleUpdateVaccinationSubmit(event) {
+    handleUpdateVaccination(event) {
         event.preventDefault();
         const self = this;
         const updatedVaccination: modelTypes.VaccinationUpdate = {
@@ -111,9 +108,9 @@ class VaccinationFullViewContainer extends React.Component<
     render() {
         let handleSubmit;
         if (this.props.mode == formConstants.FormModes.CREATE) {
-            handleSubmit = this.handleAddVaccinationSubmit;
+            handleSubmit = this.handleAddVaccination;
         } else if (this.props.mode == formConstants.FormModes.UPDATE) {
-            handleSubmit = this.handleUpdateVaccinationSubmit;
+            handleSubmit = this.handleUpdateVaccination;
         }
 
         let fullVaccinationView = (

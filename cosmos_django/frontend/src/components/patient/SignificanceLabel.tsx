@@ -1,27 +1,27 @@
 import * as React from 'react';
-import Rating from '@material-ui/lab/Rating';
+
+import * as modelTypes from '../../types/modelTypes';
 import * as textUtil from '../../util/text_util';
-import * as modelConstants from '../../constants/model_constants';
+
+import Rating from '@material-ui/lab/Rating';
 
 const SIGNIFICANCE_GROUP_STARS_MAPPING = {
-    [modelConstants.EncounterSignificanceBands.LOW]: 1,
-    [modelConstants.EncounterSignificanceBands.MEDIUM]: 2,
-    [modelConstants.EncounterSignificanceBands.HIGH]: 3,
+    [modelTypes.SignificanceGroup.LOW]: 1,
+    [modelTypes.SignificanceGroup.MEDIUM]: 2,
+    [modelTypes.SignificanceGroup.HIGH]: 3,
 };
 
 interface SignificanceLabelProps {
-    significanceGroup: string;
+    significanceGroup: modelTypes.SignificanceGroup;
 }
 
 class SignificanceLabel extends React.Component<SignificanceLabelProps, any> {
     constructor(props) {
         super(props);
-        this.getNumOfSignificanceStars = this.getNumOfSignificanceStars.bind(
-            this
-        );
+        this.getNumSignificanceStars = this.getNumSignificanceStars.bind(this);
     }
 
-    getNumOfSignificanceStars() {
+    getNumSignificanceStars() {
         return SIGNIFICANCE_GROUP_STARS_MAPPING[this.props.significanceGroup];
     }
 
@@ -29,8 +29,8 @@ class SignificanceLabel extends React.Component<SignificanceLabelProps, any> {
         return (
             <div className="encounter-significance-container">
                 <Rating
-                    defaultValue={this.getNumOfSignificanceStars()}
-                    max={this.getNumOfSignificanceStars()}
+                    defaultValue={this.getNumSignificanceStars()}
+                    max={this.getNumSignificanceStars()}
                     readOnly
                     size="small"
                 />

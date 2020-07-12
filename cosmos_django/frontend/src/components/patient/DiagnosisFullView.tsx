@@ -2,12 +2,13 @@ import * as React from 'react';
 
 import * as formConstants from '../../constants/form_constants';
 
-import { Button, TextField } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import LayersIcon from '@material-ui/icons/Layers';
 import NotesIcon from '@material-ui/icons/Notes';
+import TextField from '@material-ui/core/TextField';
 
-import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import FullForm from '../shared/FullForm';
+import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 
 interface DiagnosisFullViewProps {
     mode: string;

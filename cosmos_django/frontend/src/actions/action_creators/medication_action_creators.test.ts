@@ -14,7 +14,7 @@ const testMedication: modelTypes.Medication = {
     name: 'Advil',
     description: 'A drug.',
     createdAt: 'Some date.',
-    significanceGroup: 'low',
+    significanceGroup: modelTypes.SignificanceGroup.LOW,
     significanceScore: 4,
 };
 

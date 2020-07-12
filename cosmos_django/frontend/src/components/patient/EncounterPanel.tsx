@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import * as ReactRedux from 'react-redux';
 
+import * as encounterActionCreators from '../../actions/action_creators/encounter_action_creators';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 import * as urlUtil from '../../util/url_util';
@@ -10,15 +12,13 @@ import Panel from '../shared/Panel';
 import EncounterPanelBody from './EncounterPanelBody';
 import EncounterPanelHeader from './EncounterPanelHeader';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as encounterActionCreators from '../../actions/action_creators/encounter_action_creators';
-import * as userActionCreators from '../../actions/action_creators/user_action_creators';
 
 interface EncounterPanelProps {
     encounter: modelTypes.Encounter;
     profilePicture: string;
     firstName: string;
     lastName: string;
-    significanceGroup: string;
+    significanceGroup: modelTypes.SignificanceGroup;
     history: any;
     dispatch: any;
 }
@@ -26,11 +26,17 @@ interface EncounterPanelProps {
 class EncounterPanel extends React.Component<EncounterPanelProps, any> {
     constructor(props) {
         super(props);
+        this.handleViewFullClick = this.handleViewFullClick.bind(this);
         this.handleEditButtonClick = this.handleEditButtonClick.bind(this);
-        this.handleViewFullButtonClick = this.handleViewFullButtonClick.bind(
-            this
-        );
         this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this);
+    }
+
+    handleViewFullClick() {
+        const viewEncounterPath = urlUtil.getUrlPathWithId(
+            urlPathConstants.VIEW_ENCOUNTER,
+            this.props.encounter.id.toString()
+        );
+        this.props.history.push(viewEncounterPath);
     }
 
     handleEditButtonClick() {
@@ -39,14 +45,6 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
             this.props.encounter.id.toString()
         );
         this.props.history.push(updateEncounterPath);
-    }
-
-    handleViewFullButtonClick() {
-        const viewEncounterPath = urlUtil.getUrlPathWithId(
-            urlPathConstants.VIEW_ENCOUNTER,
-            this.props.encounter.id.toString()
-        );
-        this.props.history.push(viewEncounterPath);
     }
 
     handleDeleteButtonClick() {
@@ -81,7 +79,7 @@ class EncounterPanel extends React.Component<EncounterPanelProps, any> {
                             buttons={{
                                 edit: this.handleEditButtonClick,
                                 delete: this.handleDeleteButtonClick,
-                                viewFull: this.handleViewFullButtonClick,
+                                viewFull: this.handleViewFullClick,
                             }}
                         />
                     }

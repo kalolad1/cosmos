@@ -14,7 +14,7 @@ const testVaccination: modelTypes.Vaccination = {
     name: 'Covid',
     description: 'A vaccination.',
     createdAt: 'Some date.',
-    significanceGroup: 'low',
+    significanceGroup: modelTypes.SignificanceGroup.LOW,
     significanceScore: 4,
 };
 

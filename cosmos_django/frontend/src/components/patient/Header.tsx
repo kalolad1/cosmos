@@ -24,14 +24,11 @@ interface HeaderProps {
 class Header extends React.Component<HeaderProps, any> {
     constructor(props) {
         super(props);
-        this.handleNewEncounterButtonClick = this.handleNewEncounterButtonClick.bind(
-            this
-        );
+        this.handleNewEncounterClick = this.handleNewEncounterClick.bind(this);
     }
 
-    handleNewEncounterButtonClick(event: React.SyntheticEvent): void {
+    handleNewEncounterClick(event: React.SyntheticEvent): void {
         event.preventDefault();
-
         this.props.history.push(urlPathConstants.NEW_ENCOUNTER);
     }
 
@@ -64,7 +61,7 @@ class Header extends React.Component<HeaderProps, any> {
                     color="secondary"
                     variant="extended"
                     aria-label="add encounter"
-                    onClick={this.handleNewEncounterButtonClick}
+                    onClick={this.handleNewEncounterClick}
                 >
                     <AddIcon />
                     New Encounter

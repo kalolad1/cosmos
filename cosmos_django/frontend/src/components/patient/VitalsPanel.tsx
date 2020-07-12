@@ -3,8 +3,8 @@ import * as React from 'react';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 
 import Panel from '../shared/Panel';
-import TitlePanelHeader from '../shared/TitlePanelHeader';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
+import TitlePanelHeader from '../shared/TitlePanelHeader';
 
 const PANEL_TITLE = 'Vitals (Coming soon)';
 
