@@ -9,26 +9,25 @@ from . import api
 
 class UsersPermissions(permissions.BasePermission):
     def has_permission(self, request: Request, view=None) -> bool:
-        context: dict = cast(dict, request.parser_context)
         # If creating new main, allow permission without authentication.
         if request.method == api.HTTPMethod.POST:
             return True
         # If accessing main, require authentication.
         elif request.method == api.HTTPMethod.GET:
-            # Only let user from access their own accounts if id in url.
-            if not context['kwargs']:
-                if request.user and request.user.is_authenticated:
-                    return True
-            else:
-                if 'user_id' in context['kwargs']:
-                    user_id = context['kwargs']['user_id']
+            if hasattr(request, 'context'):
+                if not request.context['kwargs']:
+                    if request.user and request.user.is_authenticated:
+                        return True
+                else:
+                    # Only let user from access their own accounts if id in url.
+                    user_id = request.context['kwargs']['user_id']
                     if request.user and user_id == request.user.id:
                         return True
-
         # If updating, require authentication.
         elif request.method == api.HTTPMethod.PUT:
-            if request.user and request.user.is_authenticated:
-                user_id = context['kwargs']['user_id']
+            if (hasattr(request, 'context') and request.user
+                    and request.user.is_authenticated):
+                user_id = request.context['kwargs']['user_id']
                 if user_id == request.user.id:
                     return True
         return False

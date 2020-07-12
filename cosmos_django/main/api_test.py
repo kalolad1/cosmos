@@ -5,6 +5,7 @@ from django import urls
 from rest_framework import status
 from rest_framework import test
 
+from . import api
 from . import custom_exceptions
 from . import models
 
@@ -46,6 +47,9 @@ TEST_ENCOUNTER_REQUEST_DATA = {
 
 
 class TestApi(test.APITestCase):
+    def setUp(self) -> None:
+        self.factory = test.APIRequestFactory()
+
     def _create_test_user(self, request_data=None):
         url = urls.reverse('main/users')
         if request_data:
@@ -105,7 +109,7 @@ class TestApi(test.APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_put_user_fails_not_authenticated(self):
+    def test_update_user_fails_not_authenticated(self):
         url = urls.reverse('main/users', kwargs={'user_id': 0})
         response = self.client.put(url,
                                    TEST_USER_PUT_REQUEST_DATA,
@@ -113,45 +117,86 @@ class TestApi(test.APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    # def test_put_user_succeeds(self):
-    #     self._create_test_user()
-    #     self.client.force_authenticate(user=models.User.objects.first())
-    #
-    #     url = urls.reverse('main/users', kwargs={'user_id': 0})
-    #     response = self.client.put(url,
-    #                                TEST_USER_PUT_REQUEST_DATA,
-    #                                format='json')
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.data['email'],
-    #                      TEST_USER_PUT_REQUEST_DATA['email'])
-    #     self.assertEqual(
-    #         response.data['patient_profile']['first_name'],
-    #         TEST_USER_PUT_REQUEST_DATA['patient_profile']['first_name'])
-    #     self.assertEqual(
-    #         response.data['patient_profile']['date_of_birth'],
-    #         parser.parse(TEST_USER_PUT_REQUEST_DATA['patient_profile']
-    #                      ['date_of_birth']).date().__str__())
-    #     self.assertEqual(
-    #         response.data['patient_profile']['phone_number'],
-    #         TEST_USER_PUT_REQUEST_DATA['patient_profile']['phone_number'])
-    #     self.assertDictEqual(
-    #         response.data['patient_profile']['address'],
-    #         TEST_USER_PUT_REQUEST_DATA['patient_profile']['address'])
-    #     self.assertEqual(response.data['patient_profile']['race'],
-    #                      TEST_USER_PUT_REQUEST_DATA['patient_profile']['race'])
-    #     self.assertEqual(
-    #         response.data['patient_profile']['ethnicity'],
-    #         TEST_USER_PUT_REQUEST_DATA['patient_profile']['ethnicity'])
-    #     self.assertEqual(
-    #         response.data['patient_profile']['religion'],
-    #         TEST_USER_PUT_REQUEST_DATA['patient_profile']['religion'])
-    #     self.assertEqual(
-    #         response.data['patient_profile']['insurance'],
-    #         TEST_USER_PUT_REQUEST_DATA['patient_profile']['insurance'])
-    #     self.assertEqual(
-    #         response.data['patient_profile']['pharmacy'],
-    #         TEST_USER_PUT_REQUEST_DATA['patient_profile']['pharmacy'])
+    def test_update_user_fails_updating_email_to_existing_user(self):
+        request_data = {
+            'email': 'test123@gmail.com',
+            'password': 'test1234',
+            'date_of_birth': "2017-06-27T20:48:49.065Z",
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'sex': 'male',
+            'is_provider': False,
+        }
+        self._create_test_user(request_data)
+        request_data['email'] = 'test456@gmail.com'
+        self._create_test_user(request_data)
+
+        user = models.User.objects.get(email='test456@gmail.com')
+        url = urls.reverse('main/users', kwargs={'user_id': user.id})
+
+        update_request_data = copy.deepcopy(TEST_USER_PUT_REQUEST_DATA)
+        update_request_data['email'] = 'test123@gmail.com'
+        request = self.factory.put(url, update_request_data, format='json')
+        request.context = {
+            'kwargs': {
+                'user_id': user.id,
+            }
+        }
+
+        test.force_authenticate(request, user=user)
+        view = api.UsersEndpoint.as_view()
+        response = view(request, user.id)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            response.data[custom_exceptions.USER_FACING_MESSAGE_KEY],
+            custom_exceptions.UpdatingUserToExistingEmailException.
+            USER_FACING_MESSAGE)
+
+    def test_update_user_succeeds(self):
+        self._create_test_user()
+        user = models.User.objects.first()
+
+        url = urls.reverse('main/users', kwargs={'user_id': user.id})
+        request = self.factory.put(url,
+                                   TEST_USER_PUT_REQUEST_DATA,
+                                   format='json')
+        request.context = {
+            'kwargs': {
+                'user_id': user.id,
+            }
+        }
+
+        test.force_authenticate(request, user=user)
+        view = api.UsersEndpoint.as_view()
+        response = view(request, user.id)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['email'],
+                         TEST_USER_PUT_REQUEST_DATA['email'])
+        self.assertEqual(
+            response.data['patient_profile']['first_name'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['first_name'])
+        self.assertEqual(
+            response.data['patient_profile']['date_of_birth'],
+            parser.parse(TEST_USER_PUT_REQUEST_DATA['patient_profile']
+                         ['date_of_birth']).date().__str__())
+        self.assertDictEqual(
+            response.data['patient_profile']['address'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['address'])
+        self.assertEqual(response.data['patient_profile']['race'],
+                         TEST_USER_PUT_REQUEST_DATA['patient_profile']['race'])
+        self.assertEqual(
+            response.data['patient_profile']['ethnicity'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['ethnicity'])
+        self.assertEqual(
+            response.data['patient_profile']['religion'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['religion'])
+        self.assertEqual(
+            response.data['patient_profile']['insurance'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['insurance'])
+        self.assertEqual(
+            response.data['patient_profile']['pharmacy'],
+            TEST_USER_PUT_REQUEST_DATA['patient_profile']['pharmacy'])
 
     def test_get_user_fails_not_authenticated(self):
         url = urls.reverse('main/users')
@@ -159,14 +204,19 @@ class TestApi(test.APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    # def test_get_user_succeeds(self):
-    #     self._create_test_user()
-    #     self.client.force_authenticate(user=models.User.objects.first())
-    #
-    #     url = urls.reverse('main/users')
-    #     response = self.client.get(url, format='json')
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_get_user_succeeds(self):
+        self._create_test_user()
+        user = models.User.objects.first()
+
+        url = urls.reverse('main/users')
+        request = self.factory.get(url, format='json')
+        request.context = {'kwargs': {}}
+
+        test.force_authenticate(request, user=user)
+        view = api.UsersEndpoint.as_view()
+        response = view(request)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_encounter_fails_not_authenticated(self):
         url = urls.reverse('main/encounters')

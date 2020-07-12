@@ -30,12 +30,12 @@ class HTTPMethod:
     DELETE = 'DELETE'
 
 
-class AccountsEndpoint(views.APIView):
-    """Endpoints for Account objects."""
+class UsersEndpoint(views.APIView):
+    """Endpoints for User objects."""
     permission_classes = (custom_permissions.UsersPermissions, )
 
     def post(self, request: Request) -> response.Response:
-        """Registers a new account."""
+        """Registers a new user."""
         try:
             user: models.User = models.User.objects.create_user_from_json(
                 data=request.data)
@@ -54,6 +54,7 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_201_CREATED)
 
     def put(self, request: Request, user_id: int) -> response.Response:
+        """Update a user."""
         try:
             user: models.User = models.User.objects.get(id=user_id)
         except models.User.DoesNotExist:
@@ -74,7 +75,11 @@ class AccountsEndpoint(views.APIView):
                                  status=status.HTTP_200_OK)
 
     def get(self, request: Request, user_id=None) -> response.Response:
-        """Returns the users main if they are authenticated."""
+        """Returns the authenticated user, or the user specified by user_id.
+
+        If user_id is provided, the authenticated must have sufficient
+        permissions to request their user object.
+        """
         user: models.User = request.user
         if user_id:
             try:
@@ -119,18 +124,13 @@ class EncountersEndpoint(views.APIView):
         except models.Encounter.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            encounter.update_from_json(request.data)
-        except Exception:
-            pass
-        else:
-            serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
-                instance=encounter)
-            logging.info('Updating encounter with new data: %s.',
-                         json.dumps(serialized_encounter.data))
-            return response.Response(data=serialized_encounter.data,
-                                     status=status.HTTP_200_OK)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        encounter.update_from_json(request.data)
+        serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
+            instance=encounter)
+        logging.info('Updating encounter with new data: %s.',
+                     json.dumps(serialized_encounter.data))
+        return response.Response(data=serialized_encounter.data,
+                                 status=status.HTTP_200_OK)
 
     def delete(self, request: Request) -> response.Response:
         """Deletes an encounter."""
@@ -140,14 +140,9 @@ class EncountersEndpoint(views.APIView):
         except models.Encounter.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            encounter.delete()
-        except Exception:
-            pass
-        else:
-            logging.info('Deleting encounter')
-            return response.Response(status=status.HTTP_204_NO_CONTENT)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        encounter.delete()
+        logging.info('Deleting encounter')
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class DiagnosesEndpoint(views.APIView):
@@ -179,18 +174,13 @@ class DiagnosesEndpoint(views.APIView):
         except models.Diagnosis.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            diagnosis.update_from_json(request.data)
-        except Exception:
-            pass
-        else:
-            serialized_diagnosis: serializers.DiagnosisSerializer = serializers.DiagnosisSerializer(
-                instance=diagnosis)
-            logging.info('Updating diagnosis with new data: %s.',
-                         json.dumps(serialized_diagnosis.data))
-            return response.Response(data=serialized_diagnosis.data,
-                                     status=status.HTTP_200_OK)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        diagnosis.update_from_json(request.data)
+        serialized_diagnosis: serializers.DiagnosisSerializer = serializers.DiagnosisSerializer(
+            instance=diagnosis)
+        logging.info('Updating diagnosis with new data: %s.',
+                     json.dumps(serialized_diagnosis.data))
+        return response.Response(data=serialized_diagnosis.data,
+                                 status=status.HTTP_200_OK)
 
     def delete(self, request: Request) -> response.Response:
         """Deletes a diagnosis."""
@@ -200,14 +190,9 @@ class DiagnosesEndpoint(views.APIView):
         except models.Diagnosis.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            diagnosis.delete()
-        except Exception:
-            pass
-        else:
-            logging.info('Deleting diagnosis')
-            return response.Response(status=status.HTTP_204_NO_CONTENT)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        diagnosis.delete()
+        logging.info('Deleting diagnosis')
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class MedicationsEndpoint(views.APIView):
@@ -239,18 +224,13 @@ class MedicationsEndpoint(views.APIView):
         except models.Medication.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            medication.update_from_json(request.data)
-        except Exception:
-            pass
-        else:
-            serialized_medication: serializers.MedicationSerializer = serializers.MedicationSerializer(
-                instance=medication)
-            logging.info('Updating medication with new data: %s.',
-                         json.dumps(serialized_medication.data))
-            return response.Response(data=serialized_medication.data,
-                                     status=status.HTTP_200_OK)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        medication.update_from_json(request.data)
+        serialized_medication: serializers.MedicationSerializer = serializers.MedicationSerializer(
+            instance=medication)
+        logging.info('Updating medication with new data: %s.',
+                     json.dumps(serialized_medication.data))
+        return response.Response(data=serialized_medication.data,
+                                 status=status.HTTP_200_OK)
 
     def delete(self, request: Request) -> response.Response:
         """Deletes a medication."""
@@ -260,14 +240,9 @@ class MedicationsEndpoint(views.APIView):
         except models.Medication.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            medication.delete()
-        except Exception:
-            pass
-        else:
-            logging.info('Deleting medication')
-            return response.Response(status=status.HTTP_204_NO_CONTENT)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        medication.delete()
+        logging.info('Deleting medication')
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class AllergiesEndpoint(views.APIView):
@@ -299,18 +274,13 @@ class AllergiesEndpoint(views.APIView):
         except models.Allergy.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            allergy.update_from_json(request.data)
-        except Exception:
-            pass
-        else:
-            serialized_allergy: serializers.AllergySerializer = serializers.AllergySerializer(
-                instance=allergy)
-            logging.info('Updating allergy with new data: %s.',
-                         json.dumps(serialized_allergy.data))
-            return response.Response(data=serialized_allergy.data,
-                                     status=status.HTTP_200_OK)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        allergy.update_from_json(request.data)
+        serialized_allergy: serializers.AllergySerializer = serializers.AllergySerializer(
+            instance=allergy)
+        logging.info('Updating allergy with new data: %s.',
+                     json.dumps(serialized_allergy.data))
+        return response.Response(data=serialized_allergy.data,
+                                 status=status.HTTP_200_OK)
 
     def delete(self, request: Request) -> response.Response:
         """Deletes a allergy."""
@@ -320,14 +290,9 @@ class AllergiesEndpoint(views.APIView):
         except models.Allergy.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            allergy.delete()
-        except Exception:
-            pass
-        else:
-            logging.info('Deleting allergy')
-            return response.Response(status=status.HTTP_204_NO_CONTENT)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        allergy.delete()
+        logging.info('Deleting allergy')
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class VaccinationsEndpoint(views.APIView):
@@ -359,18 +324,13 @@ class VaccinationsEndpoint(views.APIView):
         except models.Vaccination.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            vaccination.update_from_json(request.data)
-        except Exception:
-            pass
-        else:
-            serialized_vaccination: serializers.VaccinationSerializer = serializers.VaccinationSerializer(
-                instance=vaccination)
-            logging.info('Updating vaccination with new data: %s.',
-                         json.dumps(serialized_vaccination.data))
-            return response.Response(data=serialized_vaccination.data,
-                                     status=status.HTTP_200_OK)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        vaccination.update_from_json(request.data)
+        serialized_vaccination: serializers.VaccinationSerializer = serializers.VaccinationSerializer(
+            instance=vaccination)
+        logging.info('Updating vaccination with new data: %s.',
+                     json.dumps(serialized_vaccination.data))
+        return response.Response(data=serialized_vaccination.data,
+                                 status=status.HTTP_200_OK)
 
     def delete(self, request: Request) -> response.Response:
         """Deletes a vaccination."""
@@ -380,11 +340,6 @@ class VaccinationsEndpoint(views.APIView):
         except models.Vaccination.DoesNotExist:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            vaccination.delete()
-        except Exception:
-            pass
-        else:
-            logging.info('Deleting vaccination')
-            return response.Response(status=status.HTTP_204_NO_CONTENT)
-        return response.Response(status=status.HTTP_400_BAD_REQUEST)
+        vaccination.delete()
+        logging.info('Deleting vaccination')
+        return response.Response(status=status.HTTP_204_NO_CONTENT)

@@ -7,7 +7,7 @@ takes in only one param.
 3. Aim to test every code path. We will not specify a code coverage threshold 
 such as 85%. Instead we will emphasize that tests help us maintain developer 
 velocity and product excellence.
-4. Run pylint before comitting.
+4. Run pylint before committing.
 
 ## All other rules
 Please use Google's style guides:
