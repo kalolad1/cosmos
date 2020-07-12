@@ -51,7 +51,7 @@ test('send a signup request', () => {
         firstName: 'John',
         lastName: 'Doe',
         dateOfBirth: '1998-06-08',
-        sex: 'male',
+        sex: modelTypes.Sex.MALE,
         isProvider: true,
     };
     // @ts-ignore

@@ -16,7 +16,7 @@ const testUser: modelTypes.User = {
         firstName: 'John',
         lastName: 'Doe',
         dateOfBirth: '1998-06-09',
-        sex: 'male',
+        sex: modelTypes.Sex.MALE,
         age: 21,
         profilePicture: 'some profile picture',
         phoneNumber: '+18565209398',

@@ -27,7 +27,7 @@ export interface UserConstructor {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    sex: string;
+    sex: Sex;
     isProvider: boolean;
 }
 
@@ -37,21 +37,21 @@ export interface ProviderProfile {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    sex: string;
+    sex: Sex;
 }
 
 export interface ProviderProfileUpdate {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    sex: string;
+    sex: Sex;
 }
 
 export interface PatientProfile {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    sex: string;
+    sex: Sex;
     age: number;
     profilePicture: string;
     phoneNumber: string;
@@ -86,6 +86,12 @@ export interface Address {
     city: string;
     state: string;
     zipCode: string;
+}
+
+export enum Sex {
+    EMPTY = '',
+    MALE = 'male',
+    FEMALE = 'female',
 }
 
 interface MedicalEntity {

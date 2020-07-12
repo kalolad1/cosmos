@@ -1,12 +1,13 @@
 /* Metadata included in the left portion of the Header. */
 import * as React from 'react';
 
+import * as modelTypes from '../../types/modelTypes';
 import * as textUtil from '../../util/text_util';
 
 interface HeaderMetadataProps {
     firstName: string;
     lastName: string;
-    sex: string;
+    sex: modelTypes.Sex;
     age: number;
 }
 

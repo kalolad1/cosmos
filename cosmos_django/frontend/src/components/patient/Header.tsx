@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
 import * as textUtil from '../../util/text_util';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -15,7 +16,7 @@ interface HeaderProps {
     profilePicture: string;
     firstName: string;
     lastName: string;
-    sex: string;
+    sex: modelTypes.Sex;
     age: number;
     history: any;
 }

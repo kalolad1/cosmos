@@ -1,36 +1,43 @@
 import DateFnsUtils from '@date-io/date-fns';
 import * as React from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import * as ReactRouterDOM from 'react-router-dom';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import * as authApi from '../../api/auth_api';
 import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 import * as authUtil from '../../util/auth_util';
+import * as textUtil from '../../util/text_util';
 
-import {
-    Button,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    Snackbar,
-    TextField,
-} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import Select from '@material-ui/core/Select';
+import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-import { Alert } from '@material-ui/lab';
-import FormLabel from '@material-ui/core/FormLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
 
 const SEX_OPTIONS = [
-    { id: 1, value: 'male', formatted: 'Male' },
-    { id: 2, value: 'female', formatted: 'Female' },
+    {
+        id: 1,
+        value: modelTypes.Sex.MALE,
+        formatted: textUtil.capitalizeFirstLetter(modelTypes.Sex.MALE),
+    },
+    {
+        id: 2,
+        value: modelTypes.Sex.FEMALE,
+        formatted: textUtil.capitalizeFirstLetter(modelTypes.Sex.FEMALE),
+    },
 ];
 
 interface SignupFormState {
@@ -39,7 +46,7 @@ interface SignupFormState {
     firstName: string;
     lastName: string;
     dateOfBirth?: Date;
-    sex: string;
+    sex: modelTypes.Sex;
     isProvider: string;
     isErrorSnackbarOpen: boolean;
     snackBarErrorMessage: string;
@@ -54,7 +61,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
             firstName: '',
             lastName: '',
             dateOfBirth: new Date(),
-            sex: '',
+            sex: modelTypes.Sex.EMPTY,
             isErrorSnackbarOpen: false,
             snackBarErrorMessage: 'An error has occurred!',
             isProvider: 'no',
@@ -67,9 +74,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleErrorSnackbarClose = this.handleErrorSnackbarClose.bind(
-            this
-        );
+        this.handleErrSnackbarClose = this.handleErrSnackbarClose.bind(this);
     }
 
     handleDateChange(date: Date | null): void {
@@ -144,7 +149,7 @@ class SignupForm extends React.Component<any, SignupFormState> {
             });
     }
 
-    handleErrorSnackbarClose(event?: React.SyntheticEvent, reason?: string) {
+    handleErrSnackbarClose(event?: React.SyntheticEvent, reason?: string) {
         if (reason === 'clickaway') {
             return;
         }
@@ -163,10 +168,10 @@ class SignupForm extends React.Component<any, SignupFormState> {
                         horizontal: 'center',
                     }}
                     open={this.state.isErrorSnackbarOpen}
-                    onClose={this.handleErrorSnackbarClose}
+                    onClose={this.handleErrSnackbarClose}
                 >
                     <Alert
-                        onClose={this.handleErrorSnackbarClose}
+                        onClose={this.handleErrSnackbarClose}
                         severity="error"
                     >
                         {this.state.snackBarErrorMessage}

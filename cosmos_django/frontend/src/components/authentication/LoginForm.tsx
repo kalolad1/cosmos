@@ -6,8 +6,10 @@ import * as apiEndpointConstants from '../../constants/api_endpoint_constants';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as authUtil from '../../util/auth_util';
 
-import { Button, Snackbar, TextField } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
 
 interface LoginFormState {
     email: string;

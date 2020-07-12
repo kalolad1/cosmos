@@ -37,6 +37,8 @@ export function signupRequest(
     newUser: modelTypes.UserConstructor,
     client = axiosConfig.axiosClient
 ) {
+    console.log('Sending signup with user: ');
+    console.log(newUser);
     return client.post(apiEndpointConstants.USERS, {
         ...newUser,
     });
