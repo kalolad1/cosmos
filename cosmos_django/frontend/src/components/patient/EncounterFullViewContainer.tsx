@@ -24,7 +24,8 @@ class EncounterFullViewContainer extends React.Component<
     constructor(props) {
         super(props);
         let encounter;
-        if (this.props.match.params.hasOwnProperty('id')) {
+        const params = this.props.match.params;
+        if (Object.prototype.hasOwnProperty.call(params, 'id')) {
             encounter = this.getEncounter(this.props.match.params.id);
         }
 
@@ -112,7 +113,7 @@ class EncounterFullViewContainer extends React.Component<
             handleSubmit = this.handleUpdateEncounter;
         }
 
-        let fullEncounterView = (
+        const fullEncounterView = (
             <EncounterFullView
                 mode={this.props.mode}
                 encounterType={this.state.encounterType}

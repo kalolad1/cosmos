@@ -42,7 +42,7 @@ class Timeline extends React.Component<TimelineProps, any> {
     getTimelineItems() {
         const self = this;
 
-        return this.props.user.patientProfile!.encounters.map(function (
+        return this.props.user.patientProfile?.encounters.map(function (
             encounter
         ) {
             return (
@@ -65,12 +65,12 @@ class Timeline extends React.Component<TimelineProps, any> {
                             key={encounter.id}
                             encounter={encounter}
                             profilePicture={
-                                self.props.user.patientProfile!.profilePicture
+                                self.props.user.patientProfile?.profilePicture
                             }
                             firstName={
-                                self.props.user.patientProfile!.firstName
+                                self.props.user.patientProfile?.firstName
                             }
-                            lastName={self.props.user.patientProfile!.lastName}
+                            lastName={self.props.user.patientProfile?.lastName}
                             significanceGroup={encounter.significanceGroup}
                         />
                     </TimelineContent>

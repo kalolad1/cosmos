@@ -24,11 +24,11 @@ class Summary extends React.Component<SummaryProps, any> {
         const mainColumnChildrenPanels = [
             <DiagnosesPanel
                 key={0}
-                diagnoses={this.props.user.patientProfile!.diagnoses}
+                diagnoses={this.props.user.patientProfile?.diagnoses}
             />,
             <MedicationsPanel
                 key={1}
-                medications={this.props.user.patientProfile!.medications}
+                medications={this.props.user.patientProfile?.medications}
             />,
             <FamilyHistoryPanel key={2} />,
         ];
@@ -36,11 +36,11 @@ class Summary extends React.Component<SummaryProps, any> {
         const secondaryColumnChildrenPanels = [
             <AllergiesPanel
                 key={3}
-                allergies={this.props.user.patientProfile!.allergies}
+                allergies={this.props.user.patientProfile?.allergies}
             />,
             <VaccinationsPanel
                 key={4}
-                vaccinations={this.props.user.patientProfile!.vaccinations}
+                vaccinations={this.props.user.patientProfile?.vaccinations}
             />,
             <VitalsPanel key={5} />,
             <SocialHistoryPanel key={6} />,

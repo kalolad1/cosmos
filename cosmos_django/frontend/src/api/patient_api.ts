@@ -37,7 +37,7 @@ export function updateUser(
  * Adds an encounter for the current user.
  *
  * @param newEncounter - The new encounter to be added.
- * @param client - Axios instance used to make request.@param client - Axios instance used to make request.
+ * @param client - Axios instance used to make request.
  *
  *
  * @returns A Promise containing the server response.

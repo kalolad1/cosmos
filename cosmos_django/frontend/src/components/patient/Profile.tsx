@@ -120,7 +120,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
     }
 
     initEditModeArray(): Array<boolean> {
-        let editMode: Array<boolean> = [];
+        const editMode: Array<boolean> = [];
         for (let i = 0; i < PANEL_COUNT; i++) {
             editMode.push(false);
         }

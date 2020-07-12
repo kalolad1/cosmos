@@ -20,12 +20,7 @@ interface DiagnosisFullViewProps {
     handleClose: any;
 }
 
-interface DiagnosisFullViewState {}
-
-class DiagnosisFullView extends React.Component<
-    DiagnosisFullViewProps,
-    DiagnosisFullViewState
-> {
+class DiagnosisFullView extends React.Component<DiagnosisFullViewProps, any> {
     constructor(props) {
         super(props);
         this.isFormReadOnly = this.isFormReadOnly.bind(this);

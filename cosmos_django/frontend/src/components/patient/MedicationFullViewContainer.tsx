@@ -24,7 +24,8 @@ class MedicationFullViewContainer extends React.Component<
     constructor(props) {
         super(props);
         let medication;
-        if (this.props.match.params.hasOwnProperty('id')) {
+        const params = this.props.match.params;
+        if (Object.prototype.hasOwnProperty.call(params, 'id')) {
             medication = this.getMedication(this.props.match.params.id);
         }
 
@@ -113,7 +114,7 @@ class MedicationFullViewContainer extends React.Component<
             handleSubmit = this.handleUpdateMedication;
         }
 
-        let fullMedicationView = (
+        const fullMedicationView = (
             <MedicationFullView
                 mode={this.props.mode}
                 name={this.state.name}

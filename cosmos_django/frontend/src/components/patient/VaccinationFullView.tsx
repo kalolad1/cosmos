@@ -20,11 +20,9 @@ interface VaccinationFullViewProps {
     handleClose: any;
 }
 
-interface VaccinationFullViewState {}
-
 class VaccinationFullView extends React.Component<
     VaccinationFullViewProps,
-    VaccinationFullViewState
+    any
 > {
     constructor(props) {
         super(props);

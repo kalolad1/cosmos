@@ -11,9 +11,7 @@ import PatientMetrics from './PatientMetrics';
 import FullPageSpinner from '../shared/FullPageSpinner';
 import Inbox from '../shared/Inbox';
 
-interface HomeState {}
-
-class PatientHome extends React.Component<any, HomeState> {
+class PatientHome extends React.Component<any, any> {
     constructor(props) {
         super(props);
     }

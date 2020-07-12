@@ -24,7 +24,8 @@ class VaccinationFullViewContainer extends React.Component<
     constructor(props) {
         super(props);
         let vaccination;
-        if (this.props.match.params.hasOwnProperty('id')) {
+        const params = this.props.match.params;
+        if (Object.prototype.hasOwnProperty.call(params, 'id')) {
             vaccination = this.getVaccination(this.props.match.params.id);
         }
 
@@ -113,7 +114,7 @@ class VaccinationFullViewContainer extends React.Component<
             handleSubmit = this.handleUpdateVaccination;
         }
 
-        let fullVaccinationView = (
+        const fullVaccinationView = (
             <VaccinationFullView
                 mode={this.props.mode}
                 name={this.state.name}

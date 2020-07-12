@@ -28,12 +28,7 @@ interface EncounterFullViewProps {
     handleClose: any;
 }
 
-interface EncounterFullViewState {}
-
-class EncounterFullView extends React.Component<
-    EncounterFullViewProps,
-    EncounterFullViewState
-> {
+class EncounterFullView extends React.Component<EncounterFullViewProps, any> {
     constructor(props) {
         super(props);
 

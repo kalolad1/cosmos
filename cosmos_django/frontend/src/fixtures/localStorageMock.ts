@@ -2,7 +2,7 @@ const localStorageMock = (function () {
     let store = {};
     return {
         getItem: function (key) {
-            if (!store.hasOwnProperty(key)) {
+            if (!Object.prototype.hasOwnProperty.call(store, key)) {
                 return null;
             }
             return store[key];

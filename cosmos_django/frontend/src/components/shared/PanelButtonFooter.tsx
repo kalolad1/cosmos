@@ -7,7 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 
 interface PanelButtonFooterProps {
-    buttons: object;
+    buttons: any;
 }
 
 class PanelButtonFooter extends React.Component<PanelButtonFooterProps, any> {

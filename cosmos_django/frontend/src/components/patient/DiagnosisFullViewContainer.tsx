@@ -23,7 +23,8 @@ class DiagnosisFullViewContainer extends React.Component<
     constructor(props) {
         super(props);
         let diagnosis;
-        if (this.props.match.params.hasOwnProperty('id')) {
+        const params = this.props.match.params;
+        if (Object.prototype.hasOwnProperty.call(params, 'id')) {
             diagnosis = this.getDiagnosis(this.props.match.params.id);
         }
 
@@ -114,7 +115,7 @@ class DiagnosisFullViewContainer extends React.Component<
             handleSubmit = this.handleUpdateDiagnosisSubmit;
         }
 
-        let fullDiagnosisView = (
+        const fullDiagnosisView = (
             <DiagnosisFullView
                 mode={this.props.mode}
                 name={this.state.name}

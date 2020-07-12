@@ -24,7 +24,8 @@ class AllergyFullViewContainer extends React.Component<
     constructor(props) {
         super(props);
         let allergy;
-        if (this.props.match.params.hasOwnProperty('id')) {
+        const params = this.props.match.params;
+        if (Object.prototype.hasOwnProperty.call(params, 'id')) {
             allergy = this.getAllergy(this.props.match.params.id);
         }
 
@@ -113,7 +114,7 @@ class AllergyFullViewContainer extends React.Component<
             handleSubmit = this.handleUpdateAllergySubmit;
         }
 
-        let fullAllergyView = (
+        const fullAllergyView = (
             <AllergyFullView
                 mode={this.props.mode}
                 name={this.state.name}

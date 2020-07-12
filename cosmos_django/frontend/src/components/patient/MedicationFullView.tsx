@@ -22,12 +22,7 @@ interface MedicationFullViewProps {
     handleClose: any;
 }
 
-interface MedicationFullViewState {}
-
-class MedicationFullView extends React.Component<
-    MedicationFullViewProps,
-    MedicationFullViewState
-> {
+class MedicationFullView extends React.Component<MedicationFullViewProps, any> {
     constructor(props) {
         super(props);
         this.isFormReadOnly = this.isFormReadOnly.bind(this);

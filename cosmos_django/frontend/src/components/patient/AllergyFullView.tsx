@@ -22,12 +22,7 @@ interface AllergyFullViewProps {
     handleClose: any;
 }
 
-interface AllergyFullViewState {}
-
-class AllergyFullView extends React.Component<
-    AllergyFullViewProps,
-    AllergyFullViewState
-> {
+class AllergyFullView extends React.Component<AllergyFullViewProps, any> {
     constructor(props) {
         super(props);
         this.isFormReadOnly = this.isFormReadOnly.bind(this);
