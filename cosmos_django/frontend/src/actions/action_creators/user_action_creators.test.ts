@@ -19,7 +19,6 @@ const testUser: modelTypes.User = {
         sex: modelTypes.Sex.MALE,
         age: 21,
         profilePicture: 'some profile picture',
-        phoneNumber: '+18565209398',
         race: 'white',
         ethnicity: 'white',
         religion: 'hindu',

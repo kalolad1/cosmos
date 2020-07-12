@@ -54,7 +54,6 @@ export interface PatientProfile {
     sex: Sex;
     age: number;
     profilePicture: string;
-    phoneNumber: string;
     race: string;
     ethnicity: string;
     religion: string;
@@ -72,7 +71,6 @@ export interface PatientProfileUpdate {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    phoneNumber: string;
     race: string;
     ethnicity: string;
     religion: string;

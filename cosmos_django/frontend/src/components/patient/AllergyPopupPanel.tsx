@@ -2,20 +2,20 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import * as ReactRedux from 'react-redux';
 
+import * as allergyActionCreators from '../../actions/action_creators/allergy_action_creators';
+import * as userActionCreators from '../../actions/action_creators/user_action_creators';
+import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 import * as dateUtil from '../../util/date_util';
+import * as urlUtil from '../../util/url_util';
 
-import NotesIcon from '@material-ui/icons/Notes';
 import EventIcon from '@material-ui/icons/Event';
+import NotesIcon from '@material-ui/icons/Notes';
 
 import Panel from '../shared/Panel';
 import PanelHeaderMetadata from '../shared/PanelHeaderMetadata';
 import PanelBodyLineItem from '../shared/PanelBodyLineItem';
 import PanelButtonFooter from '../shared/PanelButtonFooter';
-import * as urlUtil from '../../util/url_util';
-import * as urlPathConstants from '../../constants/url_path_constants';
-import * as allergyActionCreators from '../../actions/action_creators/allergy_action_creators';
-import * as userActionCreators from '../../actions/action_creators/user_action_creators';
 
 interface AllergyPopupPanelProps {
     allergy: modelTypes.Allergy;

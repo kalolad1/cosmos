@@ -20,7 +20,6 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'annoying',
     'frontend',
-    'phonenumber_field',
     'main',
     'rest_framework',
     'django.contrib.admin',

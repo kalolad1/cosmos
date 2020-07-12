@@ -34,7 +34,6 @@ interface ProfileState {
     firstName: string;
     lastName: string;
     dateOfBirth: Date;
-    phoneNumber: string;
     addressLine: string;
     city: string;
     state: string;
@@ -56,7 +55,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
             firstName: this.props.user.patientProfile!.firstName,
             lastName: this.props.user.patientProfile!.lastName,
             dateOfBirth: new Date(this.props.user.patientProfile!.dateOfBirth),
-            phoneNumber: this.props.user.patientProfile!.phoneNumber,
             addressLine: this.props.user.patientProfile!.address.addressLine,
             city: this.props.user.patientProfile!.address.city,
             state: this.props.user.patientProfile!.address.state,
@@ -71,7 +69,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
-        this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
         this.initEditModeArray = this.initEditModeArray.bind(this);
         this.toggleAllEditMode = this.toggleAllEditMode.bind(this);
         this.toggleAllSave = this.toggleAllSave.bind(this);
@@ -113,7 +110,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 dateOfBirth: this.state.dateOfBirth.toLocaleDateString(),
-                phoneNumber: this.state.phoneNumber,
                 address: {
                     addressLine: this.state.addressLine,
                     city: this.state.city,
@@ -161,12 +157,6 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
         });
     }
 
-    handlePhoneNumberChange(value: string): void {
-        this.setState({
-            phoneNumber: value,
-        });
-    }
-
     render() {
         // Each child panel must be given a unique key. The key identifies which
         // panel is in edit mode.
@@ -199,9 +189,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
                 key={3}
                 editMode={this.state.editMode[3]}
                 handleInputChange={this.handleInputChange}
-                handlePhoneNumberChange={this.handlePhoneNumberChange}
                 email={this.state.email}
-                phoneNumber={this.state.phoneNumber}
                 addressLine={this.state.addressLine}
                 city={this.state.city}
                 state={this.state.state}

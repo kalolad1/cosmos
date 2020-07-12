@@ -1,8 +1,6 @@
 import * as React from 'react';
-// import 'react-phone-input-2/lib/material.css';
 
 import TextField from '@material-ui/core/TextField';
-// import PhoneInput from 'react-phone-input-2';
 
 import Panel from '../shared/Panel';
 import TitlePanelHeader from '../shared/TitlePanelHeader';
@@ -38,30 +36,6 @@ class ContactInformationPanel extends React.Component<any, any> {
                         fullWidth
                     />
                 </div>
-                {/* TODO make custom phone input. */}
-                {/*<div className="form-input-container">*/}
-                {/*    <PhoneInput*/}
-                {/*        disabled={!this.props.editMode}*/}
-                {/*        containerClass={*/}
-                {/*            'form-input-field ' +*/}
-                {/*            (!this.props.editMode*/}
-                {/*                ? 'read-only-input-field'*/}
-                {/*                : '')*/}
-                {/*        }*/}
-                {/*        disableDropdown*/}
-                {/*        value={this.props.phoneNumber}*/}
-                {/*        onChange={this.props.handlePhoneNumberChange}*/}
-                {/*        inputProps={{*/}
-                {/*            name: 'phoneNumber',*/}
-                {/*            autoFocus: true,*/}
-                {/*        }}*/}
-                {/*        // Need to override style here because styles get*/}
-                {/*        // overwritten by the default included css.*/}
-                {/*        inputStyle={{*/}
-                {/*            width: '100%',*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className="form-input-container">
                     <TextField
                         disabled={!this.props.editMode}

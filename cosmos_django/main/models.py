@@ -8,7 +8,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
-from phonenumber_field.modelfields import PhoneNumberField
 
 from . import custom_exceptions
 
@@ -186,7 +185,6 @@ class PatientProfile(models.Model):
     profile_picture: models.ImageField = models.ImageField(
         upload_to='profile_pictures/', blank=True, null=True)
 
-    phone_number = PhoneNumberField(blank=True, null=True, default='')
     race = models.CharField(max_length=60, blank=True, null=True, default='')
     ethnicity = models.CharField(max_length=60,
                                  blank=True,

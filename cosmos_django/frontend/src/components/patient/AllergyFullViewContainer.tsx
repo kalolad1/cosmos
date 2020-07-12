@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as modelTypes from '../../types/modelTypes';
 import * as allergyActionCreators from '../../actions/action_creators/allergy_action_creators';
-import * as urlPathConstants from '../../constants/url_path_constants';
 import * as formConstants from '../../constants/form_constants';
+import * as urlPathConstants from '../../constants/url_path_constants';
+import * as modelTypes from '../../types/modelTypes';
+
 import AllergyFullView from './AllergyFullView';
 
 interface AllergyFullViewContainerProps {

@@ -5,14 +5,14 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Profile from './Profile';
+import Header from './Header';
 import Summary from './Summary';
 import Timeline from './Timeline';
-import Header from './Header';
 
 interface ChartsProps {
     user: modelTypes.User;
