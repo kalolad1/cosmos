@@ -7,6 +7,7 @@ USER_FACING_MESSAGE_KEY = 'user_facing_message'
 
 
 class CustomException(Exception):
+    """Base class for custom exceptions."""
     def __init__(self, message=None):
         super().__init__(message)
         if message:
@@ -15,9 +16,9 @@ class CustomException(Exception):
     @abc.abstractmethod
     def get_user_facing_message(self):
         """Override by subclasses."""
-        pass
 
     def get_response_format(self):
+        """Gets the error message in a response format to be sent to client."""
         response: Dict[str, str] = dict()
         response[USER_FACING_MESSAGE_KEY] = self.get_user_facing_message()
         if hasattr(self, 'message'):
@@ -26,10 +27,8 @@ class CustomException(Exception):
 
 
 class UserAlreadyExistsException(CustomException):
+    """Called if trying to create user with an existing user email."""
     USER_FACING_MESSAGE = 'A user already exists with that email!'
-
-    def __init__(self, message=None):
-        super().__init__(message)
 
     def get_user_facing_message(self):
         return self.USER_FACING_MESSAGE

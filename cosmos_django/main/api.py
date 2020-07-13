@@ -8,7 +8,9 @@ API endpoints.
 tldr; When on server, expect snake_case everywhere, when on client, expect
 camelCase everywhere.
 """
+# pylint: disable=R0201
 import logging
+import enum
 import json
 
 from rest_framework.request import Request
@@ -22,7 +24,7 @@ from . import models
 from . import serializers
 
 
-class HTTPMethod:
+class HTTPMethod(enum.Enum):
     """Defines HTTP method constants."""
     GET = 'GET'
     POST = 'POST'
@@ -46,8 +48,7 @@ class UsersEndpoint(views.APIView):
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        serialized_user: serializers.UserSerializer = serializers.UserSerializer(
-            instance=user)
+        serialized_user = serializers.UserSerializer(instance=user)
         logging.info('Registering new user with data %s.',
                      json.dumps(serialized_user.data))
         return response.Response(data=serialized_user.data,
@@ -67,8 +68,7 @@ class UsersEndpoint(views.APIView):
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        serialized_user: serializers.UserSerializer = serializers.UserSerializer(
-            instance=user)
+        serialized_user = serializers.UserSerializer(instance=user)
         logging.info('Updating user: now has data %s.',
                      json.dumps(serialized_user.data))
         return response.Response(data=serialized_user.data,
@@ -87,8 +87,7 @@ class UsersEndpoint(views.APIView):
             except models.User.DoesNotExist as e:
                 return response.Response(data=e.__dict__,
                                          status=status.HTTP_400_BAD_REQUEST)
-        serialized_user: serializers.UserSerializer = serializers.UserSerializer(
-            instance=user)
+        serialized_user = serializers.UserSerializer(instance=user)
         logging.info('Getting the following user data: %s',
                      json.dumps(serialized_user.data))
         return response.Response(data=serialized_user.data,
@@ -109,7 +108,7 @@ class EncountersEndpoint(views.APIView):
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
+        serialized_encounter = serializers.EncounterSerializer(
             instance=encounter)
         logging.info('Creating a new encounter with data: %s.',
                      json.dumps(serialized_encounter.data))
@@ -125,7 +124,7 @@ class EncountersEndpoint(views.APIView):
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
         encounter.update_from_json(request.data)
-        serialized_encounter: serializers.EncounterSerializer = serializers.EncounterSerializer(
+        serialized_encounter = serializers.EncounterSerializer(
             instance=encounter)
         logging.info('Updating encounter with new data: %s.',
                      json.dumps(serialized_encounter.data))
@@ -159,7 +158,7 @@ class DiagnosesEndpoint(views.APIView):
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        serialized_diagnosis: serializers.DiagnosisSerializer = serializers.DiagnosisSerializer(
+        serialized_diagnosis = serializers.DiagnosisSerializer(
             instance=diagnosis)
         logging.info('Creating a new diagnosis with data: %s.',
                      json.dumps(serialized_diagnosis.data))
@@ -175,7 +174,7 @@ class DiagnosesEndpoint(views.APIView):
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
         diagnosis.update_from_json(request.data)
-        serialized_diagnosis: serializers.DiagnosisSerializer = serializers.DiagnosisSerializer(
+        serialized_diagnosis = serializers.DiagnosisSerializer(
             instance=diagnosis)
         logging.info('Updating diagnosis with new data: %s.',
                      json.dumps(serialized_diagnosis.data))
@@ -209,7 +208,7 @@ class MedicationsEndpoint(views.APIView):
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        serialized_medication: serializers.MedicationSerializer = serializers.MedicationSerializer(
+        serialized_medication = serializers.MedicationSerializer(
             instance=medication)
         logging.info('Creating a new medication with data: %s.',
                      json.dumps(serialized_medication.data))
@@ -225,7 +224,7 @@ class MedicationsEndpoint(views.APIView):
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
         medication.update_from_json(request.data)
-        serialized_medication: serializers.MedicationSerializer = serializers.MedicationSerializer(
+        serialized_medication = serializers.MedicationSerializer(
             instance=medication)
         logging.info('Updating medication with new data: %s.',
                      json.dumps(serialized_medication.data))
@@ -259,8 +258,7 @@ class AllergiesEndpoint(views.APIView):
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        serialized_allergy: serializers.AllergySerializer = serializers.AllergySerializer(
-            instance=allergy)
+        serialized_allergy = serializers.AllergySerializer(instance=allergy)
         logging.info('Creating a new allergy with data: %s.',
                      json.dumps(serialized_allergy.data))
         return response.Response(data=serialized_allergy.data,
@@ -275,8 +273,7 @@ class AllergiesEndpoint(views.APIView):
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
         allergy.update_from_json(request.data)
-        serialized_allergy: serializers.AllergySerializer = serializers.AllergySerializer(
-            instance=allergy)
+        serialized_allergy = serializers.AllergySerializer(instance=allergy)
         logging.info('Updating allergy with new data: %s.',
                      json.dumps(serialized_allergy.data))
         return response.Response(data=serialized_allergy.data,
@@ -302,14 +299,14 @@ class VaccinationsEndpoint(views.APIView):
     def post(self, request: Request) -> response.Response:
         """Adds a new vaccination for the user."""
         try:
-            vaccination: models.Vaccination = models.Vaccination.create_from_json(
+            vaccination = models.Vaccination.create_from_json(
                 data=request.data,
                 patient_profile=request.user.patient_profile)
         except custom_exceptions.DataNotProvided as e:
             return response.Response(data=e.get_response_format(),
                                      status=status.HTTP_400_BAD_REQUEST)
 
-        serialized_vaccination: serializers.VaccinationSerializer = serializers.VaccinationSerializer(
+        serialized_vaccination = serializers.VaccinationSerializer(
             instance=vaccination)
         logging.info('Creating a new vaccination with data: %s.',
                      json.dumps(serialized_vaccination.data))
@@ -325,7 +322,7 @@ class VaccinationsEndpoint(views.APIView):
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
         vaccination.update_from_json(request.data)
-        serialized_vaccination: serializers.VaccinationSerializer = serializers.VaccinationSerializer(
+        serialized_vaccination = serializers.VaccinationSerializer(
             instance=vaccination)
         logging.info('Updating vaccination with new data: %s.',
                      json.dumps(serialized_vaccination.data))

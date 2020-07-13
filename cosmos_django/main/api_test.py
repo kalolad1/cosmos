@@ -1,3 +1,5 @@
+"""Tests for api.py"""
+# pylint: disable=missing-docstring
 import copy
 from dateutil import parser
 
@@ -210,7 +212,6 @@ class TestApi(test.APITestCase):
 
         url = urls.reverse('main/users')
         request = self.factory.get(url, format='json')
-        request.context = {'kwargs': {}}
 
         test.force_authenticate(request, user=user)
         view = api.UsersEndpoint.as_view()
@@ -228,6 +229,7 @@ class TestApi(test.APITestCase):
 
     def test_create_encounter_fails_data_not_provided(self):
         self._create_test_user()
+        # pylint: disable=no-member
         self.client.force_authenticate(user=models.User.objects.first())
         url = urls.reverse('main/encounters')
         request_data = copy.deepcopy(TEST_ENCOUNTER_REQUEST_DATA)
@@ -243,6 +245,7 @@ class TestApi(test.APITestCase):
 
     def test_create_encounter_succeeds(self):
         self._create_test_user()
+        # pylint: disable=no-member
         self.client.force_authenticate(user=models.User.objects.first())
         url = urls.reverse('main/encounters')
 
