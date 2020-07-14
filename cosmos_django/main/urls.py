@@ -2,6 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
 
 from . import api
+from . import search_api
 
 urlpatterns = [
     path('token/',
@@ -27,4 +28,5 @@ urlpatterns = [
     path('vaccinations/',
          api.VaccinationsEndpoint.as_view(),
          name='main/vaccinations'),
+    path('search', search_api.SearchEndpoint.as_view(), name='main/search'),
 ]

@@ -3,19 +3,10 @@ from django import urls
 from rest_framework import request
 from rest_framework import test
 
+from .test_fixtures import TEST_USER_REQUEST_DATA
 from . import api
 from . import custom_permissions
 from . import models
-
-TEST_USER_REQUEST_DATA = {
-    'email': 'test123@gmail.com',
-    'password': 'test1234',
-    'date_of_birth': "2017-06-27T20:48:49.065Z",
-    'first_name': 'John',
-    'last_name': 'Doe',
-    'sex': 'male',
-    'is_provider': False,
-}
 
 
 class TestUsersPermissions(test.APITestCase):
@@ -36,7 +27,7 @@ class TestUsersPermissions(test.APITestCase):
 
         self.assertTrue(expected_permission)
 
-    def test_update_user_has_permssion(self):
+    def test_update_user_has_permission(self):
         http_request = http.HttpRequest()
         http_request.method = api.HTTPMethod.PUT.name
 

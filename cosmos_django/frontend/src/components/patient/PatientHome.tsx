@@ -10,6 +10,8 @@ import Charts from './Charts';
 import PatientMetrics from './PatientMetrics';
 import FullPageSpinner from '../shared/FullPageSpinner';
 import Inbox from '../shared/Inbox';
+import SearchResultsView from '../shared/SearchResultsView';
+import SearchResultsContainer from '../shared/SearchResultsContainer';
 
 class PatientHome extends React.Component<any, any> {
     constructor(props) {
@@ -22,21 +24,22 @@ class PatientHome extends React.Component<any, any> {
             return <FullPageSpinner />;
         } else {
             return (
-                <div className="home-content-container">
-                    <div className="home-content">
-                        <Switch>
-                            <Route path={urlPathConstants.INBOX}>
-                                <Inbox />
-                            </Route>
-                            <Route path={urlPathConstants.METRICS}>
-                                <PatientMetrics />
-                            </Route>
-                            <Route path={urlPathConstants.CHARTS}>
-                                <Charts user={this.props.user} />
-                            </Route>
-                            <Redirect to={urlPathConstants.CHARTS} />
-                        </Switch>
-                    </div>
+                <div>
+                    <Switch>
+                        <Route path={urlPathConstants.INBOX}>
+                            <Inbox />
+                        </Route>
+                        <Route path={urlPathConstants.METRICS}>
+                            <PatientMetrics />
+                        </Route>
+                        <Route path={urlPathConstants.CHARTS}>
+                            <Charts user={this.props.user} />
+                        </Route>
+                        <Route path={urlPathConstants.SEARCH_RESULTS}>
+                            <SearchResultsContainer />
+                        </Route>
+                        <Redirect to={urlPathConstants.CHARTS} />
+                    </Switch>
                 </div>
             );
         }

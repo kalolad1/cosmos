@@ -20,3 +20,6 @@ export const DIAGNOSES = 'diagnoses/';
 export const MEDICATIONS = 'medications/';
 export const ALLERGIES = 'allergies/';
 export const VACCINATIONS = 'vaccinations/';
+
+// Search endpoints
+export const SEARCH = 'search';

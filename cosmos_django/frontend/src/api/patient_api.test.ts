@@ -1,15 +1,8 @@
 //@ts-nocheck
 import * as patientApi from './patient_api';
 import * as apiEndpointConstants from '../constants/api_endpoint_constants';
+import * as axiosMockUtil from '../fixtures/axiosMockUtil';
 import * as modelTypes from '../types/modelTypes';
-
-function getMockClient(method, expectedResponse) {
-    return {
-        [method]: jest.fn(() => {
-            return Promise.resolve(expectedResponse);
-        }),
-    };
-}
 
 describe('User API', () => {
     test('get user', () => {
@@ -20,7 +13,7 @@ describe('User API', () => {
                 },
             },
         };
-        const mockClient = getMockClient('get', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient('get', expectedResponse);
         const clientParams = [apiEndpointConstants.USERS];
         return (
             patientApi
@@ -43,7 +36,7 @@ describe('User API', () => {
                 },
             },
         };
-        const mockClient = getMockClient('put', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient('put', expectedResponse);
         const updatedUser: modelTypes.UserUpdate = {
             id: 4,
             email: '123@gmail.com',
@@ -76,7 +69,10 @@ describe('Encounter API', () => {
                 encounterType: modelTypes.EncounterType.PHYSICAL,
             },
         };
-        const mockClient = getMockClient('post', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'post',
+            expectedResponse
+        );
         const newEncounter: modelTypes.EncounterConstructor = {
             note: 'test',
             encounterType: modelTypes.EncounterType.PHYSICAL,
@@ -102,7 +98,7 @@ describe('Encounter API', () => {
                 description: 'test description',
             },
         };
-        const mockClient = getMockClient('put', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient('put', expectedResponse);
         const updatedEncounter: modelTypes.EncounterUpdate = {
             id: 1,
             note: 'test',
@@ -129,7 +125,10 @@ describe('Encounter API', () => {
         const expectedResponse = {
             data: {},
         };
-        const mockClient = getMockClient('delete', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'delete',
+            expectedResponse
+        );
         const deleteId = 1;
         const clientParams = [
             apiEndpointConstants.ENCOUNTERS,
@@ -161,7 +160,10 @@ describe('Diagnosis API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('post', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'post',
+            expectedResponse
+        );
         const newDiagnosis: modelTypes.DiagnosisConstructor = {
             name: 'Something',
             description: 'Something',
@@ -182,7 +184,7 @@ describe('Diagnosis API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('put', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient('put', expectedResponse);
         const updatedDiagnosis: modelTypes.DiagnosisUpdate = {
             id: 1,
             name: 'Something',
@@ -206,7 +208,10 @@ describe('Diagnosis API', () => {
         const expectedResponse = {
             data: {},
         };
-        const mockClient = getMockClient('delete', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'delete',
+            expectedResponse
+        );
         const deleteId = 1;
         const clientParams = [
             apiEndpointConstants.DIAGNOSES,
@@ -238,7 +243,10 @@ describe('Medication API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('post', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'post',
+            expectedResponse
+        );
         const newMedication: modelTypes.MedicationConstructor = {
             name: 'Something',
             description: 'Something',
@@ -259,7 +267,7 @@ describe('Medication API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('put', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient('put', expectedResponse);
         const updatedMedication: modelTypes.MedicationUpdate = {
             id: 1,
             name: 'Something',
@@ -286,7 +294,10 @@ describe('Medication API', () => {
         const expectedResponse = {
             data: {},
         };
-        const mockClient = getMockClient('delete', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'delete',
+            expectedResponse
+        );
         const deleteId = 1;
         const clientParams = [
             apiEndpointConstants.MEDICATIONS,
@@ -318,7 +329,10 @@ describe('Allergy API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('post', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'post',
+            expectedResponse
+        );
         const newAllergy: modelTypes.AllergyConstructor = {
             name: 'Something',
             description: 'Something',
@@ -339,7 +353,7 @@ describe('Allergy API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('put', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient('put', expectedResponse);
         const updatedAllergy: modelTypes.AllergyUpdate = {
             id: 1,
             name: 'Something',
@@ -363,7 +377,10 @@ describe('Allergy API', () => {
         const expectedResponse = {
             data: {},
         };
-        const mockClient = getMockClient('delete', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'delete',
+            expectedResponse
+        );
         const deleteId = 1;
         const clientParams = [
             apiEndpointConstants.ALLERGIES,
@@ -395,7 +412,10 @@ describe('Vaccination API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('post', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'post',
+            expectedResponse
+        );
         const newVaccination: modelTypes.VaccinationConstructor = {
             name: 'Something',
             description: 'Something',
@@ -419,7 +439,7 @@ describe('Vaccination API', () => {
                 description: 'Something',
             },
         };
-        const mockClient = getMockClient('put', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient('put', expectedResponse);
         const updatedVaccination: modelTypes.VaccinationUpdate = {
             id: 1,
             name: 'Something',
@@ -446,7 +466,10 @@ describe('Vaccination API', () => {
         const expectedResponse = {
             data: {},
         };
-        const mockClient = getMockClient('delete', expectedResponse);
+        const mockClient = axiosMockUtil.getMockClient(
+            'delete',
+            expectedResponse
+        );
         const deleteId = 1;
         const clientParams = [
             apiEndpointConstants.VACCINATIONS,

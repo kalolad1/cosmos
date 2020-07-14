@@ -69,13 +69,19 @@
     cursor: pointer;
 }
 
-/* Patient Home */
-.home-content-container {
+.app-bar-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.app-content-container {
     display: flex;
     justify-content: center;
 }
 
-.home-content {
+.app-content {
     width: 95%;
     max-width: 1000px;
 }
@@ -317,6 +323,26 @@
 .full-form-content-container {
     display: flex;
     justify-content: center;
+}
+
+/* SearchBar */
+.search-bar {
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    height: 47px;
+}
+
+.search-bar-input-base {
+    margin-left: 4px;
+    flex: 1;
+    font-size: 100px;
+}
+
+.search-bar-input {
+    font-size: 20px !important;
+    font-family: "Neue Hans Kendrick", sans-serif !important;
 }
 
 /* Utilities */

@@ -5,7 +5,8 @@ module.exports = {
   setupFiles: [
       FIXTURES_PATH + "localStorageMock.ts",
       FIXTURES_PATH + "testModels.ts",
-      FIXTURES_PATH + "setTimezone.ts"
+      FIXTURES_PATH + "setTimezone.ts",
+      FIXTURES_PATH + "axiosMockUtil.ts",
   ],
   testEnvironment: 'jsdom',
   testMatch: [

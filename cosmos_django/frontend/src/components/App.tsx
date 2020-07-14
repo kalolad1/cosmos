@@ -21,6 +21,7 @@ import MedicationFullViewContainer from './patient/MedicationFullViewContainer';
 import SignupForm from './authentication/SignupForm';
 import VaccinationFullViewContainer from './patient/VaccinationFullViewContainer';
 import { Switch, HashRouter, Route } from 'react-router-dom';
+import SearchResultsContainer from './shared/SearchResultsContainer';
 
 export const store = Redux.createStore(
     reducers.rootReducer,

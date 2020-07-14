@@ -8,6 +8,7 @@ export const CHARTS = HOME + '/charts';
 export const SCHEDULE = HOME + '/schedule';
 export const INBOX = HOME + '/inbox';
 export const METRICS = HOME + '/metrics';
+export const SEARCH_RESULTS = HOME + '/search';
 
 // Patient charts.
 export const SUMMARY = CHARTS + '/summary';
