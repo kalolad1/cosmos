@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework import views
 
 from . import search_permissions
+from .util import search_util
 
 
 class SearchEndpoint(views.APIView):
@@ -14,5 +15,8 @@ class SearchEndpoint(views.APIView):
 
     def post(self, request: Request) -> response.Response:
         """Returns search results"""
-        print(request.query_params)
-        return response.Response(status=status.HTTP_200_OK)
+        query: str = request.query_params['q']
+        results = search_util.get_search_results(query, request.user)
+        serialized_results = search_util.serialize_results(results)
+        return response.Response(data=serialized_results,
+                                 status=status.HTTP_200_OK)

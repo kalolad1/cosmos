@@ -1,3 +1,7 @@
+from typing import Dict
+
+from . import models
+
 TEST_USER_REQUEST_DATA = {
     'email': 'test123@gmail.com',
     'password': 'test1234',
@@ -33,3 +37,12 @@ TEST_ENCOUNTER_REQUEST_DATA = {
     'note': 'This is a test physician note.',
     'significance_band': 'low',
 }
+
+
+def _create_test_user(json_data: Dict[str, object] = None) -> models.User:
+    user_data: Dict[str, object]
+    if json_data:
+        user_data = json_data
+    else:
+        user_data = TEST_USER_REQUEST_DATA
+    return models.User.objects.create_user_from_json(user_data)

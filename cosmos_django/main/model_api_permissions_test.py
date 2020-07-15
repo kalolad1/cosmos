@@ -3,19 +3,21 @@ from django import urls
 from rest_framework import request
 from rest_framework import test
 
-from .test_fixtures import TEST_USER_REQUEST_DATA
-from . import custom_permissions
+from . import model_api_permissions
 from . import models
+from . import test_fixtures
 from .util import api_util
 
 
 class TestUsersPermissions(test.APITestCase):
     def setUp(self):
-        self.user_permissions = custom_permissions.UsersPermissions()
+        self.user_permissions = model_api_permissions.UsersPermissions()
 
     def _create_test_user(self):
         url = urls.reverse('main/users')
-        return self.client.post(url, TEST_USER_REQUEST_DATA, format='json')
+        return self.client.post(url,
+                                test_fixtures.TEST_USER_REQUEST_DATA,
+                                format='json')
 
     def test_create_new_user_has_permission(self):
         http_request = http.HttpRequest()

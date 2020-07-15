@@ -4,6 +4,7 @@ export const testUser: modelTypes.User = {
     id: 4,
     email: 'test123@gmail.com',
     patientProfile: {
+        id: 3,
         firstName: 'John',
         lastName: 'Doe',
         dateOfBirth: '1998-06-09',

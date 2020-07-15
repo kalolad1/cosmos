@@ -3,6 +3,8 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as searchApi from '../../api/search_api';
+import * as modelTypes from '../../types/modelTypes';
+import SearchResultsView from './SearchResultsView';
 
 interface SearchResultsContainerProps {
     location: any;
@@ -11,6 +13,7 @@ interface SearchResultsContainerProps {
 
 interface SearchResultsContainerState {
     isLoading: boolean;
+    results: Array<modelTypes.PatientProfile>;
 }
 
 let stopListening;
@@ -23,6 +26,7 @@ class SearchResultsContainer extends React.Component<
         super(props);
         this.state = {
             isLoading: true,
+            results: [],
         };
         this.sendSearchRequest = this.sendSearchRequest.bind(this);
         stopListening = this.props.history.listen((location, action) => {
@@ -37,9 +41,9 @@ class SearchResultsContainer extends React.Component<
         searchApi.search(query).then(function (response) {
             self.setState({
                 isLoading: false,
+                results: response.data,
             });
         });
-        // Pass the items to the search results view. Let it handle the display.
     }
 
     componentWillUnmount(): void {
@@ -50,7 +54,7 @@ class SearchResultsContainer extends React.Component<
         if (this.state.isLoading) {
             return <div>Loading...</div>;
         }
-        return <div>Search results.</div>;
+        return <SearchResultsView results={this.state.results} />;
     }
 }
 

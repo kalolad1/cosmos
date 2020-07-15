@@ -1,4 +1,5 @@
 /* The header portion of the patient home page. */
+import clsx from 'clsx';
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
@@ -19,6 +20,7 @@ interface HeaderProps {
     sex: modelTypes.Sex;
     age: number;
     history: any;
+    resultVariant?: boolean; // Specifies header is used in search results.
 }
 
 class Header extends React.Component<HeaderProps, any> {
@@ -34,7 +36,12 @@ class Header extends React.Component<HeaderProps, any> {
 
     render() {
         return (
-            <div className="patient-header">
+            <div
+                className={clsx({
+                    'patient-header': true,
+                    'patient-header-result': this.props.resultVariant,
+                })}
+            >
                 <div className="patient-info">
                     <Avatar
                         alt={textUtil.createFullName(
@@ -56,16 +63,18 @@ class Header extends React.Component<HeaderProps, any> {
                         age={this.props.age}
                     />
                 </div>
-                <Fab
-                    className="add-encounter-button"
-                    color="secondary"
-                    variant="extended"
-                    aria-label="add encounter"
-                    onClick={this.handleNewEncounterClick}
-                >
-                    <AddIcon />
-                    New Encounter
-                </Fab>
+                {!this.props.resultVariant && (
+                    <Fab
+                        className="add-encounter-button"
+                        color="secondary"
+                        variant="extended"
+                        aria-label="add encounter"
+                        onClick={this.handleNewEncounterClick}
+                    >
+                        <AddIcon />
+                        New Encounter
+                    </Fab>
+                )}
             </div>
         );
     }

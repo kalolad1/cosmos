@@ -17,15 +17,15 @@ from rest_framework import response
 from rest_framework import status
 from rest_framework import views
 
-from . import custom_permissions
 from . import custom_exceptions
+from . import model_api_permissions
 from . import models
 from . import serializers
 
 
 class UsersEndpoint(views.APIView):
     """Endpoints for User objects."""
-    permission_classes = (custom_permissions.UsersPermissions, )
+    permission_classes = (model_api_permissions.UsersPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Registers a new user."""
@@ -87,7 +87,7 @@ class UsersEndpoint(views.APIView):
 
 class EncountersEndpoint(views.APIView):
     """Endpoints for Encounter objects."""
-    permission_classes = (custom_permissions.EncountersPermissions, )
+    permission_classes = (model_api_permissions.EncountersPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Adds a new encounter for the user."""
@@ -137,7 +137,7 @@ class EncountersEndpoint(views.APIView):
 
 class DiagnosesEndpoint(views.APIView):
     """Endpoints for Diagnosis objects."""
-    permission_classes = (custom_permissions.DiagnosesPermissions, )
+    permission_classes = (model_api_permissions.DiagnosesPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Adds a new diagnosis for the user."""
@@ -187,7 +187,7 @@ class DiagnosesEndpoint(views.APIView):
 
 class MedicationsEndpoint(views.APIView):
     """Endpoints for Medication objects."""
-    permission_classes = (custom_permissions.MedicationsPermissions, )
+    permission_classes = (model_api_permissions.MedicationsPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Adds a new medication for the user."""
@@ -237,7 +237,7 @@ class MedicationsEndpoint(views.APIView):
 
 class AllergiesEndpoint(views.APIView):
     """Endpoints for Allergy objects."""
-    permission_classes = (custom_permissions.AllergiesPermissions, )
+    permission_classes = (model_api_permissions.AllergiesPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Adds a new allergy for the user."""
@@ -285,7 +285,7 @@ class AllergiesEndpoint(views.APIView):
 
 class VaccinationsEndpoint(views.APIView):
     """Endpoints for Vaccination objects."""
-    permission_classes = (custom_permissions.VaccinationsPermissions, )
+    permission_classes = (model_api_permissions.VaccinationsPermissions, )
 
     def post(self, request: Request) -> response.Response:
         """Adds a new vaccination for the user."""

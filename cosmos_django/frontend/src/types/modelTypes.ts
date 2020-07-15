@@ -48,6 +48,7 @@ export interface ProviderProfileUpdate {
 }
 
 export interface PatientProfile {
+    id: number;
     firstName: string;
     lastName: string;
     dateOfBirth: string;

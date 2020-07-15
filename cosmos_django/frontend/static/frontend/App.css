@@ -99,6 +99,10 @@
     margin-bottom: 10px;
 }
 
+.patient-header-result:hover {
+    background-color: #f1f1f1;
+}
+
 .patient-info {
     display: flex;
     align-items: center;
