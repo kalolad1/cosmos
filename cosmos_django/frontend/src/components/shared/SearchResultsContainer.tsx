@@ -29,6 +29,8 @@ class SearchResultsContainer extends React.Component<
             results: [],
         };
         this.sendSearchRequest = this.sendSearchRequest.bind(this);
+
+        this.sendSearchRequest(this.props.history.location);
         stopListening = this.props.history.listen((location, action) => {
             this.sendSearchRequest(location);
         });

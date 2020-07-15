@@ -24,6 +24,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import SearchBar from './shared/SearchBar';
+import * as urlUtil from '../util/url_util';
 
 interface AppShellProps {
     content: any;
@@ -34,6 +35,7 @@ interface AppShellProps {
 
 interface AppShellState {
     isVerticalNavbarOpen: boolean;
+    query: string;
 }
 
 class AppShell extends React.Component<AppShellProps, AppShellState> {
@@ -41,6 +43,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         super(props);
         this.state = {
             isVerticalNavbarOpen: false,
+            query: '',
         };
 
         this.handleLogout = this.handleLogout.bind(this);
@@ -50,6 +53,14 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
         this.handleMetricsClick = this.handleMetricsClick.bind(this);
         this.handleChartsClick = this.handleChartsClick.bind(this);
         this.handleCompanyLogoClick = this.handleCompanyLogoClick.bind(this);
+        this.handleSearchBarSubmit = this.handleSearchBarSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.clearSearchBar = this.clearSearchBar.bind(this);
+    }
+
+    handleLogout() {
+        authUtil.clearTokens();
+        this.props.history.replace(urlPathConstants.LOGIN);
     }
 
     handleNavbarToggle() {
@@ -61,11 +72,6 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
             }),
             () => window.dispatchEvent(new CustomEvent('resize'))
         );
-    }
-
-    handleLogout() {
-        authUtil.clearTokens();
-        this.props.history.replace(urlPathConstants.LOGIN);
     }
 
     handleScheduleClick() {
@@ -85,11 +91,39 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
     }
 
     handleCompanyLogoClick() {
+        this.clearSearchBar();
         if (this.props.isProvider) {
             this.props.history.push(urlPathConstants.SCHEDULE);
         } else {
             this.props.history.push(urlPathConstants.CHARTS);
         }
+    }
+
+    handleSearchBarSubmit(event) {
+        event.preventDefault();
+        if (this.state.query === '') {
+            return;
+        }
+        const searchUrl = urlUtil.getUrlPathWithQueryParams(
+            urlPathConstants.SEARCH_RESULTS,
+            this.state.query
+        );
+        this.props.history.push(searchUrl);
+    }
+
+    handleInputChange(event: React.SyntheticEvent): void {
+        const element = event.target as HTMLInputElement;
+        const name: string = element.name;
+        this.setState({
+            ...this.state,
+            [name]: element.value,
+        });
+    }
+
+    clearSearchBar() {
+        this.setState({
+            query: '',
+        });
     }
 
     render() {
@@ -121,7 +155,11 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             >
                                 <h1 className="app-bar-company-name">Cosmos</h1>
                             </a>
-                            <SearchBar />
+                            <SearchBar
+                                handleSubmit={this.handleSearchBarSubmit}
+                                handleInputChange={this.handleInputChange}
+                                query={this.state.query}
+                            />
                         </div>
                     </Toolbar>
                 </AppBar>

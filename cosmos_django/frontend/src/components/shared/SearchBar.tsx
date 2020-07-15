@@ -1,30 +1,21 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as urlPathConstants from '../../constants/url_path_constants';
-import * as urlUtil from '../../util/url_util';
-
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
 
 interface SearchBarProps {
+    query: string;
+    handleInputChange: any;
+    handleSubmit: any;
     history: any;
 }
 
-interface SearchBarState {
-    query: string;
-}
-
-class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
+class SearchBar extends React.Component<SearchBarProps, any> {
     constructor(props) {
         super(props);
-        this.state = {
-            query: '',
-        };
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event: React.SyntheticEvent): void {
@@ -36,22 +27,10 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
         });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        if (this.state.query === '') {
-            return;
-        }
-        const searchUrl = urlUtil.getUrlPathWithQueryParams(
-            urlPathConstants.SEARCH_RESULTS,
-            this.state.query
-        );
-        this.props.history.push(searchUrl);
-    }
-
     render() {
         return (
             <Paper
-                onSubmit={this.handleSubmit}
+                onSubmit={this.props.handleSubmit}
                 component="form"
                 className="search-bar"
             >
@@ -61,8 +40,8 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
                 <InputBase
                     className="search-bar-input-base"
                     name="query"
-                    value={this.state.query}
-                    onChange={this.handleInputChange}
+                    value={this.props.query}
+                    onChange={this.props.handleInputChange}
                     placeholder="Search for a patient"
                     inputProps={{
                         'aria-label': 'search',
