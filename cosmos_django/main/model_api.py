@@ -10,7 +10,6 @@ camelCase everywhere.
 """
 # pylint: disable=R0201
 import logging
-import enum
 import json
 
 from rest_framework.request import Request
@@ -22,14 +21,6 @@ from . import custom_permissions
 from . import custom_exceptions
 from . import models
 from . import serializers
-
-
-class HTTPMethod(enum.Enum):
-    """Defines HTTP method constants."""
-    GET = 'GET'
-    POST = 'POST'
-    PUT = 'PUT'
-    DELETE = 'DELETE'
 
 
 class UsersEndpoint(views.APIView):

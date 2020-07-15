@@ -4,9 +4,9 @@ from rest_framework import request
 from rest_framework import test
 
 from .test_fixtures import TEST_USER_REQUEST_DATA
-from . import api
 from . import custom_permissions
 from . import models
+from .util import api_util
 
 
 class TestUsersPermissions(test.APITestCase):
@@ -19,7 +19,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_create_new_user_has_permission(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.POST.name
+        http_request.method = api_util.HTTPMethod.POST.name
         rest_request = request.Request(http_request)
 
         expected_permission = self.user_permissions.has_permission(
@@ -29,7 +29,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_update_user_has_permission(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.PUT.name
+        http_request.method = api_util.HTTPMethod.PUT.name
 
         self._create_test_user()
         test.force_authenticate(http_request, user=models.User.objects.first())
@@ -47,7 +47,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_update_user_no_authentication(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.PUT.name
+        http_request.method = api_util.HTTPMethod.PUT.name
 
         self._create_test_user()
         rest_request = request.Request(http_request)
@@ -59,7 +59,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_update_user_fails_updates_unauthorized_user(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.PUT.name
+        http_request.method = api_util.HTTPMethod.PUT.name
 
         self._create_test_user()
         test.force_authenticate(http_request, user=models.User.objects.first())
@@ -77,7 +77,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_get_user_fails_no_authentication(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.GET
+        http_request.method = api_util.HTTPMethod.GET
         rest_request = request.Request(http_request)
 
         expected_permission = self.user_permissions.has_permission(
@@ -87,7 +87,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_get_user_fails_accesses_unauthorized_account(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.GET
+        http_request.method = api_util.HTTPMethod.GET
 
         self._create_test_user()
         test.force_authenticate(http_request, user=models.User.objects.first())
@@ -105,7 +105,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_get_user_succeeds(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.GET.name
+        http_request.method = api_util.HTTPMethod.GET.name
 
         self._create_test_user()
         test.force_authenticate(http_request, user=models.User.objects.first())
@@ -123,7 +123,7 @@ class TestUsersPermissions(test.APITestCase):
 
     def test_unauthorized_http_method(self):
         http_request = http.HttpRequest()
-        http_request.method = api.HTTPMethod.PUT.name
+        http_request.method = api_util.HTTPMethod.PUT.name
         rest_request = request.Request(http_request)
 
         expected_permission = self.user_permissions.has_permission(
