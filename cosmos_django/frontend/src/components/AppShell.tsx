@@ -155,11 +155,13 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
                             >
                                 <h1 className="app-bar-company-name">Cosmos</h1>
                             </a>
-                            <SearchBar
-                                handleSubmit={this.handleSearchBarSubmit}
-                                handleInputChange={this.handleInputChange}
-                                query={this.state.query}
-                            />
+                            {this.props.isProvider && (
+                                <SearchBar
+                                    handleSubmit={this.handleSearchBarSubmit}
+                                    handleInputChange={this.handleInputChange}
+                                    query={this.state.query}
+                                />
+                            )}
                         </div>
                     </Toolbar>
                 </AppBar>

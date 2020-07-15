@@ -6,6 +6,7 @@ import * as ReactRouterDOM from 'react-router-dom';
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
 import * as textUtil from '../../util/text_util';
+import * as urlUtil from '../../util/url_util';
 
 import AddIcon from '@material-ui/icons/Add';
 import Avatar from '@material-ui/core/Avatar';
@@ -27,11 +28,22 @@ class Header extends React.Component<HeaderProps, any> {
     constructor(props) {
         super(props);
         this.handleNewEncounterClick = this.handleNewEncounterClick.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
     }
 
     handleNewEncounterClick(event: React.SyntheticEvent): void {
         event.preventDefault();
         this.props.history.push(urlPathConstants.NEW_ENCOUNTER);
+    }
+
+    handleOnClick() {
+        if (this.props.resultVariant) {
+            console.log('Pushing to patient view!');
+
+            this.props.history.push(
+                urlUtil.getUrlPathWithId(urlPathConstants.VIEW_PATIENT, 0)
+            );
+        }
     }
 
     render() {
@@ -41,6 +53,7 @@ class Header extends React.Component<HeaderProps, any> {
                     'patient-header': true,
                     'patient-header-result': this.props.resultVariant,
                 })}
+                onClick={this.handleOnClick}
             >
                 <div className="patient-info">
                     <Avatar

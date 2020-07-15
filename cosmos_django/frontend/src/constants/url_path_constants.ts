@@ -4,11 +4,17 @@ export const LOGIN = '/login';
 export const SIGNUP = '/signup';
 
 // Application pages
+// Patient Specific
 export const CHARTS = HOME + '/charts';
+
+// Provider Specific
+export const SEARCH_RESULTS = HOME + '/search';
+export const VIEW_PATIENT = '/patient/:id';
+
+// Shared
 export const SCHEDULE = HOME + '/schedule';
 export const INBOX = HOME + '/inbox';
 export const METRICS = HOME + '/metrics';
-export const SEARCH_RESULTS = HOME + '/search';
 
 // Patient charts.
 export const SUMMARY = CHARTS + '/summary';

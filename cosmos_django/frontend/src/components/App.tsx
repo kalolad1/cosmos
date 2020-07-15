@@ -18,10 +18,10 @@ import DiagnosisFullViewContainer from './patient/DiagnosisFullViewContainer';
 import EncounterFullViewContainer from './patient/EncounterFullViewContainer';
 import LoginForm from '../components/authentication/LoginForm';
 import MedicationFullViewContainer from './patient/MedicationFullViewContainer';
+import PatientViewContainer from './provider/PatientViewContainer';
 import SignupForm from './authentication/SignupForm';
 import VaccinationFullViewContainer from './patient/VaccinationFullViewContainer';
 import { Switch, HashRouter, Route } from 'react-router-dom';
-import SearchResultsContainer from './shared/SearchResultsContainer';
 
 export const store = Redux.createStore(
     reducers.rootReducer,
@@ -144,6 +144,9 @@ class App extends React.Component<any, AppState> {
                             <VaccinationFullViewContainer
                                 mode={formConstants.FormModes.VIEW}
                             />
+                        </Route>
+                        <Route exact path={urlPathConstants.VIEW_PATIENT}>
+                            <PatientViewContainer />
                         </Route>
 
                         <Route path={urlPathConstants.HOME}>

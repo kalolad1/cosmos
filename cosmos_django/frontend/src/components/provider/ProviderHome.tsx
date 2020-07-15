@@ -6,6 +6,7 @@ import * as modelTypes from '../../types/modelTypes';
 import ProviderMetrics from './ProviderMetrics';
 import Schedule from './Schedule';
 import Inbox from '../shared/Inbox';
+import SearchResultsContainer from '../shared/SearchResultsContainer';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 interface ProviderHomeProps {
@@ -29,6 +30,9 @@ class ProviderHome extends React.Component<ProviderHomeProps, any> {
                     </Route>
                     <Route path={urlPathConstants.METRICS}>
                         <ProviderMetrics />
+                    </Route>
+                    <Route path={urlPathConstants.SEARCH_RESULTS}>
+                        <SearchResultsContainer />
                     </Route>
                     <Redirect to={urlPathConstants.SCHEDULE} />
                 </Switch>

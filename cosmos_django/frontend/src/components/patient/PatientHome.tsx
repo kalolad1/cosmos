@@ -10,8 +10,6 @@ import Charts from './Charts';
 import PatientMetrics from './PatientMetrics';
 import FullPageSpinner from '../shared/FullPageSpinner';
 import Inbox from '../shared/Inbox';
-import SearchResultsView from '../shared/SearchResultsView';
-import SearchResultsContainer from '../shared/SearchResultsContainer';
 
 class PatientHome extends React.Component<any, any> {
     constructor(props) {
@@ -34,9 +32,6 @@ class PatientHome extends React.Component<any, any> {
                         </Route>
                         <Route path={urlPathConstants.CHARTS}>
                             <Charts user={this.props.user} />
-                        </Route>
-                        <Route path={urlPathConstants.SEARCH_RESULTS}>
-                            <SearchResultsContainer />
                         </Route>
                         <Redirect to={urlPathConstants.CHARTS} />
                     </Switch>
