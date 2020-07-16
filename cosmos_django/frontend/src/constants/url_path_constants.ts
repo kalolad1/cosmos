@@ -5,21 +5,21 @@ export const SIGNUP = '/signup';
 
 // Application pages
 // Patient Specific
-export const CHARTS = HOME + '/charts';
+export const CHARTS = '/charts';
 
 // Provider Specific
-export const SEARCH_RESULTS = HOME + '/search';
+export const SEARCH_RESULTS = '/search';
 export const VIEW_PATIENT = '/patient/:id';
 
 // Shared
-export const SCHEDULE = HOME + '/schedule';
-export const INBOX = HOME + '/inbox';
-export const METRICS = HOME + '/metrics';
+export const SCHEDULE = '/schedule';
+export const INBOX = '/inbox';
+export const METRICS = '/metrics';
 
 // Patient charts.
-export const SUMMARY = CHARTS + '/summary';
-export const TIMELINE = CHARTS + '/timeline';
-export const PROFILE = CHARTS + '/profile';
+export const SUMMARY = '/summary';
+export const TIMELINE = '/timeline';
+export const PROFILE = '/profile';
 
 export const NEW_ENCOUNTER = '/encounter/new';
 export const VIEW_ENCOUNTER = '/encounter/:id';

@@ -15,6 +15,7 @@ export const REFRESH_TOKEN = 'token/refresh/';
 
 // Model endpoints
 export const USERS = 'users/';
+export const LIMITED_USERS = 'limited-users/';
 export const ENCOUNTERS = 'encounters/';
 export const DIAGNOSES = 'diagnoses/';
 export const MEDICATIONS = 'medications/';

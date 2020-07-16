@@ -49,9 +49,9 @@ class TestSearchUtil(test.TestCase):
         result_1: QuerySet = search_util.get_search_results(query='Theodor',
                                                             user=user)
         self.assertEqual(result_1.count(), 1)
-        self.assertEqual(result_1[0], test_user_4.patient_profile)
+        self.assertEqual(result_1[0], test_user_4)
 
         result_2: QuerySet = search_util.get_search_results(query='Lincoln',
                                                             user=user)
         self.assertEqual(result_2.count(), 1)
-        self.assertEqual(result_2[0], test_user_3.patient_profile)
+        self.assertEqual(result_2[0], test_user_3)

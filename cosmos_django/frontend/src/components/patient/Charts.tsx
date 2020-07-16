@@ -19,11 +19,14 @@ interface ChartsProps {
     history: any;
 }
 
+let base_path = '';
+
 class Charts extends React.Component<ChartsProps, any> {
     constructor(props) {
         super(props);
 
         this.handleTabChange = this.handleTabChange.bind(this);
+        base_path = this.props.history.location.pathname;
     }
 
     handleTabChange(unusedEvent, newPath) {
@@ -53,31 +56,31 @@ class Charts extends React.Component<ChartsProps, any> {
                         >
                             <Tab
                                 label="Summary"
-                                value={urlPathConstants.SUMMARY}
+                                value={base_path + urlPathConstants.SUMMARY}
                             />
                             <Tab
                                 label="Timeline"
-                                value={urlPathConstants.TIMELINE}
+                                value={base_path + urlPathConstants.TIMELINE}
                             />
                             <Tab
                                 label="Profile"
-                                value={urlPathConstants.PROFILE}
+                                value={base_path + urlPathConstants.PROFILE}
                             />
                         </Tabs>
                     </div>
                 </div>
                 <div className="chart-content-container">
                     <Switch>
-                        <Route path={urlPathConstants.SUMMARY}>
+                        <Route path={base_path + urlPathConstants.SUMMARY}>
                             <Summary user={this.props.user} />
                         </Route>
-                        <Route path={urlPathConstants.TIMELINE}>
+                        <Route path={base_path + urlPathConstants.TIMELINE}>
                             <Timeline user={this.props.user} />
                         </Route>
-                        <Route path={urlPathConstants.PROFILE}>
+                        <Route path={base_path + urlPathConstants.PROFILE}>
                             <Profile user={this.props.user} />
                         </Route>
-                        <Redirect to={urlPathConstants.SUMMARY} />
+                        <Redirect to={base_path + urlPathConstants.SUMMARY} />
                     </Switch>
                 </div>
             </div>

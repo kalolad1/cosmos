@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
-import * as authUtil from '../util/auth_util';
 import * as urlPathConstants from '../constants/url_path_constants';
+import * as authUtil from '../util/auth_util';
+import * as urlUtil from '../util/url_util';
 
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,8 +24,7 @@ import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import SearchBar from './shared/SearchBar';
-import * as urlUtil from '../util/url_util';
+import SearchBar from './search/SearchBar';
 
 interface AppShellProps {
     content: any;
@@ -75,27 +75,37 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
     }
 
     handleScheduleClick() {
-        this.props.history.push(urlPathConstants.SCHEDULE);
+        this.props.history.push(
+            urlPathConstants.HOME + urlPathConstants.SCHEDULE
+        );
     }
 
     handleInboxClick() {
-        this.props.history.push(urlPathConstants.INBOX);
+        this.props.history.push(urlPathConstants.HOME + urlPathConstants.INBOX);
     }
 
     handleMetricsClick() {
-        this.props.history.push(urlPathConstants.METRICS);
+        this.props.history.push(
+            urlPathConstants.HOME + urlPathConstants.METRICS
+        );
     }
 
     handleChartsClick() {
-        this.props.history.push(urlPathConstants.CHARTS);
+        this.props.history.push(
+            urlPathConstants.HOME + urlPathConstants.CHARTS
+        );
     }
 
     handleCompanyLogoClick() {
         this.clearSearchBar();
         if (this.props.isProvider) {
-            this.props.history.push(urlPathConstants.SCHEDULE);
+            this.props.history.push(
+                urlPathConstants.HOME + urlPathConstants.SCHEDULE
+            );
         } else {
-            this.props.history.push(urlPathConstants.CHARTS);
+            this.props.history.push(
+                urlPathConstants.HOME + urlPathConstants.CHARTS
+            );
         }
     }
 
@@ -105,7 +115,7 @@ class AppShell extends React.Component<AppShellProps, AppShellState> {
             return;
         }
         const searchUrl = urlUtil.getUrlPathWithQueryParams(
-            urlPathConstants.SEARCH_RESULTS,
+            urlPathConstants.HOME + urlPathConstants.SEARCH_RESULTS,
             this.state.query
         );
         this.props.history.push(searchUrl);

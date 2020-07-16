@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
 
 import * as urlPathConstants from '../../constants/url_path_constants';
 import * as modelTypes from '../../types/modelTypes';
@@ -6,11 +7,13 @@ import * as modelTypes from '../../types/modelTypes';
 import ProviderMetrics from './ProviderMetrics';
 import Schedule from './Schedule';
 import Inbox from '../shared/Inbox';
-import SearchResultsContainer from '../shared/SearchResultsContainer';
+import SearchResultsContainer from '../search/SearchResultsContainer';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import PatientViewContainer from './PatientViewContainer';
 
 interface ProviderHomeProps {
     user: modelTypes.User;
+    history: any;
 }
 
 class ProviderHome extends React.Component<ProviderHomeProps, any> {
@@ -22,23 +25,44 @@ class ProviderHome extends React.Component<ProviderHomeProps, any> {
         return (
             <div>
                 <Switch>
-                    <Route path={urlPathConstants.SCHEDULE}>
+                    <Route
+                        path={urlPathConstants.HOME + urlPathConstants.SCHEDULE}
+                    >
                         <Schedule />
                     </Route>
-                    <Route path={urlPathConstants.INBOX}>
+                    <Route
+                        path={urlPathConstants.HOME + urlPathConstants.INBOX}
+                    >
                         <Inbox />
                     </Route>
-                    <Route path={urlPathConstants.METRICS}>
+                    <Route
+                        path={urlPathConstants.HOME + urlPathConstants.METRICS}
+                    >
                         <ProviderMetrics />
                     </Route>
-                    <Route path={urlPathConstants.SEARCH_RESULTS}>
+                    <Route
+                        path={
+                            urlPathConstants.HOME +
+                            urlPathConstants.SEARCH_RESULTS
+                        }
+                    >
                         <SearchResultsContainer />
                     </Route>
-                    <Redirect to={urlPathConstants.SCHEDULE} />
+                    <Route
+                        path={
+                            urlPathConstants.HOME +
+                            urlPathConstants.VIEW_PATIENT
+                        }
+                    >
+                        <PatientViewContainer />
+                    </Route>
+                    <Redirect
+                        to={urlPathConstants.HOME + urlPathConstants.SCHEDULE}
+                    />
                 </Switch>
             </div>
         );
     }
 }
 
-export default ProviderHome;
+export default ReactRouterDOM.withRouter(ProviderHome);

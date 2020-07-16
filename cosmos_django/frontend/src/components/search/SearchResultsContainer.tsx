@@ -4,6 +4,7 @@ import * as ReactRouterDOM from 'react-router-dom';
 
 import * as searchApi from '../../api/search_api';
 import * as modelTypes from '../../types/modelTypes';
+
 import SearchResultsView from './SearchResultsView';
 
 interface SearchResultsContainerProps {
@@ -13,7 +14,7 @@ interface SearchResultsContainerProps {
 
 interface SearchResultsContainerState {
     isLoading: boolean;
-    results: Array<modelTypes.PatientProfile>;
+    results: Array<modelTypes.LimitedUser>;
 }
 
 let stopListening;
@@ -29,8 +30,10 @@ class SearchResultsContainer extends React.Component<
             results: [],
         };
         this.sendSearchRequest = this.sendSearchRequest.bind(this);
-
         this.sendSearchRequest(this.props.history.location);
+    }
+
+    componentDidMount(): void {
         stopListening = this.props.history.listen((location, action) => {
             this.sendSearchRequest(location);
         });
@@ -48,7 +51,7 @@ class SearchResultsContainer extends React.Component<
         });
     }
 
-    componentWillUnmount(): void {
+    componentWillUnmount() {
         stopListening();
     }
 

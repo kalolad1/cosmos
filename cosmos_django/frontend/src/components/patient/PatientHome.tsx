@@ -24,16 +24,30 @@ class PatientHome extends React.Component<any, any> {
             return (
                 <div>
                     <Switch>
-                        <Route path={urlPathConstants.INBOX}>
+                        <Route
+                            path={
+                                urlPathConstants.HOME + urlPathConstants.INBOX
+                            }
+                        >
                             <Inbox />
                         </Route>
-                        <Route path={urlPathConstants.METRICS}>
+                        <Route
+                            path={
+                                urlPathConstants.HOME + urlPathConstants.METRICS
+                            }
+                        >
                             <PatientMetrics />
                         </Route>
-                        <Route path={urlPathConstants.CHARTS}>
+                        <Route
+                            path={
+                                urlPathConstants.HOME + urlPathConstants.CHARTS
+                            }
+                        >
                             <Charts user={this.props.user} />
                         </Route>
-                        <Redirect to={urlPathConstants.CHARTS} />
+                        <Redirect
+                            to={urlPathConstants.HOME + urlPathConstants.CHARTS}
+                        />
                     </Switch>
                 </div>
             );

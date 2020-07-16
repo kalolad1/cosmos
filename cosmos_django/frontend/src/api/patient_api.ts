@@ -15,6 +15,18 @@ export function getUser(client = axiosConfig.axiosClient) {
 }
 
 /**
+ * Gets the user associated with the id provided from the server.
+ *
+ * @param id - The id of the requested user.
+ * @param client - Axios instance used to make request.
+ *
+ * @returns A Promise containing the server response.
+ */
+export function getUserWithId(id: string, client = axiosConfig.axiosClient) {
+    return client.get(apiEndpointConstants.USERS + id + '/');
+}
+
+/**
  * Updates the user with new data.
  *
  * @param updatedUser - The updated user.

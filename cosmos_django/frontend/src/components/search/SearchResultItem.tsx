@@ -1,18 +1,17 @@
-/* The header portion of the patient home page. */
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 
 import * as urlPathConstants from '../../constants/url_path_constants';
-import * as modelTypes from '../../types/modelTypes';
 import * as textUtil from '../../util/text_util';
+import * as urlUtil from '../../util/url_util';
 
-import AddIcon from '@material-ui/icons/Add';
 import Avatar from '@material-ui/core/Avatar';
-import Fab from '@material-ui/core/Fab';
 
-import HeaderMetadata from './HeaderMetadata';
+import HeaderMetadata from '../patient/HeaderMetadata';
+import * as modelTypes from '../../types/modelTypes';
 
-interface HeaderProps {
+interface SearchResultItemProps {
+    userId: string;
     profilePicture: string;
     firstName: string;
     lastName: string;
@@ -21,20 +20,24 @@ interface HeaderProps {
     history: any;
 }
 
-class Header extends React.Component<HeaderProps, any> {
+class SearchResultItem extends React.Component<SearchResultItemProps, any> {
     constructor(props) {
         super(props);
-        this.handleNewEncounterClick = this.handleNewEncounterClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleNewEncounterClick(event: React.SyntheticEvent): void {
-        event.preventDefault();
-        this.props.history.push(urlPathConstants.NEW_ENCOUNTER);
+    handleClick() {
+        this.props.history.push(
+            urlUtil.getUrlPathWithId(
+                urlPathConstants.HOME + urlPathConstants.VIEW_PATIENT,
+                this.props.userId
+            )
+        );
     }
 
     render() {
         return (
-            <div className="patient-header">
+            <div className="search-result-item" onClick={this.handleClick}>
                 <div className="patient-info">
                     <Avatar
                         alt={textUtil.createFullName(
@@ -56,19 +59,9 @@ class Header extends React.Component<HeaderProps, any> {
                         age={this.props.age}
                     />
                 </div>
-                <Fab
-                    className="add-encounter-button"
-                    color="secondary"
-                    variant="extended"
-                    aria-label="add encounter"
-                    onClick={this.handleNewEncounterClick}
-                >
-                    <AddIcon />
-                    New Encounter
-                </Fab>
             </div>
         );
     }
 }
 
-export default ReactRouterDOM.withRouter(Header);
+export default ReactRouterDOM.withRouter(SearchResultItem);

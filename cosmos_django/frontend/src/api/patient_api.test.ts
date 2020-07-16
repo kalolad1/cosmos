@@ -28,6 +28,30 @@ describe('User API', () => {
         );
     });
 
+    test('get user with id', () => {
+        const expectedResponse = {
+            data: {
+                user: {
+                    email: 'test@gmail.com',
+                },
+            },
+        };
+        const mockClient = axiosMockUtil.getMockClient('get', expectedResponse);
+        const id = '0';
+        const clientParams = [apiEndpointConstants.USERS + id + '/'];
+        return (
+            patientApi
+                // @ts-ignore
+                .getUserWithId(id, mockClient)
+                .then(function (response) {
+                    expect(response).toEqual(expectedResponse);
+                    expect(mockClient.get).toHaveBeenCalledWith(
+                        ...clientParams
+                    );
+                })
+        );
+    });
+
     test('update user', () => {
         const expectedResponse = {
             data: {

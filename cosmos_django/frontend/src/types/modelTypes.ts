@@ -31,8 +31,15 @@ export interface UserConstructor {
     isProvider: boolean;
 }
 
+// Contains limited, unrestricted information.
+export interface LimitedUser {
+    email: string;
+    id: string;
+    patientProfile: LimitedPatientProfile;
+}
+
 export interface ProviderProfile {
-    account: number;
+    user: number;
     id: number;
     firstName: string;
     lastName: string;
@@ -66,6 +73,16 @@ export interface PatientProfile {
     medications: Array<Medication>;
     allergies: Array<Allergy>;
     vaccinations: Array<Vaccination>;
+}
+
+export interface LimitedPatientProfile {
+    id: number;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    sex: Sex;
+    age: number;
+    profilePicture: string;
 }
 
 export interface PatientProfileUpdate {

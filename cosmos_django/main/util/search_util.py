@@ -21,8 +21,8 @@ def get_search_results(query: str, user: models.User) -> QuerySet:
         A list of entities ranked in order to its match to the query.
     """
     search_vectors: List[search.SearchVector] = [
-        search.SearchVector('first_name', weight='B'),
-        search.SearchVector('last_name', weight='A')
+        search.SearchVector('patient_profile__first_name', weight='B'),
+        search.SearchVector('patient_profile__last_name', weight='A')
     ]
     combined_search_vector = search_vectors[0]
     for index, vector in enumerate(search_vectors):
@@ -30,11 +30,9 @@ def get_search_results(query: str, user: models.User) -> QuerySet:
             continue
         combined_search_vector += vector
 
-    search_query: search.SearchQuery = search.SearchQuery(query,
-                                                          search_type='phrase')
-    patients: QuerySet[
-        models.PatientProfile] = models.PatientProfile.objects.all()
-    return patients.annotate(
+    search_query: search.SearchQuery = search.SearchQuery(query)
+    users: QuerySet[models.User] = models.User.objects.all()
+    return users.annotate(
         rank=search.SearchRank(combined_search_vector, search_query)).filter(
             rank__gte=MATCHING_THRESHOLD).order_by('-rank')
 
@@ -43,5 +41,5 @@ def serialize_results(results: QuerySet):
     serialized_results = []
     for result in results:
         serialized_results.append(
-            serializers.PatientProfileSerializer(instance=result).data)
+            serializers.UserSerializer(instance=result).data)
     return serialized_results

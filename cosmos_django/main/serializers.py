@@ -75,10 +75,28 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = ('address_line', 'city', 'state', 'zip_code')
 
 
+class LimitedProviderProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProviderProfile
+        fields = ('date_of_birth', 'first_name', 'last_name', 'sex')
+
+
 class ProviderProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ProviderProfile
         fields = ('date_of_birth', 'first_name', 'last_name', 'sex')
+
+
+class LimitedPatientProfileSerializer(serializers.ModelSerializer):
+    age = serializers.SerializerMethodField('get_age')
+
+    class Meta:
+        model = models.PatientProfile
+        fields = ('id', 'age', 'date_of_birth', 'first_name', 'last_name',
+                  'sex', 'profile_picture')
+
+    def get_age(self, patient_profile_instance):
+        return patient_profile_instance.get_age()
 
 
 class PatientProfileSerializer(serializers.ModelSerializer):
@@ -104,6 +122,15 @@ class PatientProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     patient_profile = PatientProfileSerializer()
+    provider_profile = ProviderProfileSerializer()
+
+    class Meta:
+        model = models.User
+        fields = ('id', 'email', 'patient_profile', 'provider_profile')
+
+
+class LimitedUserSerializer(serializers.ModelSerializer):
+    patient_profile = LimitedPatientProfileSerializer()
     provider_profile = ProviderProfileSerializer()
 
     class Meta:

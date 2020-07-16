@@ -3,9 +3,10 @@ import * as React from 'react';
 import * as modelTypes from '../../types/modelTypes';
 
 import Header from '../patient/Header';
+import SearchResultItem from './SearchResultItem';
 
 interface SearchResultsViewProps {
-    results: Array<modelTypes.PatientProfile>;
+    results: Array<modelTypes.LimitedUser>;
 }
 
 class SearchResultsView extends React.Component<SearchResultsViewProps, any> {
@@ -17,14 +18,14 @@ class SearchResultsView extends React.Component<SearchResultsViewProps, any> {
     getResultItems() {
         return this.props.results.map(function (result) {
             return (
-                <Header
+                <SearchResultItem
                     key={result.id}
-                    profilePicture={result.profilePicture}
-                    firstName={result.firstName}
-                    lastName={result.lastName}
-                    sex={result.sex}
-                    age={result.age}
-                    resultVariant={true}
+                    profilePicture={result.patientProfile.profilePicture}
+                    firstName={result.patientProfile.firstName}
+                    lastName={result.patientProfile.lastName}
+                    sex={result.patientProfile.sex}
+                    age={result.patientProfile.age}
+                    userId={result.id}
                 />
             );
         });
