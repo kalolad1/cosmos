@@ -8,7 +8,7 @@ colorama==0.4.3
 configparser==5.0.0
 coverage==5.1
 crayons==0.3.1
-cryptography==2.9.2
+cryptography==3.2
 Django==3.0.6
 django-annoying==0.10.6
 django-cors-headers==3.3.0
