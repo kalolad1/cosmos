@@ -1,9 +1,0 @@
-# Virtual environment
-venv/
-
-# Node
-node_modules/
-
-# Migrations
-*/migrations/*.py
-
